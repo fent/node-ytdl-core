@@ -1,0 +1,32 @@
+{
+  "name": "ytdl",
+  "description": "A pure Javascript streaming youtube video downloader.",
+  "keywords": ["youtube", "download", "video"],
+  "version": "0.1.0",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/fent/node-ytdl.git"
+  },
+  "author": "Roly Fentanes (https://github.com/fent)",
+  "main": "./lib/index.js",
+  "scripts": {
+    "test": "mocha -R spec test/*-test.js"
+  },
+  "directories": {
+    "lib": "./lib"
+  },
+  "dependencies": {
+    "request": "~2.9.203",
+    "eventvat": "~0.2.0",
+    "streamify": "~0.1.0",
+    "hashish": "~0.0.4"
+  },
+  "devDependencies": {
+    "mocha": "x",
+    "nock": "0.13.x"
+  },
+  "licenses": [ {
+    "type": "MIT",
+    "url" : "http://github.com/fent/node-ytdl/raw/master/LICENSE"
+  }]
+}
