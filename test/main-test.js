@@ -28,12 +28,18 @@ var HOST = 'http://www.youtube.com'
   , mockget3 = INFO_GET + id3
   , video3 = path.join(__dirname, 'files', 'video3.flv')
   , output3 = path.join(__dirname, 'files', 'output3.flv')
+  , format3 = info1.formats.filter(function(format) {
+      return format.container === 'mp4';
+    })[0]
+  , uri3 = url.parse(format3.url)
 
   , id4 = '_HSylqgVYQI'
   , url4 = URL + id4
   , mockget4 = INFO_GET + id4
   , video4 = path.join(__dirname, 'files', 'video4.flv')
   , output4 = path.join(__dirname, 'files', 'output4.flv')
+  , format4 = info1.formats[0]
+  , uri4 = url.parse(format4.url)
   ;
 
 
@@ -73,6 +79,11 @@ describe('ytdl.getInfo() from a non-existant video', function() {
 
 describe('download', function() {
   it('Should be pipeable and data equal to stored file', function(done) {
+    nock(uri3.protocol + '//' + uri3.host)
+      .get(uri3.path)
+      .replyWithFile(200, video3)
+      ;
+
     var stream = ytdl(url3, {
       filter: function(format) { return format.container === 'mp4' }
     });
@@ -81,11 +92,6 @@ describe('download', function() {
     var infoEmitted = false;
     stream.on('info', function(info, format) {
       infoEmitted = true;
-      var uri = url.parse(format.url);
-      nock(uri.protocol + '//' + uri.host)
-        .get(uri.path)
-        .replyWithFile(200, video3)
-        ;
     });
 
     stream.on('error', done);
@@ -103,16 +109,13 @@ describe('download', function() {
 
 describe('download with `start`', function() {
   it('Should be pipeable and data equal to stored file', function(done) {
+    nock(uri4.protocol + '//' + uri4.host)
+      .get(uri4.path + '&begin=5000')
+      .replyWithFile(200, video4)
+      ;
+
     var stream = ytdl(url3, { start: '5s' });
     stream.pipe(fs.createWriteStream(output4));
-
-    stream.on('info', function(info, format) {
-      var uri = url.parse(format.url);
-      nock(uri.protocol + '//' + uri.host)
-        .get(uri.path)
-        .replyWithFile(200, video4)
-        ;
-    });
 
     stream.on('error', done);
     stream.on('end', function() {

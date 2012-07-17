@@ -30,7 +30,7 @@ The returned readable stream emits these additional events.
 ### Event: 'info'
 `function (info, format) { }`
 
-Emitted when the a video's `info` hash is fetched. Along with the chosen format metadata to download.
+Emitted when the a video's `info` hash is fetched. Along with the chosen format metadata to download. `format.url` might be different if `start` was given. `format.size` will also be available.
 
 ### ytdl.getInfo(url, callback(err, info))
 
