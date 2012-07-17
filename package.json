@@ -9,6 +9,7 @@
   },
   "author": "fent (https://github.com/fent)",
   "main": "./lib/index.js",
+  "bin": { "ytdl": "./bin/ytdl.js" },
   "scripts": {
     "test": "mocha -R spec test/*-test.js"
   },
@@ -19,7 +20,10 @@
     "request": "~2.9.203",
     "eventvat": "~0.2.0",
     "streamify": "~0.1.0",
-    "hashish": "~0.0.4"
+    "hashish": "~0.0.4",
+    "nomnom": "~1.5.2",
+    "colors": "~0.6.0-1",
+    "progress-bar": "~0.1.1"
   },
   "devDependencies": {
     "mocha": "x",
