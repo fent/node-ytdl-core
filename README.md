@@ -43,7 +43,7 @@ Use this if you only want to get metainfo from a video. `info` may look like [th
 
 # CLI
 
-ytdl can be used from the command line too.
+ytdl can be used from the command line too. Install with the `-g` flag to use it.
 
     ytdl http://www.youtube.com/watch?v=_HSylqgVYQI > cat.flv
 
