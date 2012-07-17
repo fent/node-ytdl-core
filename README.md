@@ -41,6 +41,30 @@ Use this if you only want to get metainfo from a video. `info` may look like [th
 
     npm install yt
 
+# CLI
+
+ytdl can be used from the command line too.
+
+    ytdl http://www.youtube.com/watch?v=_HSylqgVYQI > cat.flv
+
+And it streams!
+
+    Usage: ytdl <url> [options]
+
+    url     URL to the video.
+
+    Options:
+       -v, --version                  Print program version.
+       -q ITAG, --quality ITAG        Video quality to download. Default: `highest`
+       -s TIME, --start TIME          Where to begin the video. ie 1m3s, 45s, 2300.
+       -o FILE, --output FILE         Where to save the file. Default: stdout
+       --filter-container REGEXP      Filter in format container.
+       --unfilter-container REGEXP    Filter out format container.
+       --filter-resolution REGEXP     Filter in format resolution.
+       --unfilter-resolution REGEXP   Filter out format resolution.
+       --filter-encoding REGEXP       Filter in format encoding.
+       --unfilter-encoding REGEXP     Filter out format encoding.
+
 
 # Tests
 Tests are written with [mocha](http://visionmedia.github.com/mocha/)
