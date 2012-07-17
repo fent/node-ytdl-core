@@ -14,20 +14,20 @@ var HOST = 'http://www.youtube.com'
   , id1 = '_HSylqgVYQI'
   , url1 = URL + id1
   , mockget1 = INFO_GET + id1
-  , page1 = path.join(__dirname, 'files', 'video1.html')
+  , page1 = path.resolve(__dirname, 'files', 'video1.html')
   , info1 = JSON.parse(fs.readFileSync(
-    path.join(__dirname, 'files', 'info1.json'), 'utf8'))
+    path.resolve(__dirname, 'files', 'info1.json'), 'utf8'))
 
   , id2 = '_HSylqgyyyy'
   , url2 = URL + id2
   , mockget2 = INFO_GET + id2
-  , page2 = path.join(__dirname, 'files', 'video2.html')
+  , page2 = path.resolve(__dirname, 'files', 'video2.html')
 
   , id3 = '_HSylqgVYQI'
   , url3 = URL + id3
   , mockget3 = INFO_GET + id3
-  , video3 = path.join(__dirname, 'files', 'video3.flv')
-  , output3 = path.join(__dirname, 'files', 'output3.flv')
+  , video3 = path.resolve(__dirname, 'files', 'video3.flv')
+  , output3 = path.resolve(__dirname, 'files', 'output3.flv')
   , format3 = info1.formats.filter(function(format) {
       return format.container === 'mp4';
     })[0]
@@ -36,8 +36,8 @@ var HOST = 'http://www.youtube.com'
   , id4 = '_HSylqgVYQI'
   , url4 = URL + id4
   , mockget4 = INFO_GET + id4
-  , video4 = path.join(__dirname, 'files', 'video4.flv')
-  , output4 = path.join(__dirname, 'files', 'output4.flv')
+  , video4 = path.resolve(__dirname, 'files', 'video4.flv')
+  , output4 = path.resolve(__dirname, 'files', 'output4.flv')
   , format4 = info1.formats[0]
   , uri4 = url.parse(format4.url)
   ;
