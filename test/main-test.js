@@ -1,9 +1,10 @@
-var ytdl   = require('..')
-  , assert = require('assert')
-  , path   = require('path')
-  , fs     = require('fs')
-  , url    = require('url')
-  , nock   = require('nock')
+var ytdl        = require('..')
+  , assert      = require('assert')
+  , path        = require('path')
+  , fs          = require('fs')
+  , url         = require('url')
+  , nock        = require('nock')
+  , streamEqual = require('stream-equal')
   ;
 
 
@@ -97,11 +98,17 @@ describe('download', function() {
     stream.on('error', done);
     stream.on('end', function() {
       assert.ok(infoEmitted);
-      var oldData = fs.readFileSync(video3);
-      var newData = fs.readFileSync(output3);
-      fs.unlink(output3);
-      assert.deepEqual(oldData.length, newData.length);
-      done();
+
+      var stream1 = fs.createReadStream(video3);
+      var stream2 = fs.createReadStream(output3);
+
+      streamEqual(stream1, stream2, function(err, equal) {
+        fs.unlink(output3);
+        if (err) return done(err);
+
+        assert.ok(equal);
+        done();
+      });
     });
   });
 });
@@ -119,11 +126,16 @@ describe('download with `start`', function() {
 
     stream.on('error', done);
     stream.on('end', function() {
-      var oldData = fs.readFileSync(video4);
-      var newData = fs.readFileSync(output4);
-      fs.unlink(output4);
-      assert.deepEqual(oldData.length, newData.length);
-      done();
+      var stream1 = fs.createReadStream(video4);
+      var stream2 = fs.createReadStream(output4);
+
+      streamEqual(stream1, stream2, function(err, equal) {
+        fs.unlink(output4);
+        if (err) return done(err);
+
+        assert.ok(equal);
+        done();
+      });
     });
   });
 });

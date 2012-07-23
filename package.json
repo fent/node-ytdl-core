@@ -27,7 +27,8 @@
   },
   "devDependencies": {
     "mocha": "x",
-    "nock": "0.13.x"
+    "nock": "0.13.x",
+    "stream-equal": "~0.1.0"
   },
   "licenses": [ {
     "type": "MIT",
