@@ -83,7 +83,7 @@ ytdlOptions.quality = opts.quality;
 ytdlOptions.begin = opts.begin;
 
 // create filters
-filters = [];
+var filters = [];
 
 // @param (string) field
 // @param (string) regexpStr
@@ -93,18 +93,18 @@ function createFilter(field, regexpStr, negated) {
     var regexp = new RegExp(regexpStr, 'i');
   } catch (err) {
     console.error(err.message);
-    process.exit();
+    process.exit(1);
   }
 
   filters.push(function(format) {
-    return !!negated !== regexp.test(format[field]);
+    return negated !== regexp.test(format[field]);
   });
 }
 
 ['container', 'resolution', 'encoding'].forEach(function(field) {
   var key = 'filter' + field[0].toUpperCase() + field.slice(1);
   if (opts[key]) {
-    createFilter(field, opts[key]);
+    createFilter(field, opts[key], false);
   }
 
   key = 'un' + key;
@@ -113,28 +113,27 @@ function createFilter(field, regexpStr, negated) {
   }
 });
 
-
 ytdlOptions.filter = function(format) {
   return filters.every(function(filter) {
     return filter(format);
   });
-}
+};
 
 var readStream = ytdl(opts.url, ytdlOptions);
 readStream.pipe(writeStream);
 
+// converst bytes to human readable unit
+// thank you Amir from StackOverflow
+var units = ' KMGTPEZYXWVU';
+function toHumanSize(bytes) {
+  if (bytes <= 0) { return 0; }
+  var t2 = Math.min(Math.floor(Math.log(bytes) / Math.log(1024)), 12);
+  return (Math.round(bytes * 100 / Math.pow(1024, t2)) / 100) +
+          units.charAt(t2).replace(' ', '') + 'B';
+}
+
 // print progress bar and some video info if not streaming to stdout
 if (output) {
-  // converst bytes to human readable unit
-  // thank you Amir from StackOverflow
-  var units = ' KMGTPEZYXWVU';
-  function toHumanSize(bytes) {
-    if (bytes <= 0) { return 0; }
-    var t2 = Math.min(Math.floor(Math.log(bytes) / Math.log(1024)), 12);
-    return (Math.round(bytes * 100 / Math.pow(1024, t2)) / 100) +
-            units.charAt(t2).replace(' ', '') + 'B';
-  }
-
   readStream.on('info', function(info, format) {
 
     console.log();
