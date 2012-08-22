@@ -40,7 +40,7 @@ Use this if you only want to get metainfo from a video. `info` may look like [th
 
 # Install
 
-    npm install yt
+    npm install ytdl
 
 # CLI
 
