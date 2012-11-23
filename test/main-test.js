@@ -9,7 +9,7 @@ var ytdl        = require('..')
 
 
 var HOST = 'http://www.youtube.com'
-  , INFO_GET = '/get_video_info?hl=en_US&video_id='
+  , INFO_GET = '/get_video_info?hl=en_US&el=detailpage&video_id='
   , URL = 'http://www.youtube.com/watch?v='
 
   , id1 = '_HSylqgVYQI'
