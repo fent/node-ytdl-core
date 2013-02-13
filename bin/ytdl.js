@@ -163,12 +163,10 @@ if (output) {
   });
 }
 
-readStream.on('end', function() {
+function exit() {
   console.log();
   process.exit();
-});
+}
 
-process.on('SIGINT', function() {
-  console.log();
-  process.exit();
-});
+readStream.on('end', exit);
+process.on('SIGINT', exit);
