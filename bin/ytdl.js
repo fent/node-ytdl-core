@@ -82,12 +82,14 @@ var ytdlOptions = {};
 ytdlOptions.quality = opts.quality;
 ytdlOptions.begin = opts.begin;
 
-// create filters
+// Create filters.
 var filters = [];
 
-// @param (string) field
-// @param (string) regexpStr
-// @param (boolean|null) negated
+/**
+ * @param {String} field
+ * @param {String} regexpStr
+ * @param {Boolean|null} negated
+ */
 function createFilter(field, regexpStr, negated) {
   try {
     var regexp = new RegExp(regexpStr, 'i');
@@ -122,8 +124,8 @@ ytdlOptions.filter = function(format) {
 var readStream = ytdl(opts.url, ytdlOptions);
 readStream.pipe(writeStream);
 
-// converst bytes to human readable unit
-// thank you Amir from StackOverflow
+// Converst bytes to human readable unit.
+// Thank you Amir from StackOverflow.
 var units = ' KMGTPEZYXWVU';
 function toHumanSize(bytes) {
   if (bytes <= 0) { return 0; }
@@ -132,7 +134,7 @@ function toHumanSize(bytes) {
           units.charAt(t2).replace(' ', '') + 'B';
 }
 
-// print progress bar and some video info if not streaming to stdout
+// Print progress bar and some video info if not streaming to stdout.
 if (output) {
   readStream.on('info', function(info, format) {
 
@@ -146,11 +148,11 @@ if (output) {
     console.log('output: '.bold + output);
     console.log();
 
-    // create progress bar
+    // Create progress bar.
     var bar = require('progress-bar').create(process.stdout, 50);
     bar.format = '$bar; $percentage;%';
 
-    // keep track of progress
+    // Keep track of progress.
     var dataRead = 0;
     readStream.on('data', function(data) {
       dataRead += data.length;
