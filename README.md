@@ -23,6 +23,12 @@ Attempts to download a video from the given url. Returns a readable stream. `opt
 * `start` - Where to begin downloading the video in milliseconds or in a time format ie `1m34s`.
 * `filter` - You can give a filtering function that gets called with each format available. Used to decide what format to download.
 
+```js
+// Example with `filter` option.
+ytdl(url, { filter: function(format) { return format.container === 'mp4'; } })
+  .pipe(fs.createWriteStream('vide.flv'));
+```
+
 `options` can also have any [request](https://github.com/mikeal/request) options.
 
 The returned readable stream emits these additional events.
