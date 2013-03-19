@@ -2,7 +2,7 @@
   "name": "ytdl",
   "description": "A pure Javascript streaming youtube video downloader.",
   "keywords": ["youtube", "download", "video"],
-  "version": "0.1.9",
+  "version": "0.1.10",
   "repository": {
     "type": "git",
     "url": "git://github.com/fent/node-ytdl.git"
@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "request": "~2.9.203",
-    "eventvat": "~0.2.0",
+    "eventvat": "~0.2.1",
     "streamify": "~0.1.0",
     "hashish": "~0.0.4",
     "nomnom": "~1.5.2",
@@ -27,7 +27,7 @@
   },
   "devDependencies": {
     "mocha": "x",
-    "nock": "0.13.x",
+    "muk": "~0.2.0",
     "stream-equal": "~0.1.0"
   },
   "licenses": [ {
