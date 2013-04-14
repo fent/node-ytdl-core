@@ -43,6 +43,10 @@ Emitted when the a video's `info` hash is fetched. Along with the chosen format 
 
 Use this if you only want to get metainfo from a video. `info` may look like [this](https://gist.github.com/6c8251132e1addb5121e).
 
+### ytdl.cache
+
+A [memory cache](https://github.com/hij1nx/EventVat) is used to store information about recently retrieved videos. This is used to prevent double requests on videos that you want to retrieve the info of, and then download.
+
 
 # Install
 
