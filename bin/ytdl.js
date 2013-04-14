@@ -1,8 +1,9 @@
 #!/usr/bin/env node
 
-var path = require('path');
-var fs   = require('fs');
-var ytdl = require('..');
+var path  = require('path');
+var fs    = require('fs');
+var ytdl  = require('..');
+var cliff = require('cliff');
 require('colors');
 
 
@@ -69,11 +70,67 @@ var opts = require('nomnom')
   , metavar: 'REGEXP'
   , help: 'Filter out format encoding.'
   })
+  .option('info', {
+    abbr: 'i'
+  , flag: true
+  , help: 'Print only video information without downloading'
+  })
   .script('ytdl')
   .colors()
   .parse()
   ;
 
+
+/**
+ * Converts seconds into human readable time hh:mm:ss
+ *
+ * @param {Number} seconds
+ * @return {String}
+ */
+function toHumanTime(seconds) {
+  var h = Math.floor(seconds / 3600);
+  if (h < 10) { h = '0' + h; }
+  var m = Math.floor(seconds / 60) % 60;
+  if (m < 10) { m = '0' + m; }
+  var s = seconds % 60;
+  if (s < 10) { s = '0' + s; }
+  return h + ':' + m + ':' + s;
+}
+
+
+/**
+ * Prints basic video information.
+ *
+ * @param {Object} info
+ */
+function printVideoInfo(info) {
+  console.log();
+  console.log('title: '.grey.bold + info.title);
+  console.log('author: '.grey.bold + info.author);
+  console.log('average rating: '.grey.bold + info.avg_rating.toFixed(2));
+  console.log('view count: '.grey.bold + info.view_count);
+  console.log('length: '.grey.bold + toHumanTime(info.length_seconds));
+}
+
+
+if (opts.info) {
+  ytdl.getInfo(opts.url, function(err, info) {
+    if (err) {
+      console.error(err.message);
+      process.exit(1);
+      return;
+    }
+
+    printVideoInfo(info);
+
+    console.log('formats:'.grey.bold);
+    var cols = ['itag', 'container', 'resolution', 'encoding'];
+    var colors = ['green', 'blue', 'green', 'blue'];
+    console.log(cliff.stringifyObjectRows(info.formats, cols, colors));
+    ytdl.cache.die();
+  });
+  return;
+}
 
 var output = opts.output;
 var writeStream = output ? fs.createWriteStream(output) : process.stdout;
@@ -137,15 +194,12 @@ function toHumanSize(bytes) {
 // Print progress bar and some video info if not streaming to stdout.
 if (output) {
   readStream.on('info', function(info, format) {
-
-    console.log();
-    console.log('title: '.bold + info.title);
-    console.log('author: '.bold + info.author);
-    console.log('container: '.bold + format.container);
-    console.log('resolution: '.bold + format.resolution);
-    console.log('encoding: '.bold + format.encoding);
-    console.log('size: '.bold + toHumanSize(format.size));
-    console.log('output: '.bold + output);
+    printVideoInfo(info);
+    console.log('container: '.grey.bold + format.container);
+    console.log('resolution: '.grey.bold + format.resolution);
+    console.log('encoding: '.grey.bold + format.encoding);
+    console.log('size: '.grey.bold + toHumanSize(format.size));
+    console.log('output: '.grey.bold + output);
     console.log();
 
     // Create progress bar.
@@ -163,10 +217,7 @@ if (output) {
   });
 }
 
-function exit() {
+process.on('SIGINT', function onsigint() {
   console.log();
   process.exit();
-}
-
-readStream.on('end', exit);
-process.on('SIGINT', exit);
+});
