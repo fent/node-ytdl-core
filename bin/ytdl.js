@@ -107,7 +107,9 @@ function printVideoInfo(info) {
   console.log();
   console.log('title: '.grey.bold + info.title);
   console.log('author: '.grey.bold + info.author);
-  console.log('average rating: '.grey.bold + info.avg_rating.toFixed(2));
+  var rating = typeof info.avg_rating === 'number' ?
+    info.avg_rating.toFixed(1) : info.avg_rating;
+  console.log('average rating: '.grey.bold + rating);
   console.log('view count: '.grey.bold + info.view_count);
   console.log('length: '.grey.bold + toHumanTime(info.length_seconds));
 }
