@@ -214,8 +214,14 @@ if (output) {
       bar.update(percent);
     });
 
+    ytdl.cache.die();
+
   });
 }
+
+readStream.on('end', function onend() {
+  console.log();
+});
 
 process.on('SIGINT', function onsigint() {
   console.log();
