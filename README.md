@@ -39,9 +39,11 @@ The returned readable stream emits these additional events.
 
 Emitted when the a video's `info` hash is fetched. Along with the chosen format metadata to download. `format.url` might be different if `start` was given. `format.size` will also be available.
 
+Info and format may look like [this](https://gist.github.com/fent/6c8251132e1addb5121e).
+
 ### ytdl.getInfo(url, callback(err, info))
 
-Use this if you only want to get metainfo from a video. `info` may look like [this](https://gist.github.com/6c8251132e1addb5121e).
+Use this if you only want to get metainfo from a video.
 
 ### ytdl.cache
 
