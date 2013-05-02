@@ -183,6 +183,11 @@ ytdlOptions.filter = function(format) {
 var readStream = ytdl(opts.url, ytdlOptions);
 readStream.pipe(writeStream);
 
+readStream.on('error', function(err) {
+  console.error(err.stack);
+  process.exit(1);
+});
+
 // Converst bytes to human readable unit.
 // Thank you Amir from StackOverflow.
 var units = ' KMGTPEZYXWVU';
