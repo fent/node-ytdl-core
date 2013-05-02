@@ -139,7 +139,7 @@ var writeStream = output ? fs.createWriteStream(output) : process.stdout;
 
 var ytdlOptions = {};
 ytdlOptions.quality = opts.quality;
-ytdlOptions.begin = opts.begin;
+ytdlOptions.start = opts.start;
 
 // Create filters.
 var filters = [];
