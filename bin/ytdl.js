@@ -89,12 +89,20 @@ var opts = require('nomnom')
  */
 function toHumanTime(seconds) {
   var h = Math.floor(seconds / 3600);
-  if (h < 10) { h = '0' + h; }
   var m = Math.floor(seconds / 60) % 60;
-  if (m < 10) { m = '0' + m; }
+
+  var time;
+  if (h > 0) {
+    time = h + ':';
+    if (m < 10) { m = '0' + m; }
+  } else {
+    time = '';
+  }
+
   var s = seconds % 60;
   if (s < 10) { s = '0' + s; }
-  return h + ':' + m + ':' + s;
+
+  return time + m + ':' + s;
 }
 
 
