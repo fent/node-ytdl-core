@@ -77,6 +77,7 @@ And it streams!
        --unfilter-resolution REGEXP   Filter out format resolution.
        --filter-encoding REGEXP       Filter in format encoding.
        --unfilter-encoding REGEXP     Filter out format encoding.
+       -i, --info                     Print only video information without downloading
 
 
 # Tests
