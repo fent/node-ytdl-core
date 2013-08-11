@@ -21,7 +21,7 @@ Attempts to download a video from the given url. Returns a readable stream. `opt
 
 * `quality` - Video quality to download. Can be an [itag value](http://en.wikipedia.org/wiki/YouTube#Quality_and_codecs) value, `highest`, or `lowest`. Defaults to `highest`.
 * `start` - Where to begin downloading the video in milliseconds or in a time format ie `1m34s`.
-* `filter` - You can give a filtering function that gets called with each format available. Used to decide what format to download.
+* `filter` - You can give a filtering function that gets called with each format available. Used to decide what format to download. This function is given the `format` object as its first argument, and should return true if the format is preferable.
 
 ```js
 // Example with `filter` option.
