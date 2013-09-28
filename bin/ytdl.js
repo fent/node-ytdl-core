@@ -15,7 +15,7 @@ var opts = require('nomnom')
     abbr: 'v'
   , flag: true
   , callback: function() {
-      console.log('v' + info.version);
+      console.log(info.version);
       process.exit();
     }
   , help: 'Print program version.'
