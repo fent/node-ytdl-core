@@ -192,7 +192,7 @@ var readStream = ytdl(opts.url, ytdlOptions);
 readStream.pipe(writeStream);
 
 readStream.on('error', function(err) {
-  console.error(err.stack);
+  console.error(err.message);
   process.exit(1);
 });
 
