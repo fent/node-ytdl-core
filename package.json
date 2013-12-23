@@ -23,7 +23,7 @@
     "hashish": "~0.0.4",
     "nomnom": "~1.6.1",
     "progress-bar": "~0.1.1",
-    "request": "~2.27.0",
+    "request": "~2.30.0",
     "streamify": "~0.2.0"
   },
   "devDependencies": {
