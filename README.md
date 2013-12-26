@@ -20,7 +20,7 @@ ytdl('http://www.youtube.com/watch?v=A02s8omM_hI')
 Attempts to download a video from the given url. Returns a readable stream. `options` can have the following keys
 
 * `quality` - Video quality to download. Can be an [itag value](http://en.wikipedia.org/wiki/YouTube#Quality_and_codecs) value, `highest`, or `lowest`. Defaults to `highest`.
-* `start` - Where to begin downloading the video in milliseconds or in a time format ie `1m34s`.
+* `range` - Byte range to download the video.
 * `filter` - You can give a filtering function that gets called with each format available. Used to decide what format to download. This function is given the `format` object as its first argument, and should return true if the format is preferable.
 
 ```js
@@ -68,8 +68,8 @@ And it streams!
 
     Options:
        -v, --version                  Print program version.
-       -q ITAG, --quality ITAG        Video quality to download. Default: `highest`
-       -s TIME, --start TIME          Where to begin the video. ie 1m3s, 45s, 2300.
+       -q ITAG, --quality ITAG        Video quality to download. Default: highest
+       -r INT-INT, --range INT-INT    Byte range to download. ie 10355705-12452856
        -o FILE, --output FILE         Where to save the file. Default: stdout
        --filter-container REGEXP      Filter in format container.
        --unfilter-container REGEXP    Filter out format container.
@@ -77,7 +77,7 @@ And it streams!
        --unfilter-resolution REGEXP   Filter out format resolution.
        --filter-encoding REGEXP       Filter in format encoding.
        --unfilter-encoding REGEXP     Filter out format encoding.
-       -i, --info                     Print only video information without downloading
+       -i, --info                     Print video info without downloading
 
 
 # Tests
