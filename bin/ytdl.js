@@ -28,12 +28,12 @@ var opts = require('nomnom')
   .option('quality', {
     abbr: 'q'
   , metavar: 'ITAG'
-  , help: 'Video quality to download. Default: `highest`'
+  , help: 'Video quality to download. Default: highest'
   })
-  .option('start', {
-    abbr: 's'
-  , metavar: 'TIME'
-  , help: 'Where to begin the video. ie 1m3s, 45s, 2300.'
+  .option('range', {
+    abbr: 'r'
+  , metavar: 'INT-INT'
+  , help: 'Byte range to download. ie 10355705-12452856'
   })
   .option('output', {
     abbr: 'o'
@@ -73,7 +73,7 @@ var opts = require('nomnom')
   .option('info', {
     abbr: 'i'
   , flag: true
-  , help: 'Print only video information without downloading'
+  , help: 'Print video info without downloading'
   })
   .script('ytdl')
   .colors()
@@ -147,7 +147,7 @@ var writeStream = output ? fs.createWriteStream(output) : process.stdout;
 
 var ytdlOptions = {};
 ytdlOptions.quality = opts.quality;
-ytdlOptions.start = opts.start;
+ytdlOptions.range = opts.range;
 
 // Create filters.
 var filters = [];
