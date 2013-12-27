@@ -1,29 +1,25 @@
-var assert      = require('assert')
-  , path        = require('path')
-  , fs          = require('fs')
-  , muk         = require('muk')
-  , streamEqual = require('stream-equal')
-  ;
+var assert      = require('assert');
+var path        = require('path');
+var fs          = require('fs');
+var muk         = require('muk');
+var streamEqual = require('stream-equal');
 
 
-var URL = 'http://www.youtube.com/watch?v='
+var url = 'http://www.youtube.com/watch?v=';
+var id1 = '_HSylqgVYQI';
+var url1 = url + id1;
+var page1 = path.resolve(__dirname, 'files', 'video1.html');
+var info1 = require('./files/info1.json');
 
-  , id1 = '_HSylqgVYQI'
-  , url1 = URL + id1
-  , page1 = path.resolve(__dirname, 'files', 'video1.html')
-  , info1 = JSON.parse(fs.readFileSync(
-    path.resolve(__dirname, 'files', 'info1.json'), 'utf8'))
+var id2 = '_HSylqgyyyy';
+var url2 = url + id2;
+var page2 = path.resolve(__dirname, 'files', 'video2.html');
 
-  , id2 = '_HSylqgyyyy'
-  , url2 = URL + id2
-  , page2 = path.resolve(__dirname, 'files', 'video2.html')
+var id3 = '_HSylqgVYQI';
+var url3 = url + id3;
+var video3 = path.resolve(__dirname, 'files', 'video3.flv');
 
-  , id3 = '_HSylqgVYQI'
-  , url3 = URL + id3
-  , video3 = path.resolve(__dirname, 'files', 'video3.flv')
-
-  , video4 = path.resolve(__dirname, 'files', 'video4.flv')
-  ;
+var video4 = path.resolve(__dirname, 'files', 'video4.flv');
 
 
 describe('ytdl.getInfo()', function() {
