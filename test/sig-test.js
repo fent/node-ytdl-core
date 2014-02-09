@@ -9,12 +9,15 @@ var file2 = fs.readFileSync(
   path.resolve(__dirname, 'files', 'html5player-vflveGye9.js'), 'utf8');
 var file3 = fs.readFileSync(
   path.resolve(__dirname, 'files', 'html5player-vflG49soT.js'), 'utf8');
+var file4 = fs.readFileSync(
+  path.resolve(__dirname, 'files', 'html5player-vflcY_8N0.js'), 'utf8');
 
 
 describe('Signature decypher', function() {
   var tokens1 = ['r', 's2', 'w34', 's2', 'w39'];
   var tokens2 = ['w21', 'w3', 's1', 'r', 'w44', 'w36', 'r', 'w41', 's1'];
   var tokens3 = ['w32', 'r', 's3', 'r', 's1', 'r', 'w19', 'w24', 's3'];
+  var tokens4 = ['s2', 'w36', 's1', 'r', 'w18', 'r', 'w19', 'r'];
 
   describe('extract decyphering actions', function() {
     it('Returns the correct set of actions', function() {
@@ -24,15 +27,35 @@ describe('Signature decypher', function() {
       assert.deepEqual(actions, tokens2);
       actions = sig.extractActions(file3);
       assert.deepEqual(actions, tokens3);
+      actions = sig.extractActions(file4);
+      assert.deepEqual(actions, tokens4);
     });
   });
 
-  describe('apply actons', function() {
-    it('Properly decyphers based on tokens', function() {
-      var input = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-      var result = sig.decipher(tokens3, input);
-      var expected = 'TSRQPONMLKJIHaFEWCBAzDxwvutsrqponmlkjihgfedcb';
-      assert.equal(result, expected);
+  function testDecipher(tokens, input, expected) {
+    var result = sig.decipher(tokens, input);
+    assert.equal(result, expected);
+  }
+
+  describe('properly apply actions based on tokens', function() {
+    it('reverses', function() {
+      testDecipher(['r'], 'abcdefg', 'gfedcba');
+    });
+
+    it('swaps head and position', function() {
+      testDecipher(['w2'], 'abcdefg', 'cbadefg');
+      testDecipher(['w3'], 'abcdefg', 'dbcaefg');
+      testDecipher(['w5'], 'abcdefg', 'fbcdeag');
+    });
+
+    it('slices', function() {
+      testDecipher(['s3'], 'abcdefg', 'defg');
+    });
+
+    it('real set of tokens', function() {
+      testDecipher(tokens3,
+        'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ',
+        'TSRQPONMLKJIHaFEWCBAzDxwvutsrqponmlkjihgfedcb');
     });
   });
 });
