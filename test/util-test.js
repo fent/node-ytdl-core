@@ -15,3 +15,26 @@ describe('util.parseTime()', function() {
     assert.equal(3 * 3600000 + 4200, util.parseTime('3h4200ms'));
   });
 });
+
+
+describe('util.between()', function() {
+  it('`left` positioned at the start', function() {
+    var rs = util.between('<b>hello there friend</b>', '<b>', '</b>');
+    assert.equal(rs, 'hello there friend');
+  });
+
+  it('somewhere in the middle', function() {
+    var rs = util.between('something everything nothing', ' ', ' ');
+    assert.equal(rs, 'everything');
+  });
+
+  it('not found', function() {
+    var rs = util.between('oh oh _where_ is it', '<b>', '</b>');
+    assert.equal(rs, '');
+  });
+
+  it('`right` before `left`', function() {
+    var rs = util.between('>>> a <this> and that', '<', '>');
+    assert.equal(rs, 'this');
+  });
+});
