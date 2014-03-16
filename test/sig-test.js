@@ -3,14 +3,14 @@ var assert = require('assert');
 var fs     = require('fs');
 var path   = require('path');
 
-var file1 = fs.readFileSync(
-  path.resolve(__dirname, 'files', 'html5player-vfl66X2C5.js'), 'utf8');
-var file2 = fs.readFileSync(
-  path.resolve(__dirname, 'files', 'html5player-vflveGye9.js'), 'utf8');
-var file3 = fs.readFileSync(
-  path.resolve(__dirname, 'files', 'html5player-vflG49soT.js'), 'utf8');
-var file4 = fs.readFileSync(
-  path.resolve(__dirname, 'files', 'html5player-vflcY_8N0.js'), 'utf8');
+var file1 = fs.readFileSync(path.resolve(
+  __dirname, 'files/html5player/html5player-vfl66X2C5.js'), 'utf8');
+var file2 = fs.readFileSync(path.resolve(
+  __dirname, 'files/html5player/html5player-vflveGye9.js'), 'utf8');
+var file3 = fs.readFileSync(path.resolve(
+  __dirname, 'files/html5player/html5player-vflG49soT.js'), 'utf8');
+var file4 = fs.readFileSync(path.resolve(
+  __dirname, 'files/html5player/html5player-vflcY_8N0.js'), 'utf8');
 
 
 describe('Signature decypher', function() {

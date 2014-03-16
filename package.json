@@ -28,7 +28,7 @@
   },
   "devDependencies": {
     "mocha": "x",
-    "muk": "~0.2.0",
+    "nock": "~0.27.0",
     "stream-equal": "~0.1.0"
   },
   "licenses": [ {
