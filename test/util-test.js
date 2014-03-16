@@ -38,3 +38,14 @@ describe('util.between()', function() {
     assert.equal(rs, 'this');
   });
 });
+
+
+describe('util.getVideoID()', function() {
+  it('Retrives the video ID from the url', function() {
+    var id;
+    id = util.getVideoID('http://www.youtube.com/watch?v=VIDEO_ID');
+    assert(id, 'VIDEO_ID');
+    id = util.getVideoID('http://youtu.be/VIDEO_ID');
+    assert(id, 'VIDEO_ID');
+  });
+});
