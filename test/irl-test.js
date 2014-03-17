@@ -20,13 +20,13 @@ describe('Try downloading videos without mocking', function() {
 
   videos.forEach(function(video) {
     describe(video, function() {
-      it('Request status code is 200', function(done) {
+      it('Request status code is not 403 Forbidden', function(done) {
         ytdl.getInfo(video, { downloadURL: true }, function(err, info) {
           if (err) return done(err);
 
           var url = info.formats[0].url;
           var req = http.get(url, function(res) {
-            assert.equal(res.statusCode, 200);
+            assert.notEqual(res.statusCode, 403);
             res.on('error', done);
             req.abort();
             done();
