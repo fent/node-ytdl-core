@@ -98,7 +98,7 @@ describe('util.parseTime()', function() {
 
 describe('util.sortFormats()', function() {
   it('Sorts available formats from highest to lowest quality', function() {
-    var expected = ['43', '18', '133', '5', '36', '160', '17', '140'];
+    var expected = ['43', '18', '5', '36', '17', '133', '160', '140'];
     formats.sort(util.sortFormats);
     for (var i = 0, l = formats.length; i < l; i ++) {
       assert.equal(formats[i].itag, expected[i]);
