@@ -88,7 +88,7 @@ describe('ytdl.getInfo()', function() {
         assert.ok(info);
         assert.ok(info.formats);
         /*jshint maxlen:false */
-        assert.equal(info.formats[0].url, 'http://r18---sn-p5qlsnel.googlevideo.com/videoplayback?ipbits=0&pcm2fr=yes&ms=au&source=youtube&expire=1395056606&upn=IbNQU3vvsoI&mv=m&gcr=us&sparams=clen%2Cdur%2Cgcr%2Cgir%2Cid%2Cip%2Cipbits%2Citag%2Clmt%2Cpcm2fr%2Csource%2Cupn%2Cexpire&mt=1395034934&gir=yes&itag=135&sver=3&fexp=935639%2C927904%2C937417%2C913434%2C936910%2C936913%2C934022&clen=23348629&ip=198.255.191.225&lmt=1394263110967443&key=yt5&id=a49934a7ef7c5f37&dur=287.622&ratebypass=yes&signature=EE22619FCEED11CABB7A6089FD7926E367FDF087.93C7C30CF3FD5A68A87532D130A269618128901E');
+        assert.equal(info.formats[0].url, 'http://r18---sn-p5qlsnel.googlevideo.com/videoplayback?ipbits=0&pcm2fr=yes&source=youtube&expire=1395056606&mv=m&gcr=us&sparams=gcr%2Cid%2Cip%2Cipbits%2Citag%2Cpcm2fr%2Cratebypass%2Csource%2Cupn%2Cexpire&mt=1395034934&ratebypass=yes&itag=43&sver=3&fexp=935639%2C927904%2C937417%2C913434%2C936910%2C936913%2C934022&ms=au&ip=198.255.191.225&upn=v8kXZrwLiYE&key=yt5&id=a49934a7ef7c5f37&signature=57E557BDCE7708F05DD2201C73E0B52DB97F7408.912BA9B4A8D51463A031BD72F0B111CBFBE66B35');
         scope1.done();
         scope2.done();
         done();

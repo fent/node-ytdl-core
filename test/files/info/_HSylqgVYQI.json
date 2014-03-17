@@ -204,21 +204,6 @@
       "audioBitrate": 96
     },
     {
-      "init": "0-670",
-      "bitrate": "0.2-0.3",
-      "size": "320x240",
-      "type": "video/mp4; codecs=\"avc1.4d400d\"",
-      "index": "671-726",
-      "itag": "133",
-      "url": "http://r5---sn-hp576nes.googlevideo.com/videoplayback?source=youtube&mt=1394999072&expire=1395022432&clen=306791&signature=DABFB095B370CDCBD60DA3CBA73D248A336184E5.079D0AF0B969AFBB35248FD94BB1D248C271F7A0&upn=4BU8CHOK_B4&key=yt5&dur=10.010&id=o-AIVYKKuhQH-g0Z01N_TjBj7nhTSSKoO3-a-WnvkLMzL1&mv=m&ip=198.255.191.225&fexp=904000%2C935502%2C943403%2C932286%2C916623%2C901441%2C937417%2C913434%2C936910%2C936913%2C934022&sparams=clen%2Cdur%2Cgir%2Cid%2Cip%2Cipbits%2Citag%2Clmt%2Csource%2Cupn%2Cexpire&gir=yes&itag=133&ipbits=0&ms=au&lmt=1386986985322210&sver=3",
-      "container": "mp4",
-      "resolution": "240p",
-      "encoding": "H.264",
-      "profile": "main",
-      "audioEncoding": null,
-      "audioBitrate": null
-    },
-    {
       "url": "http://r5---sn-hp576nes.googlevideo.com/videoplayback?source=youtube&mt=1394999072&expire=1395022432&ms=au&signature=A7753A8BCF5C8AA51934976A4A4F0FFBDF90F489.629AF81BF86F8717BEB98F8035C4C38C90CFF6BD&upn=Qe0hGsNNI7I&key=yt5&id=o-AIVYKKuhQH-g0Z01N_TjBj7nhTSSKoO3-a-WnvkLMzL1&mv=m&ip=198.255.191.225&fexp=904000%2C935502%2C943403%2C932286%2C916623%2C901441%2C937417%2C913434%2C936910%2C936913%2C934022&sparams=id%2Cip%2Cipbits%2Citag%2Csource%2Cupn%2Cexpire&itag=5&ipbits=0&sver=3",
       "fallback_host": "tc.v22.cache8.googlevideo.com",
       "type": "video/x-flv",
@@ -247,6 +232,35 @@
       "audioBitrate": 36
     },
     {
+      "url": "http://r5---sn-hp576nes.googlevideo.com/videoplayback?source=youtube&mt=1394999072&expire=1395022432&ms=au&signature=69A53A7F2862FD61A582FCB07F843338627C2033.B833EBCA00025B65940FCCBE6E8307E9E34616E3&upn=Qe0hGsNNI7I&key=yt5&id=o-AIVYKKuhQH-g0Z01N_TjBj7nhTSSKoO3-a-WnvkLMzL1&mv=m&ip=198.255.191.225&fexp=904000%2C935502%2C943403%2C932286%2C916623%2C901441%2C937417%2C913434%2C936910%2C936913%2C934022&sparams=id%2Cip%2Cipbits%2Citag%2Csource%2Cupn%2Cexpire&itag=17&ipbits=0&sver=3",
+      "fallback_host": "tc.v7.cache8.googlevideo.com",
+      "type": "video/3gpp; codecs=\"mp4v.20.3, mp4a.40.2\"",
+      "itag": "17",
+      "quality": "small",
+      "container": "3gp",
+      "resolution": "144p",
+      "encoding": "MPEG-4 Visual",
+      "profile": "simple",
+      "bitrate": "0.05",
+      "audioEncoding": "aac",
+      "audioBitrate": 24
+    },
+    {
+      "init": "0-670",
+      "bitrate": "0.2-0.3",
+      "size": "320x240",
+      "type": "video/mp4; codecs=\"avc1.4d400d\"",
+      "index": "671-726",
+      "itag": "133",
+      "url": "http://r5---sn-hp576nes.googlevideo.com/videoplayback?source=youtube&mt=1394999072&expire=1395022432&clen=306791&signature=DABFB095B370CDCBD60DA3CBA73D248A336184E5.079D0AF0B969AFBB35248FD94BB1D248C271F7A0&upn=4BU8CHOK_B4&key=yt5&dur=10.010&id=o-AIVYKKuhQH-g0Z01N_TjBj7nhTSSKoO3-a-WnvkLMzL1&mv=m&ip=198.255.191.225&fexp=904000%2C935502%2C943403%2C932286%2C916623%2C901441%2C937417%2C913434%2C936910%2C936913%2C934022&sparams=clen%2Cdur%2Cgir%2Cid%2Cip%2Cipbits%2Citag%2Clmt%2Csource%2Cupn%2Cexpire&gir=yes&itag=133&ipbits=0&ms=au&lmt=1386986985322210&sver=3",
+      "container": "mp4",
+      "resolution": "240p",
+      "encoding": "H.264",
+      "profile": "main",
+      "audioEncoding": null,
+      "audioBitrate": null
+    },
+    {
       "init": "0-671",
       "bitrate": "0.1",
       "size": "192x144",
@@ -260,20 +274,6 @@
       "profile": "main",
       "audioEncoding": null,
       "audioBitrate": null
-    },
-    {
-      "url": "http://r5---sn-hp576nes.googlevideo.com/videoplayback?source=youtube&mt=1394999072&expire=1395022432&ms=au&signature=69A53A7F2862FD61A582FCB07F843338627C2033.B833EBCA00025B65940FCCBE6E8307E9E34616E3&upn=Qe0hGsNNI7I&key=yt5&id=o-AIVYKKuhQH-g0Z01N_TjBj7nhTSSKoO3-a-WnvkLMzL1&mv=m&ip=198.255.191.225&fexp=904000%2C935502%2C943403%2C932286%2C916623%2C901441%2C937417%2C913434%2C936910%2C936913%2C934022&sparams=id%2Cip%2Cipbits%2Citag%2Csource%2Cupn%2Cexpire&itag=17&ipbits=0&sver=3",
-      "fallback_host": "tc.v7.cache8.googlevideo.com",
-      "type": "video/3gpp; codecs=\"mp4v.20.3, mp4a.40.2\"",
-      "itag": "17",
-      "quality": "small",
-      "container": "3gp",
-      "resolution": "144p",
-      "encoding": "MPEG-4 Visual",
-      "profile": "simple",
-      "bitrate": "0.05",
-      "audioEncoding": "aac",
-      "audioBitrate": 24
     },
     {
       "init": "0-591",
