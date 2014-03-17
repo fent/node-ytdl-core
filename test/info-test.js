@@ -19,14 +19,9 @@ describe('ytdl.getInfo()', function() {
       .get(INFO_PATH + id)
       .replyWithFile(200, page);
 
-
     ytdl.getInfo(url, function(err, info) {
       if (err) return done(err);
 
-      /*
-      require('fs').writeFileSync(__dirname + '/files/info/' + id + '.json',
-                                  JSON.stringify(info, null, '  '), 'utf8');
-                                  */
       assert.deepEqual(info, expectedInfo);
       done();
     });
