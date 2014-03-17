@@ -20,7 +20,6 @@ ytdl('http://www.youtube.com/watch?v=A02s8omM_hI')
 Attempts to download a video from the given url. Returns a readable stream. `options` can have the following keys
 
 * `quality` - Video quality to download. Can be an [itag value](http://en.wikipedia.org/wiki/YouTube#Quality_and_codecs) value, `highest`, or `lowest`. Defaults to `highest`.
-* `range` - Byte range to download the video.
 * `filter` - You can give a filtering function that gets called with each format available. Used to decide what format to download. This function is given the `format` object as its first argument, and should return true if the format is preferable.
 
 ```js
@@ -41,9 +40,11 @@ Emitted when the a video's `info` hash is fetched. Along with the chosen format 
 
 Info and format may look like [this](https://gist.github.com/fent/6c8251132e1addb5121e).
 
-### ytdl.getInfo(url, callback(err, info))
+### ytdl.getInfo(url, [options], callback(err, info))
 
 Use this if you only want to get metainfo from a video.
+
+`options` gets passed to the `request()`, it can also have a `downloadURL` property set to `true` if you want ytdl to include the download url instead of the regular one. In some cases, a signature needs to be deciphered, and will require ytdl to make additional requests.
 
 ### ytdl.cache
 
