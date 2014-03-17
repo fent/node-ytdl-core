@@ -17,20 +17,20 @@ describe('Download video', function() {
     var link = BASE + id;
     var page = path.resolve(__dirname, 'files/video_info/' + id);
     var video = path.resolve(__dirname, 'files/video/' + id + '.flv');
+    var filter = function(format) { return format.container === 'mp4'; };
 
     nock(INFO_HOST)
       .get(INFO_PATH + id)
       .replyWithFile(200, page);
 
-    var format = require('./files/info/' + id + '.json').formats[0];
+    var format = require('./files/info/' + id + '_download.json')
+      .formats.filter(filter)[0];
     var parsed = url.parse(format.url);
     var scope = nock(parsed.protocol + '//' + parsed.host)
       .get(parsed.path)
       .replyWithFile(200, video);
 
-    var stream = ytdl(link, {
-      filter: function(format) { return format.container === 'mp4'; }
-    });
+    var stream = ytdl(link, { filter: filter });
 
     var infoEmitted = false;
     stream.on('info', function() {
