@@ -6,20 +6,20 @@ var nock        = require('nock');
 var streamEqual = require('stream-equal');
 var ytdl        = require('..');
 
-var INFO_HOST = 'http://www.youtube.com';
+var YT_HOST = 'http://www.youtube.com';
 var INFO_PATH = '/get_video_info?hl=en_US&el=detailpage&video_id=';
-var BASE = 'http://www.youtube.com/watch?v=';
+var VIDEO_BASE = 'http://www.youtube.com/watch?v=';
 
 
 describe('Download video', function() {
   it('Should be pipeable and data equal to stored file', function(done) {
     var id = '_HSylqgVYQI';
-    var link = BASE + id;
+    var link = VIDEO_BASE + id;
     var page = path.resolve(__dirname, 'files/video_info/' + id);
     var video = path.resolve(__dirname, 'files/video/' + id + '.flv');
     var filter = function(format) { return format.container === 'mp4'; };
 
-    nock(INFO_HOST)
+    nock(YT_HOST)
       .get(INFO_PATH + id)
       .replyWithFile(200, page);
 
