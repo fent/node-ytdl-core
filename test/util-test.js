@@ -17,6 +17,92 @@ describe('util.parseTime()', function() {
 });
 
 
+describe('util.sortFormats()', function() {
+  it('Sorts available formats from highest to lowest quality', function() {
+    var formats = [
+      { itag: '18',
+        type: 'video/mp4; codecs="avc1.42001E, mp4a.40.2"',
+        quality: 'medium',
+        container: 'mp4',
+        resolution: '360p',
+        encoding: 'H.264',
+        bitrate: '0.5',
+        audioEncoding: 'aac',
+        audioBitrate: 96 },
+      { itag: '43',
+        type: 'video/webm; codecs="vp8.0, vorbis"',
+        quality: 'medium',
+        container: 'webm',
+        resolution: '360p',
+        encoding: 'VP8',
+        bitrate: '0.5',
+        audioEncoding: 'vorbis',
+        audioBitrate: 128 },
+      { itag: '133',
+        type: 'video/mp4; codecs="avc1.4d400d"',
+        quality: null,
+        container: 'mp4',
+        resolution: '240p',
+        encoding: 'H.264',
+        bitrate: '0.2.0.3',
+        audioEncoding: null,
+        audioBitrate: null },
+      { itag: '36',
+        type: 'video/3gpp; codecs="mp4v.20.3, mp4a.40.2"',
+        quality: 'small',
+        container: '3gp',
+        resolution: '240p',
+        encoding: 'MPEG-4 Visual',
+        bitrate: '0.17',
+        audioEncoding: 'aac',
+        audioBitrate: 38 },
+      { itag: '5',
+        type: 'video/x-flv',
+        quality: 'small',
+        container: 'flv',
+        resolution: '240p',
+        encoding: 'Sorenson H.283',
+        bitrate: '0.25',
+        audioEncoding: 'mp3',
+        audioBitrate: 64 },
+      { itag: '160',
+        type: 'video/mp4; codecs="avc1.4d400c"',
+        quality: null,
+        container: 'mp4',
+        resolution: '144p',
+        encoding: 'H.264',
+        bitrate: '0.1',
+        audioEncoding: null,
+        audioBitrate: null },
+      { itag: '17',
+        type: 'video/3gpp; codecs="mp4v.20.3, mp4a.40.2"',
+        quality: 'small',
+        container: '3gp',
+        resolution: '144p',
+        encoding: 'MPEG-4 Visual',
+        bitrate: '0.05',
+        audioEncoding: 'aac',
+        audioBitrate: 24 },
+      { itag: '140',
+        type: 'audio/mp4; codecs="mp4a.40.2"',
+        quality: null,
+        container: 'mp4',
+        resolution: null,
+        enoding: null,
+        bitrate: null,
+        audioEncoding: 'aac',
+        audioBitrate: 128 },
+    ];
+
+    var expected = ['43', '18', '5', '133', '36', '160', '17', '140'];
+    formats.sort(util.sortFormats);
+    for (var i = 0, l = formats.length; i < l; i ++) {
+      assert.equal(formats[i].itag, expected[i]);
+    }
+  });
+});
+
+
 describe('util.between()', function() {
   it('`left` positioned at the start', function() {
     var rs = util.between('<b>hello there friend</b>', '<b>', '</b>');
