@@ -11,7 +11,7 @@
   "main": "./lib/index.js",
   "bin": { "ytdl": "./bin/ytdl.js" },
   "scripts": {
-    "test": "mocha -R spec test/*-test.js"
+    "test": "mocha -R spec -t 5000 test/*-test.js"
   },
   "directories": {
     "lib": "./lib"
