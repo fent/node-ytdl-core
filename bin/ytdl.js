@@ -133,9 +133,21 @@ if (opts.info) {
 
     printVideoInfo(info);
 
+    info.formats.forEach(function(format) {
+      format['video enc']     = format.encoding;
+      format['audio bitrate'] = format.audioBitrate;
+      format['audio enc']     = format.audioEncoding;
+    });
     console.log('formats:'.grey.bold);
-    var cols = ['itag', 'container', 'resolution', 'encoding'];
-    var colors = ['green', 'blue', 'green', 'blue'];
+    var cols = [
+      'itag',
+      'container',
+      'resolution',
+      'video enc',
+      'audio bitrate',
+      'audio enc'
+    ];
+    var colors = ['green', 'blue', 'green', 'blue', 'green', 'blue'];
     console.log(cliff.stringifyObjectRows(info.formats, cols, colors));
     ytdl.cache.die();
   });
