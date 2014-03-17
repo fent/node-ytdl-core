@@ -30,7 +30,7 @@ var formats = [
     container     : 'mp4',
     resolution    : '240p',
     encoding      : 'H.264',
-    bitrate       : '0.2.0.3',
+    bitrate       : '0.15-0.3',
     audioEncoding : null,
     audioBitrate  : null },
   { itag          : '36',
@@ -98,7 +98,7 @@ describe('util.parseTime()', function() {
 
 describe('util.sortFormats()', function() {
   it('Sorts available formats from highest to lowest quality', function() {
-    var expected = ['43', '18', '5', '133', '36', '160', '17', '140'];
+    var expected = ['43', '18', '133', '5', '36', '160', '17', '140'];
     formats.sort(util.sortFormats);
     for (var i = 0, l = formats.length; i < l; i ++) {
       assert.equal(formats[i].itag, expected[i]);
