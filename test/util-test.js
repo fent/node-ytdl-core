@@ -1,3 +1,6 @@
+var fs     = require('fs');
+var path   = require('path');
+var qs     = require('querystring');
 var util   = require('../lib/util');
 var assert = require('assert');
 
@@ -133,5 +136,17 @@ describe('util.getVideoID()', function() {
     assert(id, 'VIDEO_ID');
     id = util.getVideoID('http://youtu.be/VIDEO_ID');
     assert(id, 'VIDEO_ID');
+  });
+});
+
+
+describe('util.parseFormats()', function() {
+  it('Retrieves video formats from info', function() {
+    var page = fs.readFileSync(
+      path.resolve(__dirname, 'files/video_info/_HSylqgVYQI'), 'utf8');
+    var info = qs.parse(page);
+    var formats = util.parseFormats(info);
+    assert.ok(formats);
+    assert.equal(formats.length, 8);
   });
 });
