@@ -16,6 +16,7 @@ var videos = [
 describe('Try downloading videos without mocking', function() {
   before(function() {
     nock.restore();
+    ytdl.cache = null;
   });
 
   videos.forEach(function(video) {
