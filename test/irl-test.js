@@ -1,7 +1,7 @@
-var assert = require('assert');
-var http   = require('http');
-var nock   = require('nock');
-var ytdl   = require('..');
+var assert  = require('assert');
+var request = require('request');
+var nock    = require('nock');
+var ytdl    = require('..');
 
 
 var videos = [
@@ -25,9 +25,9 @@ describe('Try downloading videos without mocking', function() {
           if (err) return done(err);
 
           var url = info.formats[0].url;
-          var req = http.get(url, function(res) {
-            assert.notEqual(res.statusCode, 403);
-            res.on('error', done);
+          var req = request(url);
+          req.on('response', function(res) {
+            assert.equal(res.statusCode, 200);
             req.abort();
             done();
           });
