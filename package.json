@@ -20,6 +20,7 @@
     "cliff": "~0.1.8",
     "colors": "~0.6.0-1",
     "eventvat": "~0.2.1",
+    "jstream": "~0.2.7",
     "nomnom": "~1.6.1",
     "progress-bar": "~0.1.1",
     "request": "~2.34.0",
