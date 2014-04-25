@@ -2,7 +2,7 @@
   "name": "ytdl",
   "description": "A pure Javascript streaming youtube video downloader.",
   "keywords": ["youtube", "download", "video"],
-  "version": "0.2.4",
+  "version": "0.2.5",
   "repository": {
     "type": "git",
     "url": "git://github.com/fent/node-ytdl.git"
