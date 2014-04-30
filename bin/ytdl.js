@@ -12,68 +12,68 @@ var info = JSON.parse(
 
 var opts = require('nomnom')
   .option('version', {
-    abbr: 'v'
-  , flag: true
-  , callback: function() {
+    abbr: 'v',
+    flag: true,
+    callback: function() {
       console.log(info.version);
       process.exit();
-    }
-  , help: 'Print program version.'
+    },
+    help: 'Print program version.'
   })
   .option('url', {
-    position: 0
-  , required: true
-  , help: 'URL to the video.'
+    position: 0,
+    required: true,
+    help: 'URL to the video.'
   })
   .option('quality', {
-    abbr: 'q'
-  , metavar: 'ITAG'
-  , help: 'Video quality to download. Default: highest'
+    abbr: 'q',
+    metavar: 'ITAG',
+    help: 'Video quality to download. Default: highest'
   })
   .option('range', {
-    abbr: 'r'
-  , metavar: 'INT-INT'
-  , help: 'Byte range to download. ie 10355705-12452856'
+    abbr: 'r',
+    metavar: 'INT-INT',
+    help: 'Byte range to download. ie 10355705-12452856'
   })
   .option('output', {
-    abbr: 'o'
-  , metavar: 'FILE'
-  , help: 'Where to save the file. Default: stdout'
+    abbr: 'o',
+    metavar: 'FILE',
+    help: 'Where to save the file. Default: stdout'
   })
   .option('filterContainer', {
-    full: 'filter-container'
-  , metavar: 'REGEXP'
-  , help: 'Filter in format container.'
+    full: 'filter-container',
+    metavar: 'REGEXP',
+    help: 'Filter in format container.'
   })
   .option('unfilterContainer', {
-    full: 'unfilter-container'
-  , metavar: 'REGEXP'
-  , help: 'Filter out format container.'
+    full: 'unfilter-container',
+    metavar: 'REGEXP',
+    help: 'Filter out format container.'
   })
   .option('filterResolution', {
-    full: 'filter-resolution'
-  , metavar: 'REGEXP'
-  , help: 'Filter in format resolution.'
+    full: 'filter-resolution',
+    metavar: 'REGEXP',
+    help: 'Filter in format resolution.'
   })
   .option('unfilterResolution', {
-    full: 'unfilter-resolution'
-  , metavar: 'REGEXP'
-  , help: 'Filter out format resolution.'
+    full: 'unfilter-resolution',
+    metavar: 'REGEXP',
+    help: 'Filter out format resolution.'
   })
   .option('filterEncoding', {
-    full: 'filter-encoding'
-  , metavar: 'REGEXP'
-  , help: 'Filter in format encoding.'
+    full: 'filter-encoding',
+    metavar: 'REGEXP',
+    help: 'Filter in format encoding.'
   })
   .option('unfilterEncoding', {
-    full: 'unfilter-encoding'
-  , metavar: 'REGEXP'
-  , help: 'Filter out format encoding.'
+    full: 'unfilter-encoding',
+    metavar: 'REGEXP',
+    help: 'Filter out format encoding.'
   })
   .option('info', {
-    abbr: 'i'
-  , flag: true
-  , help: 'Print video info without downloading'
+    abbr: 'i',
+    flag: true,
+    help: 'Print video info without downloading'
   })
   .script('ytdl')
   .colors()
