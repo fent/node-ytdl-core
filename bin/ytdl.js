@@ -133,12 +133,6 @@ if (opts.info) {
 
     printVideoInfo(info);
 
-    info.formats.forEach(function(format) {
-      format['video enc']     = format.encoding;
-      format['audio bitrate'] = format.audioBitrate;
-      format['audio enc']     = format.audioEncoding;
-    });
-    console.log('formats:'.grey.bold);
     var cols = [
       'itag',
       'container',
@@ -147,6 +141,15 @@ if (opts.info) {
       'audio bitrate',
       'audio enc'
     ];
+    info.formats.forEach(function(format) {
+      format['video enc']     = format.encoding;
+      format['audio bitrate'] = format.audioBitrate;
+      format['audio enc']     = format.audioEncoding;
+      cols.forEach(function(col) {
+        format[col] = format[col] || null;
+      });
+    });
+    console.log('formats:'.grey.bold);
     var colors = ['green', 'blue', 'green', 'blue', 'green', 'blue'];
     console.log(cliff.stringifyObjectRows(info.formats, cols, colors));
     ytdl.cache.die();
