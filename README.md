@@ -25,7 +25,7 @@ Attempts to download a video from the given url. Returns a readable stream. `opt
 ```js
 // Example with `filter` option.
 ytdl(url, { filter: function(format) { return format.container === 'mp4'; } })
-  .pipe(fs.createWriteStream('vide.flv'));
+  .pipe(fs.createWriteStream('vide.mp4'));
 ```
 
 `options` can also have any [request](https://github.com/mikeal/request) options.
