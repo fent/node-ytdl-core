@@ -146,7 +146,7 @@ if (opts.info) {
       format['audio bitrate'] = format.audioBitrate;
       format['audio enc']     = format.audioEncoding;
       cols.forEach(function(col) {
-        format[col] = format[col] || null;
+        format[col] = format[col] || '';
       });
     });
     console.log('formats:'.grey.bold);
