@@ -7,8 +7,7 @@ var cliff = require('cliff');
 require('colors');
 
 
-var info = JSON.parse(
-    fs.readFileSync(path.resolve(__dirname, '..', 'package.json')));
+var info = require('../package');
 
 var opts = require('nomnom')
   .option('version', {
