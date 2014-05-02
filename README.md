@@ -72,7 +72,7 @@ And it streams!
        -q ITAG, --quality ITAG        Video quality to download. Default: highest
        -r INT-INT, --range INT-INT    Byte range to download. ie 10355705-12452856
        -o FILE, --output FILE         Where to save the file. Default: stdout
-       --filter-container REGEXP      Filter in format container.
+       --filter-container REGEXP      Filter in format container. Default: -o ext
        --unfilter-container REGEXP    Filter out format container.
        --filter-resolution REGEXP     Filter in format resolution.
        --unfilter-resolution REGEXP   Filter out format resolution.
