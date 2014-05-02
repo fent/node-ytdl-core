@@ -42,7 +42,7 @@ var opts = require('nomnom')
   .option('filterContainer', {
     full: 'filter-container',
     metavar: 'REGEXP',
-    help: 'Filter in format container.'
+    help: 'Filter in format container. Default: -o ext'
   })
   .option('unfilterContainer', {
     full: 'unfilter-container',
@@ -157,7 +157,16 @@ if (opts.info) {
 }
 
 var output = opts.output;
-var writeStream = output ? fs.createWriteStream(output) : process.stdout;
+var writeStream;
+if (output) {
+  writeStream = fs.createWriteStream(output);
+  var ext = path.extname(output);
+  if (ext && !opts.filterContainer) {
+    opts.filterContainer = '^' + ext.slice(1) + '$';
+  }
+} else {
+  writeStream = process.stdout;
+}
 
 var ytdlOptions = {};
 ytdlOptions.quality = opts.quality;
