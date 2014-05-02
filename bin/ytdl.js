@@ -161,7 +161,7 @@ var writeStream;
 if (output) {
   writeStream = fs.createWriteStream(output);
   var ext = path.extname(output);
-  if (ext && !opts.filterContainer) {
+  if (ext && !opts.quality && !opts.filterContainer) {
     opts.filterContainer = '^' + ext.slice(1) + '$';
   }
 } else {
