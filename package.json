@@ -1,39 +1,32 @@
 {
-  "name": "ytdl",
-  "description": "A pure Javascript streaming youtube video downloader.",
-  "keywords": ["youtube", "download", "video"],
-  "version": "0.2.8",
+  "name": "ytdl-core",
+  "description": "Youtube video downloader in pure javascript.",
+  "keywords": ["youtube", "video", "download"],
+  "version": "0.1.0",
   "repository": {
     "type": "git",
-    "url": "git://github.com/fent/node-ytdl.git"
+    "url": "git://github.com/fent/node-ytdl-core.git"
   },
   "author": "Roly Fentanes (https://github.com/fent)",
   "main": "./lib/index.js",
-  "bin": { "ytdl": "./bin/ytdl.js" },
   "scripts": {
-    "test": "mocha -R spec -t 10000 test/*-test.js"
-  },
-  "directories": {
-    "lib": "./lib"
+    "test": "mocha -R spec -t 2000 test/*-test.js"
   },
   "dependencies": {
-    "cliff": "~0.1.8",
-    "colors": "~0.6.0-1",
     "eventvat": "~0.2.1",
     "jstream": "~0.2.7",
-    "nomnom": "~1.6.1",
-    "progress-bar": "~0.1.1",
     "request": "~2.36.0",
     "streamify": "~0.2.0",
     "underscore": "~1.6.0"
   },
   "devDependencies": {
-    "mocha": "x",
+    "mocha": "*",
     "nock": "~0.34.1",
     "stream-equal": "~0.1.0"
+    
   },
-  "licenses": [ {
+  "licenses": [{
     "type": "MIT",
-    "url" : "http://github.com/fent/node-ytdl/raw/master/LICENSE"
+    "url" : "http://github.com/fent/node-ytdl-core/raw/master/LICENSE"
   }]
 }
