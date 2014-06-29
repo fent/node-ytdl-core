@@ -1,13 +1,14 @@
-# node-ytdl [![Build Status](https://secure.travis-ci.org/fent/node-ytdl.png)](http://travis-ci.org/fent/node-ytdl)
+# node-ytdl-core [![Build Status](https://secure.travis-ci.org/fent/node-ytdl-core.png)](http://travis-ci.org/fent/node-ytdl-core)
 
 Yet another youtube downloading module. This time written with only Javascript and a more node-friendly streaming interface.
 
+For a CLI version of this, check out [ytdl](https://github.com/fent/node-ytdl).
 
 # Usage
 
 ```js
 var fs = require('fs');
-var ytdl = require('ytdl');
+var ytdl = require('ytdl-core');
 
 ytdl('http://www.youtube.com/watch?v=A02s8omM_hI')
   .pipe(fs.createWriteStream('video.flv'));
@@ -54,32 +55,7 @@ A [memory cache](https://github.com/hij1nx/EventVat) is used to store informatio
 
 # Install
 
-    npm install ytdl
-
-# CLI
-
-ytdl can be used from the command line too. Install with the `-g` flag to use it.
-
-    ytdl http://www.youtube.com/watch?v=_HSylqgVYQI > cat.flv
-
-And it streams!
-
-    Usage: ytdl <url> [options]
-
-    url     URL to the video.
-
-    Options:
-       -v, --version                  Print program version.
-       -q ITAG, --quality ITAG        Video quality to download. Default: highest
-       -r INT-INT, --range INT-INT    Byte range to download. ie 10355705-12452856
-       -o FILE, --output FILE         Where to save the file. Default: stdout
-       --filter-container REGEXP      Filter in format container. Default: -o ext
-       --unfilter-container REGEXP    Filter out format container.
-       --filter-resolution REGEXP     Filter in format resolution.
-       --unfilter-resolution REGEXP   Filter out format resolution.
-       --filter-encoding REGEXP       Filter in format encoding.
-       --unfilter-encoding REGEXP     Filter out format encoding.
-       -i, --info                     Print video info without downloading
+    npm install ytdl-core
 
 
 # Tests
