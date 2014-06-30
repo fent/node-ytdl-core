@@ -34,7 +34,7 @@ ytdl(url, { filter: function(format) { return format.container === 'mp4'; } })
 
 The returned readable stream emits these additional events.
 
-### Event: 'info'
+#### Event: 'info'
 * `Object` - Info.
 * `Object` - Format.
 
@@ -48,10 +48,17 @@ Use this if you only want to get metainfo from a video.
 
 `options` gets passed to the `request()`, it can also have a `downloadURL` property set to `true` if you want ytdl to include the download url instead of the regular one. In some cases, a signature needs to be deciphered, and will require ytdl to make additional requests.
 
-### ytdl.cache
+### ytdl.downloadFromInfo(info, options)
 
-A [memory cache](https://github.com/hij1nx/EventVat) is used to store information about recently retrieved videos. This is used to prevent double requests on videos that you want to retrieve the info of, and then download.
+Once you have received metadata from a video with the `getInfo` function,
+you may pass that `info`, along with other `options` to `downloadFromInfo`.
 
+The returned readable stream emits these additional events:
+
+#### Event: 'format'
+* `Object` - Format.
+
+Emitted when a format metadata has been chosen. `format.size` will also be available.
 
 # Install
 
