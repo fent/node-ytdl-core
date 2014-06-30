@@ -1,7 +1,11 @@
 {
   "name": "ytdl-core",
   "description": "Youtube video downloader in pure javascript.",
-  "keywords": ["youtube", "video", "download"],
+  "keywords": [
+    "youtube",
+    "video",
+    "download"
+  ],
   "version": "0.1.0",
   "repository": {
     "type": "git",
@@ -13,7 +17,6 @@
     "test": "mocha -R spec -t 2000 test/*-test.js"
   },
   "dependencies": {
-    "eventvat": "~0.2.1",
     "jstream": "~0.2.7",
     "request": "~2.36.0",
     "streamify": "~0.2.0",
@@ -23,10 +26,11 @@
     "mocha": "*",
     "nock": "~0.34.1",
     "stream-equal": "~0.1.0"
-    
   },
-  "licenses": [{
-    "type": "MIT",
-    "url" : "http://github.com/fent/node-ytdl-core/raw/master/LICENSE"
-  }]
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://github.com/fent/node-ytdl-core/raw/master/LICENSE"
+    }
+  ]
 }
