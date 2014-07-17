@@ -69,7 +69,7 @@ describe('ytdl.getInfo()', function() {
     var page = path.resolve(__dirname, 'files/video_info/' + id);
     var watch = path.resolve(__dirname, 'files/watch/' + id);
     var html5player = path.resolve(
-      __dirname, 'files/html5player/html5player-ima-en_US-vflWnCYSF.js');
+      __dirname, 'files/html5player/html5player-en_US-vfl5aDZwb.js');
 
     it('Retrieves and deciphers signature', function(done) {
       var scope1 = nock(YT_HOST)
@@ -79,7 +79,7 @@ describe('ytdl.getInfo()', function() {
         .replyWithFile(200, watch);
 
       var scope2 = nock('http://s.ytimg.com')
-        .get('/yts/jsbin/html5player-ima-en_US-vflWnCYSF.js')
+        .get('/yts/jsbin/html5player-en_US-vfl5aDZwb.js')
         .replyWithFile(200, html5player);
 
       ytdl.getInfo(url, { downloadURL: true }, function(err, info) {
@@ -88,7 +88,7 @@ describe('ytdl.getInfo()', function() {
         assert.ok(info);
         assert.ok(info.formats);
         /*jshint maxlen:false */
-        assert.equal(info.formats[0].url, 'http://r18---sn-p5qlsnel.googlevideo.com/videoplayback?ipbits=0&pcm2fr=yes&source=youtube&expire=1395056606&mv=m&gcr=us&sparams=gcr%2Cid%2Cip%2Cipbits%2Citag%2Cpcm2fr%2Cratebypass%2Csource%2Cupn%2Cexpire&mt=1395034934&ratebypass=yes&itag=43&sver=3&fexp=935639%2C927904%2C937417%2C913434%2C936910%2C936913%2C934022&ms=au&ip=198.255.191.225&upn=v8kXZrwLiYE&key=yt5&id=a49934a7ef7c5f37&signature=57E557BDCE7708F05DD2201C73E0B52DB97F7408.912BA9B4A8D51463A031BD72F0B111CBFBE66B35');
+        assert.equal(info.formats[0].url, 'http://r18---sn-ab5l6ne6.googlevideo.com/videoplayback?gcr=us&sparams=gcr%2Cid%2Cinitcwndbps%2Cip%2Cipbits%2Citag%2Cratebypass%2Csource%2Cupn%2Cexpire&source=youtube&upn=-UoupiUZdKw&fexp=902408%2C908548%2C916600%2C916625%2C924213%2C924217%2C924222%2C930008%2C934024%2C934030%2C934804%2C939950%2C941359%2C945035%2C946505&key=yt5&ip=198.255.191.225&mv=m&mt=1405514836&initcwndbps=1517000&expire=1405537200&ratebypass=yes&itag=43&mws=yes&ipbits=0&sver=3&id=o-AJdt6VTJxG54d6aGuO7icka1Xfo40WZS0RMZaU2A8hYU&ms=au&signature=66A118F186CA492DEE6A72D17F1BB079EFEDD985.57C58CEEEDAAFDD4CF5D5F644384D63CAEBE191E');
         scope1.done();
         scope2.done();
         done();
