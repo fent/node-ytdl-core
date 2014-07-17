@@ -197,6 +197,6 @@ describe('util.parseFormats()', function() {
     var info = qs.parse(page);
     var formats = util.parseFormats(info);
     assert.ok(formats);
-    assert.equal(formats.length, 8);
+    assert.equal(formats.length, 11);
   });
 });
