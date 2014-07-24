@@ -3,33 +3,24 @@ var assert = require('assert');
 var fs     = require('fs');
 var path   = require('path');
 
-var file1 = fs.readFileSync(path.resolve(
-  __dirname, 'files/html5player/html5player-en_US-vfl0Cbn9e.js'), 'utf8');
-var file2 = fs.readFileSync(path.resolve(
-  __dirname, 'files/html5player/html5player-en_US-vfl5aDZwb.js'), 'utf8');
-var file3 = fs.readFileSync(path.resolve(
-  __dirname, 'files/html5player/html5player-en_US-vflqZIm5b.js'), 'utf8');
-var file4 = fs.readFileSync(path.resolve(
-  __dirname, 'files/html5player/html5player-en_US-vfl9FYC6l.js'), 'utf8');
+var html5playerfiles = {
+  vfl0Cbn9e: ['w15', 'w44', 'r', 'w24', 's3', 'r', 'w2', 'w50'],
+  vfl5aDZwb: ['w15', 'w44', 'r', 'w24', 's3', 'r', 'w2', 'w50'],
+  vflqZIm5b: ['w1', 'w32', 's1', 'r', 's3', 'r', 's3', 'r'],
+  vfl9FYC6l: ['w28', 'r', 'p1', 'w26', 'w40', 'r', 'p1'],
+};
 
 
 describe('Signature decypher', function() {
-  var tokens1 = ['w15', 'w44', 'r', 'w24', 's3', 'r', 'w2', 'w50'];
-  var tokens2 = ['w15', 'w44', 'r', 'w24', 's3', 'r', 'w2', 'w50'];
-  var tokens3 = ['w1', 'w32', 's1', 'r', 's3', 'r', 's3', 'r'];
-  var tokens4 = ['w28', 'r', 'p1', 'w26', 'w40', 'r', 'p1'];
-
   describe('extract decyphering actions', function() {
     it('Returns the correct set of actions', function() {
-      var actions;
-      actions = sig.extractActions(file1);
-      assert.deepEqual(actions, tokens1);
-      actions = sig.extractActions(file2);
-      assert.deepEqual(actions, tokens2);
-      actions = sig.extractActions(file3);
-      assert.deepEqual(actions, tokens3);
-      actions = sig.extractActions(file4);
-      assert.deepEqual(actions, tokens4);
+      for (var name in html5playerfiles) {
+        var filepath = path.resolve(
+          __dirname, 'files/html5player/html5player-en_US-' + name + '.js');
+        var body = fs.readFileSync(filepath, 'utf8');
+        var actions = sig.extractActions(body);
+        assert.deepEqual(actions, html5playerfiles[name]);
+      }
     });
   });
 
@@ -54,7 +45,7 @@ describe('Signature decypher', function() {
     });
 
     it('real set of tokens', function() {
-      testDecipher(tokens1,
+      testDecipher(html5playerfiles.vfl0Cbn9e,
         'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ',
         'bbSdefghijklmnoaqrstuvwxyzAZCDEFGHIJKLMNOPQRpTUVWc');
     });
