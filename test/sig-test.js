@@ -9,12 +9,15 @@ var file2 = fs.readFileSync(path.resolve(
   __dirname, 'files/html5player/html5player-en_US-vfl5aDZwb.js'), 'utf8');
 var file3 = fs.readFileSync(path.resolve(
   __dirname, 'files/html5player/html5player-en_US-vflqZIm5b.js'), 'utf8');
+var file4 = fs.readFileSync(path.resolve(
+  __dirname, 'files/html5player/html5player-en_US-vfl9FYC6l.js'), 'utf8');
 
 
 describe('Signature decypher', function() {
   var tokens1 = ['w15', 'w44', 'r', 'w24', 's3', 'r', 'w2', 'w50'];
   var tokens2 = ['w15', 'w44', 'r', 'w24', 's3', 'r', 'w2', 'w50'];
   var tokens3 = ['w1', 'w32', 's1', 'r', 's3', 'r', 's3', 'r'];
+  var tokens4 = ['w28', 'r', 'p1', 'w26', 'w40', 'r', 'p1'];
 
   describe('extract decyphering actions', function() {
     it('Returns the correct set of actions', function() {
@@ -25,6 +28,8 @@ describe('Signature decypher', function() {
       assert.deepEqual(actions, tokens2);
       actions = sig.extractActions(file3);
       assert.deepEqual(actions, tokens3);
+      actions = sig.extractActions(file4);
+      assert.deepEqual(actions, tokens4);
     });
   });
 
