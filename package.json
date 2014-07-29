@@ -14,7 +14,7 @@
   "author": "Roly Fentanes (https://github.com/fent)",
   "main": "./lib/index.js",
   "scripts": {
-    "test": "mocha -R spec -t 4000 test/*-test.js"
+    "test": "mocha -R spec -t 8000 test/*-test.js"
   },
   "dependencies": {
     "jstream": "~0.2.7",
