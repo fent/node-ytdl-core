@@ -20,7 +20,7 @@ ytdl('http://www.youtube.com/watch?v=A02s8omM_hI')
 
 Attempts to download a video from the given url. Returns a readable stream. `options` can have the following keys
 
-* `quality` - Video quality to download. Can be an [itag value](http://en.wikipedia.org/wiki/YouTube#Quality_and_codecs) value, `highest`, or `lowest`. Defaults to `highest`.
+* `quality` - Video quality to download. Can be an [itag value](http://en.wikipedia.org/wiki/YouTube#Quality_and_codecs) value, `format` object returned from `getInfo`, or `highest`/`lowest`. Defaults to `highest`.
 * `filter` - You can give a filtering function that gets called with each format available. Used to decide what format to download. This function is given the `format` object as its first argument, and should return true if the format is preferable.
 * `range` - A byte range in the form `INT-INT` that specifies a part of the video to download. ie 10355705-12452856.
 
