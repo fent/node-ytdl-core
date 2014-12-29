@@ -22,7 +22,7 @@ Attempts to download a video from the given url. Returns a readable stream. `opt
 
 * `quality` - Video quality to download. Can be an [itag value](http://en.wikipedia.org/wiki/YouTube#Quality_and_codecs) value, or `highest`/`lowest`. Defaults to `highest`.
 * `filter` - You can give a filtering function that gets called with each format available. Used to decide what format to download. This function is given the `format` object as its first argument, and should return true if the format is preferable.
-* `format` - This can be a specific `format` object returned from `getInfo`. This is primarily used to download specific video or audio streams. Typically 1080p or better video does not have audio encoded with it. The audio must be downloaded separately and merged via `ffmpeg` ([node-fluent-ffmpeg](https://github.com/fluent-ffmpeg/node-fluent-ffmpeg) recommended). **Note:** Supplying this option will skip the `filter` option.
+* `format` - This can be a specific `format` object returned from `getInfo`. This is primarily used to download specific video or audio streams. **Note:** Supplying this option will skip the `filter` option.
 * `range` - A byte range in the form `INT-INT` that specifies a part of the video to download. ie 10355705-12452856.
 
 ```js
@@ -63,6 +63,11 @@ The returned readable stream emits these additional events:
 * `Object` - Format.
 
 Emitted when a format metadata has been chosen. `format.size` will also be available.
+
+# Tips
+### Handling Separate Streams
+
+Typically 1080p or better video does not have audio encoded with it. The audio must be downloaded separately and merged via an appropriate encoding library. `ffmpeg` is the most widely used tool, with many [Node.js modules available](https://www.npmjs.com/search?q=ffmpeg). Use the `format` objects returned from `ytdl.getInfo` to download specific streams to combine to fit your needs.
 
 # Install
 
