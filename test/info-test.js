@@ -69,7 +69,7 @@ describe('ytdl.getInfo()', function() {
     var page = path.resolve(__dirname, 'files/video_info/' + id);
     var watch = path.resolve(__dirname, 'files/watch/' + id);
     var html5player = path.resolve(
-      __dirname, 'files/html5player/html5player-en_US-vfl5aDZwb.js');
+      __dirname, 'files/html5player/en_US-vfl5aDZwb.js');
 
     it('Retrieves and deciphers signature', function(done) {
       var scope1 = nock(YT_HOST)
