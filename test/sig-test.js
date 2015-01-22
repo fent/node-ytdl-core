@@ -10,10 +10,8 @@ describe('Signature decypher', function() {
   describe('extract decyphering actions', function() {
     it('Returns the correct set of actions', function() {
       for (var name in html5player) {
-        var filename = 'html5player' +
-          (name === 'html5player' ? '' : '-' + name);
         var filepath = path.resolve(
-          __dirname, 'files/html5player/' + filename + '.js');
+          __dirname, 'files/html5player/' + name + '.js');
         var body = fs.readFileSync(filepath, 'utf8');
         var actions = sig.extractActions(body);
         assert.deepEqual(actions, html5player[name]);
