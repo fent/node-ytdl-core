@@ -1,6 +1,3 @@
-var fs     = require('fs');
-var path   = require('path');
-var qs     = require('querystring');
 var util   = require('../lib/util');
 var assert = require('assert');
 
@@ -226,11 +223,9 @@ describe('util.getVideoID()', function() {
 
 describe('util.parseFormats()', function() {
   it('Retrieves video formats from info', function() {
-    var page = fs.readFileSync(
-      path.resolve(__dirname, 'files/video_info/_HSylqgVYQI'), 'utf8');
-    var info = qs.parse(page);
+    var info = require('./files/info/pJk0p-98Xzc_preparsed.json');
     var formats = util.parseFormats(info);
     assert.ok(formats);
-    assert.equal(formats.length, 11);
+    assert.equal(formats.length, 14);
   });
 });

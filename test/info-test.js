@@ -4,19 +4,19 @@ var nock   = require('nock');
 var ytdl   = require('..');
 
 var YT_HOST = 'http://www.youtube.com';
-var INFO_PATH = '/get_video_info?hl=en_US&el=detailpage&video_id=';
-var VIDEO_BASE = 'http://www.youtube.com/watch?v=';
+var VIDEO_PATH = '/watch?v=';
+var VIDEO_BASE = 'http://www.youtube.com' + VIDEO_PATH;
 
 
 describe('ytdl.getInfo()', function() {
   it('Returns correct video metainfo', function(done) {
-    var id = '_HSylqgVYQI';
+    var id = 'pJk0p-98Xzc';
     var url = VIDEO_BASE + id;
-    var page = path.resolve(__dirname, 'files/video_info/' + id);
+    var page = path.resolve(__dirname, 'files/watch/' + id);
     var expectedInfo = require('./files/info/' + id + '.json');
 
     nock(YT_HOST)
-      .get(INFO_PATH + id)
+      .get(VIDEO_PATH + id)
       .replyWithFile(200, page);
 
     ytdl.getInfo(url, function(err, info) {
@@ -28,36 +28,18 @@ describe('ytdl.getInfo()', function() {
   });
 
   describe('from a non-existant video', function() {
-    var id = '_HSylqgyyyy';
+    var id = 'ohohohoh';
     var url = VIDEO_BASE + id;
-    var page = path.resolve(__dirname, 'files/video_info/notfound');
+    var page = path.resolve(__dirname, 'files/watch/not-found');
 
     it('Should give an error', function(done) {
       nock(YT_HOST)
-        .get(INFO_PATH + id)
-        .replyWithFile(200, page);
+        .get(VIDEO_PATH + id)
+        .replyWithFile(404, page);
 
       ytdl.getInfo(url, function(err) {
         assert.ok(err);
-        assert.equal(err.message, 'Error 100: This video does not exist.');
-        done();
-      });
-    });
-  });
-
-  describe('with an invalid video ID', function() {
-    var id = 'yoyoo';
-    var url = VIDEO_BASE + id;
-    var page = path.resolve(__dirname, 'files/video_info/invalidparams');
-
-    it('Should give an error', function(done) {
-      nock(YT_HOST)
-        .get(INFO_PATH + id)
-        .replyWithFile(200, page);
-
-      ytdl.getInfo(url, function(err) {
-        assert.ok(err);
-        assert.equal(err.message, 'Error 2: Invalid parameters.');
+        assert.equal(err.message, 'status code 404');
         done();
       });
     });
@@ -66,16 +48,13 @@ describe('ytdl.getInfo()', function() {
   describe('with `downloadURL` set', function() {
     var id = 'pJk0p-98Xzc';
     var url = VIDEO_BASE + id;
-    var page = path.resolve(__dirname, 'files/video_info/' + id);
     var watch = path.resolve(__dirname, 'files/watch/' + id);
     var html5player = path.resolve(
       __dirname, 'files/html5player/en_US-vfl5aDZwb.js');
 
     it('Retrieves and deciphers signature', function(done) {
       var scope1 = nock(YT_HOST)
-        .get(INFO_PATH + id)
-        .replyWithFile(200, page)
-        .get('/watch?v=' + id)
+        .get(VIDEO_PATH + id)
         .replyWithFile(200, watch);
 
       var scope2 = nock('http://s.ytimg.com')
