@@ -17,11 +17,13 @@
     "test": "mocha -R spec -t 16000 test/*-test.js"
   },
   "dependencies": {
+    "cheerio": "^0.18.0",
     "jstream": "~0.2.7",
     "request": "~2.37.0",
     "underscore": "~1.6.0"
   },
   "devDependencies": {
+    "assert-diff": "^1.0.1",
     "mocha": "*",
     "nock": "~0.34.1",
     "stream-equal": "~0.1.0"

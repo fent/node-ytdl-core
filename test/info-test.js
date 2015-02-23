@@ -1,4 +1,4 @@
-var assert = require('assert');
+var assert = require('assert-diff');
 var path   = require('path');
 var nock   = require('nock');
 var ytdl   = require('..');
