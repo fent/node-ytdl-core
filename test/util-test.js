@@ -1,5 +1,5 @@
 var util   = require('../lib/util');
-var assert = require('assert');
+var assert = require('assert-diff');
 
 
 var formats = [

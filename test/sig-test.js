@@ -1,5 +1,5 @@
 var sig    = require('../lib/sig');
-var assert = require('assert');
+var assert = require('assert-diff');
 var fs     = require('fs');
 var path   = require('path');
 
