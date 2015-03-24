@@ -6,9 +6,9 @@ var nock        = require('nock');
 var streamEqual = require('stream-equal');
 var ytdl        = require('..');
 
-var YT_HOST = 'http://www.youtube.com';
+var YT_HOST = 'https://www.youtube.com';
 var VIDEO_PATH = '/watch?v=';
-var VIDEO_BASE = 'http://www.youtube.com' + VIDEO_PATH;
+var VIDEO_BASE = 'https://www.youtube.com' + VIDEO_PATH;
 
 
 describe('Download video', function() {

@@ -3,9 +3,9 @@ var path   = require('path');
 var nock   = require('nock');
 var ytdl   = require('..');
 
-var YT_HOST = 'http://www.youtube.com';
+var YT_HOST = 'https://www.youtube.com';
 var VIDEO_PATH = '/watch?v=';
-var VIDEO_BASE = 'http://www.youtube.com' + VIDEO_PATH;
+var VIDEO_BASE = 'https://www.youtube.com' + VIDEO_PATH;
 var EMBED_PATH = '/embed/';
 var INFO_PATH = '/get_video_info?';
 
