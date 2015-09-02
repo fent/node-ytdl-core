@@ -236,10 +236,10 @@ describe('util.cleanVideoDescription()', function() {
     var data = require('./files/util/multiline-video-description.json');
     var cleanDescription = util.cleanVideoDescription(data.html);
     assert.ok(cleanDescription);
-    assert.equal(cleanDescription, "Some Title\n" +
-      "Line 1\n" +
-      "\"Line 2\"\n" +
-      "1  First Song  5:30\n" +
-      "2  Second Song  5:42");
+    assert.equal(cleanDescription, 'Some Title\n' +
+      'Line 1\n' +
+      '"Line 2"\n' +
+      '1  First Song  5:30\n' +
+      '2  Second Song  5:42');
   });
 });
