@@ -1,0 +1,3 @@
+{
+	"html": "Some Title<br>Line 1<br>&quot;Line 2&quot;<br>1  First Song  <a href='#' onclick='yt.www.watch.player.seekTo(5*60+30);return false;'>5:30</a><br>2  Second Song  <a href='#' onclick='yt.www.watch.player.seekTo(5*60+42);return false;'>5:42</a>"
+}
