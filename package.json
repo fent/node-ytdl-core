@@ -17,7 +17,7 @@
     "test": "mocha -R spec -t 16000 test/*-test.js"
   },
   "dependencies": {
-    "cheerio": "~0.19.0",
+    "entities": "^1.1.1",
     "jstream": "~0.2.7"
   },
   "devDependencies": {
