@@ -1,5 +1,7 @@
 var util   = require('../lib/util');
 var assert = require('assert-diff');
+var fs     = require('fs');
+var path   = require('path');
 
 
 var formats = [
@@ -231,10 +233,10 @@ describe('util.parseFormats()', function() {
 });
 
 
-describe('util.cleanVideoDescription()', function() {
-  it('Clean the HTML for the video description', function() {
-    var data = require('./files/util/multiline-video-description.json');
-    var cleanDescription = util.cleanVideoDescription(data.html);
+describe('util.getVideoDescription()', function() {
+  it('Retrieves formatted video description', function() {
+    var html = fs.readFileSync(path.resolve(__dirname, 'files/util/multiline-video-description'), 'utf8');
+    var cleanDescription = util.getVideoDescription(html);
     assert.ok(cleanDescription);
     assert.equal(cleanDescription, 'Some Title\n' +
       'Line 1\n' +
