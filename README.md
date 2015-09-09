@@ -20,7 +20,7 @@ ytdl('http://www.youtube.com/watch?v=A02s8omM_hI')
 
 Attempts to download a video from the given url. Returns a readable stream. `options` can have the following keys
 
-* `quality` - Video quality to download. Can be an [itag value](http://en.wikipedia.org/wiki/YouTube#Quality_and_codecs) value, or `highest`/`lowest`. Defaults to `highest`.
+* `quality` - Video quality to download. Can be an [itag value](http://en.wikipedia.org/wiki/YouTube#Quality_and_formats) value, or `highest`/`lowest`. Defaults to `highest`.
 * `filter` - Can be `video` to filter for formats that contain video, `videoonly` for formats that contain video and no additional audio track. Can also be `audio` or `audioonly`. You can give a filtering function that gets called with each format available. Used to decide what format to download. This function is given the `format` object as its first argument, and should return true if the format is preferable.
 * `format` - This can be a specific `format` object returned from `getInfo`. This is primarily used to download specific video or audio streams. **Note:** Supplying this option will ignore the `filter` and `quality` options since the format is explicitly provided.
 * `range` - A byte range in the form `INT-INT` that specifies a part of the video to download. ie 10355705-12452856.
@@ -30,8 +30,6 @@ Attempts to download a video from the given url. Returns a readable stream. `opt
 ytdl(url, { filter: function(format) { return format.container === 'mp4'; } })
   .pipe(fs.createWriteStream('vide.mp4'));
 ```
-
-`options` can also have any [request](https://github.com/mikeal/request) options.
 
 The returned readable stream emits these additional events.
 
