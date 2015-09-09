@@ -31,8 +31,6 @@ ytdl(url, { filter: function(format) { return format.container === 'mp4'; } })
   .pipe(fs.createWriteStream('vide.mp4'));
 ```
 
-`options` can also have any [request](https://github.com/mikeal/request) options.
-
 The returned readable stream emits these additional events.
 
 #### Event: 'info'
