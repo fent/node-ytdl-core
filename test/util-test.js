@@ -1,5 +1,7 @@
 var util   = require('../lib/util');
 var assert = require('assert-diff');
+var fs     = require('fs');
+var path   = require('path');
 
 
 var formats = [
@@ -227,5 +229,19 @@ describe('util.parseFormats()', function() {
     var formats = util.parseFormats(info);
     assert.ok(formats);
     assert.equal(formats.length, 14);
+  });
+});
+
+
+describe('util.getVideoDescription()', function() {
+  it('Retrieves formatted video description', function() {
+    var html = fs.readFileSync(path.resolve(__dirname, 'files/util/multiline-video-description'), 'utf8');
+    var cleanDescription = util.getVideoDescription(html);
+    assert.ok(cleanDescription);
+    assert.equal(cleanDescription, 'Some Title\n' +
+      'Line 1\n' +
+      '"Line 2"\n' +
+      '1  First Song  5:30\n' +
+      '2  Second Song  5:42');
   });
 });
