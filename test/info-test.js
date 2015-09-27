@@ -75,6 +75,20 @@ describe('ytdl.getInfo()', function() {
         done();
       });
     });
+
+    describe('hit the same video twice', function() {
+      it('Gets html5player tokens from cache', function(done) {
+        var scope1 = nock(YT_HOST)
+          .get(VIDEO_PATH + id)
+          .replyWithFile(200, watch);
+        ytdl.getInfo(url, { downloadURL: true }, function(err, info) {
+          if (err) return done(err);
+          assert.ok(info);
+          scope1.done();
+          done();
+        });
+      });
+    });
   });
 
   describe('from an age restricted video', function() {
