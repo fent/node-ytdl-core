@@ -1,6 +1,8 @@
-# node-ytdl-core [![Build Status](https://secure.travis-ci.org/fent/node-ytdl-core.png)](http://travis-ci.org/fent/node-ytdl-core)
+# node-ytdl-core
 
 Yet another youtube downloading module. This time written with only Javascript and a more node-friendly streaming interface.
+
+[![Build Status](https://secure.travis-ci.org/fent/node-ytdl-core.png)](http://travis-ci.org/fent/node-ytdl-core) [![Dependency Status](https://gemnasium.com/fent/node-ytdl-core.svg)](https://gemnasium.com/fent/node-ytdl-core)
 
 For a CLI version of this, check out [ytdl](https://github.com/fent/node-ytdl) and [pully](https://github.com/JimmyBoh/pully).
 
