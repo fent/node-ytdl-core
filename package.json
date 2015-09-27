@@ -14,7 +14,7 @@
   "author": "Roly Fentanes (https://github.com/fent)",
   "main": "./lib/index.js",
   "scripts": {
-    "test": "mocha -R spec -t 16000 test/*-test.js"
+    "test": "mocha -t 16000 test/*-test.js"
   },
   "dependencies": {
     "html-entities": "^1.1.3",
