@@ -1,47 +1,36 @@
 var assert      = require('assert');
 var path        = require('path');
 var fs          = require('fs');
-var url         = require('url');
-var nock        = require('nock');
 var streamEqual = require('stream-equal');
+var nock        = require('./nock');
 var ytdl        = require('..');
 
-var YT_HOST = 'https://www.youtube.com';
-var VIDEO_PATH = '/watch?v=';
-var VIDEO_BASE = 'https://www.youtube.com' + VIDEO_PATH;
+var VIDEO_BASE = 'https://www.youtube.com/watch?v=';
 
 
 describe('Download video', function() {
   it('Should be pipeable and data equal to stored file', function(done) {
     var id = '_HSylqgVYQI';
     var link = VIDEO_BASE + id;
-    var page = path.resolve(__dirname, 'files/watch/' + id);
-    var video = path.resolve(__dirname, 'files/video/' + id + '.flv');
+    var video = path.resolve(__dirname, 'files/' + id + '/video.flv');
     var filter = function(format) { return format.container === 'mp4'; };
 
-    nock(YT_HOST)
-      .get(VIDEO_PATH + id)
-      .replyWithFile(200, page);
-
-    var format = require('./files/info/' + id + '.json')
-      .formats.filter(filter)[0];
-    var parsed = url.parse(format.url);
-    var scope = nock(parsed.protocol + '//' + parsed.host)
-      .get(parsed.path)
-      .replyWithFile(200, video);
-
+    var scope1 = nock(id, { dashmpd: true });
     var stream = ytdl(link, { filter: filter });
 
     var infoEmitted = false;
-    stream.on('info', function() {
+    var scope2;
+    stream.on('info', function(info, format) {
       infoEmitted = true;
+      scope2 = nock.url(format.url, video);
     });
 
     var filestream = fs.createReadStream(video);
     streamEqual(filestream, stream, function(err, equal) {
+      scope1.done();
+      scope2.done();
       if (err) return done(err);
 
-      scope.done();
       assert.ok(infoEmitted);
       assert.ok(equal);
       done();

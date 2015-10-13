@@ -47,15 +47,10 @@ Info and format may look like [this](https://gist.github.com/fent/6c8251132e1add
 
 Use this if you only want to get metainfo from a video.
 
-`options` gets passed to the `request()`, it can also have a `downloadURL` property set to `true` if you want ytdl to include the download url instead of the regular one. In some cases, a signature needs to be deciphered, and will require ytdl to make additional requests.
-
 ### ytdl.downloadFromInfo(info, options)
 
 Once you have received metadata from a video with the `getInfo` function,
 you may pass that `info`, along with other `options` to `downloadFromInfo`.
-
-Note: Be sure to set the `downloadURL` option to `true` when you call `getInfo`
-or you will receive a 403 error when you call `downloadFromInfo`.
 
 The returned readable stream emits these additional events:
 
