@@ -142,6 +142,13 @@ describe('util.chooseFormat', function() {
       });
     });
   });
+
+  describe('with list of itags given', function() {
+    it('Chooses matching format', function() {
+      var format = util.chooseFormat(sortedFormats, { quality: [99, 160, 18] });
+      assert.equal(format.itag, '160');
+    });
+  });
 });
 
 
@@ -235,7 +242,8 @@ describe('util.parseFormats()', function() {
 
 describe('util.getVideoDescription()', function() {
   it('Retrieves formatted video description', function() {
-    var html = fs.readFileSync(path.resolve(__dirname, 'files/util/multiline-video-description'), 'utf8');
+    var html = fs.readFileSync(path.resolve(__dirname,
+      'files/util/multiline-video-description'), 'utf8');
     var cleanDescription = util.getVideoDescription(html);
     assert.ok(cleanDescription);
     assert.equal(cleanDescription, 'Some Title\n' +
