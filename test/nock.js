@@ -63,6 +63,8 @@ module.exports = function(id, opts) {
 };
 
 
+module.exports.nock = nock;
+
 module.exports.url = function(uri, file) {
   var parsed = url.parse(uri);
   return nock(parsed.protocol + '//' + parsed.host)
