@@ -37,6 +37,19 @@ describe('ytdl.getInfo()', function() {
         });
       });
     });
+
+    describe('use `ytdl.downloadFromInfo()`', function() {
+      it('Retrives video file', function(done) {
+        var stream = ytdl.downloadFromInfo(expectedInfo);
+        stream.on('info', function(info, format) {
+          nock.url(format.url)
+            .reply(200);
+        });
+        stream.resume();
+        stream.on('error', done);
+        stream.on('end', done);
+      });
+    });
   });
 
   describe('from a non-existant video', function() {
