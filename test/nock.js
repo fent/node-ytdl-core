@@ -63,11 +63,8 @@ module.exports = function(id, opts) {
 };
 
 
-module.exports.nock = nock;
-
-module.exports.url = function(uri, file) {
+module.exports.url = function(uri) {
   var parsed = url.parse(uri);
   return nock(parsed.protocol + '//' + parsed.host)
-    .get(parsed.path)
-    .replyWithFile(200, file);
+    .get(parsed.path);
 };

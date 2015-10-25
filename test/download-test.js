@@ -1,7 +1,6 @@
 var assert      = require('assert');
 var path        = require('path');
 var fs          = require('fs');
-var url         = require('url');
 var streamEqual = require('stream-equal');
 var nock        = require('./nock');
 var ytdl        = require('..');
@@ -23,7 +22,8 @@ describe('Download video', function() {
     var scope2;
     stream.on('info', function(info, format) {
       infoEmitted = true;
-      scope2 = nock.url(format.url, video);
+      scope2 = nock.url(format.url)
+        .replyWithFile(200, video);
     });
 
     var filestream = fs.createReadStream(video);
@@ -50,11 +50,10 @@ describe('Download video', function() {
 
       var scope2, scope3;
       stream.on('info', function(info, format) {
-        var parsed = url.parse(format.url);
-        scope2 = nock.nock(parsed.protocol + '//' + parsed.host)
-          .get(parsed.path)
+        scope2 = nock.url(format.url)
           .reply(302, '', { Location: 'http://somehost.com/somefile.mp4' });
-        scope3 = nock.url('http://somehost.com/somefile.mp4', video);
+        scope3 = nock.url('http://somehost.com/somefile.mp4')
+          .replyWithFile(200, video);
       });
 
       var filestream = fs.createReadStream(video);
