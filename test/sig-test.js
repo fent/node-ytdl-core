@@ -2,9 +2,26 @@ var sig    = require('../lib/sig');
 var assert = require('assert-diff');
 var fs     = require('fs');
 var path   = require('path');
+var nock   = require('./nock');
 
 var html5player = require('./html5player.json');
 
+
+describe('Get tokens', function() {
+  var key = 'en_US-vfljDEtYP';
+  var url = '//s.ytimg.com/yts/jsbin/player-en_US-vfljDEtYP/base.js';
+
+  it('Returns a set of tokens', function(done) {
+    var filepath = path.resolve(
+      __dirname, 'files/html5player/' + key + '.js');
+    nock.url('http:' + url).replyWithFile(200, filepath);
+    sig.getTokens(url, true, function(err, tokens) {
+      if (err) return done(err);
+      assert.ok(tokens.length);
+      done();
+    });
+  });
+});
 
 describe('Signature decypher', function() {
   describe('extract decyphering actions', function() {
