@@ -43,6 +43,11 @@ Emitted when the a video's `info` hash is fetched. Along with the chosen format 
 
 Info and format may look like [this](https://gist.github.com/fent/6c8251132e1addb5121e).
 
+#### Event: 'response'
+* `http.ServerResponse` - Response.
+
+Emitted when the video response has been found, and has started downloading. This is also emitted if there is an error with the download.
+
 ### ytdl.getInfo(url, [options], callback(err, info))
 
 Use this if you only want to get metainfo from a video.
