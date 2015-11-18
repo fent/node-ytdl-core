@@ -39,14 +39,14 @@ The returned readable stream emits these additional events.
 * `Object` - Info.
 * `Object` - Format.
 
-Emitted when the a video's `info` hash is fetched. Along with the chosen format metadata to download. `format.url` might be different if `start` was given. `format.size` will also be available.
+Emitted when the a video's `info` hash is fetched. Along with the chosen format metadata to download. `format.url` might be different if `start` was given.
 
 Info and format may look like [this](https://gist.github.com/fent/6c8251132e1addb5121e).
 
 #### Event: 'response'
 * `http.ServerResponse` - Response.
 
-Emitted when the video response has been found, and has started downloading. This is also emitted if there is an error with the download.
+Emitted when the video response has been found, and has started downloading. Can be used to get the size of download. This is also emitted if there is an error with the download.
 
 ### ytdl.getInfo(url, [options], callback(err, info))
 
@@ -58,11 +58,6 @@ Once you have received metadata from a video with the `getInfo` function,
 you may pass that `info`, along with other `options` to `downloadFromInfo`.
 
 The returned readable stream emits these additional events:
-
-#### Event: 'format'
-* `Object` - Format.
-
-Emitted when a format metadata has been chosen. `format.size` will also be available.
 
 # Tips
 ### Handling Separate Streams
