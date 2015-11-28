@@ -4,14 +4,12 @@ var nock    = require('nock');
 var ytdl    = require('..');
 
 
-var videos = [
-  'http://www.youtube.com/watch?v=qQ31INpjXX0',
-  'http://www.youtube.com/watch?v=pJk0p-98Xzc',
-  'http://www.youtube.com/watch?v=mgOS64BF2eU',
-  'http://www.youtube.com/watch?v=qQ31INpjXX0',
-  'http://www.youtube.com/watch?v=mvuqS0nxFvA',
-  'https://www.youtube.com/watch?v=otfd2UTrP_Q', // age restriction
-];
+var videos = {
+  'Regular video': 'http://www.youtube.com/watch?v=mgOS64BF2eU',
+  'VEVO': 'http://www.youtube.com/watch?v=qQ31INpjXX0',
+  'VEVO 2': 'http://www.youtube.com/watch?v=pJk0p-98Xzc',
+  'Age restricted': 'https://www.youtube.com/watch?v=otfd2UTrP_Q',
+};
 
 
 describe('Try downloading videos without mocking', function() {
@@ -20,10 +18,14 @@ describe('Try downloading videos without mocking', function() {
     ytdl.cache = null;
   });
 
-  videos.forEach(function(video) {
-    describe(video, function() {
+  for (var desc in videos) {
+    var video = videos[desc];
+    describe(desc, function() {
       it('Request status code is not 403 Forbidden', function(done) {
-        ytdl.getInfo(video, { downloadURL: true }, function(err, info) {
+        ytdl.getInfo(video, {
+          downloadURL: true,
+          debug: false,
+        }, function(err, info) {
           if (err) return done(err);
 
           var url = info.formats[0].url;
@@ -37,5 +39,5 @@ describe('Try downloading videos without mocking', function() {
         });
       });
     });
-  });
+  }
 });
