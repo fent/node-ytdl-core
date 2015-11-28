@@ -158,20 +158,6 @@
   "ptk": "rumblefish_cdbaby",
   "formats": [
     {
-      "fallback_host": "tc.v3.cache4.googlevideo.com",
-      "quality": "hd720",
-      "type": "video/mp4; codecs=\"avc1.64001F, mp4a.40.2\"",
-      "itag": "22",
-      "url": "https://r4---sn-p5qlsnsr.googlevideo.com/videoplayback?nh=IgpwZjAxLmlhZDI2Kgw3Mi4xNC4yMDMuOTU&upn=utAH1aBebVk&source=youtube&sparams=cwbhb%2Cdur%2Cid%2Cinitcwndbps%2Cip%2Cipbits%2Citag%2Clmt%2Cmime%2Cmm%2Cmn%2Cms%2Cmv%2Cnh%2Cpl%2Cratebypass%2Crequiressl%2Csource%2Cupn%2Cexpire&initcwndbps=772500&pl=16&ip=74.64.48.144&lmt=1309008330512241&key=yt6&id=o-AJj1D_OYO_EieAH08Qa2tRsP6zid9dsuPAvktizyDRlv&expire=1444687469&signature=70953728D20952D2E06C4964FBD97AE316742C8C.B29BF95EC20861BA7DBED11A81687108A5112ACC&mm=31&mn=sn-p5qlsnsr&itag=22&mt=1444665784&mv=m&cwbhb=yes&fexp=9408208%2C9408490%2C9408710%2C9409069%2C9414764%2C9415435%2C9416126%2C9417224%2C9417380%2C9417488%2C9417707%2C9418448%2C9418494%2C9419445%2C9419802%2C9420324%2C9420348%2C9420982%2C9421013%2C9421170%2C9422341%2C9422540&ms=au&sver=3&dur=298.105&requiressl=yes&ratebypass=yes&ipbits=0&mime=video%2Fmp4",
-      "container": "mp4",
-      "resolution": "720p",
-      "encoding": "H.264",
-      "profile": "high",
-      "bitrate": "2-3",
-      "audioEncoding": "aac",
-      "audioBitrate": 192
-    },
-    {
       "type": "video/mp4; codecs=\"avc1.64001F, mp4a.40.2\"",
       "url": "https://r4---sn-p5qlsnsr.googlevideo.com/videoplayback?nh=IgpwZjAxLmlhZDI2Kgw3Mi4xNC4yMDMuOTU&upn=utAH1aBebVk&source=youtube&sparams=cwbhb%2Cdur%2Cid%2Cinitcwndbps%2Cip%2Cipbits%2Citag%2Clmt%2Cmime%2Cmm%2Cmn%2Cms%2Cmv%2Cnh%2Cpl%2Cratebypass%2Crequiressl%2Csource%2Cupn%2Cexpire&initcwndbps=772500&pl=16&ip=74.64.48.144&lmt=1318867485938777&key=yt6&id=o-AJj1D_OYO_EieAH08Qa2tRsP6zid9dsuPAvktizyDRlv&expire=1444687469&signature=538352C69B529734D6F3F6AED1E2208C7222C56A.A16273DD55FA349FA89D47A320F236EF933BF423&mm=31&mn=sn-p5qlsnsr&itag=84&mt=1444665784&mv=m&cwbhb=yes&fexp=9408208%2C9408490%2C9408710%2C9409069%2C9414764%2C9415435%2C9416126%2C9417224%2C9417380%2C9417488%2C9417707%2C9418448%2C9418494%2C9419445%2C9419802%2C9420324%2C9420348%2C9420982%2C9421013%2C9421170%2C9422341%2C9422540&ms=au&sver=3&dur=298.098&requiressl=yes&ratebypass=yes&ipbits=0&mime=video%2Fmp4",
       "itag": "84",
@@ -182,6 +168,20 @@
       "resolution": "720p",
       "encoding": "H.264",
       "profile": "3d",
+      "bitrate": "2-3",
+      "audioEncoding": "aac",
+      "audioBitrate": 192
+    },
+    {
+      "fallback_host": "tc.v3.cache4.googlevideo.com",
+      "quality": "hd720",
+      "type": "video/mp4; codecs=\"avc1.64001F, mp4a.40.2\"",
+      "itag": "22",
+      "url": "https://r4---sn-p5qlsnsr.googlevideo.com/videoplayback?nh=IgpwZjAxLmlhZDI2Kgw3Mi4xNC4yMDMuOTU&upn=utAH1aBebVk&source=youtube&sparams=cwbhb%2Cdur%2Cid%2Cinitcwndbps%2Cip%2Cipbits%2Citag%2Clmt%2Cmime%2Cmm%2Cmn%2Cms%2Cmv%2Cnh%2Cpl%2Cratebypass%2Crequiressl%2Csource%2Cupn%2Cexpire&initcwndbps=772500&pl=16&ip=74.64.48.144&lmt=1309008330512241&key=yt6&id=o-AJj1D_OYO_EieAH08Qa2tRsP6zid9dsuPAvktizyDRlv&expire=1444687469&signature=70953728D20952D2E06C4964FBD97AE316742C8C.B29BF95EC20861BA7DBED11A81687108A5112ACC&mm=31&mn=sn-p5qlsnsr&itag=22&mt=1444665784&mv=m&cwbhb=yes&fexp=9408208%2C9408490%2C9408710%2C9409069%2C9414764%2C9415435%2C9416126%2C9417224%2C9417380%2C9417488%2C9417707%2C9418448%2C9418494%2C9419445%2C9419802%2C9420324%2C9420348%2C9420982%2C9421013%2C9421170%2C9422341%2C9422540&ms=au&sver=3&dur=298.105&requiressl=yes&ratebypass=yes&ipbits=0&mime=video%2Fmp4",
+      "container": "mp4",
+      "resolution": "720p",
+      "encoding": "H.264",
+      "profile": "high",
       "bitrate": "2-3",
       "audioEncoding": "aac",
       "audioBitrate": 192
@@ -201,6 +201,20 @@
       "audioBitrate": 128
     },
     {
+      "fallback_host": "tc.v10.cache4.googlevideo.com",
+      "quality": "medium",
+      "type": "video/mp4; codecs=\"avc1.42001E, mp4a.40.2\"",
+      "itag": "18",
+      "url": "https://r4---sn-p5qlsnsr.googlevideo.com/videoplayback?nh=IgpwZjAxLmlhZDI2Kgw3Mi4xNC4yMDMuOTU&upn=utAH1aBebVk&source=youtube&sparams=cwbhb%2Cdur%2Cid%2Cinitcwndbps%2Cip%2Cipbits%2Citag%2Clmt%2Cmime%2Cmm%2Cmn%2Cms%2Cmv%2Cnh%2Cpl%2Cratebypass%2Crequiressl%2Csource%2Cupn%2Cexpire&initcwndbps=772500&pl=16&ip=74.64.48.144&lmt=1309008261638446&key=yt6&id=o-AJj1D_OYO_EieAH08Qa2tRsP6zid9dsuPAvktizyDRlv&expire=1444687469&signature=24E336980584A80D8F6597D0A31A02AA2A2AE3C5.35C73B693E8EAAF47E0359B21D953982FC248E00&mm=31&mn=sn-p5qlsnsr&itag=18&mt=1444665784&mv=m&cwbhb=yes&fexp=9408208%2C9408490%2C9408710%2C9409069%2C9414764%2C9415435%2C9416126%2C9417224%2C9417380%2C9417488%2C9417707%2C9418448%2C9418494%2C9419445%2C9419802%2C9420324%2C9420348%2C9420982%2C9421013%2C9421170%2C9422341%2C9422540&ms=au&sver=3&dur=298.105&requiressl=yes&ratebypass=yes&ipbits=0&mime=video%2Fmp4",
+      "container": "mp4",
+      "resolution": "360p",
+      "encoding": "H.264",
+      "profile": "baseline",
+      "bitrate": "0.5",
+      "audioEncoding": "aac",
+      "audioBitrate": 96
+    },
+    {
       "type": "video/mp4; codecs=\"avc1.42001E, mp4a.40.2\"",
       "url": "https://r4---sn-p5qlsnsr.googlevideo.com/videoplayback?nh=IgpwZjAxLmlhZDI2Kgw3Mi4xNC4yMDMuOTU&upn=utAH1aBebVk&source=youtube&sparams=cwbhb%2Cdur%2Cid%2Cinitcwndbps%2Cip%2Cipbits%2Citag%2Clmt%2Cmime%2Cmm%2Cmn%2Cms%2Cmv%2Cnh%2Cpl%2Crequiressl%2Csource%2Cupn%2Cexpire&initcwndbps=772500&pl=16&ip=74.64.48.144&lmt=1318867446643154&key=yt6&id=o-AJj1D_OYO_EieAH08Qa2tRsP6zid9dsuPAvktizyDRlv&expire=1444687469&signature=18FC0CC5626164CFADF8F84DD66F722752EDCB7B.54E640557335ABCEC3EEE542C18EDCDB1907BAAB&mm=31&mn=sn-p5qlsnsr&itag=82&mt=1444665784&mv=m&cwbhb=yes&fexp=9408208%2C9408490%2C9408710%2C9409069%2C9414764%2C9415435%2C9416126%2C9417224%2C9417380%2C9417488%2C9417707%2C9418448%2C9418494%2C9419445%2C9419802%2C9420324%2C9420348%2C9420982%2C9421013%2C9421170%2C9422341%2C9422540&ms=au&sver=3&dur=298.098&requiressl=yes&ipbits=0&mime=video%2Fmp4&ratebypass=yes",
       "itag": "82",
@@ -211,20 +225,6 @@
       "resolution": "360p",
       "encoding": "H.264",
       "profile": "3d",
-      "bitrate": "0.5",
-      "audioEncoding": "aac",
-      "audioBitrate": 96
-    },
-    {
-      "fallback_host": "tc.v10.cache4.googlevideo.com",
-      "quality": "medium",
-      "type": "video/mp4; codecs=\"avc1.42001E, mp4a.40.2\"",
-      "itag": "18",
-      "url": "https://r4---sn-p5qlsnsr.googlevideo.com/videoplayback?nh=IgpwZjAxLmlhZDI2Kgw3Mi4xNC4yMDMuOTU&upn=utAH1aBebVk&source=youtube&sparams=cwbhb%2Cdur%2Cid%2Cinitcwndbps%2Cip%2Cipbits%2Citag%2Clmt%2Cmime%2Cmm%2Cmn%2Cms%2Cmv%2Cnh%2Cpl%2Cratebypass%2Crequiressl%2Csource%2Cupn%2Cexpire&initcwndbps=772500&pl=16&ip=74.64.48.144&lmt=1309008261638446&key=yt6&id=o-AJj1D_OYO_EieAH08Qa2tRsP6zid9dsuPAvktizyDRlv&expire=1444687469&signature=24E336980584A80D8F6597D0A31A02AA2A2AE3C5.35C73B693E8EAAF47E0359B21D953982FC248E00&mm=31&mn=sn-p5qlsnsr&itag=18&mt=1444665784&mv=m&cwbhb=yes&fexp=9408208%2C9408490%2C9408710%2C9409069%2C9414764%2C9415435%2C9416126%2C9417224%2C9417380%2C9417488%2C9417707%2C9418448%2C9418494%2C9419445%2C9419802%2C9420324%2C9420348%2C9420982%2C9421013%2C9421170%2C9422341%2C9422540&ms=au&sver=3&dur=298.105&requiressl=yes&ratebypass=yes&ipbits=0&mime=video%2Fmp4",
-      "container": "mp4",
-      "resolution": "360p",
-      "encoding": "H.264",
-      "profile": "baseline",
       "bitrate": "0.5",
       "audioEncoding": "aac",
       "audioBitrate": 96
