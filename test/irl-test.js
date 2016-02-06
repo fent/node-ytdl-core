@@ -1,7 +1,6 @@
-var assert  = require('assert');
-var https   = require('https');
-var nock    = require('nock');
-var ytdl    = require('..');
+var assert = require('assert');
+var nock   = require('nock');
+var ytdl   = require('..');
 
 
 var videos = {
