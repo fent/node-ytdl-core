@@ -253,3 +253,41 @@ describe('util.getVideoDescription()', function() {
       '2  Second Song  5:42');
   });
 });
+
+
+describe('util.parallel()', function() {
+  describe('Multiple asynchronous functions', function() {
+    it('Calls callback with results', function(done) {
+      var funcs = [];
+      for (var i = 0; i < 5; i++) {
+        funcs.push(function(i, callback) {
+          setTimeout(function() {
+            callback(null, i);
+          }, ~~(Math.random() * 50));
+        }.bind(null, i));
+      }
+      util.parallel(funcs, function(err, results) {
+        assert.ok(!err);
+        for (var i = 0, len = results.length; i < len; i++) {
+          assert.equal(results[i], i);
+        }
+        done();
+      });
+    });
+  });
+  
+  describe('Zero functions', function() {
+    it('Still calls callback', function(done) {
+      util.parallel([], done);
+    });
+  });
+
+  describe('Functions call callback twice', function() {
+    it('Only calls final callback once', function(done) {
+      util.parallel([
+        function(callback) { setTimeout(callback, 10); },
+        function(callback) { setTimeout(callback, 10); }
+      ], done);
+    });
+  });
+});

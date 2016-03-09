@@ -2,8 +2,7 @@ var assert = require('assert-diff');
 var nock   = require('./nock');
 var ytdl   = require('..');
 
-var VIDEO_PATH = '/watch?v=';
-var VIDEO_BASE = 'https://www.youtube.com' + VIDEO_PATH;
+var VIDEO_BASE = 'https://www.youtube.com/watch?v=';
 
 
 describe('ytdl.getInfo()', function() {
@@ -13,28 +12,18 @@ describe('ytdl.getInfo()', function() {
     var expectedInfo = require('./files/' + id + '/info.json');
 
     it('Retrieves correct metainfo', function(done) {
-      var scope = nock(id, {
+      nock(id, {
         dashmpd: true,
+        dashmpd2: [true, 403],
         player: 'new-en_US-vflIUNjzZ',
+        get_video_info: true,
       });
 
       ytdl.getInfo(url, function(err, info) {
-        scope.done();
         if (err) return done(err);
-        assert.deepEqual(info, expectedInfo);
+        assert.ok(info.description.length);
+        assert.equal(info.formats.length, expectedInfo.formats.length);
         done();
-      });
-    });
-
-    describe('hit the same video twice', function() {
-      it('Gets html5player tokens from cache', function(done) {
-        var scope = nock(id, { dashmpd: true });
-        ytdl.getInfo(url, function(err, info) {
-          scope.done();
-          if (err) return done(err);
-          assert.ok(info);
-          done();
-        });
       });
     });
 
@@ -42,8 +31,9 @@ describe('ytdl.getInfo()', function() {
       it('Retrives video file', function(done) {
         var stream = ytdl.downloadFromInfo(expectedInfo);
         stream.on('info', function(info, format) {
-          nock.url(format.url)
+          var scope = nock.url(format.url)
             .reply(200);
+          after(scope.done);
         });
         stream.resume();
         stream.on('error', done);
@@ -57,9 +47,8 @@ describe('ytdl.getInfo()', function() {
     var url = VIDEO_BASE + id;
 
     it('Should give an error', function(done) {
-      var scope = nock(id);
+      nock(id, { get_video_info: true });
       ytdl.getInfo(url, function(err) {
-        scope.done();
         assert.ok(err);
         assert.equal(err.message, 'Video not found');
         done();
@@ -73,13 +62,12 @@ describe('ytdl.getInfo()', function() {
     var expectedInfo = require('./files/' + id + '/info.json');
 
     it('Returns correct video metainfo', function(done) {
-      var scope = nock(id, {
+      nock(id, {
         dashmpd: true,
         embed: true,
         get_video_info: true,
       });
       ytdl.getInfo(url, function(err, info) {
-        scope.done();
         if (err) return done(err);
         assert.deepEqual(info, expectedInfo);
         done();

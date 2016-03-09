@@ -13,7 +13,7 @@ var videos = {
 
 describe('Try downloading videos without mocking', function() {
   before(function() {
-    nock.restore();
+    nock.cleanAll();
     ytdl.cache = null;
   });
 
