@@ -12,13 +12,24 @@ describe('Get tokens', function() {
   var url = '//s.ytimg.com/yts/jsbin/player-en_US-vfljDEtYP/base.js';
 
   it('Returns a set of tokens', function(done) {
-    var filepath = path.resolve(
-      __dirname, 'files/html5player/' + key + '.js');
-    nock.url('http:' + url).replyWithFile(200, filepath);
+    var filepath = path.resolve(__dirname, 'files/html5player/' + key + '.js');
+    var scope = nock.url('http:' + url).replyWithFile(200, filepath);
+    after(scope.done);
     sig.getTokens(url, true, function(err, tokens) {
       if (err) return done(err);
       assert.ok(tokens.length);
       done();
+    });
+  });
+
+  describe('hit the same video twice', function() {
+    it('Gets html5player tokens from cache', function(done) {
+      nock.disableNetConnect();
+      sig.getTokens(url, true, function(err, tokens) {
+        if (err) return done(err);
+        assert.ok(tokens.length);
+        done();
+      });
     });
   });
 });

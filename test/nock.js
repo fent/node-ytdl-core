@@ -25,6 +25,14 @@ module.exports = function(id, opts) {
         path.resolve(__dirname, 'files/' + id + '/dashmpd.xml')));
   }
 
+  if (opts.dashmpd2) {
+    scopes.push(nock(MANIFEST_HOST)
+      .filteringPath(function() { return '/api/manifest/dash/'; })
+      .get('/api/manifest/dash/')
+      .replyWithFile(opts.dashmpd2[1] || 200,
+        path.resolve(__dirname, 'files/' + id + '/dashmpd2.xml')));
+  }
+
   if (opts.player) {
     scopes.push(nock('http://s.ytimg.com')
       .get('/yts/jsbin/html5player-' + opts.player +
@@ -53,13 +61,11 @@ module.exports = function(id, opts) {
         path.resolve(__dirname, 'files/' + id + '/get_video_info')));
   }
 
-  return {
-    done: function() {
-      scopes.forEach(function(scope) {
-        scope.done();
-      });
-    }
-  };
+  after(function() {
+    scopes.forEach(function(scope) {
+      scope.done();
+    });
+  });
 };
 
 
@@ -67,4 +73,12 @@ module.exports.url = function(uri) {
   var parsed = url.parse(uri);
   return nock(parsed.protocol + '//' + parsed.host)
     .get(parsed.path);
+};
+
+
+module.exports.disableNetConnect = function() {
+  nock.disableNetConnect();
+  after(function() {
+    nock.enableNetConnect();
+  });
 };

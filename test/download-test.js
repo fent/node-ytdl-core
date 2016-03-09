@@ -15,21 +15,23 @@ describe('Download video', function() {
   var filter = function(format) { return format.container === 'mp4'; };
 
   it('Should be pipeable and data equal to stored file', function(done) {
-    var scope1 = nock(id, { dashmpd: true });
+    nock(id, {
+      dashmpd: true,
+      dashmpd2: true,
+      get_video_info: true,
+    });
     var stream = ytdl(link, { filter: filter });
 
     var infoEmitted = false;
-    var scope2;
     stream.on('info', function(info, format) {
       infoEmitted = true;
-      scope2 = nock.url(format.url)
+      var scope = nock.url(format.url)
         .replyWithFile(200, video);
+      after(scope.done);
     });
 
     var filestream = fs.createReadStream(video);
     streamEqual(filestream, stream, function(err, equal) {
-      scope1.done();
-      scope2.done();
       if (err) return done(err);
 
       assert.ok(infoEmitted);
@@ -45,24 +47,27 @@ describe('Download video', function() {
       var video = path.resolve(__dirname, 'files/' + id + '/video.flv');
       var filter = function(format) { return format.container === 'mp4'; };
 
-      var scope1 = nock(id, { dashmpd: true });
+      nock(id, {
+        dashmpd: true,
+        dashmpd2: true,
+        get_video_info: true,
+      });
       var stream = ytdl(link, { filter: filter });
 
-      var scope2, scope3;
       stream.on('info', function(info, format) {
-        scope2 = nock.url(format.url)
+        var scope1 = nock.url(format.url)
           .reply(302, '', { Location: 'http://somehost.com/somefile.mp4' });
-        scope3 = nock.url('http://somehost.com/somefile.mp4')
+        var scope2 = nock.url('http://somehost.com/somefile.mp4')
           .replyWithFile(200, video);
+        after(function() {
+          scope1.done();
+          scope2.done();
+        });
       });
 
       var filestream = fs.createReadStream(video);
       streamEqual(filestream, stream, function(err, equal) {
-        scope1.done();
-        scope2.done();
-        scope3.done();
         if (err) return done(err);
-
         assert.ok(equal);
         done();
       });
