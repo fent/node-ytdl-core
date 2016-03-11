@@ -83,9 +83,5 @@ module.exports.url = function(uri) {
 };
 
 
-module.exports.disableNetConnect = function() {
-  nock.disableNetConnect();
-  after(function() {
-    nock.enableNetConnect();
-  });
-};
+module.exports.disableNetConnect = nock.disableNetConnect;
+module.exports.enableNetConnect = nock.enableNetConnect;
