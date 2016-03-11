@@ -90,8 +90,8 @@ describe('Download video', function() {
       });
     });
 
-    describe('after download has started', function(done) {
-      it('Download is incomplete', function() {
+    describe('after download has started', function() {
+      it('Download is incomplete', function(done) {
         var scope = nock(id, {
           dashmpd: true,
           dashmpd2: true,
@@ -110,13 +110,7 @@ describe('Download video', function() {
           });
         });
 
-        var filestream = fs.createReadStream(video);
-        streamEqual(filestream, stream, function(err, equal) {
-          if (err) return done(err);
-          scope.done();
-          assert.ok(!equal);
-          done();
-        });
+        stream.on('abort', done);
       });
     });
   });
