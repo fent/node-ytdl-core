@@ -81,7 +81,7 @@ describe('Download video', function() {
         stream.destroy();
 
         stream.on('response', function() {
-          throw new Error('Should not emit `response`');
+          done(new Error('Should not emit `response`'));
         });
         stream.on('info', function() {
           scope.done();
@@ -106,7 +106,7 @@ describe('Download video', function() {
         stream.on('response', function(res) {
           stream.destroy();
           res.on('data', function() {
-            throw new Error('Should not emit `data`');
+            done(new Error('Should not emit `data`'));
           });
         });
 
