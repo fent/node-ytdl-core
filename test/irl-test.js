@@ -12,7 +12,7 @@ var videos = {
 
 
 describe('Try downloading videos without mocking', function() {
-  before(function() {
+  beforeEach(function() {
     nock.cleanAll();
     ytdl.cache = null;
   });

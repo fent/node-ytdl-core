@@ -12,7 +12,7 @@ describe('ytdl.getInfo()', function() {
     var expectedInfo = require('./files/' + id + '/info.json');
 
     it('Retrieves correct metainfo', function(done) {
-      nock(id, {
+      var scope = nock(id, {
         dashmpd: true,
         dashmpd2: [true, 403],
         player: 'new-en_US-vflIUNjzZ',
@@ -21,6 +21,7 @@ describe('ytdl.getInfo()', function() {
 
       ytdl.getInfo(url, function(err, info) {
         if (err) return done(err);
+        scope.done();
         assert.ok(info.description.length);
         assert.equal(info.formats.length, expectedInfo.formats.length);
         done();
@@ -30,14 +31,17 @@ describe('ytdl.getInfo()', function() {
     describe('use `ytdl.downloadFromInfo()`', function() {
       it('Retrives video file', function(done) {
         var stream = ytdl.downloadFromInfo(expectedInfo);
+        var scope;
         stream.on('info', function(info, format) {
-          var scope = nock.url(format.url)
+          scope = nock.url(format.url)
             .reply(200);
-          after(scope.done);
         });
         stream.resume();
         stream.on('error', done);
-        stream.on('end', done);
+        stream.on('end', function() {
+          scope.done();
+          done();
+        });
       });
     });
   });
@@ -47,9 +51,10 @@ describe('ytdl.getInfo()', function() {
     var url = VIDEO_BASE + id;
 
     it('Should give an error', function(done) {
-      nock(id, { get_video_info: true });
+      var scope = nock(id, { get_video_info: true });
       ytdl.getInfo(url, function(err) {
         assert.ok(err);
+        scope.done();
         assert.equal(err.message, 'Video not found');
         done();
       });
@@ -62,13 +67,14 @@ describe('ytdl.getInfo()', function() {
     var expectedInfo = require('./files/' + id + '/info.json');
 
     it('Returns correct video metainfo', function(done) {
-      nock(id, {
+      var scope = nock(id, {
         dashmpd: true,
         embed: true,
         get_video_info: true,
       });
       ytdl.getInfo(url, function(err, info) {
         if (err) return done(err);
+        scope.done();
         assert.deepEqual(info, expectedInfo);
         done();
       });

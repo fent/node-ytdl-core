@@ -61,18 +61,25 @@ module.exports = function(id, opts) {
         path.resolve(__dirname, 'files/' + id + '/get_video_info')));
   }
 
-  after(function() {
-    scopes.forEach(function(scope) {
-      scope.done();
-    });
-  });
+  return {
+    done: function() {
+      scopes.forEach(function(scope) {
+        scope.done();
+      });
+    },
+    urlReply: function(uri, statusCode, body, headers) {
+      scopes.push(module.exports.url(uri).reply(statusCode, body, headers));
+    },
+    urlReplyWithFile: function(uri, statusCode, file) {
+      scopes.push(module.exports.url(uri).replyWithFile(statusCode, file));
+    },
+  };
 };
 
 
 module.exports.url = function(uri) {
   var parsed = url.parse(uri);
-  return nock(parsed.protocol + '//' + parsed.host)
-    .get(parsed.path);
+  return nock(parsed.protocol + '//' + parsed.host).get(parsed.path);
 };
 
 
