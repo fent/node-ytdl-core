@@ -15,7 +15,7 @@ describe('Download video', function() {
   var filter = function(format) { return format.container === 'mp4'; };
 
   it('Should be pipeable and data equal to stored file', function(done) {
-    nock(id, {
+    var scope = nock(id, {
       dashmpd: true,
       dashmpd2: true,
       get_video_info: true,
@@ -25,15 +25,13 @@ describe('Download video', function() {
     var infoEmitted = false;
     stream.on('info', function(info, format) {
       infoEmitted = true;
-      var scope = nock.url(format.url)
-        .replyWithFile(200, video);
-      after(scope.done);
+      scope.urlReplyWithFile(format.url, 200, video);
     });
 
     var filestream = fs.createReadStream(video);
     streamEqual(filestream, stream, function(err, equal) {
       if (err) return done(err);
-
+      scope.done();
       assert.ok(infoEmitted);
       assert.ok(equal);
       done();
@@ -47,7 +45,7 @@ describe('Download video', function() {
       var video = path.resolve(__dirname, 'files/' + id + '/video.flv');
       var filter = function(format) { return format.container === 'mp4'; };
 
-      nock(id, {
+      var scope = nock(id, {
         dashmpd: true,
         dashmpd2: true,
         get_video_info: true,
@@ -55,21 +53,70 @@ describe('Download video', function() {
       var stream = ytdl(link, { filter: filter });
 
       stream.on('info', function(info, format) {
-        var scope1 = nock.url(format.url)
-          .reply(302, '', { Location: 'http://somehost.com/somefile.mp4' });
-        var scope2 = nock.url('http://somehost.com/somefile.mp4')
-          .replyWithFile(200, video);
-        after(function() {
-          scope1.done();
-          scope2.done();
+        scope.urlReply(format.url, 302, '', {
+          Location: 'http://somehost.com/somefile.mp4'
         });
+        scope.urlReplyWithFile('http://somehost.com/somefile.mp4', 200, video);
       });
 
       var filestream = fs.createReadStream(video);
       streamEqual(filestream, stream, function(err, equal) {
         if (err) return done(err);
+        scope.done();
         assert.ok(equal);
         done();
+      });
+    });
+  });
+
+  describe('destroy stream', function() {
+    describe('immediately', function() {
+      it('Doesn\'t start the download', function(done) {
+        var scope = nock(id, {
+          dashmpd: true,
+          dashmpd2: true,
+          get_video_info: true,
+        });
+        var stream = ytdl(link, { filter: filter });
+        stream.destroy();
+
+        stream.on('response', function() {
+          throw new Error('Should not emit `response`');
+        });
+        stream.on('info', function() {
+          scope.done();
+          done();
+        });
+      });
+    });
+
+    describe('after download has started', function(done) {
+      it('Download is incomplete', function() {
+        var scope = nock(id, {
+          dashmpd: true,
+          dashmpd2: true,
+          get_video_info: true,
+        });
+        var stream = ytdl(link, { filter: filter });
+
+        stream.on('info', function(info, format) {
+          scope.urlReplyWithFile(format.url, 200, video);
+        });
+
+        stream.on('response', function(res) {
+          stream.destroy();
+          res.on('data', function() {
+            throw new Error('Should not emit `data`');
+          });
+        });
+
+        var filestream = fs.createReadStream(video);
+        streamEqual(filestream, stream, function(err, equal) {
+          if (err) return done(err);
+          scope.done();
+          assert.ok(!equal);
+          done();
+        });
       });
     });
   });

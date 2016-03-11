@@ -33,8 +33,6 @@ ytdl(url, { filter: function(format) { return format.container === 'mp4'; } })
   .pipe(fs.createWriteStream('vide.mp4'));
 ```
 
-The returned readable stream emits these additional events.
-
 #### Event: 'info'
 * `Object` - Info.
 * `Object` - Format.
@@ -47,6 +45,10 @@ Info and format may look like [this](https://gist.github.com/fent/6c8251132e1add
 * `http.ServerResponse` - Response.
 
 Emitted when the video response has been found, and has started downloading. Can be used to get the size of download. This is also emitted if there is an error with the download.
+
+### Stream#destroy()
+
+Destroys the underlying connection.
 
 ### ytdl.getInfo(url, [options], callback(err, info))
 
