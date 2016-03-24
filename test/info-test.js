@@ -75,7 +75,7 @@ describe('ytdl.getInfo()', function() {
       ytdl.getInfo(url, function(err, info) {
         if (err) return done(err);
         scope.done();
-        assert.deepEqual(info, expectedInfo);
+        assert.equal(info.formats.length, expectedInfo.formats.length);
         done();
       });
     });
