@@ -17,7 +17,7 @@ describe('Try downloading videos without mocking', function() {
     ytdl.cache = null;
   });
 
-  for (var desc in videos) {
+  Object.keys(videos).forEach(function(desc) {
     var video = videos[desc];
     describe(desc, function() {
       it('Request status code is not 403 Forbidden', function(done) {
@@ -29,5 +29,5 @@ describe('Try downloading videos without mocking', function() {
         });
       });
     });
-  }
+  });
 });
