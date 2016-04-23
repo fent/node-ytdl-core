@@ -35,10 +35,10 @@ module.exports = function(id, opts) {
 
   if (opts.player) {
     scopes.push(nock('http://s.ytimg.com', { reqheaders: opts.headers })
-      .get('/yts/jsbin/html5player-' + opts.player +
-        (opts.player.indexOf('new-') > -1 ? '/html5player-new.js' : '.js'))
+      .get('/yts/jsbin/' + opts.player + '/' +
+        (opts.player.indexOf('new-') > -1 ? 'html5player-new.js' : 'base.js'))
       .replyWithFile(200,
-        path.resolve(__dirname, 'files/html5player/' + opts.player + '.js')));
+        path.resolve(__dirname, 'files/' + id + '/' + opts.player + '.js')));
   }
 
   if (opts.embed) {

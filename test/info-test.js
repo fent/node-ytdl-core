@@ -15,7 +15,7 @@ describe('ytdl.getInfo()', function() {
       var scope = nock(id, {
         dashmpd: true,
         dashmpd2: [true, 403],
-        player: 'new-en_US-vflIUNjzZ',
+        player: 'html5player-new-en_US-vflIUNjzZ',
         get_video_info: true,
       });
 
@@ -113,6 +113,7 @@ describe('ytdl.getInfo()', function() {
       var scope = nock(id, {
         dashmpd: true,
         embed: true,
+        player: 'player-en_US-vflQ6YtHH',
         get_video_info: true,
       });
       ytdl.getInfo(url, function(err, info) {
