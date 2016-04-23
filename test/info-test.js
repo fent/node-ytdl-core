@@ -44,6 +44,31 @@ describe('ytdl.getInfo()', function() {
         });
       });
     });
+
+    describe('Using a custom request function', function() {
+      it('Calls that function instead', function(done) {
+        var scope = nock(id, {
+          dashmpd: true,
+          dashmpd2: [true, 403],
+          get_video_info: true,
+        });
+
+        var originalRequest = require('../lib/request');
+        var called = 0;
+        ytdl.getInfo(url, {
+          request: function(url, callback) {
+            called++;
+            return originalRequest(url, callback);
+          }
+        }, function(err, info) {
+          if (err) return done(err);
+          scope.done();
+          assert.equal(called, 4);
+          assert.ok(info.description.length);
+          done();
+        });
+      });
+    });
   });
 
   describe('from a non-existant video', function() {
