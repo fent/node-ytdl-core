@@ -291,3 +291,13 @@ describe('util.parallel()', function() {
     });
   });
 });
+
+
+describe('util.assignDeep()', function() {
+  it('Merges object into another', function() {
+    var target = { headers: { one: 1, two: 2 }, my: 'mine' };
+    var source = { headers: { one: 100 } };
+    util.assignDeep(target, source);
+    assert.deepEqual(target, { headers: { one: 100, two: 2 }, my: 'mine' });
+  });
+});
