@@ -5,12 +5,14 @@ var ffmpeg = require('fluent-ffmpeg');
 
 var url = 'https://www.youtube.com/watch?v=TGbwL8kSpEk';
 var audioOutput = path.resolve(__dirname, 'sound.mp4');
-ytdl(url, { quality: 141 })
+ytdl(url, { filter: function(f) {
+  return f.container === 'mp4' && !f.encoding; } })
   // Write audio to file since ffmpeg supports only one input stream.
   .pipe(fs.createWriteStream(audioOutput))
   .on('finish', function() {
     ffmpeg()
-      .input(ytdl(url, { quality: 136 }))
+    .input(ytdl(url, { filter: function(f) {
+      return f.container === 'mp4' && !f.audioEncoding; } }))
       .videoCodec('copy')
       .input(audioOutput)
       .audioCodec('copy')
