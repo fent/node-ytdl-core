@@ -56,15 +56,33 @@ describe('ytdl.getInfo()', function() {
         var originalRequest = require('../lib/request');
         var called = 0;
         ytdl.getInfo(url, {
-          request: function(url, callback) {
+          request: function(url, options, callback) {
             called++;
-            return originalRequest(url, callback);
+            return originalRequest(url, options, callback);
           }
-        }, function(err, info) {
+        }, function(err) {
           if (err) return done(err);
           scope.done();
           assert.equal(called, 4);
-          assert.ok(info.description.length);
+          done();
+        });
+      });
+    });
+
+    describe('Pass request options', function() {
+      it('Request gets called with more headers', function(done) {
+        var scope = nock(id, {
+          dashmpd: true,
+          dashmpd2: [true, 403],
+          get_video_info: true,
+          headers: { 'X-Hello': /^42$/ }
+        });
+
+        ytdl.getInfo(url, {
+          requestOptions: { headers: { 'X-Hello': '42' }}
+        }, function(err) {
+          if (err) return done(err);
+          scope.done();
           done();
         });
       });

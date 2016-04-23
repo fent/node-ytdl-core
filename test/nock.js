@@ -5,20 +5,20 @@ var nock = require('nock');
 var YT_HOST       = 'https://www.youtube.com';
 var VIDEO_PATH    = '/watch?v=';
 var MANIFEST_HOST = 'https://manifest.googlevideo.com';
-var EMBED_PATH = '/embed/';
-var INFO_PATH = '/get_video_info?';
+var EMBED_PATH    = '/embed/';
+var INFO_PATH     = '/get_video_info?';
 
 
 module.exports = function(id, opts) {
   opts = opts || {};
   var scopes = [];
-  scopes.push(nock(YT_HOST)
+  scopes.push(nock(YT_HOST, { reqheaders: opts.headers })
     .get(VIDEO_PATH + id)
     .replyWithFile(200,
       path.resolve(__dirname, 'files/' + id + '/watch.html')));
 
   if (opts.dashmpd) {
-    scopes.push(nock(MANIFEST_HOST)
+    scopes.push(nock(MANIFEST_HOST, { reqheaders: opts.headers })
       .filteringPath(function() { return '/api/manifest/dash/'; })
       .get('/api/manifest/dash/')
       .replyWithFile(200,
@@ -26,7 +26,7 @@ module.exports = function(id, opts) {
   }
 
   if (opts.dashmpd2) {
-    scopes.push(nock(MANIFEST_HOST)
+    scopes.push(nock(MANIFEST_HOST, { reqheaders: opts.headers })
       .filteringPath(function() { return '/api/manifest/dash/'; })
       .get('/api/manifest/dash/')
       .replyWithFile(opts.dashmpd2[1] || 200,
@@ -34,7 +34,7 @@ module.exports = function(id, opts) {
   }
 
   if (opts.player) {
-    scopes.push(nock('http://s.ytimg.com')
+    scopes.push(nock('http://s.ytimg.com', { reqheaders: opts.headers })
       .get('/yts/jsbin/html5player-' + opts.player +
         (opts.player.indexOf('new-') > -1 ? '/html5player-new.js' : '.js'))
       .replyWithFile(200,
@@ -42,14 +42,14 @@ module.exports = function(id, opts) {
   }
 
   if (opts.embed) {
-    scopes.push(nock(YT_HOST)
+    scopes.push(nock(YT_HOST, { reqheaders: opts.headers })
       .get(EMBED_PATH + id)
       .replyWithFile(200,
         path.resolve(__dirname, 'files/' + id + '/embed.html')));
   }
 
   if (opts.get_video_info) {
-    scopes.push(nock(YT_HOST)
+    scopes.push(nock(YT_HOST, { reqheaders: opts.headers })
       .filteringPath(function(path) {
         var regexp = /\?video_id=([a-zA-Z0-9_-]+)&(.+)$/;
         return path.replace(regexp, function(_, r) {
