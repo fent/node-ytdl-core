@@ -338,6 +338,17 @@
       "audioEncoding": "aac",
       "audioBitrate": 128
     },
+    { 
+      "itag": "141",
+      "container": "mp4",
+      "resolution": null,
+      "encoding": null,
+      "profile": null,
+      "bitrate": null,
+      "audioEncoding": "aac",
+      "audioBitrate": 256,
+      "url": "https://r18---sn-nwj7kned.googlevideo.com/videoplayback?id=a49934a7ef7c5f37&itag=141&source=youtube&requiressl=yes&mv=m&ms=au&mm=31&mn=sn-nwj7kned&gcr=us&pl=16&ratebypass=yes&mime=audio/mp4&gir=yes&clen=9173689&lmt=1432262080445863&dur=287.718&key=dg_yt0&fexp=9405994,9407116,9408510,9408710,9409069,9414764,9415555,9415820,9415865,9416126,9417206,9417581,9417707,9418182,9418400,9418448,9418703,9418907,9420348,9421013,9421801&signature=608EFAE5A168AA25F5A3DAEC682007482EC45C09.83938D534181D6009147A14FD44CB7646CBA7EE0&mt=1444660129&upn=lboMkvNvAVI&sver=3&ip=74.64.48.144&ipbits=0&expire=1444681889&sparams=ip,ipbits,expire,id,itag,source,requiressl,mv,ms,mm,mn,gcr,pl,ratebypass,mime,gir,clen,lmt,dur"
+    },
     {
       "quality_label": "144p",
       "bitrate": "0.1",
