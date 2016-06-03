@@ -403,6 +403,16 @@
       "audioEncoding": "aac",
       "audioBitrate": 128
     },
+    { "itag": "141",
+      "container": "mp4",
+      "resolution": null,
+      "encoding": null,
+      "profile": null,
+      "bitrate": null,
+      "audioEncoding": "aac",
+      "audioBitrate": 256,
+      "url": "https://r4---sn-p5qlsnsr.googlevideo.com/videoplayback?id=ac8a82889296c7d2&itag=141&source=youtube&requiressl=yes&nh=IgpwZjAxLmlhZDI2Kgw3Mi4xNC4yMDMuOTU&pl=16&mm=31&mn=sn-p5qlsnsr&mv=m&ms=au&ratebypass=yes&mime=audio/mp4&gir=yes&clen=9508299&lmt=1381098074163232&dur=298.213&upn=Dbo8PINBRNw&key=dg_yt0&signature=310D6B2BA868FA3A555AA534D20560F8FC5E82CD.997B4B4B096B454A1CBAC4BC917509AC41637A25&mt=1444665784&fexp=9408208,9408490,9408710,9409069,9414764,9415435,9416126,9417224,9417380,9417488,9417707,9418448,9418494,9419445,9419802,9420324,9420348,9420982,9421013,9421170,9422341,9422540&sver=3&ip=74.64.48.144&ipbits=0&expire=1444687469&sparams=ip,ipbits,expire,id,itag,source,requiressl,nh,pl,mm,mn,mv,ms,ratebypass,mime,gir,clen,lmt,dur"
+    },
     {
       "quality_label": "144p",
       "type": "video/mp4; codecs=\"avc1.42c00c\"",
