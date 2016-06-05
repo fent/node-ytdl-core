@@ -3,7 +3,7 @@ var http = require('http');
 var ytdl = require('..');
 
 var stream = ytdl('https://www.youtube.com/watch?v=2UBFIhS1YBk', {
-  request: function(url, callback) {
+  request: function(url, options, callback) {
     var parsed = urlParse(url);
     return http.get({
       host: '127.0.0.1',
