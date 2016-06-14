@@ -13,6 +13,7 @@
   },
   "author": "Roly Fentanes (https://github.com/fent)",
   "main": "./lib/index.js",
+  "typings": "./lib/index.d.ts",
   "scripts": {
     "test": "mocha -t 16000 test/*-test.js"
   },
@@ -24,7 +25,8 @@
     "assert-diff": "^1.0.1",
     "mocha": "*",
     "nock": "*",
-    "stream-equal": "~0.1.0"
+    "stream-equal": "~0.1.0",
+    "typings": "^1.1.0"
   },
   "licenses": [
     {
