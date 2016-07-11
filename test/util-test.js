@@ -226,6 +226,10 @@ describe('util.getVideoID()', function() {
     assert(id, 'VIDEO_ID');
     id = util.getVideoID('http://youtu.be/VIDEO_ID');
     assert(id, 'VIDEO_ID');
+    id = util.getVideoID('http://youtube.com/v/VIDEO_ID');
+    assert(id, 'VIDEO_ID');
+    id = util.getVideoID('http://youtube.com/embed/VIDEO_ID');
+    assert(id, 'VIDEO_ID');
   });
 });
 
