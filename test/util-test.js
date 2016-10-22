@@ -230,6 +230,8 @@ describe('util.getVideoID()', function() {
     assert(id, 'VIDEO_ID');
     id = util.getVideoID('http://youtube.com/embed/VIDEO_ID');
     assert(id, 'VIDEO_ID');
+    id = util.getVideoID('RAW_VIDEOID'); // Video ids are 11-character long
+    assert(id, 'RAW_VIDEOID');
   });
 });
 
