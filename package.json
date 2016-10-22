@@ -6,7 +6,7 @@
     "video",
     "download"
   ],
-  "version": "0.7.18",
+  "version": "0.7.19",
   "repository": {
     "type": "git",
     "url": "git://github.com/fent/node-ytdl-core.git"
