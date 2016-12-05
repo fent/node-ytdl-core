@@ -1,5 +1,6 @@
 var util   = require('../lib/util');
 var assert = require('assert-diff');
+var spy    = require('sinon').spy;
 var fs     = require('fs');
 var path   = require('path');
 
@@ -30,6 +31,7 @@ var formats = [
     resolution    : '240p',
     encoding      : 'H.264',
     bitrate       : '0.15-0.3',
+    rtmp          : true,
     audioEncoding : null,
     audioBitrate  : null },
   { itag          : '36',
@@ -77,6 +79,24 @@ var formats = [
     bitrate       : null,
     audioEncoding : 'aac',
     audioBitrate  : 128 },
+  { itag          : '139',
+    type          : 'audio/mp4; codecs="mp4a.40.2"',
+    quality       : null,
+    container     : 'mp4',
+    resolution    : null,
+    enoding       : null,
+    bitrate       : null,
+    audioEncoding : null,
+    audioBitrate  : null },
+  { itag          : '138',
+    type          : 'audio/mp4; codecs="mp4a.40.2"',
+    quality       : null,
+    container     : 'mp4',
+    resolution    : null,
+    enoding       : null,
+    bitrate       : null,
+    audioEncoding : null,
+    audioBitrate  : null },
 ];
 var getItags = function(format) { return format.itag; };
 
@@ -98,13 +118,13 @@ describe('util.parseTime()', function() {
 
 
 describe('util.sortFormats()', function() {
-  describe('with `highest` given', function() {
+  describe('With `highest` given', function() {
     it('Sorts available formats from highest to lowest quality', function() {
       var sortedFormats = formats.slice();
       sortedFormats.sort(util.sortFormats);
       var itags = sortedFormats.map(getItags);
       assert.deepEqual(itags, [
-        '43', '18', '5', '36', '17', '133', '160', '140'
+        '43', '18', '5', '36', '17', '133', '160', '140', '139', '138'
       ]);
     });
   });
@@ -115,21 +135,21 @@ describe('util.chooseFormat', function() {
   var sortedFormats = formats.slice();
   sortedFormats.sort(util.sortFormats);
 
-  describe('with no options', function() {
+  describe('With no options', function() {
     it('Chooses highest quality', function() {
       var format = util.chooseFormat(sortedFormats, {});
       assert.equal(format.itag, '43');
     });
   });
 
-  describe('with lowest quality wanted', function() {
+  describe('With lowest quality wanted', function() {
     it('Chooses lowest itag', function() {
       var format = util.chooseFormat(sortedFormats, { quality: 'lowest' });
-      assert.equal(format.itag, '140');
+      assert.equal(format.itag, '138');
     });
   });
 
-  describe('with itag given', function() {
+  describe('With itag given', function() {
     it('Chooses matching format', function() {
       var format = util.chooseFormat(sortedFormats, { quality: 5 });
       assert.equal(format.itag, '5');
@@ -143,10 +163,42 @@ describe('util.chooseFormat', function() {
     });
   });
 
-  describe('with list of itags given', function() {
+  describe('With list of itags given', function() {
     it('Chooses matching format', function() {
       var format = util.chooseFormat(sortedFormats, { quality: [99, 160, 18] });
       assert.equal(format.itag, '160');
+    });
+  });
+
+  describe('With format object given', function() {
+    it('Chooses given format without searching', function() {
+      var format = util.chooseFormat(sortedFormats, { format: formats[0] });
+      assert.equal(format, formats[0]);
+    });
+  });
+
+  describe('With filter given', function() {
+    describe('that matches a format', function() {
+      it('Chooses a format', function() {
+        var format = util.chooseFormat(sortedFormats, {
+          filter: function(format) { return format.container === 'mp4'; }
+        });
+        assert.equal(format.itag, '18');
+      });
+    });
+
+    describe('that does not match a format', function() {
+      it('Returns an error', function() {
+        var err = util.chooseFormat(sortedFormats, { filter: function() {} });
+        assert.equal(err.message, 'No formats found with custom filter');
+      });
+    });
+  });
+
+  describe('Get an rtmp format (not supported)', function() {
+    it('Returns an error', function() {
+      var err = util.chooseFormat(sortedFormats, { quality: 133 });
+      assert.equal(err.message, 'rtmp protocol not supported');
     });
   });
 });
@@ -156,38 +208,38 @@ describe('util.filterFormats', function() {
   it('Tries to find formats that match', function() {
     var filter = function(format) { return format.container === 'mp4'; };
     var itags = util.filterFormats(formats, filter).map(getItags);
-    assert.deepEqual(itags, ['18', '133', '160', '140']);
+    assert.deepEqual(itags, ['18', '133', '160', '140', '139', '138']);
   });
 
-  describe('that doesn\'t match any format', function() {
+  describe('That doesn\'t match any format', function() {
     it('Returns an empty list', function() {
       var list = util.filterFormats(formats, function() { return false; });
       assert.equal(list.length, 0);
     });
   });
 
-  describe('with `video` given', function() {
+  describe('With `video` given', function() {
     it('Returns only matching formats', function() {
       var itags = util.filterFormats(formats, 'video').map(getItags);
       assert.deepEqual(itags, ['18', '43', '133', '36', '5', '160', '17']);
     });
   });
 
-  describe('with `videoonly` given', function() {
+  describe('With `videoonly` given', function() {
     it('Returns only matching formats', function() {
       var itags = util.filterFormats(formats, 'videoonly').map(getItags);
       assert.deepEqual(itags, ['133', '160']);
     });
   });
 
-  describe('with `audio` given', function() {
+  describe('With `audio` given', function() {
     it('Returns only matching formats', function() {
       var itags = util.filterFormats(formats, 'audio').map(getItags);
       assert.deepEqual(itags, ['18', '43', '36', '5', '17', '140']);
     });
   });
 
-  describe('with `audioonly` given', function() {
+  describe('With `audioonly` given', function() {
     it('Returns only matching formats', function() {
       var itags = util.filterFormats(formats, 'audioonly').map(getItags);
       assert.deepEqual(itags, ['140']);
@@ -216,6 +268,11 @@ describe('util.between()', function() {
     var rs = util.between('>>> a <this> and that', '<', '>');
     assert.equal(rs, 'this');
   });
+
+  it('`right` not found', function() {
+    var rs = util.between('something [around[ somewhere', '[', ']');
+    assert.equal(rs, '');
+  });
 });
 
 
@@ -232,16 +289,34 @@ describe('util.getVideoID()', function() {
     assert(id, 'VIDEO_ID');
     id = util.getVideoID('RAW_VIDEOID'); // Video ids are 11-character long
     assert(id, 'RAW_VIDEOID');
+    assert.throws(function() {
+      util.getVideoID('https://www.twitch.tv/user/v/1234');
+    }, /No video id found/);
   });
 });
 
 
 describe('util.parseFormats()', function() {
+  var info = require('./files/info/pJk0p-98Xzc_preparsed.json');
   it('Retrieves video formats from info', function() {
-    var info = require('./files/info/pJk0p-98Xzc_preparsed.json');
-    var formats = util.parseFormats(info);
+    var myinfo = util.assignDeep({}, info);
+    var formats = util.parseFormats(myinfo);
     assert.ok(formats);
-    assert.equal(formats.length, 14);
+    assert.equal(formats.length, 15);
+  });
+
+  describe('With `debug` on', function() {
+    it('Retrieves video formats from info', function() {
+      var myinfo = util.assignDeep({}, info);
+      var warn = console.warn;
+      var myspy = spy();
+      console.warn = myspy;
+      var formats = util.parseFormats(myinfo, true);
+      console.warn = warn;
+      assert.ok(formats);
+      assert.equal(formats.length, 15);
+      assert.ok(myspy.called);
+    });
   });
 });
 
@@ -267,17 +342,36 @@ describe('util.parallel()', function() {
       var funcs = [];
       for (var i = 0; i < 5; i++) {
         funcs.push(function(i, callback) {
-          setTimeout(function() {
-            callback(null, i);
-          }, ~~(Math.random() * 50));
+          setTimeout(function() { callback(null, i); }, ~~(Math.random() * 10));
         }.bind(null, i));
       }
       util.parallel(funcs, function(err, results) {
-        assert.ok(!err);
+        assert.ifError(err);
         for (var i = 0, len = results.length; i < len; i++) {
           assert.equal(results[i], i);
         }
         done();
+      });
+    });
+
+    describe('where one of them errors', function() {
+      it('Gives an error', function(done) {
+        var funcs = [];
+        for (var i = 0; i < 5; i++) {
+          funcs.push(function(i, callback) {
+            setImmediate(function() {
+              if (i === 0) {
+                callback(new Error('Something went wrong'));
+              } else {
+                callback(null, i);
+              }
+            });
+          }.bind(null, i));
+        }
+        util.parallel(funcs, function(err) {
+          assert.ok(err);
+          setImmediate(done);
+        });
       });
     });
   });

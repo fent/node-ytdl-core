@@ -9,7 +9,7 @@ var EMBED_PATH    = '/embed/';
 var INFO_PATH     = '/get_video_info?';
 
 
-module.exports = function(id, opts) {
+exports = module.exports = function(id, opts) {
   opts = opts || {};
   var scopes = [];
   scopes.push(nock(YT_HOST, { reqheaders: opts.headers })
@@ -68,20 +68,20 @@ module.exports = function(id, opts) {
       });
     },
     urlReply: function(uri, statusCode, body, headers) {
-      scopes.push(module.exports.url(uri).reply(statusCode, body, headers));
+      scopes.push(exports.url(uri).reply(statusCode, body, headers));
     },
     urlReplyWithFile: function(uri, statusCode, file) {
-      scopes.push(module.exports.url(uri).replyWithFile(statusCode, file));
+      scopes.push(exports.url(uri).replyWithFile(statusCode, file));
     },
   };
 };
 
 
-module.exports.url = function(uri) {
+exports.url = function(uri) {
   var parsed = url.parse(uri);
   return nock(parsed.protocol + '//' + parsed.host).get(parsed.path);
 };
 
 
-module.exports.disableNetConnect = nock.disableNetConnect;
-module.exports.enableNetConnect = nock.enableNetConnect;
+exports.disableNetConnect = nock.disableNetConnect;
+exports.enableNetConnect = nock.enableNetConnect;

@@ -2,13 +2,10 @@ var assert = require('assert-diff');
 var nock   = require('./nock');
 var ytdl   = require('..');
 
-var VIDEO_BASE = 'https://www.youtube.com/watch?v=';
-
 
 describe('ytdl.getInfo()', function() {
   describe('from a video', function() {
     var id = 'pJk0p-98Xzc';
-    var url = VIDEO_BASE + id;
     var expectedInfo = require('./files/' + id + '/info.json');
 
     it('Retrieves correct metainfo', function(done) {
@@ -19,7 +16,7 @@ describe('ytdl.getInfo()', function() {
         get_video_info: true,
       });
 
-      ytdl.getInfo(url, function(err, info) {
+      ytdl.getInfo(id, function(err, info) {
         if (err) return done(err);
         scope.done();
         assert.ok(info.description.length);
@@ -55,7 +52,7 @@ describe('ytdl.getInfo()', function() {
 
         var originalRequest = require('../lib/request');
         var called = 0;
-        ytdl.getInfo(url, {
+        ytdl.getInfo(id, {
           request: function(url, options, callback) {
             called++;
             return originalRequest(url, options, callback);
@@ -78,7 +75,7 @@ describe('ytdl.getInfo()', function() {
           headers: { 'X-Hello': /^42$/ }
         });
 
-        ytdl.getInfo(url, {
+        ytdl.getInfo(id, {
           requestOptions: { headers: { 'X-Hello': '42' }}
         }, function(err) {
           if (err) return done(err);
@@ -90,12 +87,11 @@ describe('ytdl.getInfo()', function() {
   });
 
   describe('from a non-existant video', function() {
-    var id = 'not-found';
-    var url = VIDEO_BASE + id;
+    var id = '-not-found-';
 
     it('Should give an error', function(done) {
       var scope = nock(id, { get_video_info: true });
-      ytdl.getInfo(url, function(err) {
+      ytdl.getInfo(id, function(err) {
         assert.ok(err);
         scope.done();
         assert.equal(err.message, 'Video not found');
@@ -106,7 +102,6 @@ describe('ytdl.getInfo()', function() {
 
   describe('from an age restricted video', function() {
     var id = 'rIqCiJKWx9I';
-    var url = VIDEO_BASE + id;
     var expectedInfo = require('./files/' + id + '/info.json');
 
     it('Returns correct video metainfo', function(done) {
@@ -116,7 +111,7 @@ describe('ytdl.getInfo()', function() {
         player: 'player-en_US-vflQ6YtHH',
         get_video_info: true,
       });
-      ytdl.getInfo(url, function(err, info) {
+      ytdl.getInfo(id, function(err, info) {
         if (err) return done(err);
         scope.done();
         assert.equal(info.formats.length, expectedInfo.formats.length);
