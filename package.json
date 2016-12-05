@@ -25,6 +25,7 @@
     "istanbul": "*",
     "mocha": "*",
     "nock": "*",
+    "sinon": "^1.17.6",
     "stream-equal": "~0.1.0"
   },
   "licenses": [
