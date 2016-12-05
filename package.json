@@ -27,10 +27,5 @@
     "nock": "*",
     "stream-equal": "~0.1.0"
   },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "http://github.com/fent/node-ytdl-core/raw/master/LICENSE"
-    }
-  ]
+  "license": "MIT"
 }
