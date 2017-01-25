@@ -30,7 +30,7 @@ describe('Download video', function() {
 
     var filestream = fs.createReadStream(video);
     streamEqual(filestream, stream, function(err, equal) {
-      if (err) return done(err);
+      assert.ifError(err);
       scope.done();
       assert.ok(infoEmitted);
       assert.ok(equal);
@@ -61,7 +61,7 @@ describe('Download video', function() {
 
       var filestream = fs.createReadStream(video);
       streamEqual(filestream, stream, function(err, equal) {
-        if (err) return done(err);
+        assert.ifError(err);
         scope.done();
         assert.ok(equal);
         done();
