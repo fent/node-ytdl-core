@@ -6,7 +6,7 @@
     "video",
     "download"
   ],
-  "version": "0.7.19",
+  "version": "0.7.23",
   "repository": {
     "type": "git",
     "url": "git://github.com/fent/node-ytdl-core.git"
@@ -28,10 +28,5 @@
     "sinon": "^1.17.6",
     "stream-equal": "~0.1.0"
   },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "http://github.com/fent/node-ytdl-core/raw/master/LICENSE"
-    }
-  ]
+  "license": "MIT"
 }

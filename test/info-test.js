@@ -17,7 +17,7 @@ describe('ytdl.getInfo()', function() {
       });
 
       ytdl.getInfo(id, function(err, info) {
-        if (err) return done(err);
+        assert.ifError(err);
         scope.done();
         assert.ok(info.description.length);
         assert.equal(info.formats.length, expectedInfo.formats.length);
@@ -58,7 +58,7 @@ describe('ytdl.getInfo()', function() {
             return originalRequest(url, options, callback);
           }
         }, function(err) {
-          if (err) return done(err);
+          assert.ifError(err);
           scope.done();
           assert.equal(called, 4);
           done();
@@ -78,7 +78,7 @@ describe('ytdl.getInfo()', function() {
         ytdl.getInfo(id, {
           requestOptions: { headers: { 'X-Hello': '42' }}
         }, function(err) {
-          if (err) return done(err);
+          assert.ifError(err);
           scope.done();
           done();
         });
@@ -90,10 +90,10 @@ describe('ytdl.getInfo()', function() {
     var id = '-not-found-';
 
     it('Should give an error', function(done) {
-      var scope = nock(id, { get_video_info: true });
+      var scope = nock(id);
       ytdl.getInfo(id, function(err) {
-        assert.ok(err);
         scope.done();
+        assert.ok(err);
         assert.equal(err.message, 'Video not found');
         done();
       });
@@ -112,7 +112,7 @@ describe('ytdl.getInfo()', function() {
         get_video_info: true,
       });
       ytdl.getInfo(id, function(err, info) {
-        if (err) return done(err);
+        assert.ifError(err);
         scope.done();
         assert.equal(info.formats.length, expectedInfo.formats.length);
         done();
