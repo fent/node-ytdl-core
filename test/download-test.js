@@ -26,7 +26,7 @@ describe('Download video', function() {
 
     var filestream = fs.createReadStream(video);
     streamEqual(filestream, stream, function(err, equal) {
-      if (err) return done(err);
+      assert.ifError(err);
       scope.done();
       assert.ok(equal);
       done();
@@ -51,7 +51,7 @@ describe('Download video', function() {
 
       var filestream = fs.createReadStream(video);
       streamEqual(filestream, stream, function(err, equal) {
-        if (err) return done(err);
+        assert.ifError(err);
         scope.done();
         assert.ok(equal);
         done();
@@ -173,7 +173,7 @@ describe('Download video', function() {
   describe('with a bad id', function() {
     it('Emits error', function(done) {
       var id = '-not-found-';
-      var scope = nock(id, { get_video_info: true });
+      var scope = nock(id);
       var stream = ytdl(id);
       stream.on('error', function(err) {
         assert.ok(err);

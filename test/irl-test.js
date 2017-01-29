@@ -4,10 +4,14 @@ var ytdl   = require('..');
 
 
 var videos = {
-  'Regular video'  : 'http://www.youtube.com/watch?v=mgOS64BF2eU',
-  'VEVO'           : 'http://www.youtube.com/watch?v=qQ31INpjXX0',
-  'VEVO 2'         : 'http://www.youtube.com/watch?v=pJk0p-98Xzc',
-  'Age restricted' : 'http://www.youtube.com/watch?v=otfd2UTrP_Q',
+  'Regular video'           : 'mgOS64BF2eU',
+  'VEVO'                    : 'qQ31INpjXX0',
+  'VEVO 2'                  : 'pJk0p-98Xzc',
+  'Age restricted VEVO'     : 'B3eAMGXFw1o',
+  'Age restricted'          : 'otfd2UTrP_Q',
+  'Age restricted 2'        : 'Tzuvfy4jFwE',
+  'Embed domain restricted' : 'B3eAMGXFw1o',
+  'No embed allowed'        : 'GFg8BP01F5Q',
 };
 
 
