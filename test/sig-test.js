@@ -13,7 +13,7 @@ describe('Get tokens', function() {
 
   it('Returns a set of tokens', function(done) {
     var filepath = path.resolve(__dirname, 'files/html5player/' + key + '.js');
-    var scope = nock.url('http:' + url).replyWithFile(200, filepath);
+    var scope = nock.url('https:' + url).replyWithFile(200, filepath);
     sig.getTokens(url, true, function(err, tokens) {
       if (err) return done(err);
       scope.done();
