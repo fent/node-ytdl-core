@@ -220,15 +220,15 @@ describe('util.between()', function() {
 
 
 describe('util.objectAssign()', function() {
-  if('Merges to objects into one', function() {
-    var obj1 = {key1:'value1', key2:true}
-    var obj2 = {key2:false, key3:[1,2,{3:3}], key4:'value4'}
-    var mergedObject = util.objectAssign(obj1,obj2)
+  it('Merges to objects into one', function() {
+    var obj1 = { key1: 'value1', key2: true };
+    var obj2 = { key2: false, key3: [1,2,{3:3}], key4: 'value4' };
+    var mergedObject = util.objectAssign(obj1,obj2);
     assert.deepEqual(mergedObject, {
-      key1:'value1',
-      key2:false,
-      key3:[1,2,{3:3}],
-      key4:'value4'
+      key1: 'value1',
+      key2: false,
+      key3: [1, 2, { 3:3 }],
+      key4: 'value4'
     });
   });
 });
@@ -281,14 +281,13 @@ describe('util.getAuthor()', function() {
     var html = fs.readFileSync(path.resolve(__dirname,
       'files/util/related-video'), 'utf8');
     var authorObj = util.getAuthor(html);
-    assert.deepEqual(authorObj,{
-      type: 'channel',
+    assert.deepEqual(authorObj, {
       ref: '/channel/UC_aEa8K-EOJ3D6gOs7HcyNg',
       id: 'UC_aEa8K-EOJ3D6gOs7HcyNg',
       name: 'NoCopyrightSounds',
       avatar: 'hisprofile.pic',
-      user: '/user/NoCopyrightSounds',
-	});
+      user: '/user/NoCopyrightSounds'
+    });
   });
 })
 
@@ -298,7 +297,7 @@ describe('util.getPublished()', function() {
     var html = fs.readFileSync(path.resolve(__dirname,
       'files/util/related-video'), 'utf8');
     var publishedTimestamp = util.getPublished(html);
-    assert.equal(publishedTimestamp.toString(),'1416355200000');
+    assert.equal(publishedTimestamp, 1416355200000);
   });
 })
 
@@ -307,28 +306,28 @@ describe('util.getRelatedVideos()', function() {
   it('Retrieves formatted video author', function() {
     var html = fs.readFileSync(path.resolve(__dirname,
       'files/util/related-video'), 'utf8');
-    var authorObj = util.getRelatedVideos(html);
-    assert.deepEqual(authorObj,[
+    var relatedVideos = util.getRelatedVideos(html);
+    assert.deepEqual(relatedVideos, [
       {
-        author: "NoCopyrightSounds",
-        iurlmq: "iurlmq1",
-        title: "Alan Walker - Spectre [NCS Release]",
-        length_seconds: "227",
-        id: "AOeY-nDp7hI",
-        session_data: "itct=secondvid",
-        endscreen_autoplay_session_data: "itct=endscreen_firstvid",
-        short_view_count_text: "119 Mio. Aufrufe",
-        iurlhq_webp: "first.pic",
+        author: 'NoCopyrightSounds',
+        iurlmq: 'iurlmq1',
+        title: 'Alan Walker - Spectre [NCS Release]',
+        length_seconds: '227',
+        id: 'AOeY-nDp7hI',
+        session_data: 'itct=secondvid',
+        endscreen_autoplay_session_data: 'itct=endscreen_firstvid',
+        short_view_count_text: '119 Mio. Aufrufe',
+        iurlhq_webp: 'first.pic'
       },
       {
-        playlist_title: "Mix – Alan Walker - Fade [NCS Release]",
-        list: "RDbM7SZ5SBzyY",
-        playlist_iurlmq: "iurlmq2",
-        session_data: "itct=firstvid%3D%3D",
-        playlist_length: "0",
-        thumbnail_ids: "AOeY-nDp7hI",
-        video_id: "AOeY-nDp7hI",
-        playlist_iurlhq: "second.pic",
+        playlist_title: 'Mix – Alan Walker - Fade [NCS Release]',
+        list: 'RDbM7SZ5SBzyY',
+        playlist_iurlmq: 'iurlmq2',
+        session_data: 'itct=firstvid%3D%3D',
+        playlist_length: '0',
+        thumbnail_ids: 'AOeY-nDp7hI',
+        video_id: 'AOeY-nDp7hI',
+        playlist_iurlhq: 'second.pic'
       }
     ]);
   });
