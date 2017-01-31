@@ -289,7 +289,7 @@ describe('util.getAuthor()', function() {
       user: '/user/NoCopyrightSounds'
     });
   });
-})
+});
 
 
 describe('util.getPublished()', function() {
@@ -299,7 +299,7 @@ describe('util.getPublished()', function() {
     var publishedTimestamp = util.getPublished(html);
     assert.equal(publishedTimestamp, 1416355200000);
   });
-})
+});
 
 
 describe('util.getRelatedVideos()', function() {
@@ -331,7 +331,7 @@ describe('util.getRelatedVideos()', function() {
       }
     ]);
   });
-})
+});
 
 
 describe('util.parallel()', function() {
