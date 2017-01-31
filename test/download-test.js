@@ -14,11 +14,15 @@ describe('Download video', function() {
   var video = path.resolve(__dirname, 'files/' + id + '/video.flv');
   var filter = function(format) { return format.container === 'mp4'; };
 
+  beforeEach(function() {
+    ytdl.cache.reset();
+  });
+
   it('Should be pipeable and data equal to stored file', function(done) {
     var scope = nock(id, {
       dashmpd: true,
-      dashmpd2: true,
       get_video_info: true,
+      player: 'player-en_US-vflV3n15C',
     });
     var stream = ytdl(link, { filter: filter });
 
@@ -47,8 +51,8 @@ describe('Download video', function() {
 
       var scope = nock(id, {
         dashmpd: true,
-        dashmpd2: true,
         get_video_info: true,
+        player: 'player-en_US-vflV3n15C',
       });
       var stream = ytdl(link, { filter: filter });
 
@@ -74,8 +78,8 @@ describe('Download video', function() {
       it('Doesn\'t start the download', function(done) {
         var scope = nock(id, {
           dashmpd: true,
-          dashmpd2: true,
           get_video_info: true,
+          player: 'player-en_US-vflV3n15C',
         });
         var stream = ytdl(link, { filter: filter });
         stream.destroy();
@@ -94,8 +98,8 @@ describe('Download video', function() {
       it('Download is incomplete', function(done) {
         var scope = nock(id, {
           dashmpd: true,
-          dashmpd2: true,
           get_video_info: true,
+          player: 'player-en_US-vflV3n15C',
         });
         var stream = ytdl(link, { filter: filter });
 
