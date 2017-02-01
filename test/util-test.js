@@ -219,21 +219,6 @@ describe('util.between()', function() {
 });
 
 
-describe('util.objectAssign()', function() {
-  it('Merges to objects into one', function() {
-    var obj1 = { key1: 'value1', key2: true };
-    var obj2 = { key2: false, key3: [1,2,{3:3}], key4: 'value4' };
-    var mergedObject = util.objectAssign(obj1,obj2);
-    assert.deepEqual(mergedObject, {
-      key1: 'value1',
-      key2: false,
-      key3: [1, 2, { 3:3 }],
-      key4: 'value4'
-    });
-  });
-});
-
-
 describe('util.getVideoID()', function() {
   it('Retrives the video ID from the url', function() {
     var id;
@@ -372,11 +357,11 @@ describe('util.parallel()', function() {
 });
 
 
-describe('util.assignDeep()', function() {
+describe('util.objectAssign()', function() {
   it('Merges object into another', function() {
     var target = { headers: { one: 1, two: 2 }, my: 'mine' };
     var source = { headers: { one: 100 } };
-    util.assignDeep(target, source);
+    util.objectAssign(target, source, true);
     assert.deepEqual(target, { headers: { one: 100, two: 2 }, my: 'mine' });
   });
 });
