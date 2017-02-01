@@ -271,7 +271,7 @@ describe('util.getAuthor()', function() {
       id: 'UC_aEa8K-EOJ3D6gOs7HcyNg',
       name: 'NoCopyrightSounds',
       avatar: 'hisprofile.pic',
-      user: '/user/NoCopyrightSounds'
+      user: 'NoCopyrightSounds'
     });
   });
 });
