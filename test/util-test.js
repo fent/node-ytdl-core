@@ -222,17 +222,17 @@ describe('util.between()', function() {
 describe('util.getVideoID()', function() {
   it('Retrives the video ID from the url', function() {
     var id;
-    id = util.getVideoID('http://www.youtube.com/watch?v=VIDEO_ID');
-    assert(id, 'VIDEO_ID');
-    id = util.getVideoID('http://youtu.be/VIDEO_ID');
-    assert(id, 'VIDEO_ID');
-    id = util.getVideoID('http://youtube.com/v/VIDEO_ID');
-    assert(id, 'VIDEO_ID');
-    id = util.getVideoID('http://youtube.com/embed/VIDEO_ID');
-    assert(id, 'VIDEO_ID');
+    id = util.getVideoID('http://www.youtube.com/watch?v=RAW_VIDEOID');
+    assert(id, 'RAW_VIDEOID');
+    id = util.getVideoID('http://youtu.be/RAW_VIDEOID');
+    assert(id, 'RAW_VIDEOID');
+    id = util.getVideoID('http://youtube.com/v/RAW_VIDEOID');
+    assert(id, 'RAW_VIDEOID');
+    id = util.getVideoID('http://youtube.com/embed/RAW_VIDEOID');
+    assert(id, 'RAW_VIDEOID');
     id = util.getVideoID('RAW_VIDEOID'); // Video ids are 11-character long
     assert(id, 'RAW_VIDEOID');
-    expect(util.getVideoID('www.youtube.com/playlist?list=1337')).to.throw()
+    assert.throws(function(){util.getVideoID('www.youtube.com/playlist?list=1337')}, Error, 'No video id found: www.youtube.com/playlist?list=1337');
   });
 });
 
