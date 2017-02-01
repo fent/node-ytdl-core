@@ -34,7 +34,7 @@ module.exports = function(id, opts) {
   }
 
   if (opts.player) {
-    scopes.push(nock('http://s.ytimg.com', { reqheaders: opts.headers })
+    scopes.push(nock('https://www.youtube.com', { reqheaders: opts.headers })
       .get('/yts/jsbin/' + opts.player + '/' +
         (opts.player.indexOf('new-') > -1 ? 'html5player-new.js' : 'base.js'))
       .replyWithFile(200,
