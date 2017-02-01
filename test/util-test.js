@@ -232,6 +232,7 @@ describe('util.getVideoID()', function() {
     assert(id, 'VIDEO_ID');
     id = util.getVideoID('RAW_VIDEOID'); // Video ids are 11-character long
     assert(id, 'RAW_VIDEOID');
+    expect(util.getVideoID('www.youtube.com/playlist?list=1337')).to.throw()
   });
 });
 
