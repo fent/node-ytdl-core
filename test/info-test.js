@@ -93,7 +93,7 @@ describe('ytdl.getInfo()', function() {
   });
 
   describe('from a non-existant video', function() {
-    var id = 'not-found';
+    var id = 'unknown-vid';
     var url = VIDEO_BASE + id;
 
     it('Should give an error', function(done) {
