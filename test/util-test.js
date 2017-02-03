@@ -233,10 +233,10 @@ describe('util.getVideoID()', function() {
     id = util.getVideoID('RAW_VIDEOID'); // Video ids are 11-character long
     assert(id, 'RAW_VIDEOID');
     assert.throws(function () {
-      util.getVideoID('www.youtube.com')
+      util.getVideoID('www.youtube.com');
     }, Error, 'No video id found: www.youtube.com');
     assert.throws(function () {
-      util.getVideoID('www.youtube.com/playlist?list=1337')
+      util.getVideoID('www.youtube.com/playlist?list=1337');
     }, Error, 'Video id (playlist) does not match expected format (/^[a-zA-Z0-9-_]{11}$/)');
   });
 });
