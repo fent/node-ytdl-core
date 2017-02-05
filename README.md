@@ -56,7 +56,8 @@ Destroys the underlying connection.
 
 ### ytdl.getInfo(url, [options], callback(err, info))
 
-Use this if you only want to get metainfo from a video. You can find more information about what is included under the examples folder in info.json.
+Use this if you only want to get metainfo from a video. Info and format may
+look like [this](https://gist.github.com/FireController1847/f6e1e39ff995fda18ba9ad7c88a894dd)
 
 ### ytdl.downloadFromInfo(info, options)
 
