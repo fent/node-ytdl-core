@@ -279,19 +279,25 @@ describe('util.between()', function() {
 describe('util.getVideoID()', function() {
   it('Retrives the video ID from the url', function() {
     var id;
-    id = util.getVideoID('http://www.youtube.com/watch?v=VIDEO_ID');
-    assert(id, 'VIDEO_ID');
-    id = util.getVideoID('http://youtu.be/VIDEO_ID');
-    assert(id, 'VIDEO_ID');
-    id = util.getVideoID('http://youtube.com/v/VIDEO_ID');
-    assert(id, 'VIDEO_ID');
-    id = util.getVideoID('http://youtube.com/embed/VIDEO_ID');
-    assert(id, 'VIDEO_ID');
+    id = util.getVideoID('http://www.youtube.com/watch?v=RAW_VIDEOID');
+    assert(id, 'RAW_VIDEOID');
+    id = util.getVideoID('http://youtu.be/RAW_VIDEOID');
+    assert(id, 'RAW_VIDEOID');
+    id = util.getVideoID('http://youtube.com/v/RAW_VIDEOID');
+    assert(id, 'RAW_VIDEOID');
+    id = util.getVideoID('http://youtube.com/embed/RAW_VIDEOID');
+    assert(id, 'RAW_VIDEOID');
     id = util.getVideoID('RAW_VIDEOID'); // Video ids are 11-character long
     assert(id, 'RAW_VIDEOID');
     assert.throws(function() {
       util.getVideoID('https://www.twitch.tv/user/v/1234');
-    }, /No video id found/);
+    }, Error, /No video id found/);
+    assert.throws(function () {
+      util.getVideoID('www.youtube.com');
+    }, Error, 'No video id found: www.youtube.com');
+    assert.throws(function () {
+      util.getVideoID('www.youtube.com/playlist?list=1337');
+    }, Error, 'Video id (playlist) does not match expected format (/^[a-zA-Z0-9-_]{11}$/)');
   });
 });
 
@@ -299,7 +305,7 @@ describe('util.getVideoID()', function() {
 describe('util.parseFormats()', function() {
   var info = require('./files/info/pJk0p-98Xzc_preparsed.json');
   it('Retrieves video formats from info', function() {
-    var myinfo = util.assignDeep({}, info);
+    var myinfo = util.objectAssign({}, info);
     var formats = util.parseFormats(myinfo);
     assert.ok(formats);
     assert.equal(formats.length, 15);
@@ -307,7 +313,7 @@ describe('util.parseFormats()', function() {
 
   describe('With `debug` on', function() {
     it('Retrieves video formats from info', function() {
-      var myinfo = util.assignDeep({}, info);
+      var myinfo = util.objectAssign({}, info);
       var warn = console.warn;
       var myspy = spy();
       console.warn = myspy;
@@ -332,6 +338,64 @@ describe('util.getVideoDescription()', function() {
       '"Line 2"\n' +
       '1  First Song  5:30\n' +
       '2  Second Song  5:42');
+  });
+});
+
+
+describe('util.getAuthor()', function() {
+  it('Retrieves formatted video author', function() {
+    var html = fs.readFileSync(path.resolve(__dirname,
+      'files/util/related-video'), 'utf8');
+    var authorObj = util.getAuthor(html);
+    assert.deepEqual(authorObj, {
+      ref: '/channel/UC_aEa8K-EOJ3D6gOs7HcyNg',
+      id: 'UC_aEa8K-EOJ3D6gOs7HcyNg',
+      name: 'NoCopyrightSounds',
+      avatar: 'hisprofile.pic',
+      user: 'NoCopyrightSounds'
+    });
+  });
+});
+
+
+describe('util.getPublished()', function() {
+  it('Retrieves formatted published date', function() {
+    var html = fs.readFileSync(path.resolve(__dirname,
+      'files/util/related-video'), 'utf8');
+    var publishedTimestamp = util.getPublished(html);
+    assert.equal(publishedTimestamp, 1416355200000);
+  });
+});
+
+
+describe('util.getRelatedVideos()', function() {
+  it('Retrieves formatted video author', function() {
+    var html = fs.readFileSync(path.resolve(__dirname,
+      'files/util/related-video'), 'utf8');
+    var relatedVideos = util.getRelatedVideos(html);
+    assert.deepEqual(relatedVideos, [
+      {
+        author: 'NoCopyrightSounds',
+        iurlmq: 'iurlmq1',
+        title: 'Alan Walker - Spectre [NCS Release]',
+        length_seconds: '227',
+        id: 'AOeY-nDp7hI',
+        session_data: 'itct=secondvid',
+        endscreen_autoplay_session_data: 'itct=endscreen_firstvid',
+        short_view_count_text: '119 Mio. Aufrufe',
+        iurlhq_webp: 'first.pic'
+      },
+      {
+        playlist_title: 'Mix – Alan Walker - Fade [NCS Release]',
+        list: 'RDbM7SZ5SBzyY',
+        playlist_iurlmq: 'iurlmq2',
+        session_data: 'itct=firstvid%3D%3D',
+        playlist_length: '0',
+        thumbnail_ids: 'AOeY-nDp7hI',
+        video_id: 'AOeY-nDp7hI',
+        playlist_iurlhq: 'second.pic'
+      }
+    ]);
   });
 });
 
@@ -393,11 +457,11 @@ describe('util.parallel()', function() {
 });
 
 
-describe('util.assignDeep()', function() {
+describe('util.objectAssign()', function() {
   it('Merges object into another', function() {
     var target = { headers: { one: 1, two: 2 }, my: 'mine' };
     var source = { headers: { one: 100 } };
-    util.assignDeep(target, source);
+    util.objectAssign(target, source, true);
     assert.deepEqual(target, { headers: { one: 100, two: 2 }, my: 'mine' });
   });
 });
