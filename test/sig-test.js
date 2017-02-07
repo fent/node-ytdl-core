@@ -3,6 +3,8 @@ var assert = require('assert-diff');
 var fs     = require('fs');
 var path   = require('path');
 var nock   = require('./nock');
+var sinon  = require('sinon');
+var muk    = require('muk-prop');
 
 var html5player = require('./html5player.json');
 
@@ -10,32 +12,108 @@ var html5player = require('./html5player.json');
 describe('Get tokens', function() {
   var key = 'en_US-vfljDEtYP';
   var url = '//s.ytimg.com/yts/jsbin/player-en_US-vfljDEtYP/base.js';
+  var filepath = path.resolve(__dirname, 'files/html5player/' + key + '.js');
 
   it('Returns a set of tokens', function(done) {
-    var filepath = path.resolve(__dirname, 'files/html5player/' + key + '.js');
     var scope = nock.url('https:' + url).replyWithFile(200, filepath);
     sig.getTokens(url, true, function(err, tokens) {
-      if (err) return done(err);
+      assert.ifError(err);
       scope.done();
       assert.ok(tokens.length);
       done();
     });
   });
 
-  describe('hit the same video twice', function() {
+  describe('Hit the same video twice', function() {
+    after(function() {
+      nock.enableNetConnect();
+    });
     it('Gets html5player tokens from cache', function(done) {
       nock.disableNetConnect();
-      sig.getTokens(url, true, function(err, tokens) {
-        if (err) return done(err);
+      sig.getTokens(url, {}, function(err, tokens) {
+        assert.ifError(err);
         assert.ok(tokens.length);
         done();
       });
     });
   });
+
+  describe('Get a bad html5player file', function() {
+    it('Gives an error', function(done) {
+      var url = '//s.ytimg.com/yts/jsbin/player-en_US-bad/base.js';
+      var scope = nock.url('https:' + url).reply(404, 'uh oh');
+      sig.getTokens(url, {}, function(err) {
+        assert.ok(err);
+        scope.done();
+        done();
+      });
+    });
+  });
+
+  describe('Unable to find key in filename', function() {
+    var warn = sinon.spy();
+    before(function() {
+      muk(console, 'warn', warn);
+    });
+    after(muk.restore);
+    it('Warns the console, still attempts to get tokens', function(done) {
+      var url = '//s.ytimg.com/badfilename.js';
+      var scope = nock.url('https:' + url).replyWithFile(200, filepath);
+      sig.getTokens(url, {}, function(err, tokens) {
+        assert.ifError(err);
+        scope.done();
+        assert.ok(warn.called);
+        assert.ok(tokens.length);
+        done();
+      });
+    });
+  });
+
+  describe('Unable to find tokens', function() {
+    var key = 'mykey';
+    var url = '//s.ytimg.com/yts/jsbin/player-' + key + '/base.js';
+    var contents = 'my personal contents';
+
+    it('Gives an error', function(done) {
+      var scope = nock.url('https:' + url).reply(200, contents);
+      sig.getTokens(url, {}, function(err) {
+        scope.done();
+        assert.ok(err);
+        assert.ok(/Could not extract/.test(err.message));
+        done();
+      });
+    });
+
+    describe('With debug on', function() {
+      var filepath = path.resolve(__dirname, 'files/html5player', key + '.js');
+      after(function(done) {
+        fs.unlink(filepath, function() {
+          var html5player = require('./html5player.json');
+          delete html5player[key];
+          fs.writeFile(
+            path.resolve(__dirname, 'html5player.json'),
+            JSON.stringify(html5player, null, 2), done);
+        });
+      });
+
+      it('Saves files with contents into test directory', function(done) {
+        var scope = nock.url('https:' + url).reply(200, contents);
+        sig.getTokens(url, { debug: true }, function(err) {
+          scope.done();
+          assert.ok(err);
+          fs.readFile(filepath, function(err, data) {
+            assert.ifError(err);
+            assert.equal(data, contents);
+            done();
+          });
+        });
+      });
+    });
+  });
 });
 
-describe('Signature decypher', function() {
-  describe('extract decyphering actions', function() {
+describe('Signature decipher', function() {
+  describe('extract deciphering actions', function() {
     it('Returns the correct set of actions', function() {
       for (var name in html5player) {
         var filepath = path.resolve(
@@ -72,5 +150,14 @@ describe('Signature decypher', function() {
         'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ',
         'bbSdefghijklmnoaqrstuvwxyzAZCDEFGHIJKLMNOPQRpTUVWc');
     });
+  });
+});
+
+describe('Decipher formats', function() {
+  var formats = [
+
+  ];
+  it('Adds signature to download URL', function() {
+
   });
 });
