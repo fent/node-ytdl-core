@@ -43,7 +43,7 @@ ytdl(url, { filter: function(format) { return format.container === 'mp4'; } })
 
 Emitted when the a video's `info` hash is fetched. Along with the chosen format metadata to download. `format.url` might be different if `start` was given.
 
-Info and format may look like [this](https://gist.github.com/fent/6c8251132e1addb5121e).
+An example of what Info and format may look like is in the [example folder](example/info.json).
 
 #### Event: 'response'
 * `http.ServerResponse` - Response.

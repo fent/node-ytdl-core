@@ -12,11 +12,15 @@ describe('Download video', function() {
   var filter = function(format) { return format.container === 'mp4'; };
   var testInfo = require('./files/pJk0p-98Xzc/info.json');
 
+  beforeEach(function() {
+    ytdl.cache.reset();
+  });
+
   it('Should be pipeable and data equal to stored file', function(done) {
     var scope = nock(id, {
       dashmpd: true,
-      dashmpd2: true,
       get_video_info: true,
+      player: 'player-en_US-vflV3n15C',
     });
     var stream = ytdl(id, { filter: filter });
 
@@ -37,8 +41,8 @@ describe('Download video', function() {
     it('Should download file after redirect', function(done) {
       var scope = nock(id, {
         dashmpd: true,
-        dashmpd2: true,
         get_video_info: true,
+        player: 'player-en_US-vflV3n15C',
       });
       var stream = ytdl(id, { filter: filter });
 
@@ -63,8 +67,8 @@ describe('Download video', function() {
         var id = '_HSylqgVYQI';
         var scope = nock(id, {
           dashmpd: true,
-          dashmpd2: true,
           get_video_info: true,
+          player: 'player-en_US-vflV3n15C',
         });
         var stream = ytdl(id);
         stream.on('info', function(info, format) {
@@ -94,8 +98,8 @@ describe('Download video', function() {
       it('Doesn\'t start the download', function(done) {
         var scope = nock(id, {
           dashmpd: true,
-          dashmpd2: true,
           get_video_info: true,
+          player: 'player-en_US-vflV3n15C',
         });
         var stream = ytdl(id, { filter: filter });
         stream.destroy();
@@ -117,8 +121,8 @@ describe('Download video', function() {
       it('Doesn\'t start the download', function(done) {
         var scope = nock(id, {
           dashmpd: true,
-          dashmpd2: true,
           get_video_info: true,
+          player: 'player-en_US-vflV3n15C',
         });
         var stream = ytdl(id, { filter: filter });
 
@@ -137,8 +141,8 @@ describe('Download video', function() {
       it('Download is incomplete', function(done) {
         var scope = nock(id, {
           dashmpd: true,
-          dashmpd2: true,
           get_video_info: true,
+          player: 'player-en_US-vflV3n15C',
         });
         var stream = ytdl(id, { filter: filter });
 
@@ -172,7 +176,7 @@ describe('Download video', function() {
 
   describe('with a bad id', function() {
     it('Emits error', function(done) {
-      var id = '-not-found-';
+      var id = 'unknown-vid';
       var scope = nock(id);
       var stream = ytdl(id);
       stream.on('error', function(err) {
@@ -188,8 +192,8 @@ describe('Download video', function() {
     it('Emits error', function(done) {
       var scope = nock(id, {
         dashmpd: true,
-        dashmpd2: true,
         get_video_info: true,
+        player: 'player-en_US-vflV3n15C',
       });
       var stream = ytdl(id);
 

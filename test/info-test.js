@@ -4,6 +4,10 @@ var ytdl   = require('..');
 
 
 describe('ytdl.getInfo()', function() {
+  beforeEach(function() {
+    ytdl.cache.reset();
+  });
+
   describe('from a video', function() {
     var id = 'pJk0p-98Xzc';
     var expectedInfo = require('./files/' + id + '/info.json');
@@ -11,9 +15,8 @@ describe('ytdl.getInfo()', function() {
     it('Retrieves correct metainfo', function(done) {
       var scope = nock(id, {
         dashmpd: true,
-        dashmpd2: [true, 403],
-        player: 'html5player-new-en_US-vflIUNjzZ',
         get_video_info: true,
+        player: 'player-en_US-vflV3n15C',
       });
 
       ytdl.getInfo(id, function(err, info) {
@@ -46,8 +49,8 @@ describe('ytdl.getInfo()', function() {
       it('Calls that function instead', function(done) {
         var scope = nock(id, {
           dashmpd: true,
-          dashmpd2: [true, 403],
           get_video_info: true,
+          player: 'player-en_US-vflV3n15C',
         });
 
         var originalRequest = require('../lib/request');
@@ -70,8 +73,8 @@ describe('ytdl.getInfo()', function() {
       it('Request gets called with more headers', function(done) {
         var scope = nock(id, {
           dashmpd: true,
-          dashmpd2: [true, 403],
           get_video_info: true,
+          player: 'player-en_US-vflV3n15C',
           headers: { 'X-Hello': /^42$/ }
         });
 
@@ -87,7 +90,7 @@ describe('ytdl.getInfo()', function() {
   });
 
   describe('from a non-existant video', function() {
-    var id = '-not-found-';
+    var id = 'unknown-vid';
 
     it('Should give an error', function(done) {
       var scope = nock(id);
@@ -108,7 +111,7 @@ describe('ytdl.getInfo()', function() {
       var scope = nock(id, {
         dashmpd: true,
         embed: true,
-        player: 'player-en_US-vflQ6YtHH',
+        player: 'player-en_US-vflV3n15C',
         get_video_info: true,
       });
       ytdl.getInfo(id, function(err, info) {
