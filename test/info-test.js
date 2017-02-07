@@ -28,7 +28,7 @@ describe('ytdl.getInfo()', function() {
       });
     });
 
-    describe('use `ytdl.downloadFromInfo()`', function() {
+    describe('Use `ytdl.downloadFromInfo()`', function() {
       it('Retrives video file', function(done) {
         var stream = ytdl.downloadFromInfo(expectedInfo);
         var scope;
