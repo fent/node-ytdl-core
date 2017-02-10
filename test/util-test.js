@@ -1,3 +1,4 @@
+var ytdl   = require('..');
 var util   = require('../lib/util');
 var assert = require('assert-diff');
 var fs     = require('fs');
@@ -115,6 +116,10 @@ describe('util.chooseFormat', function() {
   var sortedFormats = formats.slice();
   sortedFormats.sort(util.sortFormats);
 
+  it('Is exposed in module', function() {
+    assert.equal(ytdl.chooseFormat, util.chooseFormat);
+  });
+
   describe('with no options', function() {
     it('Chooses highest quality', function() {
       var format = util.chooseFormat(sortedFormats, {});
@@ -157,6 +162,10 @@ describe('util.filterFormats', function() {
     var filter = function(format) { return format.container === 'mp4'; };
     var itags = util.filterFormats(formats, filter).map(getItags);
     assert.deepEqual(itags, ['18', '133', '160', '140']);
+  });
+
+  it('Is exposed in module', function() {
+    assert.equal(ytdl.filterFormats, util.filterFormats);
   });
 
   describe('that doesn\'t match any format', function() {
