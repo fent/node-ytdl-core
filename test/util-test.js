@@ -273,11 +273,12 @@ describe('util.getAuthor()', function() {
       'files/util/related-video'), 'utf8');
     var authorObj = util.getAuthor(html);
     assert.deepEqual(authorObj, {
-      ref: '/channel/UC_aEa8K-EOJ3D6gOs7HcyNg',
       id: 'UC_aEa8K-EOJ3D6gOs7HcyNg',
       name: 'NoCopyrightSounds',
       avatar: 'hisprofile.pic',
-      user: 'NoCopyrightSounds'
+      user: 'NoCopyrightSounds',
+      channel_url: 'https://www.youtube.com/channel/UC_aEa8K-EOJ3D6gOs7HcyNg',
+      user_url: 'https://www.youtube.com/user/NoCopyrightSounds',
     });
   });
 });
