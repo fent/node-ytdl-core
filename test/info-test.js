@@ -125,7 +125,7 @@ describe('ytdl.getInfo()', function() {
 
   describe('from a rental', function() {
     var id = 'SyKPsFRP_Oc';
-    it.only('Returns a detailed error about it', function(done) {
+    it('Returns a detailed error about it', function(done) {
       var scope = nock(id, { get_video_info: true });
       ytdl.getInfo(id, function(err) {
         assert.ok(err);
