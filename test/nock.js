@@ -12,17 +12,19 @@ var INFO_PATH     = '/get_video_info?';
 exports = module.exports = function(id, opts) {
   opts = opts || {};
   var scopes = [];
+  var dirpath = 'files/videos/' + id + (opts.type ? '-' + opts.type : '');
+
   scopes.push(nock(YT_HOST, { reqheaders: opts.headers })
     .get(VIDEO_PATH + id)
     .replyWithFile(200,
-      path.resolve(__dirname, 'files/' + id + '/watch.html')));
+      path.resolve(__dirname, dirpath + '/watch.html')));
 
   if (opts.dashmpd) {
     scopes.push(nock(MANIFEST_HOST, { reqheaders: opts.headers })
       .filteringPath(function() { return '/api/manifest/dash/'; })
       .get('/api/manifest/dash/')
       .replyWithFile(200,
-        path.resolve(__dirname, 'files/' + id + '/dashmpd.xml')));
+        path.resolve(__dirname, dirpath + '/dashmpd.xml')));
   }
 
   if (opts.dashmpd2) {
@@ -30,7 +32,7 @@ exports = module.exports = function(id, opts) {
       .filteringPath(function() { return '/api/manifest/dash/'; })
       .get('/api/manifest/dash/')
       .replyWithFile(opts.dashmpd2[1] || 200,
-        path.resolve(__dirname, 'files/' + id + '/dashmpd2.xml')));
+        path.resolve(__dirname, dirpath + '/dashmpd2.xml')));
   }
 
   if (opts.player) {
@@ -38,14 +40,14 @@ exports = module.exports = function(id, opts) {
       .get('/yts/jsbin/' + opts.player + '/' +
         (opts.player.indexOf('new-') > -1 ? 'html5player-new.js' : 'base.js'))
       .replyWithFile(200,
-        path.resolve(__dirname, 'files/' + id + '/' + opts.player + '.js')));
+        path.resolve(__dirname, dirpath + '/' + opts.player + '.js')));
   }
 
   if (opts.embed) {
     scopes.push(nock(YT_HOST, { reqheaders: opts.headers })
       .get(EMBED_PATH + id)
       .replyWithFile(200,
-        path.resolve(__dirname, 'files/' + id + '/embed.html')));
+        path.resolve(__dirname, dirpath + '/embed.html')));
   }
 
   if (opts.get_video_info) {
@@ -58,7 +60,7 @@ exports = module.exports = function(id, opts) {
       })
       .get(INFO_PATH + 'video_id=' + id)
       .replyWithFile(200,
-        path.resolve(__dirname, 'files/' + id + '/get_video_info')));
+        path.resolve(__dirname, dirpath + '/get_video_info')));
   }
 
   return {

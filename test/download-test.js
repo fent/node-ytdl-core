@@ -8,9 +8,9 @@ var ytdl        = require('..');
 
 describe('Download video', function() {
   var id = '_HSylqgVYQI';
-  var video = path.resolve(__dirname, 'files/' + id + '/video.flv');
+  var video = path.resolve(__dirname, 'files/videos/' + id + '/video.flv');
   var filter = function(format) { return format.container === 'mp4'; };
-  var testInfo = require('./files/pJk0p-98Xzc/info.json');
+  var testInfo = require('./files/videos/pJk0p-98Xzc/expected_info.json');
 
   beforeEach(function() {
     ytdl.cache.reset();

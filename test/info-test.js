@@ -10,7 +10,7 @@ describe('ytdl.getInfo()', function() {
 
   describe('from a video', function() {
     var id = 'pJk0p-98Xzc';
-    var expectedInfo = require('./files/' + id + '/info.json');
+    var expectedInfo = require('./files/videos/' + id + '/expected_info.json');
 
     it('Retrieves correct metainfo', function(done) {
       var scope = nock(id, {
@@ -105,10 +105,11 @@ describe('ytdl.getInfo()', function() {
 
   describe('from an age restricted video', function() {
     var id = 'rIqCiJKWx9I';
-    var expectedInfo = require('./files/' + id + '/info.json');
+    var expectedInfo = require('./files/videos/' + id + '-age-restricted/expected_info.json');
 
     it('Returns correct video metainfo', function(done) {
       var scope = nock(id, {
+        type: 'age-restricted',
         dashmpd: true,
         embed: true,
         player: 'player-en_US-vflV3n15C',
@@ -126,7 +127,10 @@ describe('ytdl.getInfo()', function() {
   describe('from a rental', function() {
     var id = 'SyKPsFRP_Oc';
     it('Returns a detailed error about it', function(done) {
-      var scope = nock(id, { get_video_info: true });
+      var scope = nock(id, {
+        type: 'rental',
+        get_video_info: true,
+      });
       ytdl.getInfo(id, function(err) {
         assert.ok(err);
         scope.done();
