@@ -1,3 +1,4 @@
+var ytdl   = require('..');
 var util   = require('../lib/util');
 var assert = require('assert-diff');
 var spy    = require('sinon').spy;
@@ -135,7 +136,11 @@ describe('util.chooseFormat', function() {
   var sortedFormats = formats.slice();
   sortedFormats.sort(util.sortFormats);
 
-  describe('With no options', function() {
+  it('Is exposed in module', function() {
+    assert.equal(ytdl.chooseFormat, util.chooseFormat);
+  });
+
+  describe('with no options', function() {
     it('Chooses highest quality', function() {
       var format = util.chooseFormat(sortedFormats, {});
       assert.equal(format.itag, '43');
@@ -211,7 +216,11 @@ describe('util.filterFormats', function() {
     assert.deepEqual(itags, ['18', '133', '160', '140', '139', '138']);
   });
 
-  describe('That doesn\'t match any format', function() {
+  it('Is exposed in module', function() {
+    assert.equal(ytdl.filterFormats, util.filterFormats);
+  });
+
+  describe('that doesn\'t match any format', function() {
     it('Returns an empty list', function() {
       var list = util.filterFormats(formats, function() { return false; });
       assert.equal(list.length, 0);
@@ -348,11 +357,12 @@ describe('util.getAuthor()', function() {
       'files/util/related-video'), 'utf8');
     var authorObj = util.getAuthor(html);
     assert.deepEqual(authorObj, {
-      ref: '/channel/UC_aEa8K-EOJ3D6gOs7HcyNg',
       id: 'UC_aEa8K-EOJ3D6gOs7HcyNg',
       name: 'NoCopyrightSounds',
       avatar: 'hisprofile.pic',
-      user: 'NoCopyrightSounds'
+      user: 'NoCopyrightSounds',
+      channel_url: 'https://www.youtube.com/channel/UC_aEa8K-EOJ3D6gOs7HcyNg',
+      user_url: 'https://www.youtube.com/user/NoCopyrightSounds',
     });
   });
 });

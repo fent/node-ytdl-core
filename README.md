@@ -63,7 +63,13 @@ Use this if you only want to get metainfo from a video.
 Once you have received metadata from a video with the `getInfo` function,
 you may pass that `info`, along with other `options` to `downloadFromInfo`.
 
-The returned readable stream emits these additional events:
+### ytdl.chooseFormat(formats, options)
+
+Can be used if you'd like to choose a format yourself with the [options above](#ytdlurl-options)
+
+### ytdl.filterFormats(formats, filter)
+
+If you'd like to work with only some formats, you can use the [`filter` option above](#ytdlurl-options).
 
 # Tips
 ### Handling Separate Streams
