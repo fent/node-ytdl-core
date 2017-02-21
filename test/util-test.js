@@ -1,9 +1,10 @@
 var ytdl   = require('..');
 var util   = require('../lib/util');
-var assert = require('assert-diff');
-var spy    = require('sinon').spy;
 var fs     = require('fs');
 var path   = require('path');
+var assert = require('assert-diff');
+var spy    = require('sinon').spy;
+var muk    = require('muk-prop');
 
 
 var formats = [
@@ -323,14 +324,13 @@ describe('util.parseFormats()', function() {
   describe('With `debug` on', function() {
     it('Retrieves video formats from info', function() {
       var myinfo = util.objectAssign({}, info);
-      var warn = console.warn;
-      var myspy = spy();
-      console.warn = myspy;
+      var warn = spy();
+      muk(console, 'warn', warn);
+      after(muk.restore);
       var formats = util.parseFormats(myinfo, true);
-      console.warn = warn;
       assert.ok(formats);
       assert.equal(formats.length, 15);
-      assert.ok(myspy.called);
+      assert.ok(warn.called);
     });
   });
 });
