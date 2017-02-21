@@ -97,7 +97,7 @@ describe('ytdl.getInfo()', function() {
       ytdl.getInfo(id, function(err) {
         scope.done();
         assert.ok(err);
-        assert.equal(err.message, 'Video not found');
+        assert.equal(err.message, 'This video does not exist.');
         done();
       });
     });
