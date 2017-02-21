@@ -11,11 +11,11 @@ var html5player = require('./html5player.json');
 
 describe('Get tokens', function() {
   var key = 'en_US-vfljDEtYP';
-  var url = '//s.ytimg.com/yts/jsbin/player-en_US-vfljDEtYP/base.js';
+  var url = 'https://s.ytimg.com/yts/jsbin/player-en_US-vfljDEtYP/base.js';
   var filepath = path.resolve(__dirname, 'files/html5player/' + key + '.js');
 
   it('Returns a set of tokens', function(done) {
-    var scope = nock.url('https:' + url).replyWithFile(200, filepath);
+    var scope = nock.url(url).replyWithFile(200, filepath);
     sig.getTokens(url, true, function(err, tokens) {
       assert.ifError(err);
       scope.done();
@@ -40,8 +40,8 @@ describe('Get tokens', function() {
 
   describe('Get a bad html5player file', function() {
     it('Gives an error', function(done) {
-      var url = '//s.ytimg.com/yts/jsbin/player-en_US-bad/base.js';
-      var scope = nock.url('https:' + url).reply(404, 'uh oh');
+      var url = 'https://s.ytimg.com/yts/jsbin/player-en_US-bad/base.js';
+      var scope = nock.url(url).reply(404, 'uh oh');
       sig.getTokens(url, {}, function(err) {
         assert.ok(err);
         scope.done();
@@ -55,8 +55,8 @@ describe('Get tokens', function() {
     muk(console, 'warn', warn);
     after(muk.restore);
     it('Warns the console, still attempts to get tokens', function(done) {
-      var url = '//s.ytimg.com/badfilename.js';
-      var scope = nock.url('https:' + url).replyWithFile(200, filepath);
+      var url = 'https://s.ytimg.com/badfilename.js';
+      var scope = nock.url(url).replyWithFile(200, filepath);
       sig.getTokens(url, {}, function(err, tokens) {
         assert.ifError(err);
         scope.done();
@@ -69,11 +69,11 @@ describe('Get tokens', function() {
 
   describe('Unable to find tokens', function() {
     var key = 'mykey';
-    var url = '//s.ytimg.com/yts/jsbin/player-' + key + '/base.js';
+    var url = 'https://s.ytimg.com/yts/jsbin/player-' + key + '/base.js';
     var contents = 'my personal contents';
 
     it('Gives an error', function(done) {
-      var scope = nock.url('https:' + url).reply(200, contents);
+      var scope = nock.url(url).reply(200, contents);
       sig.getTokens(url, {}, function(err) {
         scope.done();
         assert.ok(err);
@@ -95,7 +95,7 @@ describe('Get tokens', function() {
       });
 
       it('Saves files with contents into test directory', function(done) {
-        var scope = nock.url('https:' + url).reply(200, contents);
+        var scope = nock.url(url).reply(200, contents);
         sig.getTokens(url, { debug: true }, function(err) {
           scope.done();
           assert.ok(err);
