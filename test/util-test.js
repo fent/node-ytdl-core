@@ -359,7 +359,7 @@ describe('util.getAuthor()', function() {
     assert.deepEqual(authorObj, {
       id: 'UC_aEa8K-EOJ3D6gOs7HcyNg',
       name: 'NoCopyrightSounds',
-      avatar: 'hisprofile.pic',
+      avatar: 'https://www.youtube.com/hisprofile.pic',
       user: 'NoCopyrightSounds',
       channel_url: 'https://www.youtube.com/channel/UC_aEa8K-EOJ3D6gOs7HcyNg',
       user_url: 'https://www.youtube.com/user/NoCopyrightSounds',
