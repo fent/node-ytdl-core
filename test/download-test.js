@@ -174,42 +174,6 @@ describe('Download video', function() {
     });
   });
 
-  describe('with a bad id', function() {
-    it('Emits error', function(done) {
-      var id = 'unknown-vid';
-      var scope = nock(id);
-      var stream = ytdl(id);
-      stream.on('error', function(err) {
-        assert.ok(err);
-        scope.done();
-        assert.equal(err.message, 'Video not found');
-        done();
-      });
-    });
-  });
-
-  describe('that does not exist', function() {
-    it('Emits error', function(done) {
-      var scope = nock(id, {
-        dashmpd: true,
-        get_video_info: true,
-        player: 'player-en_US-vflV3n15C',
-      });
-      var stream = ytdl(id);
-
-      stream.on('info', function(info, format) {
-        scope.urlReply(format.url, 404, 'not found');
-      });
-
-      stream.on('error', function(err) {
-        assert.ok(err);
-        scope.done();
-        assert.equal(err.message, 'Status code 404');
-        done();
-      });
-    });
-  });
-
   describe('With a bad filter', function() {
     it('Emits error', function(done) {
       var stream = ytdl.downloadFromInfo(testInfo, {
