@@ -71,12 +71,18 @@ Can be used if you'd like to choose a format yourself with the [options above](#
 
 If you'd like to work with only some formats, you can use the [`filter` option above](#ytdlurl-options).
 
-# Tips
-### Handling Separate Streams
+## Limitations
 
-Typically 1080p or better video does not have audio encoded with it. The audio must be downloaded separately and merged via an appropriate encoding library. `ffmpeg` is the most widely used tool, with many [Node.js modules available](https://www.npmjs.com/search?q=ffmpeg). Use the `format` objects returned from `ytdl.getInfo` to download specific streams to combine to fit your needs.
+ytdl cannot download videos that fall into the following
+* Regionally restricted (requires a [proxy](example/proxy.js))
+* Private
+* Rentals
 
-### What if it stops working?
+## Handling Separate Streams
+
+Typically 1080p or better video does not have audio encoded with it. The audio must be downloaded separately and merged via an appropriate encoding library. `ffmpeg` is the most widely used tool, with many [Node.js modules available](https://www.npmjs.com/search?q=ffmpeg). Use the `format` objects returned from `ytdl.getInfo` to download specific streams to combine to fit your needs. Look at [example/ffmpeg.js](example/ffmpeg.js) for an example on doing this.
+
+## What if it stops working?
 
 Youtube updates their website all the time, it's not that rare for this to stop working. If it doesn't work for you and you're using the latest version, feel free to open up an issue. Make sure to check if there isn't one already with the same error.
 
@@ -92,7 +98,7 @@ These tests are not mocked, and actually try to start downloading a few videos. 
 
 Set `debug: true` in the tests. Debug will write the html5player file to `test/files/html5player` and will add an entry for its name in `test/html5player.json`. With the html5player downloaded, you can open it and figure how it's failing to extract the signature deciphering function.
 
-And for the specifics on that, you can look at the `extractActions()` function in [`/lib/sig.js`](https://github.com/fent/node-ytdl-core/blob/master/lib/sig.js).
+For the specifics on that, you can look at the `extractActions()` function in [`/lib/sig.js`](https://github.com/fent/node-ytdl-core/blob/master/lib/sig.js).
 
 
 # Install
