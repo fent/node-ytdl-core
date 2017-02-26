@@ -139,4 +139,41 @@ describe('ytdl.getInfo()', function() {
       });
     });
   });
+
+  describe('Using the promise API', function() {
+    var id = 'pJk0p-98Xzc';
+    var expectedInfo = require('./files/videos/' + id + '/expected_info.json');
+
+    it('Retrieves correct metainfo', function(done) {
+      var scope = nock(id, {
+        dashmpd: true,
+        get_video_info: true,
+        player: 'player-en_US-vflV3n15C',
+      });
+
+      var p = ytdl.getInfo(id);
+      p.catch(done);
+      p.then(function(info) {
+        scope.done();
+        assert.ok(info.description.length);
+        assert.equal(info.formats.length, expectedInfo.formats.length);
+        done();
+      });
+    });
+
+    describe('on a video that fails', function() {
+      var id = 'unknown-vid';
+
+      it('Error is catched', function(done) {
+        var scope = nock(id);
+        var p = ytdl.getInfo(id);
+        p.catch(function(err) {
+          scope.done();
+          assert.ok(err);
+          assert.equal(err.message, 'This video does not exist.');
+          done();
+        });
+      });
+    });
+  });
 });

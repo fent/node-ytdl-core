@@ -54,9 +54,9 @@ Emitted when the video response has been found, and has started downloading. Can
 
 Destroys the underlying connection.
 
-### ytdl.getInfo(url, [options], callback(err, info))
+### ytdl.getInfo(url, [options], [callback(err, info)])
 
-Use this if you only want to get metainfo from a video.
+Use this if you only want to get metainfo from a video. If `callback` isn't given, returns a promise.
 
 ### ytdl.downloadFromInfo(info, options)
 
