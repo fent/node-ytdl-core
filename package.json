@@ -6,7 +6,7 @@
     "video",
     "download"
   ],
-  "version": "0.9.1",
+  "version": "0.9.2",
   "repository": {
     "type": "git",
     "url": "git://github.com/fent/node-ytdl-core.git"
@@ -29,6 +29,8 @@
     "sinon": "^1.17.6",
     "stream-equal": "~0.1.0"
   },
-  "engines": { "node": ">=0.12" },
+  "engines": {
+    "node": ">=0.12"
+  },
   "license": "MIT"
 }
