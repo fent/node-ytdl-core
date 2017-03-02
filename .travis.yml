@@ -4,6 +4,7 @@ node_js:
   - "iojs"
   - "4"
   - "6"
+  - "7"
 notifications:
   email:
     on_success: change
