@@ -27,7 +27,7 @@
     "muk-prop": "^0.5.3",
     "nock": "*",
     "sinon": "^1.17.6",
-    "stream-equal": "~0.1.0"
+    "stream-equal": "~1.0.0"
   },
   "engines": {
     "node": ">=0.12"
