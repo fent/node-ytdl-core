@@ -475,3 +475,30 @@ describe('util.objectAssign()', function() {
     assert.deepEqual(target, { headers: { one: 100, two: 2 }, my: 'mine' });
   });
 });
+
+
+describe('util.fromHumanTime', function() {
+  describe('Time format 00:00:00.000', function() {
+    it('Returns correct amount of milliseconds', function() {
+      assert.equal(util.fromHumanTime('05:30'), 60000 * 5 + 30000);
+      assert.equal(util.fromHumanTime('01:05:30'), 60000 * 60 + 60000 * 5 + 30000);
+      assert.equal(util.fromHumanTime('1:30.123'), 60000 + 30000 + 123);
+    });
+  });
+
+  describe('Time format 0ms, 0s, 0m, 0h', function() {
+    it('Returns correct amount of milliseconds', function() {
+      assert.equal(util.fromHumanTime('2ms'), 2);
+      assert.equal(util.fromHumanTime('1m'), 60000);
+      assert.equal(util.fromHumanTime('1m10s'), 60000 + 10000);
+      assert.equal(util.fromHumanTime('2hm10s500ms'), 3600000 * 2 + 10000 + 500);
+    });
+  });
+
+  describe('No format', function() {
+    it('Returns correct amount of milliseconds', function() {
+      assert.equal(util.fromHumanTime('1000'), 1000);
+      assert.equal(util.fromHumanTime(200), 200);
+    });
+  });
+});
