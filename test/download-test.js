@@ -174,6 +174,18 @@ describe('Download video', function() {
     });
   });
 
+  describe('With begin', function() {
+    it('Begin added to download URL', function(done) {
+      var stream = ytdl.downloadFromInfo(testInfo, { begin: '1m' });
+      stream.on('info', function(info, format) {
+        nock.url(format.url + '&begin=60000').reply(200, '');
+      });
+      stream.resume();
+      stream.on('error', done);
+      stream.on('end', done);
+    });
+  });
+
   describe('With a bad filter', function() {
     it('Emits error', function(done) {
       var stream = ytdl.downloadFromInfo(testInfo, {
