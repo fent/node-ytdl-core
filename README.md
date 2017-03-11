@@ -35,7 +35,7 @@ Attempts to download a video from the given url. Returns a readable stream. `opt
 ```js
 // Example with `filter` option.
 ytdl(url, { filter: function(format) { return format.container === 'mp4'; } })
-  .pipe(fs.createWriteStream('vide.mp4'));
+  .pipe(fs.createWriteStream('video.mp4'));
 ```
 
 #### Event: 'info'
@@ -49,7 +49,7 @@ An example of what Info and format may look like is in the [example folder](exam
 #### Event: 'response'
 * `http.ServerResponse` - Response.
 
-Emitted when the video response has been found, and has started downloading. Can be used to get the size of download. This is also emitted if there is an error with the download.
+Emitted when the video response has been found, and has started downloading. Can be used to get the size of download.
 
 ### Stream#destroy()
 
