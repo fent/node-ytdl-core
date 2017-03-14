@@ -1,6 +1,6 @@
-var assert = require('assert-diff');
-var nock   = require('./nock');
-var ytdl   = require('..');
+const assert = require('assert-diff');
+const nock   = require('./nock');
+const ytdl   = require('..');
 
 
 describe('ytdl.getInfo()', function() {
@@ -45,37 +45,13 @@ describe('ytdl.getInfo()', function() {
       });
     });
 
-    describe('Using a custom request function', function() {
-      it('Calls that function instead', function(done) {
-        var scope = nock(id, {
-          dashmpd: true,
-          get_video_info: true,
-          player: 'player-en_US-vflV3n15C',
-        });
-
-        var originalRequest = require('../lib/request');
-        var called = 0;
-        ytdl.getInfo(id, {
-          request: function(url, options, callback) {
-            called++;
-            return originalRequest(url, options, callback);
-          }
-        }, function(err) {
-          assert.ifError(err);
-          scope.done();
-          assert.equal(called, 4);
-          done();
-        });
-      });
-    });
-
     describe('Pass request options', function() {
       it('Request gets called with more headers', function(done) {
         var scope = nock(id, {
           dashmpd: true,
           get_video_info: true,
           player: 'player-en_US-vflV3n15C',
-          headers: { 'X-Hello': /^42$/ }
+          headers: { 'X-Hello': '42' }
         });
 
         ytdl.getInfo(id, {

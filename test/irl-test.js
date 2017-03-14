@@ -1,6 +1,6 @@
-var assert = require('assert');
-var nock   = require('nock');
-var ytdl   = require('..');
+const assert = require('assert');
+const nock   = require('nock');
+const ytdl   = require('..');
 
 
 var videos = {

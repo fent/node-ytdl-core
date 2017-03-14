@@ -1,10 +1,10 @@
-var ytdl   = require('..');
-var util   = require('../lib/util');
-var fs     = require('fs');
-var path   = require('path');
-var assert = require('assert-diff');
-var spy    = require('sinon').spy;
-var muk    = require('muk-prop');
+const ytdl   = require('..');
+const util   = require('../lib/util');
+const fs     = require('fs');
+const path   = require('path');
+const assert = require('assert-diff');
+const spy    = require('sinon').spy;
+const muk    = require('muk-prop');
 
 
 var formats = [
@@ -101,7 +101,6 @@ var formats = [
     audioBitrate  : null },
 ];
 var getItags = function(format) { return format.itag; };
-
 
 
 describe('util.parseTime()', function() {

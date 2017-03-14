@@ -29,8 +29,7 @@ Attempts to download a video from the given url. Returns a readable stream. `opt
 * `format` - This can be a specific `format` object returned from `getInfo`. This is primarily used to download specific video or audio streams. **Note:** Supplying this option will ignore the `filter` and `quality` options since the format is explicitly provided.
 * `range` - A byte range in the form `INT-INT` that specifies part of the file to download. ie 10355705-12452856. Note that this downloads a portion of the file, and not a separately spliced video.
 * `begin` - What time to begin downloading the video, supports formats 00:00:00.000, or 0ms, 0s, 0m, 0h, or number of milliseconds. Example: 1:30, 05:10.123, 10m30s
-* `requestOptions` - Anything to merge into the request options which `http.get()` is called with, such as headers.
-* `request` - A function that will be called for each request, instead of ytdl's internal method of making requests. Its signature looks like `Function(url, options, [callback(error, body)]): http.ClientRequest`
+* `requestOptions` - Anything to merge into the request options which [mini-get](https://github.com/fent/node-mini-get) is called with, such as headers.
 
 ```js
 // Example with `filter` option.
