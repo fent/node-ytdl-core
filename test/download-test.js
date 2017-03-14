@@ -1,9 +1,9 @@
-var assert      = require('assert');
-var path        = require('path');
-var fs          = require('fs');
-var streamEqual = require('stream-equal');
-var nock        = require('./nock');
-var ytdl        = require('..');
+const assert      = require('assert');
+const path        = require('path');
+const fs          = require('fs');
+const streamEqual = require('stream-equal');
+const nock        = require('./nock');
+const ytdl        = require('..');
 
 
 describe('Download video', function() {
@@ -37,62 +37,6 @@ describe('Download video', function() {
     });
   });
 
-  describe('that redirects', function() {
-    it('Should download file after redirect', function(done) {
-      var scope = nock(id, {
-        dashmpd: true,
-        get_video_info: true,
-        player: 'player-en_US-vflV3n15C',
-      });
-      var stream = ytdl(id, { filter: filter });
-
-      stream.on('info', function(info, format) {
-        scope.urlReply(format.url, 302, '', {
-          Location: 'http://somehost.com/somefile.mp4'
-        });
-        scope.urlReplyWithFile('http://somehost.com/somefile.mp4', 200, video);
-      });
-
-      var filestream = fs.createReadStream(video);
-      streamEqual(filestream, stream, function(err, equal) {
-        assert.ifError(err);
-        scope.done();
-        assert.ok(equal);
-        done();
-      });
-    });
-
-    describe('too many times', function() {
-      it('Emits error after 3 retries', function(done) {
-        var id = '_HSylqgVYQI';
-        var scope = nock(id, {
-          dashmpd: true,
-          get_video_info: true,
-          player: 'player-en_US-vflV3n15C',
-        });
-        var stream = ytdl(id);
-        stream.on('info', function(info, format) {
-          scope.urlReply(format.url, 302, '', {
-            Location: 'http://somehost.com/redirect1.mp4'
-          });
-          scope.urlReply('http://somehost.com/redirect1.mp4', 302, '', {
-            Location: 'http://somehost.com/redirect2.mp4'
-          });
-          scope.urlReply('http://somehost.com/redirect2.mp4', 302, '', {
-            Location: 'http://somehost.com/redirect3.mp4'
-          });
-        });
-
-        stream.on('error', function(err) {
-          assert.ok(err);
-          scope.done();
-          assert.equal(err.message, 'Too many redirects');
-          done();
-        });
-      });
-    });
-  });
-
   describe('destroy stream', function() {
     describe('immediately', function() {
       it('Doesn\'t start the download', function(done) {
@@ -106,8 +50,8 @@ describe('Download video', function() {
 
         stream.on('request', function() {
           done(new Error('Should not emit `request`'));
-        stream.on('response', function() {
         });
+        stream.on('response', function() {
           done(new Error('Should not emit `response`'));
         });
         stream.on('info', function() {
@@ -118,6 +62,7 @@ describe('Download video', function() {
     });
 
     describe('right after request is made', function() {
+      after(function() { nock.cleanAll(); });
       it('Doesn\'t start the download', function(done) {
         var scope = nock(id, {
           dashmpd: true,
@@ -131,8 +76,14 @@ describe('Download video', function() {
           scope.done();
           done();
         });
+        stream.on('info', function(info, format) {
+          nock.url(format.url).reply(200, 'aaaaaaaaaaaa');
+        });
         stream.on('response', function() {
-          done(new Error('Should not emit `response`'));
+          throw new Error('Should not emit `response`');
+        });
+        stream.on('data', function() {
+          throw new Error('Should not emit `data`');
         });
       });
     });

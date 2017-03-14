@@ -1,10 +1,10 @@
-var sig    = require('../lib/sig');
-var assert = require('assert-diff');
-var fs     = require('fs');
-var path   = require('path');
-var nock   = require('./nock');
-var spy    = require('sinon').spy;
-var muk    = require('muk-prop');
+const sig    = require('../lib/sig');
+const assert = require('assert-diff');
+const fs     = require('fs');
+const path   = require('path');
+const nock   = require('./nock');
+const spy    = require('sinon').spy;
+const muk    = require('muk-prop');
 
 var html5player = require('./html5player.json');
 
@@ -25,11 +25,7 @@ describe('Get tokens', function() {
   });
 
   describe('Hit the same video twice', function() {
-    after(function() {
-      nock.enableNetConnect();
-    });
     it('Gets html5player tokens from cache', function(done) {
-      nock.disableNetConnect();
       sig.getTokens(url, {}, function(err, tokens) {
         assert.ifError(err);
         assert.ok(tokens.length);

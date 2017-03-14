@@ -1,12 +1,12 @@
-var path = require('path');
-var url  = require('url');
-var nock = require('nock');
+const path = require('path');
+const url  = require('url');
+const nock = require('nock');
 
-var YT_HOST       = 'https://www.youtube.com';
-var VIDEO_PATH    = '/watch?v=';
-var MANIFEST_HOST = 'https://manifest.googlevideo.com';
-var EMBED_PATH    = '/embed/';
-var INFO_PATH     = '/get_video_info?';
+const YT_HOST       = 'https://www.youtube.com';
+const VIDEO_PATH    = '/watch?v=';
+const MANIFEST_HOST = 'https://manifest.googlevideo.com';
+const EMBED_PATH    = '/embed/';
+const INFO_PATH     = '/get_video_info?';
 
 
 exports = module.exports = function(id, opts) {
@@ -63,6 +63,9 @@ exports = module.exports = function(id, opts) {
         path.resolve(__dirname, dirpath + '/get_video_info')));
   }
 
+  before(function() { nock.disableNetConnect(); });
+  after(function() { nock.enableNetConnect(); });
+
   return {
     done: function() {
       scopes.forEach(function(scope) {
@@ -84,6 +87,4 @@ exports.url = function(uri) {
   return nock(parsed.protocol + '//' + parsed.host).get(parsed.path);
 };
 
-
-exports.disableNetConnect = nock.disableNetConnect;
-exports.enableNetConnect = nock.enableNetConnect;
+exports.cleanAll = nock.cleanAll;
