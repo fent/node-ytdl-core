@@ -164,9 +164,9 @@ describe('Download video', function() {
 
   describe('With range', function() {
     it('Range added to download URL', function(done) {
-      var stream = ytdl.downloadFromInfo(testInfo, { range: '500-1000' });
+      var stream = ytdl.downloadFromInfo(testInfo, { range: {start: 500, end: 1000} });
       stream.on('info', function(info, format) {
-        nock.url(format.url + '&range=500-1000').reply(200, '');
+        nock.url(format.url + '&range=500-1000').reply(200, '', {'content-length': '0'});
       });
       stream.resume();
       stream.on('error', done);
