@@ -49,14 +49,14 @@ An example of what Info and format may look like is in the [example folder](exam
 #### Event: 'response'
 * `http.ServerResponse` - Response.
 
-Emitted when the video response has been found, and has started downloading. Can be used to get the size of download. This is also emitted if there is an error with the download.
+Emitted when the video response has been found, and has started downloading. Can be used to get the size of download. This is also emitted if there is an error with the download or it needs to reconnect to YouTube.
 
 #### Event: 'progress'
 * `number` - Percentage.
 * `number` - Start.
 * `number` - End.
-* `number` - Downloaded.
-* `number` - Chunk.
+* `number` - Total downloaded.
+* `number` - Chunk length.
 
 Emitted whenever a new chunk is received. Passes values descriping the download progress and the parsed percentage.
 
