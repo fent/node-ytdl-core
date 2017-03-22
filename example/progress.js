@@ -7,6 +7,6 @@ var output = path.resolve(__dirname, 'video.mp4');
 
 var video = ytdl(url);
 video.pipe(fs.createWriteStream(output));
-video.on('progress', function(percentage, start, end, totalDownloaded, chunkLength) {
-  process.stdout.write((percentage * 100).toFixed(2) + '% ');
+video.on('progress', function(chunkLength, totalDownloaded, totalDownloadLength) {
+  process.stdout.write((totalDownloaded / totalDownloadLength * 100).toFixed(2) + '% ');
 });
