@@ -13,6 +13,9 @@
   },
   "author": "fent (https://github.com/fent)",
   "main": "./lib/index.js",
+  "files": [
+    "lib"
+  ],
   "scripts": {
     "test": "istanbul cover node_modules/.bin/_mocha -- -t 16000 test/*-test.js"
   },
