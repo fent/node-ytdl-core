@@ -13,6 +13,7 @@
   },
   "author": "Roly Fentanes (https://github.com/fent)",
   "main": "./lib/index.js",
+  "types": "./typings/index.d.ts",
   "files": [
     "lib"
   ],
@@ -24,13 +25,15 @@
     "sax": "^1.1.3"
   },
   "devDependencies": {
+    "@types/node": "^7.0.12",
     "assert-diff": "^1.0.1",
     "istanbul": "*",
     "mocha": "*",
     "muk-prop": "^1.0.0",
     "nock": "*",
     "sinon": "^2.0.0",
-    "stream-equal": "~1.0.0"
+    "stream-equal": "~1.0.0",
+    "typescript": "^2.2.2"
   },
   "engines": {
     "node": ">=0.12"
