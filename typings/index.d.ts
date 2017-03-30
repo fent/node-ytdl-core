@@ -11,15 +11,33 @@ declare module 'ytdl-core' {
     export function filterFormats(formats: object[], filter?: 'video' | 'videoonly' | 'audio' | 'audioonly' | ((format: VideoFormat) => boolean)): object[];
   }
 
+  export type DownloadOptions = {
+    quality?: 'lowest' | 'highest';
+    filter?: 'video' | 'videoonly' | 'audio' | 'audioonly' | ((format: VideoFormat) => boolean);
+    format?: VideoFormat;
+    range?: string;
+    requestOptions?: {};
+    request?: (url: string, options: {}, callback?: (err: Error, body: any) => void) => ClientRequest;
+  }
+
   export type VideoFormat = {
-    fallback_host: string;
-    quality: string;
-    type: string;
+    s?: string;
+    sig?: string;
+    xtags?: string;
+    clen?: string;
+    size?: string;
+    projection_type?: string;
+    lmt?: string;
+    init?: string;
+    fps?: string;
+    index?: string;
+    type?: string;
+    quality?: 'hd720' | 'medium' | 'small' | '';
+    quality_label?: '144p' | '240p' | '270p' | '360p' | '480p' | '720p' | '1080p' | '1440p' | '2160p' | '4320p';
     url: string;
     itag: string;
-    sig: string;
     container: 'flv' | '3gp' | 'mp4' | 'webm' | 'ts';
-    resolution: '144p' | '240p' | '270p' | '360p' | '480p' | '720p' | '1080p' | '1440p' | '2160p' | '3072p';
+    resolution: '144p' | '240p' | '270p' | '360p' | '480p' | '720p' | '1080p' | '1440p' | '2160p' | '4320p';
     encoding: 'Sorenson H.283' | 'MPEG-4 Visual' | 'VP8' | 'VP9' | 'H.264';
     profile: '3d' | 'high' | 'main' | 'simple' | 'baseline' | 'Main@L3.1';
     bitrate: string;
@@ -28,49 +46,148 @@ declare module 'ytdl-core' {
   }
 
   export type VideoInfo = {
-    plid: string;
-    sendtmp: number;
-    title: string;
-    status: string;
-    muted: number;
-    pltype: string;
-    thumbnail_url: string;
-    has_cc: boolean;
-    video_verticals: number[];
-    track_embed: number;
-    author: string;
-    rvs: string;
-    ftoken: string;
-    allow_embed: number;
-    vq: string;
-    account_playback_token: string;
-    share_icons: string;
-    watermark: string[],
-    endscreen_module: string;
+    iv_load_policy?: string;
+    iv_allow_in_place_switch?: string;
+    iv_endscreen_url?: string;
+    iv_invideo_url?: string;
+    iv3_module?: string;
+    rmktEnabled?: string;
+    uid?: string;
+    vid?: string;
+    focEnabled?: string;
+    baseUrl?: string;
+    storyboard_spec?: string;
+    serialized_ad_ux_config?: string;
+    player_error_log_fraction?: string;
+    sffb?: string;
+    ldpj?: string;
+    videostats_playback_base_url?: string;
+    innertube_context_client_version?: string;
+    player_response?: string;
+    t?: string;
+    fade_in_start_milliseconds: string;
+    timestamp: string;
+    ad3_module: string;
+    relative_loudness: string;
+    allow_below_the_player_companion: string;
+    eventid: string;
     token: string;
-    view_count: number
-    length_seconds: number
-    abd: number
-    allow_ratings: number;
-    keywords: string[];
-    iurlmaxres: string;
-    fmt_list: string[][];
-    iurlsd: string;
-    video_id: string;
-    ptk: string;
-    storyboard_spec: string;
-    timestamp: number;
-    avg_rating: string;
+    atc: string;
+    title: string;
+    cr: string;
+    apply_fade_on_midrolls: string;
+    cl: string;
     fexp: string[];
+    apiary_host: string;
+    fade_in_duration_milliseconds: string;
+    fflags: string;
+    ssl: string;
+    pltype: string;
+    author: {
+      id: string;
+      name: string;
+      avatar: string;
+      user: string;
+      channel_url: string;
+      user_url: string;
+    };
+    enabled_engage_types: string;
+    hl: string;
+    is_listed: string;
+    gut_tag: string;
+    apiary_host_firstparty: string;
+    enablecsi: string;
+    csn: string;
+    status: string;
+    afv_ad_tag: string;
+    idpj: string;
+    sfw_player_response: string;
+    account_playback_token: string;
+    encoded_ad_safety_reason: string;
+    tag_for_children_directed: string;
+    no_get_video_log: string;
+    ppv_remarketing_url: string;
+    fmt_list: string[][];
+    ad_slots: string;
+    fade_out_duration_milliseconds: string;
+    instream_long: string;
+    allow_html5_ads: string;
+    core_dbp: string;
+    ad_device: string;
+    view_count: string;
+    itct: string;
+    root_ve_type: string;
+    excluded_ads: string;
+    aftv: string;
+    loeid: string;
+    cver: string;
+    shortform: string;
+    dclk: string;
+    csi_page_type: string;
+    ismb: string;
+    gpt_migration: string;
+    loudness: string;
+    ad_tag: string;
+    of: string;
+    probe_url: string;
+    vm: string;
+    afv_ad_tag_restricted_to_instream: string;
+    gapi_hint_params: string;
+    cid: string;
+    c: string;
+    oid: string;
+    ptchn: string;
+    as_launched_in_country: string;
+    avg_rating: string;
+    fade_out_start_milliseconds: string;
+    length_seconds: string;
+    midroll_prefetch_size: string;
+    allow_ratings: string;
+    thumbnail_url: string;
+    ad_preroll: string;
+    tmi: string;
+    keywords: string[];
+    trueview: string;
+    host_language: string;
+    innertube_api_key: string;
+    show_content_thumbnail: string;
+    afv_instream_max: string;
+    innertube_api_version: string;
+    mpvid: string;
+    allow_embed: string;
+    ucid: string;
+    plid: string;
+    midroll_freqcap: string;
+    ad_logging_flag: string;
+    ptk: string;
+    vmap: string;
+    watermark: string[];
+    video_id: string;
+    dbp: string;
+    ad_flags: string;
     formats: VideoFormat[];
+    published: number;
+    description: string;
+    relatedVideos: relatedVideo[]
+    video_url: string;
   }
 
-  export type DownloadOptions = {
-    quality?: 'lowest' | 'highest';
-    filter?: 'video' | 'videoonly' | 'audio' | 'audioonly' | ((format: VideoFormat) => boolean);
-    format?: VideoFormat;
-    range?: string;
-    requestOptions?: {};
-    request?: (url: string, options: {}, callback?: (err: Error, body: any) => void) => ClientRequest;
+  type relatedVideo = {
+    id?: string;
+    title?: string;
+    author?: string;
+    length_seconds?: string;
+    iurlmq?: string;
+    short_view_count_text?: string;
+    session_data: string;
+    endscreen_autoplay_session_data?: string;
+    iurlhq?: string;
+    playlist_iurlhq?: string;
+    playlist_title?: string;
+    playlist_length?: string;
+    playlist_iurlmq?: string;
+    video_id?: string;
+    list?: string;
+    thumbnail_ids?: string;
   }
 }

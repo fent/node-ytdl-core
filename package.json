@@ -32,8 +32,7 @@
     "muk-prop": "^1.0.0",
     "nock": "*",
     "sinon": "^2.0.0",
-    "stream-equal": "~1.0.0",
-    "typescript": "^2.2.2"
+    "stream-equal": "~1.0.0"
   },
   "engines": {
     "node": ">=0.12"
