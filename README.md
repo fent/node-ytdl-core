@@ -52,9 +52,9 @@ An example of what Info and format may look like is in the [example folder](exam
 Emitted when the video response has been found, and has started downloading. Can be used to get the size of download. This is also emitted if there is an error with the download or it needs to reconnect to YouTube.
 
 #### Event: 'progress'
-* `int` - Chunk length.
-* `int` - Total downloaded.
-* `int` - Total download length.
+* `Number` - Chunk length.
+* `Number` - Total downloaded.
+* `Number` - Total download length.
 
 Emitted whenever a new chunk is received. Passes values descriping the download progress and the parsed percentage.
 
