@@ -2,25 +2,25 @@ declare module 'ytdl-core' {
   import { ClientRequest } from 'http';
   import { Readable } from 'stream';
 
-  export function ytdl(link: string, options?: DownloadOptions): Readable;
+  export function ytdl(link: string, options?: downloadOptions): Readable;
   export namespace ytdl {
-    export function getInfo(url: string, callback?: (err: Error, info: VideoInfo) => void): Promise<VideoInfo>;
-    export function getInfo(url: string, options?: DownloadOptions, callback?: (err: Error, info: VideoInfo) => void): Promise<VideoInfo>;
-    export function downloadFromInfo(info: VideoInfo, options?: DownloadOptions): Readable;
-    export function chooseFormat(format: object[], options?: DownloadOptions): object | Error;
-    export function filterFormats(formats: object[], filter?: 'video' | 'videoonly' | 'audio' | 'audioonly' | ((format: VideoFormat) => boolean)): object[];
+    export function getInfo(url: string, callback?: (err: Error, info: videoInfo) => void): Promise<videoInfo>;
+    export function getInfo(url: string, options?: downloadOptions, callback?: (err: Error, info: videoInfo) => void): Promise<videoInfo>;
+    export function downloadFromInfo(info: videoInfo, options?: downloadOptions): Readable;
+    export function chooseFormat(format: object[], options?: downloadOptions): object | Error;
+    export function filterFormats(formats: object[], filter?: 'video' | 'videoonly' | 'audio' | 'audioonly' | ((format: videoFormat) => boolean)): object[];
   }
 
-  export type DownloadOptions = {
+  export type downloadOptions = {
     quality?: 'lowest' | 'highest';
-    filter?: 'video' | 'videoonly' | 'audio' | 'audioonly' | ((format: VideoFormat) => boolean);
-    format?: VideoFormat;
+    filter?: 'video' | 'videoonly' | 'audio' | 'audioonly' | ((format: videoFormat) => boolean);
+    format?: videoFormat;
     range?: string;
     requestOptions?: {};
     request?: (url: string, options: {}, callback?: (err: Error, body: any) => void) => ClientRequest;
   }
 
-  export type VideoFormat = {
+  export type videoFormat = {
     s?: string;
     sig?: string;
     xtags?: string;
@@ -32,7 +32,7 @@ declare module 'ytdl-core' {
     fps?: string;
     index?: string;
     type?: string;
-    quality?: 'hd720' | 'medium' | 'small' | '';
+    quality?: 'hd720' | 'medium' | 'small' | string;
     quality_label?: '144p' | '240p' | '270p' | '360p' | '480p' | '720p' | '1080p' | '1440p' | '2160p' | '4320p';
     url: string;
     itag: string;
@@ -45,7 +45,7 @@ declare module 'ytdl-core' {
     audioBitrate: number;
   }
 
-  export type VideoInfo = {
+  export type videoInfo = {
     iv_load_policy?: string;
     iv_allow_in_place_switch?: string;
     iv_endscreen_url?: string;
@@ -165,7 +165,7 @@ declare module 'ytdl-core' {
     video_id: string;
     dbp: string;
     ad_flags: string;
-    formats: VideoFormat[];
+    formats: videoFormat[];
     published: number;
     description: string;
     relatedVideos: relatedVideo[]
