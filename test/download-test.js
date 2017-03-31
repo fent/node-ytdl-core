@@ -106,8 +106,8 @@ describe('Download video', function() {
 
         stream.on('request', function() {
           done(new Error('Should not emit `request`'));
-        stream.on('response', function() {
         });
+        stream.on('response', function() {
           done(new Error('Should not emit `response`'));
         });
         stream.on('info', function() {
@@ -162,7 +162,183 @@ describe('Download video', function() {
     });
   });
 
-  describe('With range', function() {
+  describe('stream disconnects before end', function() {
+    var filesize;
+    before(function(done) {
+      fs.stat(video, function(err, stat) {
+        if (err) return done(err);
+        filesize = stat.size;
+        done();
+      });
+    });
+
+    it('Still downloads the whole video', function(done) {
+      var scope = nock(id, {
+        dashmpd: true,
+        get_video_info: true,
+        player: 'player-en_US-vflV3n15C',
+      });
+      var stream = ytdl(id);
+
+      var wasDestroyed = false;
+      stream.on('info', function(info, format) {
+        var req, res;
+        scope.urlReplyFn(format.url, function() {
+          req = this.req;
+          return [
+            200,
+            fs.createReadStream(video),
+            { 'content-length': filesize }
+          ];
+        });
+
+        stream.once('response', function(a) { res = a; });
+
+        stream.on('progress', function(chunkLength, downloaded, total) {
+          if (downloaded / total >= 0.5) {
+            var newUrl = format.url + '&range=' + downloaded + '-';
+            scope.urlReplyFn(newUrl, function() {
+              return [
+                200,
+                fs.createReadStream(video, { start: downloaded }),
+                { 'content-length': filesize - downloaded }
+              ];
+            });
+            wasDestroyed = true;
+            stream.removeAllListeners('progress');
+            res.unpipe();
+            req.abort();
+          }
+        });
+      });
+
+      var filestream = fs.createReadStream(video);
+      streamEqual(filestream, stream, function(err, equal) {
+        assert.ifError(err);
+        scope.done();
+        assert.ok(wasDestroyed);
+        assert.ok(equal);
+        done();
+      });
+    });
+
+    describe('with range', function() {
+      it('Downloads from the given `start` to `end`', function(done) {
+        var scope = nock(id, {
+          dashmpd: true,
+          get_video_info: true,
+          player: 'player-en_US-vflV3n15C',
+        });
+
+        var start = Math.floor(filesize * 0.1);
+        var end = Math.floor(filesize * 0.45);
+        var rangedSize = end - start + 1;
+        var stream = ytdl(id, { range: { start: start, end: end } });
+
+        var wasDestroyed = true;
+        stream.on('info', function(info, format) {
+          var req, res;
+          var url = format.url + '&range=' + start + '-' + end;
+          scope.urlReplyFn(url, function() {
+            req = this.req;
+            return [
+              200,
+              fs.createReadStream(video, { start: start, end: end }),
+              { 'content-length': rangedSize }
+            ];
+          });
+
+          stream.once('response', function(a) { res = a; });
+
+          stream.on('progress', function(chunkLength, downloaded, total) {
+            if (downloaded / total >= 0.5) {
+              var newUrl = format.url +
+                '&range=' + (start + downloaded) + '-' + end;
+              scope.urlReplyFn(newUrl, function() {
+                return [
+                  200,
+                  fs.createReadStream(video, {
+                    start: start + downloaded,
+                    end: end,
+                  }),
+                  { 'content-length': rangedSize - downloaded }
+                ];
+              });
+              wasDestroyed = true;
+              stream.removeAllListeners('progress');
+              res.unpipe();
+              req.abort();
+            }
+          });
+        });
+
+        var filestream = fs.createReadStream(video, { start: start, end: end });
+        streamEqual(filestream, stream, function(err, equal) {
+          assert.ifError(err);
+          scope.done();
+          assert.ok(wasDestroyed);
+          assert.ok(equal);
+          done();
+        });
+      });
+    });
+
+    describe('Stream keeps disconnecting', function() {
+      it('Too many reconnects', function(done) {
+        var scope = nock(id, {
+          dashmpd: true,
+          get_video_info: true,
+          player: 'player-en_US-vflV3n15C',
+        });
+        var stream = ytdl(id);
+
+        var destroyedTimes = 0;
+        stream.on('info', function(info, format) {
+          var req, res;
+          scope.urlReplyFn(format.url, function() {
+            req = this.req;
+            return [
+              200,
+              fs.createReadStream(video),
+              { 'content-length': filesize }
+            ];
+          });
+
+          stream.on('response', function(a) { res = a; });
+
+          stream.on('progress', function(chunkLength, downloaded) {
+            // Keep disconnecting.
+            if (++destroyedTimes < 5) {
+              var newUrl = format.url + '&range=' + downloaded + '-';
+              scope.urlReplyFn(newUrl, function() {
+                return [
+                  200,
+                  fs.createReadStream(video, { start: downloaded }),
+                  { 'content-length': filesize - downloaded }
+                ];
+              });
+            }
+            res.unpipe();
+            req.abort();
+          });
+        });
+
+        stream.on('end', function() {
+          throw new Error('Stream should not end');
+        });
+
+        stream.on('error', function(err) {
+          scope.done();
+          assert.ok(err);
+          assert.equal(err.message, 'Too many reconnects');
+          assert.equal(destroyedTimes, 5);
+          done();
+        });
+      });
+    });
+  });
+
+  describe('with range', function() {
     it('Range added to download URL', function(done) {
       var stream = ytdl.downloadFromInfo(testInfo, { range: {start: 500, end: 1000} });
       stream.on('info', function(info, format) {
@@ -174,7 +350,7 @@ describe('Download video', function() {
     });
   });
 
-  describe('With begin', function() {
+  describe('with begin', function() {
     it('Begin added to download URL', function(done) {
       var stream = ytdl.downloadFromInfo(testInfo, { begin: '1m' });
       stream.on('info', function(info, format) {
@@ -186,7 +362,7 @@ describe('Download video', function() {
     });
   });
 
-  describe('With a bad filter', function() {
+  describe('with a bad filter', function() {
     it('Emits error', function(done) {
       var stream = ytdl.downloadFromInfo(testInfo, {
         filter: function() {}
