@@ -66,7 +66,7 @@ you may pass that `info`, along with other `options` to `downloadFromInfo`.
 
 ### ytdl.chooseFormat(formats, options)
 
-Can be used if you'd like to choose a format yourself with the [options above](#ytdlurl-options)
+Can be used if you'd like to choose a format yourself with the [options above](#ytdlurl-options).
 
 ### ytdl.filterFormats(formats, filter)
 
