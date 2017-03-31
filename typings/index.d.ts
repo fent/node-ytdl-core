@@ -7,8 +7,8 @@ declare module 'ytdl-core' {
     export function getInfo(url: string, callback?: (err: Error, info: videoInfo) => void): Promise<videoInfo>;
     export function getInfo(url: string, options?: downloadOptions, callback?: (err: Error, info: videoInfo) => void): Promise<videoInfo>;
     export function downloadFromInfo(info: videoInfo, options?: downloadOptions): Readable;
-    export function chooseFormat(format: object[], options?: downloadOptions): object | Error;
-    export function filterFormats(formats: object[], filter?: 'video' | 'videoonly' | 'audio' | 'audioonly' | ((format: videoFormat) => boolean)): object[];
+    export function chooseFormat(format: videoFormat | videoFormat[], options?: downloadOptions): object | Error;
+    export function filterFormats(formats: videoFormat | videoFormat[], filter?: 'video' | 'videoonly' | 'audio' | 'audioonly' | ((format: videoFormat) => boolean)): object[];
   }
 
   export type downloadOptions = {
