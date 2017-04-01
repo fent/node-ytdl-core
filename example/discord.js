@@ -1,6 +1,6 @@
 // Install discord.js before running this!
 const Discord = require('discord.js');
-const ytdl    = require('ytdl-core');
+const ytdl    = require('..');
 
 const client = new Discord.Client();
 client.login(' Y o u r   B o t   T o k e n ');
