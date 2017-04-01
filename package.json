@@ -13,6 +13,7 @@
   },
   "author": "fent (https://github.com/fent)",
   "main": "./lib/index.js",
+  "types": "./typings/index.d.ts",
   "files": [
     "lib"
   ],
@@ -24,6 +25,7 @@
     "sax": "^1.1.3"
   },
   "devDependencies": {
+    "@types/node": "^7.0.12",
     "assert-diff": "^1.0.1",
     "istanbul": "*",
     "mocha": "*",
