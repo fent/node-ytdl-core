@@ -12,6 +12,9 @@
     "url": "git://github.com/fent/node-ytdl-core.git"
   },
   "author": "Roly Fentanes (https://github.com/fent)",
+  "contributors": [
+    "Tobias Kutscha (https://github.com/TimeForANinja)"
+  ],
   "main": "./lib/index.js",
   "types": "./typings/index.d.ts",
   "files": [
