@@ -172,6 +172,12 @@ describe('Download video', function() {
       });
     });
 
+    function destroy(req, res) {
+      req.abort();
+      res.unpipe();
+      res.emit('end');
+    }
+
     it('Still downloads the whole video', function(done) {
       var scope = nock(id, {
         dashmpd: true,
@@ -180,7 +186,7 @@ describe('Download video', function() {
       });
       var stream = ytdl(id);
 
-      var wasDestroyed = false;
+      var destroyedTimes = 0;
       stream.on('info', function(info, format) {
         var req, res;
         scope.urlReplyFn(format.url, function() {
@@ -204,10 +210,9 @@ describe('Download video', function() {
                 { 'content-length': filesize - downloaded }
               ];
             });
-            wasDestroyed = true;
             stream.removeAllListeners('progress');
-            res.unpipe();
-            req.abort();
+            destroyedTimes++;
+            destroy(req, res);
           }
         });
       });
@@ -216,7 +221,7 @@ describe('Download video', function() {
       streamEqual(filestream, stream, function(err, equal) {
         assert.ifError(err);
         scope.done();
-        assert.ok(wasDestroyed);
+        assert.equal(destroyedTimes, 1);
         assert.ok(equal);
         done();
       });
@@ -235,7 +240,7 @@ describe('Download video', function() {
         var rangedSize = end - start + 1;
         var stream = ytdl(id, { range: { start: start, end: end } });
 
-        var wasDestroyed = true;
+        var destroyedTimes = 0;
         stream.on('info', function(info, format) {
           var req, res;
           var url = format.url + '&range=' + start + '-' + end;
@@ -264,10 +269,9 @@ describe('Download video', function() {
                   { 'content-length': rangedSize - downloaded }
                 ];
               });
-              wasDestroyed = true;
+              destroyedTimes++;
               stream.removeAllListeners('progress');
-              res.unpipe();
-              req.abort();
+              destroy(req, res);
             }
           });
         });
@@ -276,7 +280,7 @@ describe('Download video', function() {
         streamEqual(filestream, stream, function(err, equal) {
           assert.ifError(err);
           scope.done();
-          assert.ok(wasDestroyed);
+          assert.equal(destroyedTimes, 1);
           assert.ok(equal);
           done();
         });
@@ -318,8 +322,7 @@ describe('Download video', function() {
                 ];
               });
             }
-            res.unpipe();
-            req.abort();
+            destroy(req, res);
           });
         });
 
