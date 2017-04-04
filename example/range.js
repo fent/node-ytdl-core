@@ -9,6 +9,6 @@ var video = ytdl(url, { range: { start: 0, end: 1000 } });
 video.pipe(fs.createWriteStream(output));
 
 video.on('end', function() {
-  ytdl(url, { range: { start: 0 } })
+  ytdl(url, { range: { start: 1001 } })
     .pipe(fs.createWriteStream(output, { flags: 'a' }));
 });
