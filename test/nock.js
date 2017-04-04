@@ -72,8 +72,11 @@ exports = module.exports = function(id, opts) {
     urlReply: function(uri, statusCode, body, headers) {
       scopes.push(exports.url(uri).reply(statusCode, body, headers));
     },
-    urlReplyWithFile: function(uri, statusCode, file) {
-      scopes.push(exports.url(uri).replyWithFile(statusCode, file));
+    urlReplyWithFile: function(uri, statusCode, file, headers) {
+      scopes.push(exports.url(uri).replyWithFile(statusCode, file, headers));
+    },
+    urlReplyFn: function(uri, fn) {
+      scopes.push(exports.url(uri).reply(fn));
     },
   };
 };
