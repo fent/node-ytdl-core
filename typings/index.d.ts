@@ -15,7 +15,10 @@ declare module 'ytdl-core' {
     quality?: 'lowest' | 'highest';
     filter?: 'video' | 'videoonly' | 'audio' | 'audioonly' | ((format: videoFormat) => boolean);
     format?: videoFormat;
-    range?: string;
+    range?: {
+      start?: number;
+      end?: number;
+    };
     requestOptions?: {};
     request?: (url: string, options: {}, callback?: (err: Error, body: any) => void) => ClientRequest;
   }
