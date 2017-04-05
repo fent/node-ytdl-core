@@ -6,7 +6,7 @@
     "video",
     "download"
   ],
-  "version": "0.11.0",
+  "version": "0.11.1",
   "repository": {
     "type": "git",
     "url": "git://github.com/fent/node-ytdl-core.git"
@@ -23,7 +23,7 @@
   "types": "./typings/index.d.ts",
   "files": [
     "lib",
-		"typings"
+    "typings"
   ],
   "scripts": {
     "test": "istanbul cover node_modules/.bin/_mocha -- -t 16000 test/*-test.js"
