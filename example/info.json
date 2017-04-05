@@ -211,7 +211,7 @@
   "mpvid": "w-5jc0YTycK7-cuD",
   "formats": [
     {
-      "url": "https://r2---sn-p5qs7n7d.googlevideo.com/videoplayback?ip=158.69.59.138&ms=au&ei=kh7kWO-iD8LsuAL315voBg&mv=m&pl=26&ipbits=0&id=o-AHOGkCrRPBYkErLlqTECGiLANu4GWYjAIdvkhmHMXlAT&mn=sn-p5qs7n7d&mm=31&source=youtube&dur=190.055&lmt=1472145955212339&ratebypass=yes&requiressl=yes&initcwndbps=1156250&key=yt6&mime=video%2Fmp4&mt=1491344969&upn=RVeOYWAaYOQ&itag=22&sparams=dur%2Cei%2Cid%2Cinitcwndbps%2Cip%2Cipbits%2Citag%2Clmt%2Cmime%2Cmm%2Cmn%2Cms%2Cmv%2Cpl%2Cratebypass%2Crequiressl%2Csource%2Cupn%2Cexpire&expire=1491366642&signature=0E68612DEB26CE6705D3AF427175F61A12D6C478.9798B92326004BC5305060D7A64A50CCD7F36FC0",
+      "url": "https://r2---sn-p5qs7n7d.googlevideo.com/videoplayback?ip=0.0.0.0&ms=au&ei=kh7kWO-iD8LsuAL315voBg&mv=m&pl=26&ipbits=0&id=o-AHOGkCrRPBYkErLlqTECGiLANu4GWYjAIdvkhmHMXlAT&mn=sn-p5qs7n7d&mm=31&source=youtube&dur=190.055&lmt=1472145955212339&ratebypass=yes&requiressl=yes&initcwndbps=1156250&key=yt6&mime=video%2Fmp4&mt=1491344969&upn=RVeOYWAaYOQ&itag=22&sparams=dur%2Cei%2Cid%2Cinitcwndbps%2Cip%2Cipbits%2Citag%2Clmt%2Cmime%2Cmm%2Cmn%2Cms%2Cmv%2Cpl%2Cratebypass%2Crequiressl%2Csource%2Cupn%2Cexpire&expire=1491366642&signature=0E68612DEB26CE6705D3AF427175F61A12D6C478.9798B92326004BC5305060D7A64A50CCD7F36FC0",
       "s": "2E68610DEB26CE6705D3AF427175F61A12D6C478.9798B92326004BC5305060D7A64A50CCD7F36FC00",
       "type": "video/mp4; codecs=\"avc1.64001F, mp4a.40.2\"",
       "itag": "22",
@@ -225,7 +225,7 @@
       "audioBitrate": 192
     },
     {
-      "url": "https://r2---sn-p5qs7n7d.googlevideo.com/videoplayback?ip=158.69.59.138&ms=au&ei=kh7kWO-iD8LsuAL315voBg&mv=m&pl=26&ipbits=0&id=o-AHOGkCrRPBYkErLlqTECGiLANu4GWYjAIdvkhmHMXlAT&mn=sn-p5qs7n7d&mm=31&source=youtube&clen=21698380&dur=0.000&lmt=1469287773454945&ratebypass=yes&requiressl=yes&initcwndbps=1156250&key=yt6&gir=yes&mime=video%2Fwebm&mt=1491344969&upn=RVeOYWAaYOQ&itag=43&sparams=clen%2Cdur%2Cei%2Cgir%2Cid%2Cinitcwndbps%2Cip%2Cipbits%2Citag%2Clmt%2Cmime%2Cmm%2Cmn%2Cms%2Cmv%2Cpl%2Cratebypass%2Crequiressl%2Csource%2Cupn%2Cexpire&expire=1491366642&signature=39845C7D8EA888FAF9E1C7DB4FCDE80476F70D35.7DDC25AF54F1F21C98B88512808F1E138F6BD6E6",
+      "url": "https://r2---sn-p5qs7n7d.googlevideo.com/videoplayback?ip=0.0.0.08&ms=au&ei=kh7kWO-iD8LsuAL315voBg&mv=m&pl=26&ipbits=0&id=o-AHOGkCrRPBYkErLlqTECGiLANu4GWYjAIdvkhmHMXlAT&mn=sn-p5qs7n7d&mm=31&source=youtube&clen=21698380&dur=0.000&lmt=1469287773454945&ratebypass=yes&requiressl=yes&initcwndbps=1156250&key=yt6&gir=yes&mime=video%2Fwebm&mt=1491344969&upn=RVeOYWAaYOQ&itag=43&sparams=clen%2Cdur%2Cei%2Cgir%2Cid%2Cinitcwndbps%2Cip%2Cipbits%2Citag%2Clmt%2Cmime%2Cmm%2Cmn%2Cms%2Cmv%2Cpl%2Cratebypass%2Crequiressl%2Csource%2Cupn%2Cexpire&expire=1491366642&signature=39845C7D8EA888FAF9E1C7DB4FCDE80476F70D35.7DDC25AF54F1F21C98B88512808F1E138F6BD6E6",
       "s": "79845C3D8EA888FAF9E1C7DB4FCDE80476F70D35.7DDC25AF54F1F21C98B88512808F1E138F6BD6E66",
       "type": "video/webm; codecs=\"vp8.0, vorbis\"",
       "itag": "43",
@@ -239,7 +239,7 @@
       "audioBitrate": 128
     },
     {
-      "url": "https://r2---sn-p5qs7n7d.googlevideo.com/videoplayback?ip=158.69.59.138&ms=au&ei=kh7kWO-iD8LsuAL315voBg&mv=m&pl=26&ipbits=0&id=o-AHOGkCrRPBYkErLlqTECGiLANu4GWYjAIdvkhmHMXlAT&mn=sn-p5qs7n7d&mm=31&source=youtube&clen=17497668&dur=190.055&lmt=1469414410970095&ratebypass=yes&requiressl=yes&initcwndbps=1156250&key=yt6&gir=yes&mime=video%2Fmp4&mt=1491344969&upn=RVeOYWAaYOQ&itag=18&sparams=clen%2Cdur%2Cei%2Cgir%2Cid%2Cinitcwndbps%2Cip%2Cipbits%2Citag%2Clmt%2Cmime%2Cmm%2Cmn%2Cms%2Cmv%2Cpl%2Cratebypass%2Crequiressl%2Csource%2Cupn%2Cexpire&expire=1491366642&signature=3C7DF2B0C1678C7F760601DD59A2D807C4DD2E90.CE32E0792A0089DA288B82E601CD971BEA490E5A",
+      "url": "https://r2---sn-p5qs7n7d.googlevideo.com/videoplayback?ip=0.0.0.08&ms=au&ei=kh7kWO-iD8LsuAL315voBg&mv=m&pl=26&ipbits=0&id=o-AHOGkCrRPBYkErLlqTECGiLANu4GWYjAIdvkhmHMXlAT&mn=sn-p5qs7n7d&mm=31&source=youtube&clen=17497668&dur=190.055&lmt=1469414410970095&ratebypass=yes&requiressl=yes&initcwndbps=1156250&key=yt6&gir=yes&mime=video%2Fmp4&mt=1491344969&upn=RVeOYWAaYOQ&itag=18&sparams=clen%2Cdur%2Cei%2Cgir%2Cid%2Cinitcwndbps%2Cip%2Cipbits%2Citag%2Clmt%2Cmime%2Cmm%2Cmn%2Cms%2Cmv%2Cpl%2Cratebypass%2Crequiressl%2Csource%2Cupn%2Cexpire&expire=1491366642&signature=3C7DF2B0C1678C7F760601DD59A2D807C4DD2E90.CE32E0792A0089DA288B82E601CD971BEA490E5A",
       "s": "BC7DF230C1678C7F760601DD59A2D807C4DD2E90.CE32E0792A0089DA288B82E601CD971BEA490E5AA",
       "type": "video/mp4; codecs=\"avc1.42001E, mp4a.40.2\"",
       "itag": "18",
@@ -253,7 +253,7 @@
       "audioBitrate": 96
     },
     {
-      "url": "https://r2---sn-p5qs7n7d.googlevideo.com/videoplayback?ip=158.69.59.138&ms=au&ei=kh7kWO-iD8LsuAL315voBg&mv=m&pl=26&ipbits=0&id=o-AHOGkCrRPBYkErLlqTECGiLANu4GWYjAIdvkhmHMXlAT&mn=sn-p5qs7n7d&mm=31&source=youtube&clen=5247872&dur=190.124&lmt=1469286992907577&requiressl=yes&initcwndbps=1156250&key=yt6&gir=yes&mime=video%2F3gpp&mt=1491344969&upn=RVeOYWAaYOQ&itag=36&sparams=clen%2Cdur%2Cei%2Cgir%2Cid%2Cinitcwndbps%2Cip%2Cipbits%2Citag%2Clmt%2Cmime%2Cmm%2Cmn%2Cms%2Cmv%2Cpl%2Crequiressl%2Csource%2Cupn%2Cexpire&expire=1491366642&ratebypass=yes&signature=CFB10032F8EF8F53B386155ABA3FC28642C42CA9.6268A9B54F8FBFD41BF1F3FEA308E9ECDCA2F83A",
+      "url": "https://r2---sn-p5qs7n7d.googlevideo.com/videoplayback?ip=0.0.0.0&ms=au&ei=kh7kWO-iD8LsuAL315voBg&mv=m&pl=26&ipbits=0&id=o-AHOGkCrRPBYkErLlqTECGiLANu4GWYjAIdvkhmHMXlAT&mn=sn-p5qs7n7d&mm=31&source=youtube&clen=5247872&dur=190.124&lmt=1469286992907577&requiressl=yes&initcwndbps=1156250&key=yt6&gir=yes&mime=video%2F3gpp&mt=1491344969&upn=RVeOYWAaYOQ&itag=36&sparams=clen%2Cdur%2Cei%2Cgir%2Cid%2Cinitcwndbps%2Cip%2Cipbits%2Citag%2Clmt%2Cmime%2Cmm%2Cmn%2Cms%2Cmv%2Cpl%2Crequiressl%2Csource%2Cupn%2Cexpire&expire=1491366642&ratebypass=yes&signature=CFB10032F8EF8F53B386155ABA3FC28642C42CA9.6268A9B54F8FBFD41BF1F3FEA308E9ECDCA2F83A",
       "s": "3FB100C2F8EF8F53B386155ABA3FC28642C42CA9.6268A9B54F8FBFD41BF1F3FEA308E9ECDCA2F83AA",
       "type": "video/3gpp; codecs=\"mp4v.20.3, mp4a.40.2\"",
       "itag": "36",
@@ -267,7 +267,7 @@
       "audioBitrate": 36
     },
     {
-      "url": "https://r2---sn-p5qs7n7d.googlevideo.com/videoplayback?ip=158.69.59.138&ms=au&ei=kh7kWO-iD8LsuAL315voBg&mv=m&pl=26&ipbits=0&id=o-AHOGkCrRPBYkErLlqTECGiLANu4GWYjAIdvkhmHMXlAT&mn=sn-p5qs7n7d&mm=31&source=youtube&clen=1901661&dur=190.124&lmt=1469286991691800&requiressl=yes&initcwndbps=1156250&key=yt6&gir=yes&mime=video%2F3gpp&mt=1491344969&upn=RVeOYWAaYOQ&itag=17&sparams=clen%2Cdur%2Cei%2Cgir%2Cid%2Cinitcwndbps%2Cip%2Cipbits%2Citag%2Clmt%2Cmime%2Cmm%2Cmn%2Cms%2Cmv%2Cpl%2Crequiressl%2Csource%2Cupn%2Cexpire&expire=1491366642&ratebypass=yes&signature=BBD698DD46755207E3E31A6C837392EBD106F05F.4D5B48D281618B4656C2F1F6B0D74094BB5821EE",
+      "url": "https://r2---sn-p5qs7n7d.googlevideo.com/videoplayback?ip=0.0.0.0&ms=au&ei=kh7kWO-iD8LsuAL315voBg&mv=m&pl=26&ipbits=0&id=o-AHOGkCrRPBYkErLlqTECGiLANu4GWYjAIdvkhmHMXlAT&mn=sn-p5qs7n7d&mm=31&source=youtube&clen=1901661&dur=190.124&lmt=1469286991691800&requiressl=yes&initcwndbps=1156250&key=yt6&gir=yes&mime=video%2F3gpp&mt=1491344969&upn=RVeOYWAaYOQ&itag=17&sparams=clen%2Cdur%2Cei%2Cgir%2Cid%2Cinitcwndbps%2Cip%2Cipbits%2Citag%2Clmt%2Cmime%2Cmm%2Cmn%2Cms%2Cmv%2Cpl%2Crequiressl%2Csource%2Cupn%2Cexpire&expire=1491366642&ratebypass=yes&signature=BBD698DD46755207E3E31A6C837392EBD106F05F.4D5B48D281618B4656C2F1F6B0D74094BB5821EE",
       "s": "DBD698BD46755207E3E31A6C837392EBD106F05F.4D5B48D281618B4656C2F1F6B0D74094BB5821EEE",
       "type": "video/3gpp; codecs=\"mp4v.20.3, mp4a.40.2\"",
       "itag": "17",
@@ -281,7 +281,7 @@
       "audioBitrate": 24
     },
     {
-      "url": "https://r2---sn-p5qs7n7d.googlevideo.com/videoplayback?ip=158.69.59.138&ms=au&ei=kh7kWO-iD8LsuAL315voBg&mv=m&pl=26&ipbits=0&id=o-AHOGkCrRPBYkErLlqTECGiLANu4GWYjAIdvkhmHMXlAT&mn=sn-p5qs7n7d&mm=31&source=youtube&clen=133083696&dur=189.983&lmt=1469414419181191&requiressl=yes&initcwndbps=1156250&key=yt6&gir=yes&mime=video%2Fmp4&mt=1491344969&upn=RVeOYWAaYOQ&itag=299&expire=1491366642&sparams=clen%2Cdur%2Cei%2Cgir%2Cid%2Cinitcwndbps%2Cip%2Cipbits%2Citag%2Ckeepalive%2Clmt%2Cmime%2Cmm%2Cmn%2Cms%2Cmv%2Cpl%2Crequiressl%2Csource%2Cupn%2Cexpire&keepalive=yes&ratebypass=yes&signature=888BFA0F24FF49F8EE38F6BED9527BAF3DE2C767.7F4B079A3BA82C19A2CC29164E4FC8C0A5E48ACE",
+      "url": "https://r2---sn-p5qs7n7d.googlevideo.com/videoplayback?ip=0.0.0.0&ms=au&ei=kh7kWO-iD8LsuAL315voBg&mv=m&pl=26&ipbits=0&id=o-AHOGkCrRPBYkErLlqTECGiLANu4GWYjAIdvkhmHMXlAT&mn=sn-p5qs7n7d&mm=31&source=youtube&clen=133083696&dur=189.983&lmt=1469414419181191&requiressl=yes&initcwndbps=1156250&key=yt6&gir=yes&mime=video%2Fmp4&mt=1491344969&upn=RVeOYWAaYOQ&itag=299&expire=1491366642&sparams=clen%2Cdur%2Cei%2Cgir%2Cid%2Cinitcwndbps%2Cip%2Cipbits%2Citag%2Ckeepalive%2Clmt%2Cmime%2Cmm%2Cmn%2Cms%2Cmv%2Cpl%2Crequiressl%2Csource%2Cupn%2Cexpire&keepalive=yes&ratebypass=yes&signature=888BFA0F24FF49F8EE38F6BED9527BAF3DE2C767.7F4B079A3BA82C19A2CC29164E4FC8C0A5E48ACE",
       "projection_type": "1",
       "index": "716-1203",
       "type": "video/mp4; codecs=\"avc1.64002a\"",
@@ -303,7 +303,7 @@
       "audioBitrate": null
     },
     {
-      "url": "https://r2---sn-p5qs7n7d.googlevideo.com/videoplayback?ip=158.69.59.138&ms=au&ei=kh7kWO-iD8LsuAL315voBg&mv=m&pl=26&ipbits=0&id=o-AHOGkCrRPBYkErLlqTECGiLANu4GWYjAIdvkhmHMXlAT&mn=sn-p5qs7n7d&mm=31&source=youtube&clen=110495388&dur=189.966&lmt=1469288128959592&requiressl=yes&initcwndbps=1156250&key=yt6&gir=yes&mime=video%2Fwebm&mt=1491344969&upn=RVeOYWAaYOQ&itag=303&expire=1491366642&sparams=clen%2Cdur%2Cei%2Cgir%2Cid%2Cinitcwndbps%2Cip%2Cipbits%2Citag%2Ckeepalive%2Clmt%2Cmime%2Cmm%2Cmn%2Cms%2Cmv%2Cpl%2Crequiressl%2Csource%2Cupn%2Cexpire&keepalive=yes&ratebypass=yes&signature=89F8B9FA7CE0D0652AA1B984D9F2E11E1222DB36.80BB60E088EE8507FCA3174E87435ADA2951AD83",
+      "url": "https://r2---sn-p5qs7n7d.googlevideo.com/videoplayback?ip=0.0.0.0&ms=au&ei=kh7kWO-iD8LsuAL315voBg&mv=m&pl=26&ipbits=0&id=o-AHOGkCrRPBYkErLlqTECGiLANu4GWYjAIdvkhmHMXlAT&mn=sn-p5qs7n7d&mm=31&source=youtube&clen=110495388&dur=189.966&lmt=1469288128959592&requiressl=yes&initcwndbps=1156250&key=yt6&gir=yes&mime=video%2Fwebm&mt=1491344969&upn=RVeOYWAaYOQ&itag=303&expire=1491366642&sparams=clen%2Cdur%2Cei%2Cgir%2Cid%2Cinitcwndbps%2Cip%2Cipbits%2Citag%2Ckeepalive%2Clmt%2Cmime%2Cmm%2Cmn%2Cms%2Cmv%2Cpl%2Crequiressl%2Csource%2Cupn%2Cexpire&keepalive=yes&ratebypass=yes&signature=89F8B9FA7CE0D0652AA1B984D9F2E11E1222DB36.80BB60E088EE8507FCA3174E87435ADA2951AD83",
       "projection_type": "1",
       "index": "242-910",
       "type": "video/webm; codecs=\"vp9\"",
@@ -325,7 +325,7 @@
       "audioBitrate": null
     },
     {
-      "url": "https://r2---sn-p5qs7n7d.googlevideo.com/videoplayback?ip=158.69.59.138&ms=au&ei=kh7kWO-iD8LsuAL315voBg&mv=m&pl=26&ipbits=0&id=o-AHOGkCrRPBYkErLlqTECGiLANu4GWYjAIdvkhmHMXlAT&mn=sn-p5qs7n7d&mm=31&source=youtube&clen=88416022&dur=189.999&lmt=1469414403062786&requiressl=yes&initcwndbps=1156250&key=yt6&gir=yes&mime=video%2Fmp4&mt=1491344969&upn=RVeOYWAaYOQ&itag=137&expire=1491366642&sparams=clen%2Cdur%2Cei%2Cgir%2Cid%2Cinitcwndbps%2Cip%2Cipbits%2Citag%2Ckeepalive%2Clmt%2Cmime%2Cmm%2Cmn%2Cms%2Cmv%2Cpl%2Crequiressl%2Csource%2Cupn%2Cexpire&keepalive=yes&ratebypass=yes&signature=C475893D728568E11C4E643C37E6459B150A890D.D0C63547623C81BEBF7632C4570644032CD0A4B9",
+      "url": "https://r2---sn-p5qs7n7d.googlevideo.com/videoplayback?ip=0.0.0.0&ms=au&ei=kh7kWO-iD8LsuAL315voBg&mv=m&pl=26&ipbits=0&id=o-AHOGkCrRPBYkErLlqTECGiLANu4GWYjAIdvkhmHMXlAT&mn=sn-p5qs7n7d&mm=31&source=youtube&clen=88416022&dur=189.999&lmt=1469414403062786&requiressl=yes&initcwndbps=1156250&key=yt6&gir=yes&mime=video%2Fmp4&mt=1491344969&upn=RVeOYWAaYOQ&itag=137&expire=1491366642&sparams=clen%2Cdur%2Cei%2Cgir%2Cid%2Cinitcwndbps%2Cip%2Cipbits%2Citag%2Ckeepalive%2Clmt%2Cmime%2Cmm%2Cmn%2Cms%2Cmv%2Cpl%2Crequiressl%2Csource%2Cupn%2Cexpire&keepalive=yes&ratebypass=yes&signature=C475893D728568E11C4E643C37E6459B150A890D.D0C63547623C81BEBF7632C4570644032CD0A4B9",
       "projection_type": "1",
       "index": "716-1203",
       "type": "video/mp4; codecs=\"avc1.640028\"",
@@ -347,7 +347,7 @@
       "audioBitrate": null
     },
     {
-      "url": "https://r2---sn-p5qs7n7d.googlevideo.com/videoplayback?ip=158.69.59.138&ms=au&ei=kh7kWO-iD8LsuAL315voBg&mv=m&pl=26&ipbits=0&id=o-AHOGkCrRPBYkErLlqTECGiLANu4GWYjAIdvkhmHMXlAT&mn=sn-p5qs7n7d&mm=31&source=youtube&clen=67359568&dur=189.966&lmt=1469287944100122&requiressl=yes&initcwndbps=1156250&key=yt6&gir=yes&mime=video%2Fwebm&mt=1491344969&upn=RVeOYWAaYOQ&itag=248&expire=1491366642&sparams=clen%2Cdur%2Cei%2Cgir%2Cid%2Cinitcwndbps%2Cip%2Cipbits%2Citag%2Ckeepalive%2Clmt%2Cmime%2Cmm%2Cmn%2Cms%2Cmv%2Cpl%2Crequiressl%2Csource%2Cupn%2Cexpire&keepalive=yes&ratebypass=yes&signature=0AB02A75AB6E66A916863AB905B6C57A3822E1C2.4F33F2D3F09AA20864D72535FF48C9B28646C1DF",
+      "url": "https://r2---sn-p5qs7n7d.googlevideo.com/videoplayback?ip=0.0.0.0&ms=au&ei=kh7kWO-iD8LsuAL315voBg&mv=m&pl=26&ipbits=0&id=o-AHOGkCrRPBYkErLlqTECGiLANu4GWYjAIdvkhmHMXlAT&mn=sn-p5qs7n7d&mm=31&source=youtube&clen=67359568&dur=189.966&lmt=1469287944100122&requiressl=yes&initcwndbps=1156250&key=yt6&gir=yes&mime=video%2Fwebm&mt=1491344969&upn=RVeOYWAaYOQ&itag=248&expire=1491366642&sparams=clen%2Cdur%2Cei%2Cgir%2Cid%2Cinitcwndbps%2Cip%2Cipbits%2Citag%2Ckeepalive%2Clmt%2Cmime%2Cmm%2Cmn%2Cms%2Cmv%2Cpl%2Crequiressl%2Csource%2Cupn%2Cexpire&keepalive=yes&ratebypass=yes&signature=0AB02A75AB6E66A916863AB905B6C57A3822E1C2.4F33F2D3F09AA20864D72535FF48C9B28646C1DF",
       "projection_type": "1",
       "index": "243-907",
       "type": "video/webm; codecs=\"vp9\"",
@@ -369,7 +369,7 @@
       "audioBitrate": null
     },
     {
-      "url": "https://r2---sn-p5qs7n7d.googlevideo.com/videoplayback?ip=158.69.59.138&ms=au&ei=kh7kWO-iD8LsuAL315voBg&mv=m&pl=26&ipbits=0&id=o-AHOGkCrRPBYkErLlqTECGiLANu4GWYjAIdvkhmHMXlAT&mn=sn-p5qs7n7d&mm=31&source=youtube&clen=79437230&dur=189.983&lmt=1469414371843483&requiressl=yes&initcwndbps=1156250&key=yt6&gir=yes&mime=video%2Fmp4&mt=1491344969&upn=RVeOYWAaYOQ&itag=298&expire=1491366642&sparams=clen%2Cdur%2Cei%2Cgir%2Cid%2Cinitcwndbps%2Cip%2Cipbits%2Citag%2Ckeepalive%2Clmt%2Cmime%2Cmm%2Cmn%2Cms%2Cmv%2Cpl%2Crequiressl%2Csource%2Cupn%2Cexpire&keepalive=yes&ratebypass=yes&signature=52E9D1F928CDA49A4EFF9CCB5A363DC39A30D6B9.6E094C4C033EFA5E4BF91D59639B2DB38C22176B",
+      "url": "https://r2---sn-p5qs7n7d.googlevideo.com/videoplayback?ip=0.0.0.0&ms=au&ei=kh7kWO-iD8LsuAL315voBg&mv=m&pl=26&ipbits=0&id=o-AHOGkCrRPBYkErLlqTECGiLANu4GWYjAIdvkhmHMXlAT&mn=sn-p5qs7n7d&mm=31&source=youtube&clen=79437230&dur=189.983&lmt=1469414371843483&requiressl=yes&initcwndbps=1156250&key=yt6&gir=yes&mime=video%2Fmp4&mt=1491344969&upn=RVeOYWAaYOQ&itag=298&expire=1491366642&sparams=clen%2Cdur%2Cei%2Cgir%2Cid%2Cinitcwndbps%2Cip%2Cipbits%2Citag%2Ckeepalive%2Clmt%2Cmime%2Cmm%2Cmn%2Cms%2Cmv%2Cpl%2Crequiressl%2Csource%2Cupn%2Cexpire&keepalive=yes&ratebypass=yes&signature=52E9D1F928CDA49A4EFF9CCB5A363DC39A30D6B9.6E094C4C033EFA5E4BF91D59639B2DB38C22176B",
       "projection_type": "1",
       "index": "714-1201",
       "type": "video/mp4; codecs=\"avc1.4d4020\"",
@@ -391,7 +391,7 @@
       "audioBitrate": null
     },
     {
-      "url": "https://r2---sn-p5qs7n7d.googlevideo.com/videoplayback?ip=158.69.59.138&ms=au&ei=kh7kWO-iD8LsuAL315voBg&mv=m&pl=26&ipbits=0&id=o-AHOGkCrRPBYkErLlqTECGiLANu4GWYjAIdvkhmHMXlAT&mn=sn-p5qs7n7d&mm=31&source=youtube&clen=66083452&dur=189.966&lmt=1469288151395334&requiressl=yes&initcwndbps=1156250&key=yt6&gir=yes&mime=video%2Fwebm&mt=1491344969&upn=RVeOYWAaYOQ&itag=302&expire=1491366642&sparams=clen%2Cdur%2Cei%2Cgir%2Cid%2Cinitcwndbps%2Cip%2Cipbits%2Citag%2Ckeepalive%2Clmt%2Cmime%2Cmm%2Cmn%2Cms%2Cmv%2Cpl%2Crequiressl%2Csource%2Cupn%2Cexpire&keepalive=yes&ratebypass=yes&signature=53FA687F4252679A027A98A7F00ECE8680F9E175.307B9EC84E4CB6DF0BDFEFA36EF477B8A1E27ECE",
+      "url": "https://r2---sn-p5qs7n7d.googlevideo.com/videoplayback?ip=0.0.0.0&ms=au&ei=kh7kWO-iD8LsuAL315voBg&mv=m&pl=26&ipbits=0&id=o-AHOGkCrRPBYkErLlqTECGiLANu4GWYjAIdvkhmHMXlAT&mn=sn-p5qs7n7d&mm=31&source=youtube&clen=66083452&dur=189.966&lmt=1469288151395334&requiressl=yes&initcwndbps=1156250&key=yt6&gir=yes&mime=video%2Fwebm&mt=1491344969&upn=RVeOYWAaYOQ&itag=302&expire=1491366642&sparams=clen%2Cdur%2Cei%2Cgir%2Cid%2Cinitcwndbps%2Cip%2Cipbits%2Citag%2Ckeepalive%2Clmt%2Cmime%2Cmm%2Cmn%2Cms%2Cmv%2Cpl%2Crequiressl%2Csource%2Cupn%2Cexpire&keepalive=yes&ratebypass=yes&signature=53FA687F4252679A027A98A7F00ECE8680F9E175.307B9EC84E4CB6DF0BDFEFA36EF477B8A1E27ECE",
       "projection_type": "1",
       "index": "242-906",
       "type": "video/webm; codecs=\"vp9\"",
@@ -413,7 +413,7 @@
       "audioBitrate": null
     },
     {
-      "url": "https://r2---sn-p5qs7n7d.googlevideo.com/videoplayback?ip=158.69.59.138&ms=au&ei=kh7kWO-iD8LsuAL315voBg&mv=m&pl=26&ipbits=0&id=o-AHOGkCrRPBYkErLlqTECGiLANu4GWYjAIdvkhmHMXlAT&mn=sn-p5qs7n7d&mm=31&source=youtube&clen=49447900&dur=189.999&lmt=1469414414823250&requiressl=yes&initcwndbps=1156250&key=yt6&gir=yes&mime=video%2Fmp4&mt=1491344969&upn=RVeOYWAaYOQ&itag=136&expire=1491366642&sparams=clen%2Cdur%2Cei%2Cgir%2Cid%2Cinitcwndbps%2Cip%2Cipbits%2Citag%2Ckeepalive%2Clmt%2Cmime%2Cmm%2Cmn%2Cms%2Cmv%2Cpl%2Crequiressl%2Csource%2Cupn%2Cexpire&keepalive=yes&ratebypass=yes&signature=9511CC79C43B4ADA1BE1B1939387CFF01817A960.18CA7A146AB3C88AD2A2504BC11F9B33E5E7E149",
+      "url": "https://r2---sn-p5qs7n7d.googlevideo.com/videoplayback?ip=0.0.0.0&ms=au&ei=kh7kWO-iD8LsuAL315voBg&mv=m&pl=26&ipbits=0&id=o-AHOGkCrRPBYkErLlqTECGiLANu4GWYjAIdvkhmHMXlAT&mn=sn-p5qs7n7d&mm=31&source=youtube&clen=49447900&dur=189.999&lmt=1469414414823250&requiressl=yes&initcwndbps=1156250&key=yt6&gir=yes&mime=video%2Fmp4&mt=1491344969&upn=RVeOYWAaYOQ&itag=136&expire=1491366642&sparams=clen%2Cdur%2Cei%2Cgir%2Cid%2Cinitcwndbps%2Cip%2Cipbits%2Citag%2Ckeepalive%2Clmt%2Cmime%2Cmm%2Cmn%2Cms%2Cmv%2Cpl%2Crequiressl%2Csource%2Cupn%2Cexpire&keepalive=yes&ratebypass=yes&signature=9511CC79C43B4ADA1BE1B1939387CFF01817A960.18CA7A146AB3C88AD2A2504BC11F9B33E5E7E149",
       "projection_type": "1",
       "index": "714-1201",
       "type": "video/mp4; codecs=\"avc1.4d401f\"",
@@ -435,7 +435,7 @@
       "audioBitrate": null
     },
     {
-      "url": "https://r2---sn-p5qs7n7d.googlevideo.com/videoplayback?ip=158.69.59.138&ms=au&ei=kh7kWO-iD8LsuAL315voBg&mv=m&pl=26&ipbits=0&id=o-AHOGkCrRPBYkErLlqTECGiLANu4GWYjAIdvkhmHMXlAT&mn=sn-p5qs7n7d&mm=31&source=youtube&clen=38318053&dur=189.966&lmt=1469288424695679&requiressl=yes&initcwndbps=1156250&key=yt6&gir=yes&mime=video%2Fwebm&mt=1491344969&upn=RVeOYWAaYOQ&itag=247&expire=1491366642&sparams=clen%2Cdur%2Cei%2Cgir%2Cid%2Cinitcwndbps%2Cip%2Cipbits%2Citag%2Ckeepalive%2Clmt%2Cmime%2Cmm%2Cmn%2Cms%2Cmv%2Cpl%2Crequiressl%2Csource%2Cupn%2Cexpire&keepalive=yes&ratebypass=yes&signature=AE30077EFA9E3A452FD4D201840F97D54020FC5E.246CF099364AC0B478577E99B90961308952219A",
+      "url": "https://r2---sn-p5qs7n7d.googlevideo.com/videoplayback?ip=0.0.0.0&ms=au&ei=kh7kWO-iD8LsuAL315voBg&mv=m&pl=26&ipbits=0&id=o-AHOGkCrRPBYkErLlqTECGiLANu4GWYjAIdvkhmHMXlAT&mn=sn-p5qs7n7d&mm=31&source=youtube&clen=38318053&dur=189.966&lmt=1469288424695679&requiressl=yes&initcwndbps=1156250&key=yt6&gir=yes&mime=video%2Fwebm&mt=1491344969&upn=RVeOYWAaYOQ&itag=247&expire=1491366642&sparams=clen%2Cdur%2Cei%2Cgir%2Cid%2Cinitcwndbps%2Cip%2Cipbits%2Citag%2Ckeepalive%2Clmt%2Cmime%2Cmm%2Cmn%2Cms%2Cmv%2Cpl%2Crequiressl%2Csource%2Cupn%2Cexpire&keepalive=yes&ratebypass=yes&signature=AE30077EFA9E3A452FD4D201840F97D54020FC5E.246CF099364AC0B478577E99B90961308952219A",
       "projection_type": "1",
       "index": "243-900",
       "type": "video/webm; codecs=\"vp9\"",
@@ -457,7 +457,7 @@
       "audioBitrate": null
     },
     {
-      "url": "https://r2---sn-p5qs7n7d.googlevideo.com/videoplayback?ip=158.69.59.138&ms=au&ei=kh7kWO-iD8LsuAL315voBg&mv=m&pl=26&ipbits=0&id=o-AHOGkCrRPBYkErLlqTECGiLANu4GWYjAIdvkhmHMXlAT&mn=sn-p5qs7n7d&mm=31&source=youtube&clen=25455795&dur=189.999&lmt=1469414414678418&requiressl=yes&initcwndbps=1156250&key=yt6&gir=yes&mime=video%2Fmp4&mt=1491344969&upn=RVeOYWAaYOQ&itag=135&expire=1491366642&sparams=clen%2Cdur%2Cei%2Cgir%2Cid%2Cinitcwndbps%2Cip%2Cipbits%2Citag%2Ckeepalive%2Clmt%2Cmime%2Cmm%2Cmn%2Cms%2Cmv%2Cpl%2Crequiressl%2Csource%2Cupn%2Cexpire&keepalive=yes&ratebypass=yes&signature=6BFB0C5FE061EF27F487E69B4B98FE5AD81732E1.B0C26D92D81F7D1FA0C41E5A0EF668AC6C8422F5",
+      "url": "https://r2---sn-p5qs7n7d.googlevideo.com/videoplayback?ip=0.0.0.0&ms=au&ei=kh7kWO-iD8LsuAL315voBg&mv=m&pl=26&ipbits=0&id=o-AHOGkCrRPBYkErLlqTECGiLANu4GWYjAIdvkhmHMXlAT&mn=sn-p5qs7n7d&mm=31&source=youtube&clen=25455795&dur=189.999&lmt=1469414414678418&requiressl=yes&initcwndbps=1156250&key=yt6&gir=yes&mime=video%2Fmp4&mt=1491344969&upn=RVeOYWAaYOQ&itag=135&expire=1491366642&sparams=clen%2Cdur%2Cei%2Cgir%2Cid%2Cinitcwndbps%2Cip%2Cipbits%2Citag%2Ckeepalive%2Clmt%2Cmime%2Cmm%2Cmn%2Cms%2Cmv%2Cpl%2Crequiressl%2Csource%2Cupn%2Cexpire&keepalive=yes&ratebypass=yes&signature=6BFB0C5FE061EF27F487E69B4B98FE5AD81732E1.B0C26D92D81F7D1FA0C41E5A0EF668AC6C8422F5",
       "projection_type": "1",
       "index": "715-1202",
       "type": "video/mp4; codecs=\"avc1.4d401f\"",
@@ -479,7 +479,7 @@
       "audioBitrate": null
     },
     {
-      "url": "https://r2---sn-p5qs7n7d.googlevideo.com/videoplayback?ip=158.69.59.138&ms=au&ei=kh7kWO-iD8LsuAL315voBg&mv=m&pl=26&ipbits=0&id=o-AHOGkCrRPBYkErLlqTECGiLANu4GWYjAIdvkhmHMXlAT&mn=sn-p5qs7n7d&mm=31&source=youtube&clen=19433062&dur=189.966&lmt=1469288425217934&requiressl=yes&initcwndbps=1156250&key=yt6&gir=yes&mime=video%2Fwebm&mt=1491344969&upn=RVeOYWAaYOQ&itag=244&expire=1491366642&sparams=clen%2Cdur%2Cei%2Cgir%2Cid%2Cinitcwndbps%2Cip%2Cipbits%2Citag%2Ckeepalive%2Clmt%2Cmime%2Cmm%2Cmn%2Cms%2Cmv%2Cpl%2Crequiressl%2Csource%2Cupn%2Cexpire&keepalive=yes&ratebypass=yes&signature=952BB823CB9D29F0824B4A614CB0EF33515DC3EC.4BE7CBF25BBE551EA5B0411672A3C13A5DA58482",
+      "url": "https://r2---sn-p5qs7n7d.googlevideo.com/videoplayback?ip=0.0.0.0&ms=au&ei=kh7kWO-iD8LsuAL315voBg&mv=m&pl=26&ipbits=0&id=o-AHOGkCrRPBYkErLlqTECGiLANu4GWYjAIdvkhmHMXlAT&mn=sn-p5qs7n7d&mm=31&source=youtube&clen=19433062&dur=189.966&lmt=1469288425217934&requiressl=yes&initcwndbps=1156250&key=yt6&gir=yes&mime=video%2Fwebm&mt=1491344969&upn=RVeOYWAaYOQ&itag=244&expire=1491366642&sparams=clen%2Cdur%2Cei%2Cgir%2Cid%2Cinitcwndbps%2Cip%2Cipbits%2Citag%2Ckeepalive%2Clmt%2Cmime%2Cmm%2Cmn%2Cms%2Cmv%2Cpl%2Crequiressl%2Csource%2Cupn%2Cexpire&keepalive=yes&ratebypass=yes&signature=952BB823CB9D29F0824B4A614CB0EF33515DC3EC.4BE7CBF25BBE551EA5B0411672A3C13A5DA58482",
       "projection_type": "1",
       "index": "243-884",
       "type": "video/webm; codecs=\"vp9\"",
@@ -501,7 +501,7 @@
       "audioBitrate": null
     },
     {
-      "url": "https://r2---sn-p5qs7n7d.googlevideo.com/videoplayback?ip=158.69.59.138&ms=au&ei=kh7kWO-iD8LsuAL315voBg&mv=m&pl=26&ipbits=0&id=o-AHOGkCrRPBYkErLlqTECGiLANu4GWYjAIdvkhmHMXlAT&mn=sn-p5qs7n7d&mm=31&source=youtube&clen=12547728&dur=189.999&lmt=1469414414678270&requiressl=yes&initcwndbps=1156250&key=yt6&gir=yes&mime=video%2Fmp4&mt=1491344969&upn=RVeOYWAaYOQ&itag=134&expire=1491366642&sparams=clen%2Cdur%2Cei%2Cgir%2Cid%2Cinitcwndbps%2Cip%2Cipbits%2Citag%2Ckeepalive%2Clmt%2Cmime%2Cmm%2Cmn%2Cms%2Cmv%2Cpl%2Crequiressl%2Csource%2Cupn%2Cexpire&keepalive=yes&ratebypass=yes&signature=4D3727D0CCBAAAEE04FDC21FB04EC7095F554255.1C7091E2055858DB29F5870DC8E2AD932E406305",
+      "url": "https://r2---sn-p5qs7n7d.googlevideo.com/videoplayback?ip=0.0.0.0&ms=au&ei=kh7kWO-iD8LsuAL315voBg&mv=m&pl=26&ipbits=0&id=o-AHOGkCrRPBYkErLlqTECGiLANu4GWYjAIdvkhmHMXlAT&mn=sn-p5qs7n7d&mm=31&source=youtube&clen=12547728&dur=189.999&lmt=1469414414678270&requiressl=yes&initcwndbps=1156250&key=yt6&gir=yes&mime=video%2Fmp4&mt=1491344969&upn=RVeOYWAaYOQ&itag=134&expire=1491366642&sparams=clen%2Cdur%2Cei%2Cgir%2Cid%2Cinitcwndbps%2Cip%2Cipbits%2Citag%2Ckeepalive%2Clmt%2Cmime%2Cmm%2Cmn%2Cms%2Cmv%2Cpl%2Crequiressl%2Csource%2Cupn%2Cexpire&keepalive=yes&ratebypass=yes&signature=4D3727D0CCBAAAEE04FDC21FB04EC7095F554255.1C7091E2055858DB29F5870DC8E2AD932E406305",
       "projection_type": "1",
       "index": "715-1202",
       "type": "video/mp4; codecs=\"avc1.4d401e\"",
@@ -523,7 +523,7 @@
       "audioBitrate": null
     },
     {
-      "url": "https://r2---sn-p5qs7n7d.googlevideo.com/videoplayback?ip=158.69.59.138&ms=au&ei=kh7kWO-iD8LsuAL315voBg&mv=m&pl=26&ipbits=0&id=o-AHOGkCrRPBYkErLlqTECGiLANu4GWYjAIdvkhmHMXlAT&mn=sn-p5qs7n7d&mm=31&source=youtube&clen=10370404&dur=189.966&lmt=1469288424502949&requiressl=yes&initcwndbps=1156250&key=yt6&gir=yes&mime=video%2Fwebm&mt=1491344969&upn=RVeOYWAaYOQ&itag=243&expire=1491366642&sparams=clen%2Cdur%2Cei%2Cgir%2Cid%2Cinitcwndbps%2Cip%2Cipbits%2Citag%2Ckeepalive%2Clmt%2Cmime%2Cmm%2Cmn%2Cms%2Cmv%2Cpl%2Crequiressl%2Csource%2Cupn%2Cexpire&keepalive=yes&ratebypass=yes&signature=8128E026B6E583846AC11533DD0AFC86110AF6F8.CAF6FAF21C7893E393C9E561B018F61733E2ABAB",
+      "url": "https://r2---sn-p5qs7n7d.googlevideo.com/videoplayback?ip=0.0.0.0&ms=au&ei=kh7kWO-iD8LsuAL315voBg&mv=m&pl=26&ipbits=0&id=o-AHOGkCrRPBYkErLlqTECGiLANu4GWYjAIdvkhmHMXlAT&mn=sn-p5qs7n7d&mm=31&source=youtube&clen=10370404&dur=189.966&lmt=1469288424502949&requiressl=yes&initcwndbps=1156250&key=yt6&gir=yes&mime=video%2Fwebm&mt=1491344969&upn=RVeOYWAaYOQ&itag=243&expire=1491366642&sparams=clen%2Cdur%2Cei%2Cgir%2Cid%2Cinitcwndbps%2Cip%2Cipbits%2Citag%2Ckeepalive%2Clmt%2Cmime%2Cmm%2Cmn%2Cms%2Cmv%2Cpl%2Crequiressl%2Csource%2Cupn%2Cexpire&keepalive=yes&ratebypass=yes&signature=8128E026B6E583846AC11533DD0AFC86110AF6F8.CAF6FAF21C7893E393C9E561B018F61733E2ABAB",
       "projection_type": "1",
       "index": "243-879",
       "type": "video/webm; codecs=\"vp9\"",
@@ -545,7 +545,7 @@
       "audioBitrate": null
     },
     {
-      "url": "https://r2---sn-p5qs7n7d.googlevideo.com/videoplayback?ip=158.69.59.138&ms=au&ei=kh7kWO-iD8LsuAL315voBg&mv=m&pl=26&ipbits=0&id=o-AHOGkCrRPBYkErLlqTECGiLANu4GWYjAIdvkhmHMXlAT&mn=sn-p5qs7n7d&mm=31&source=youtube&clen=5867502&dur=189.999&lmt=1469414414575571&requiressl=yes&initcwndbps=1156250&key=yt6&gir=yes&mime=video%2Fmp4&mt=1491344969&upn=RVeOYWAaYOQ&itag=133&expire=1491366642&sparams=clen%2Cdur%2Cei%2Cgir%2Cid%2Cinitcwndbps%2Cip%2Cipbits%2Citag%2Ckeepalive%2Clmt%2Cmime%2Cmm%2Cmn%2Cms%2Cmv%2Cpl%2Crequiressl%2Csource%2Cupn%2Cexpire&keepalive=yes&ratebypass=yes&signature=1C8AD86223EF1D2E63DFB39AC2F04E80DA3A8B00.C17D7297B2519F51143F8CE37001D075C1CBCD51",
+      "url": "https://r2---sn-p5qs7n7d.googlevideo.com/videoplayback?ip=0.0.0.0&ms=au&ei=kh7kWO-iD8LsuAL315voBg&mv=m&pl=26&ipbits=0&id=o-AHOGkCrRPBYkErLlqTECGiLANu4GWYjAIdvkhmHMXlAT&mn=sn-p5qs7n7d&mm=31&source=youtube&clen=5867502&dur=189.999&lmt=1469414414575571&requiressl=yes&initcwndbps=1156250&key=yt6&gir=yes&mime=video%2Fmp4&mt=1491344969&upn=RVeOYWAaYOQ&itag=133&expire=1491366642&sparams=clen%2Cdur%2Cei%2Cgir%2Cid%2Cinitcwndbps%2Cip%2Cipbits%2Citag%2Ckeepalive%2Clmt%2Cmime%2Cmm%2Cmn%2Cms%2Cmv%2Cpl%2Crequiressl%2Csource%2Cupn%2Cexpire&keepalive=yes&ratebypass=yes&signature=1C8AD86223EF1D2E63DFB39AC2F04E80DA3A8B00.C17D7297B2519F51143F8CE37001D075C1CBCD51",
       "projection_type": "1",
       "index": "714-1201",
       "type": "video/mp4; codecs=\"avc1.4d4015\"",
@@ -567,7 +567,7 @@
       "audioBitrate": null
     },
     {
-      "url": "https://r2---sn-p5qs7n7d.googlevideo.com/videoplayback?ip=158.69.59.138&ms=au&ei=kh7kWO-iD8LsuAL315voBg&mv=m&pl=26&ipbits=0&id=o-AHOGkCrRPBYkErLlqTECGiLANu4GWYjAIdvkhmHMXlAT&mn=sn-p5qs7n7d&mm=31&source=youtube&clen=5465188&dur=189.966&lmt=1469288424180720&requiressl=yes&initcwndbps=1156250&key=yt6&gir=yes&mime=video%2Fwebm&mt=1491344969&upn=RVeOYWAaYOQ&itag=242&expire=1491366642&sparams=clen%2Cdur%2Cei%2Cgir%2Cid%2Cinitcwndbps%2Cip%2Cipbits%2Citag%2Ckeepalive%2Clmt%2Cmime%2Cmm%2Cmn%2Cms%2Cmv%2Cpl%2Crequiressl%2Csource%2Cupn%2Cexpire&keepalive=yes&ratebypass=yes&signature=984DF87E8E7C38F6C67BD585E3656DEF9B3874ED.A1EF7B6397F6B8EAA047FC73819CB7517A22B307",
+      "url": "https://r2---sn-p5qs7n7d.googlevideo.com/videoplayback?ip=0.0.0.0&ms=au&ei=kh7kWO-iD8LsuAL315voBg&mv=m&pl=26&ipbits=0&id=o-AHOGkCrRPBYkErLlqTECGiLANu4GWYjAIdvkhmHMXlAT&mn=sn-p5qs7n7d&mm=31&source=youtube&clen=5465188&dur=189.966&lmt=1469288424180720&requiressl=yes&initcwndbps=1156250&key=yt6&gir=yes&mime=video%2Fwebm&mt=1491344969&upn=RVeOYWAaYOQ&itag=242&expire=1491366642&sparams=clen%2Cdur%2Cei%2Cgir%2Cid%2Cinitcwndbps%2Cip%2Cipbits%2Citag%2Ckeepalive%2Clmt%2Cmime%2Cmm%2Cmn%2Cms%2Cmv%2Cpl%2Crequiressl%2Csource%2Cupn%2Cexpire&keepalive=yes&ratebypass=yes&signature=984DF87E8E7C38F6C67BD585E3656DEF9B3874ED.A1EF7B6397F6B8EAA047FC73819CB7517A22B307",
       "projection_type": "1",
       "index": "242-878",
       "type": "video/webm; codecs=\"vp9\"",
@@ -589,7 +589,7 @@
       "audioBitrate": null
     },
     {
-      "url": "https://r2---sn-p5qs7n7d.googlevideo.com/videoplayback?ip=158.69.59.138&ms=au&ei=kh7kWO-iD8LsuAL315voBg&mv=m&pl=26&ipbits=0&id=o-AHOGkCrRPBYkErLlqTECGiLANu4GWYjAIdvkhmHMXlAT&mn=sn-p5qs7n7d&mm=31&source=youtube&clen=2614626&dur=189.999&lmt=1469414414888715&requiressl=yes&initcwndbps=1156250&key=yt6&gir=yes&mime=video%2Fmp4&mt=1491344969&upn=RVeOYWAaYOQ&itag=160&expire=1491366642&sparams=clen%2Cdur%2Cei%2Cgir%2Cid%2Cinitcwndbps%2Cip%2Cipbits%2Citag%2Ckeepalive%2Clmt%2Cmime%2Cmm%2Cmn%2Cms%2Cmv%2Cpl%2Crequiressl%2Csource%2Cupn%2Cexpire&keepalive=yes&ratebypass=yes&signature=B08B0B8F1CEBBD755B7DF4A74C6BB3CB12C3B0E0.BF44E4B07BC8D92CF54D50B17346E1B839ADB18E",
+      "url": "https://r2---sn-p5qs7n7d.googlevideo.com/videoplayback?ip=0.0.0.0&ms=au&ei=kh7kWO-iD8LsuAL315voBg&mv=m&pl=26&ipbits=0&id=o-AHOGkCrRPBYkErLlqTECGiLANu4GWYjAIdvkhmHMXlAT&mn=sn-p5qs7n7d&mm=31&source=youtube&clen=2614626&dur=189.999&lmt=1469414414888715&requiressl=yes&initcwndbps=1156250&key=yt6&gir=yes&mime=video%2Fmp4&mt=1491344969&upn=RVeOYWAaYOQ&itag=160&expire=1491366642&sparams=clen%2Cdur%2Cei%2Cgir%2Cid%2Cinitcwndbps%2Cip%2Cipbits%2Citag%2Ckeepalive%2Clmt%2Cmime%2Cmm%2Cmn%2Cms%2Cmv%2Cpl%2Crequiressl%2Csource%2Cupn%2Cexpire&keepalive=yes&ratebypass=yes&signature=B08B0B8F1CEBBD755B7DF4A74C6BB3CB12C3B0E0.BF44E4B07BC8D92CF54D50B17346E1B839ADB18E",
       "projection_type": "1",
       "index": "677-1164",
       "type": "video/mp4; codecs=\"avc1.4d400c\"",
@@ -611,7 +611,7 @@
       "audioBitrate": null
     },
     {
-      "url": "https://r2---sn-p5qs7n7d.googlevideo.com/videoplayback?ip=158.69.59.138&ms=au&ei=kh7kWO-iD8LsuAL315voBg&mv=m&pl=26&ipbits=0&id=o-AHOGkCrRPBYkErLlqTECGiLANu4GWYjAIdvkhmHMXlAT&mn=sn-p5qs7n7d&mm=31&source=youtube&clen=2181782&dur=189.966&lmt=1469288424699491&requiressl=yes&initcwndbps=1156250&key=yt6&gir=yes&mime=video%2Fwebm&mt=1491344969&upn=RVeOYWAaYOQ&itag=278&expire=1491366642&sparams=clen%2Cdur%2Cei%2Cgir%2Cid%2Cinitcwndbps%2Cip%2Cipbits%2Citag%2Ckeepalive%2Clmt%2Cmime%2Cmm%2Cmn%2Cms%2Cmv%2Cpl%2Crequiressl%2Csource%2Cupn%2Cexpire&keepalive=yes&ratebypass=yes&signature=A066B91C55B2CCE73547F0861ABE352788D106CD.AFE7E985FCAB85EF3D94A5DDFD94D95DAD5B154A",
+      "url": "https://r2---sn-p5qs7n7d.googlevideo.com/videoplayback?ip=0.0.0.0&ms=au&ei=kh7kWO-iD8LsuAL315voBg&mv=m&pl=26&ipbits=0&id=o-AHOGkCrRPBYkErLlqTECGiLANu4GWYjAIdvkhmHMXlAT&mn=sn-p5qs7n7d&mm=31&source=youtube&clen=2181782&dur=189.966&lmt=1469288424699491&requiressl=yes&initcwndbps=1156250&key=yt6&gir=yes&mime=video%2Fwebm&mt=1491344969&upn=RVeOYWAaYOQ&itag=278&expire=1491366642&sparams=clen%2Cdur%2Cei%2Cgir%2Cid%2Cinitcwndbps%2Cip%2Cipbits%2Citag%2Ckeepalive%2Clmt%2Cmime%2Cmm%2Cmn%2Cms%2Cmv%2Cpl%2Crequiressl%2Csource%2Cupn%2Cexpire&keepalive=yes&ratebypass=yes&signature=A066B91C55B2CCE73547F0861ABE352788D106CD.AFE7E985FCAB85EF3D94A5DDFD94D95DAD5B154A",
       "projection_type": "1",
       "index": "242-877",
       "type": "video/webm; codecs=\"vp9\"",
@@ -633,7 +633,7 @@
       "audioBitrate": null
     },
     {
-      "url": "https://r2---sn-p5qs7n7d.googlevideo.com/videoplayback?ip=158.69.59.138&ms=au&ei=kh7kWO-iD8LsuAL315voBg&mv=m&pl=26&ipbits=0&id=o-AHOGkCrRPBYkErLlqTECGiLANu4GWYjAIdvkhmHMXlAT&mn=sn-p5qs7n7d&mm=31&source=youtube&clen=3101409&dur=190.001&lmt=1469287740790640&requiressl=yes&initcwndbps=1156250&key=yt6&gir=yes&mime=audio%2Fwebm&mt=1491344969&upn=RVeOYWAaYOQ&itag=251&expire=1491366642&sparams=clen%2Cdur%2Cei%2Cgir%2Cid%2Cinitcwndbps%2Cip%2Cipbits%2Citag%2Ckeepalive%2Clmt%2Cmime%2Cmm%2Cmn%2Cms%2Cmv%2Cpl%2Crequiressl%2Csource%2Cupn%2Cexpire&keepalive=yes&ratebypass=yes&signature=D8C4A0A78674BFA91AFCFFECF6048C5C8C883BF4.D666BB855547A673338A3A0861ABF70213B27157",
+      "url": "https://r2---sn-p5qs7n7d.googlevideo.com/videoplayback?ip=0.0.0.0&ms=au&ei=kh7kWO-iD8LsuAL315voBg&mv=m&pl=26&ipbits=0&id=o-AHOGkCrRPBYkErLlqTECGiLANu4GWYjAIdvkhmHMXlAT&mn=sn-p5qs7n7d&mm=31&source=youtube&clen=3101409&dur=190.001&lmt=1469287740790640&requiressl=yes&initcwndbps=1156250&key=yt6&gir=yes&mime=audio%2Fwebm&mt=1491344969&upn=RVeOYWAaYOQ&itag=251&expire=1491366642&sparams=clen%2Cdur%2Cei%2Cgir%2Cid%2Cinitcwndbps%2Cip%2Cipbits%2Citag%2Ckeepalive%2Clmt%2Cmime%2Cmm%2Cmn%2Cms%2Cmv%2Cpl%2Crequiressl%2Csource%2Cupn%2Cexpire&keepalive=yes&ratebypass=yes&signature=D8C4A0A78674BFA91AFCFFECF6048C5C8C883BF4.D666BB855547A673338A3A0861ABF70213B27157",
       "projection_type": "1",
       "index": "272-608",
       "type": "audio/webm; codecs=\"opus\"",
@@ -652,7 +652,7 @@
       "audioBitrate": 160
     },
     {
-      "url": "https://r2---sn-p5qs7n7d.googlevideo.com/videoplayback?ip=158.69.59.138&ms=au&ei=kh7kWO-iD8LsuAL315voBg&mv=m&pl=26&ipbits=0&id=o-AHOGkCrRPBYkErLlqTECGiLANu4GWYjAIdvkhmHMXlAT&mn=sn-p5qs7n7d&mm=31&source=youtube&clen=3019274&dur=190.055&lmt=1469414381729107&requiressl=yes&initcwndbps=1156250&key=yt6&gir=yes&mime=audio%2Fmp4&mt=1491344969&upn=RVeOYWAaYOQ&itag=140&expire=1491366642&sparams=clen%2Cdur%2Cei%2Cgir%2Cid%2Cinitcwndbps%2Cip%2Cipbits%2Citag%2Ckeepalive%2Clmt%2Cmime%2Cmm%2Cmn%2Cms%2Cmv%2Cpl%2Crequiressl%2Csource%2Cupn%2Cexpire&keepalive=yes&ratebypass=yes&signature=20F7E168540DBAA83AF566BEDE19999050FBFBFB.E07D268D4D5C6F3CB89F0B803EF133D5A0269E04",
+      "url": "https://r2---sn-p5qs7n7d.googlevideo.com/videoplayback?ip=0.0.0.0&ms=au&ei=kh7kWO-iD8LsuAL315voBg&mv=m&pl=26&ipbits=0&id=o-AHOGkCrRPBYkErLlqTECGiLANu4GWYjAIdvkhmHMXlAT&mn=sn-p5qs7n7d&mm=31&source=youtube&clen=3019274&dur=190.055&lmt=1469414381729107&requiressl=yes&initcwndbps=1156250&key=yt6&gir=yes&mime=audio%2Fmp4&mt=1491344969&upn=RVeOYWAaYOQ&itag=140&expire=1491366642&sparams=clen%2Cdur%2Cei%2Cgir%2Cid%2Cinitcwndbps%2Cip%2Cipbits%2Citag%2Ckeepalive%2Clmt%2Cmime%2Cmm%2Cmn%2Cms%2Cmv%2Cpl%2Crequiressl%2Csource%2Cupn%2Cexpire&keepalive=yes&ratebypass=yes&signature=20F7E168540DBAA83AF566BEDE19999050FBFBFB.E07D268D4D5C6F3CB89F0B803EF133D5A0269E04",
       "projection_type": "1",
       "index": "592-863",
       "type": "audio/mp4; codecs=\"mp4a.40.2\"",
@@ -671,7 +671,7 @@
       "audioBitrate": 128
     },
     {
-      "url": "https://r2---sn-p5qs7n7d.googlevideo.com/videoplayback?ip=158.69.59.138&ms=au&ei=kh7kWO-iD8LsuAL315voBg&mv=m&pl=26&ipbits=0&id=o-AHOGkCrRPBYkErLlqTECGiLANu4GWYjAIdvkhmHMXlAT&mn=sn-p5qs7n7d&mm=31&source=youtube&clen=3122934&dur=189.996&lmt=1469287743756976&requiressl=yes&initcwndbps=1156250&key=yt6&gir=yes&mime=audio%2Fwebm&mt=1491344969&upn=RVeOYWAaYOQ&itag=171&expire=1491366642&sparams=clen%2Cdur%2Cei%2Cgir%2Cid%2Cinitcwndbps%2Cip%2Cipbits%2Citag%2Ckeepalive%2Clmt%2Cmime%2Cmm%2Cmn%2Cms%2Cmv%2Cpl%2Crequiressl%2Csource%2Cupn%2Cexpire&keepalive=yes&ratebypass=yes&signature=D4184398EE2D0C57892C34356D2862ECF18AD18A.C542CD2BD5D8E0135614BBA7404EF4CC31D83509",
+      "url": "https://r2---sn-p5qs7n7d.googlevideo.com/videoplayback?ip=0.0.0.0&ms=au&ei=kh7kWO-iD8LsuAL315voBg&mv=m&pl=26&ipbits=0&id=o-AHOGkCrRPBYkErLlqTECGiLANu4GWYjAIdvkhmHMXlAT&mn=sn-p5qs7n7d&mm=31&source=youtube&clen=3122934&dur=189.996&lmt=1469287743756976&requiressl=yes&initcwndbps=1156250&key=yt6&gir=yes&mime=audio%2Fwebm&mt=1491344969&upn=RVeOYWAaYOQ&itag=171&expire=1491366642&sparams=clen%2Cdur%2Cei%2Cgir%2Cid%2Cinitcwndbps%2Cip%2Cipbits%2Citag%2Ckeepalive%2Clmt%2Cmime%2Cmm%2Cmn%2Cms%2Cmv%2Cpl%2Crequiressl%2Csource%2Cupn%2Cexpire&keepalive=yes&ratebypass=yes&signature=D4184398EE2D0C57892C34356D2862ECF18AD18A.C542CD2BD5D8E0135614BBA7404EF4CC31D83509",
       "projection_type": "1",
       "index": "4452-4771",
       "type": "audio/webm; codecs=\"vorbis\"",
@@ -690,7 +690,7 @@
       "audioBitrate": 128
     },
     {
-      "url": "https://r2---sn-p5qs7n7d.googlevideo.com/videoplayback?ip=158.69.59.138&ms=au&ei=kh7kWO-iD8LsuAL315voBg&mv=m&pl=26&ipbits=0&id=o-AHOGkCrRPBYkErLlqTECGiLANu4GWYjAIdvkhmHMXlAT&mn=sn-p5qs7n7d&mm=31&source=youtube&clen=1564894&dur=190.001&lmt=1469287741664614&requiressl=yes&initcwndbps=1156250&key=yt6&gir=yes&mime=audio%2Fwebm&mt=1491344969&upn=RVeOYWAaYOQ&itag=250&expire=1491366642&sparams=clen%2Cdur%2Cei%2Cgir%2Cid%2Cinitcwndbps%2Cip%2Cipbits%2Citag%2Ckeepalive%2Clmt%2Cmime%2Cmm%2Cmn%2Cms%2Cmv%2Cpl%2Crequiressl%2Csource%2Cupn%2Cexpire&keepalive=yes&ratebypass=yes&signature=741CA754F89888EE26D83BEDF96AB92E6090C504.6D5300CA089761EB448F406A9C11F1B9462B5B62",
+      "url": "https://r2---sn-p5qs7n7d.googlevideo.com/videoplayback?ip=0.0.0.0&ms=au&ei=kh7kWO-iD8LsuAL315voBg&mv=m&pl=26&ipbits=0&id=o-AHOGkCrRPBYkErLlqTECGiLANu4GWYjAIdvkhmHMXlAT&mn=sn-p5qs7n7d&mm=31&source=youtube&clen=1564894&dur=190.001&lmt=1469287741664614&requiressl=yes&initcwndbps=1156250&key=yt6&gir=yes&mime=audio%2Fwebm&mt=1491344969&upn=RVeOYWAaYOQ&itag=250&expire=1491366642&sparams=clen%2Cdur%2Cei%2Cgir%2Cid%2Cinitcwndbps%2Cip%2Cipbits%2Citag%2Ckeepalive%2Clmt%2Cmime%2Cmm%2Cmn%2Cms%2Cmv%2Cpl%2Crequiressl%2Csource%2Cupn%2Cexpire&keepalive=yes&ratebypass=yes&signature=741CA754F89888EE26D83BEDF96AB92E6090C504.6D5300CA089761EB448F406A9C11F1B9462B5B62",
       "projection_type": "1",
       "index": "272-608",
       "type": "audio/webm; codecs=\"opus\"",
@@ -709,7 +709,7 @@
       "audioBitrate": 70
     },
     {
-      "url": "https://r2---sn-p5qs7n7d.googlevideo.com/videoplayback?ip=158.69.59.138&ms=au&ei=kh7kWO-iD8LsuAL315voBg&mv=m&pl=26&ipbits=0&id=o-AHOGkCrRPBYkErLlqTECGiLANu4GWYjAIdvkhmHMXlAT&mn=sn-p5qs7n7d&mm=31&source=youtube&clen=1190435&dur=190.001&lmt=1469287741776041&requiressl=yes&initcwndbps=1156250&key=yt6&gir=yes&mime=audio%2Fwebm&mt=1491344969&upn=RVeOYWAaYOQ&itag=249&expire=1491366642&sparams=clen%2Cdur%2Cei%2Cgir%2Cid%2Cinitcwndbps%2Cip%2Cipbits%2Citag%2Ckeepalive%2Clmt%2Cmime%2Cmm%2Cmn%2Cms%2Cmv%2Cpl%2Crequiressl%2Csource%2Cupn%2Cexpire&keepalive=yes&ratebypass=yes&signature=29497F529BD57C8BBFE896FDE072C3F5451D4E75.496B663EAD58C6D11581080B04C6D4B2EDAC4FB3",
+      "url": "https://r2---sn-p5qs7n7d.googlevideo.com/videoplayback?ip=0.0.0.0&ms=au&ei=kh7kWO-iD8LsuAL315voBg&mv=m&pl=26&ipbits=0&id=o-AHOGkCrRPBYkErLlqTECGiLANu4GWYjAIdvkhmHMXlAT&mn=sn-p5qs7n7d&mm=31&source=youtube&clen=1190435&dur=190.001&lmt=1469287741776041&requiressl=yes&initcwndbps=1156250&key=yt6&gir=yes&mime=audio%2Fwebm&mt=1491344969&upn=RVeOYWAaYOQ&itag=249&expire=1491366642&sparams=clen%2Cdur%2Cei%2Cgir%2Cid%2Cinitcwndbps%2Cip%2Cipbits%2Citag%2Ckeepalive%2Clmt%2Cmime%2Cmm%2Cmn%2Cms%2Cmv%2Cpl%2Crequiressl%2Csource%2Cupn%2Cexpire&keepalive=yes&ratebypass=yes&signature=29497F529BD57C8BBFE896FDE072C3F5451D4E75.496B663EAD58C6D11581080B04C6D4B2EDAC4FB3",
       "projection_type": "1",
       "index": "272-608",
       "type": "audio/webm; codecs=\"opus\"",
