@@ -18,7 +18,8 @@
   "main": "./lib/index.js",
   "types": "./typings/index.d.ts",
   "files": [
-    "lib"
+    "lib",
+		"typings"
   ],
   "scripts": {
     "test": "istanbul cover node_modules/.bin/_mocha -- -t 16000 test/*-test.js"
