@@ -122,6 +122,25 @@ describe('ytdl.getInfo()', function() {
         done();
       });
     });
+
+    describe('in any language', function() {
+      it('Returns correct video metainfo', function(done) {
+        var scope = nock(id, {
+          type: 'age-restricted',
+          watch: 'german',
+          dashmpd: true,
+          embed: true,
+          player: 'player-en_US-vflV3n15C',
+          get_video_info: true,
+        });
+        ytdl.getInfo(id, function(err, info) {
+          assert.ifError(err);
+          scope.done();
+          assert.equal(info.formats.length, expectedInfo.formats.length);
+          done();
+        });
+      });
+    });
   });
 
   describe('from a rental', function() {
