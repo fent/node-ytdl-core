@@ -13,11 +13,12 @@ exports = module.exports = function(id, opts) {
   opts = opts || {};
   var scopes = [];
   var dirpath = 'files/videos/' + id + (opts.type ? '-' + opts.type : '');
+  var watchType = opts.watch ? '-' + opts.watch : '';
 
   scopes.push(nock(YT_HOST, { reqheaders: opts.headers })
     .get(VIDEO_PATH + id)
     .replyWithFile(200,
-      path.resolve(__dirname, dirpath + '/watch.html')));
+      path.resolve(__dirname, dirpath + '/watch' + watchType + '.html')));
 
   if (opts.dashmpd) {
     scopes.push(nock(MANIFEST_HOST, { reqheaders: opts.headers })
