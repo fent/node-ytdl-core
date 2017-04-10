@@ -147,6 +147,10 @@ declare module 'ytdl-core' {
     midroll_prefetch_size: string;
     allow_ratings: string;
     thumbnail_url: string;
+    iurlsd: string;
+    iurlmq: string;
+    iurlhq: string;
+    iurlmaxres: string;
     ad_preroll: string;
     tmi: string;
     keywords: string[];
