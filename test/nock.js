@@ -15,7 +15,7 @@ exports = module.exports = function(id, opts) {
   var dirpath = 'files/videos/' + id + (opts.type ? '-' + opts.type : '');
 
   scopes.push(nock(YT_HOST, { reqheaders: opts.headers })
-    .get(VIDEO_PATH + id)
+    .get(VIDEO_PATH + id + '&hl=en')
     .replyWithFile(200,
       path.resolve(__dirname, dirpath + '/watch.html')));
 
