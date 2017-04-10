@@ -175,7 +175,7 @@ declare module 'ytdl-core' {
     formats: videoFormat[];
     published: number;
     description: string;
-    relatedVideos: relatedVideo[]
+    related_videos: relatedVideo[]
     video_url: string;
   }
 
