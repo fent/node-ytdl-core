@@ -16,7 +16,7 @@ exports = module.exports = function(id, opts) {
   var watchType = opts.watch ? '-' + opts.watch : '';
 
   scopes.push(nock(YT_HOST, { reqheaders: opts.headers })
-    .get(VIDEO_PATH + id)
+    .get(VIDEO_PATH + id + '&hl=en')
     .replyWithFile(200,
       path.resolve(__dirname, dirpath + '/watch' + watchType + '.html')));
 
