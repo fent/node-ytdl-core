@@ -26,7 +26,7 @@ describe('Try downloading videos without mocking', function() {
     describe(desc, function() {
       it('Request status code is not 403 Forbidden', function(done) {
         var stream = ytdl(video, { debug: false });
-        stream.on('response', function(res) {
+        stream.once('response', function(res) {
           assert.notEqual(res.statusCode, 403);
           res.destroy();
           done();
