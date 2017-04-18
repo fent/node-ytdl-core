@@ -26,10 +26,12 @@ Attempts to download a video from the given url. Returns a readable stream. `opt
 
 * `quality` - Video quality to download. Can be an [itag value](http://en.wikipedia.org/wiki/YouTube#Quality_and_formats) value, a list of itag values, or `highest`/`lowest`. Defaults to `highest`.
 * `filter` - Can be `video` to filter for formats that contain video, `videoonly` for formats that contain video and no additional audio track. Can also be `audio` or `audioonly`. You can give a filtering function that gets called with each format available. Used to decide what format to download. This function is given the `format` object as its first argument, and should return true if the format is preferable.
-* `format` - This can be a specific `format` object returned from `getInfo`. This is primarily used to download specific video or audio streams. **Note:** Supplying this option will ignore the `filter` and `quality` options since the format is explicitly provided.
-* `range` - A byte range in the form `INT-INT` that specifies part of the file to download. ie 10355705-12452856. Note that this downloads a portion of the file, and not a separately spliced video.
-* `begin` - What time to begin downloading the video, supports formats 00:00:00.000, or 0ms, 0s, 0m, 0h, or number of milliseconds. Example: 1:30, 05:10.123, 10m30s
-* `requestOptions` - Anything to merge into the request options which [mini-get](https://github.com/fent/node-mini-get) is called with, such as headers.
+* `format` - This can be a specific `format` object returned from `getInfo`. This is primarily used to download specific video or audio streams. Note: Supplying this option will ignore the `filter` and `quality` options since the format is explicitly provided.
+* `range` - A byte range in the form `{start: INT, end: INT}` that specifies part of the file to download. ie {start: 10355705, end: 12452856}. Note: this downloads a portion of the file, and not a separately spliced video.
+* `begin` - What time to begin downloading the video, supports formats 00:00:00.000, or 0ms, 0s, 0m, 0h, or number of milliseconds. Example: 1:30, 05:10.123, 10m30s. This option may not work on super short (less than 30s) videos, and has to be at ar above 6s. See [#129](https://github.com/fent/node-ytdl-core/issues/129)
+* `requestOptions` - Anything to merge into the request options which [miniget](https://github.com/fent/node-miniget) is called with, such as headers.
+* `highWaterMark` - How much of the video download to buffer into memory. See [node's docs](https://nodejs.org/api/stream.html#stream_constructor_new_stream_writable_options) for more.
+>>>>>>> master
 
 ```js
 // Example with `filter` option.
@@ -48,7 +50,18 @@ An example of what Info and format may look like is in the [example folder](exam
 #### Event: 'response'
 * `http.ServerResponse` - Response.
 
+<<<<<<< HEAD
 Emitted when the video response has been found, and has started downloading. Can be used to get the size of download.
+=======
+Emitted when the video response has been found, and has started downloading. Can be used to get the size of download. This is also emitted if there is an error with the download or it needs to reconnect to YouTube.
+
+#### Event: 'progress'
+* `Number` - Chunk length.
+* `Number` - Total downloaded.
+* `Number` - Total download length.
+
+Emitted whenever a new chunk is received. Passes values descriping the download progress and the parsed percentage.
+>>>>>>> master
 
 ### Stream#destroy()
 
@@ -65,7 +78,7 @@ you may pass that `info`, along with other `options` to `downloadFromInfo`.
 
 ### ytdl.chooseFormat(formats, options)
 
-Can be used if you'd like to choose a format yourself with the [options above](#ytdlurl-options)
+Can be used if you'd like to choose a format yourself with the [options above](#ytdlurl-options).
 
 ### ytdl.filterFormats(formats, filter)
 
@@ -107,7 +120,7 @@ For the specifics on that, you can look at the `extractActions()` function in [`
 
 
 # Tests
-Tests are written with [mocha](http://visionmedia.github.com/mocha/)
+Tests are written with [mocha](https://mochajs.org)
 
 ```bash
 npm test

@@ -73,34 +73,8 @@ describe('Get tokens', function() {
       sig.getTokens(url, {}, function(err) {
         scope.done();
         assert.ok(err);
-        assert.ok(/Could not extract/.test(err.message));
+        assert.ok(/Could not extract signature/.test(err.message));
         done();
-      });
-    });
-
-    describe('With debug on', function() {
-      var filepath = path.resolve(__dirname, 'files/html5player', key + '.js');
-      after(function(done) {
-        fs.unlink(filepath, function() {
-          var html5player = require('./html5player.json');
-          delete html5player[key];
-          fs.writeFile(
-            path.resolve(__dirname, 'html5player.json'),
-            JSON.stringify(html5player, null, 2), done);
-        });
-      });
-
-      it('Saves files with contents into test directory', function(done) {
-        var scope = nock.url(url).reply(200, contents);
-        sig.getTokens(url, { debug: true }, function(err) {
-          scope.done();
-          assert.ok(err);
-          fs.readFile(filepath, function(err, data) {
-            assert.ifError(err);
-            assert.equal(data, contents);
-            done();
-          });
-        });
       });
     });
   });

@@ -98,6 +98,25 @@ describe('ytdl.getInfo()', function() {
         done();
       });
     });
+
+    describe('in any language', function() {
+      it('Returns correct video metainfo', function(done) {
+        var scope = nock(id, {
+          type: 'age-restricted',
+          watch: 'german',
+          dashmpd: true,
+          embed: true,
+          player: 'player-en_US-vflV3n15C',
+          get_video_info: true,
+        });
+        ytdl.getInfo(id, function(err, info) {
+          assert.ifError(err);
+          scope.done();
+          assert.equal(info.formats.length, expectedInfo.formats.length);
+          done();
+        });
+      });
+    });
   });
 
   describe('from a rental', function() {
@@ -127,14 +146,14 @@ describe('ytdl.getInfo()', function() {
         player: 'player-en_US-vflV3n15C',
       });
 
-      var p = ytdl.getInfo(id);
-      p.catch(done);
-      p.then(function(info) {
-        scope.done();
-        assert.ok(info.description.length);
-        assert.equal(info.formats.length, expectedInfo.formats.length);
-        done();
-      });
+      ytdl.getInfo(id)
+        .then(function(info) {
+          scope.done();
+          assert.ok(info.description.length);
+          assert.equal(info.formats.length, expectedInfo.formats.length);
+          done();
+        })
+        .catch(done);
     });
 
     describe('on a video that fails', function() {
