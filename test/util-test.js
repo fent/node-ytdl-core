@@ -3,8 +3,6 @@ const util   = require('../lib/util');
 const fs     = require('fs');
 const path   = require('path');
 const assert = require('assert-diff');
-const spy    = require('sinon').spy;
-const muk    = require('muk-prop');
 
 
 var formats = [
@@ -315,19 +313,6 @@ describe('util.parseFormats()', function() {
     var formats = util.parseFormats(myinfo);
     assert.ok(formats);
     assert.equal(formats.length, 15);
-  });
-
-  describe('With `debug` on', function() {
-    it('Retrieves video formats from info', function() {
-      var myinfo = util.objectAssign({}, info);
-      var warn = spy();
-      muk(console, 'warn', warn);
-      after(muk.restore);
-      var formats = util.parseFormats(myinfo, true);
-      assert.ok(formats);
-      assert.equal(formats.length, 15);
-      assert.ok(warn.called);
-    });
   });
 });
 
