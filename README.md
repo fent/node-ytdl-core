@@ -31,7 +31,6 @@ Attempts to download a video from the given url. Returns a readable stream. `opt
 * `begin` - What time to begin downloading the video, supports formats 00:00:00.000, or 0ms, 0s, 0m, 0h, or number of milliseconds. Example: 1:30, 05:10.123, 10m30s. This option may not work on super short (less than 30s) videos, and has to be at ar above 6s. See [#129](https://github.com/fent/node-ytdl-core/issues/129)
 * `requestOptions` - Anything to merge into the request options which [miniget](https://github.com/fent/node-miniget) is called with, such as headers.
 * `highWaterMark` - How much of the video download to buffer into memory. See [node's docs](https://nodejs.org/api/stream.html#stream_constructor_new_stream_writable_options) for more.
->>>>>>> master
 
 ```js
 // Example with `filter` option.
@@ -50,9 +49,6 @@ An example of what Info and format may look like is in the [example folder](exam
 #### Event: 'response'
 * `http.ServerResponse` - Response.
 
-<<<<<<< HEAD
-Emitted when the video response has been found, and has started downloading. Can be used to get the size of download.
-=======
 Emitted when the video response has been found, and has started downloading. Can be used to get the size of download. This is also emitted if there is an error with the download or it needs to reconnect to YouTube.
 
 #### Event: 'progress'
@@ -61,7 +57,6 @@ Emitted when the video response has been found, and has started downloading. Can
 * `Number` - Total download length.
 
 Emitted whenever a new chunk is received. Passes values descriping the download progress and the parsed percentage.
->>>>>>> master
 
 ### Stream#destroy()
 
