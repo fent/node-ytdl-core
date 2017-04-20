@@ -5,9 +5,13 @@ const nock = require('nock');
 const YT_HOST       = 'https://www.youtube.com';
 const VIDEO_PATH    = '/watch?v=';
 const MANIFEST_HOST = 'https://manifest.googlevideo.com';
+const M3U8_HOST     = 'https://manifest.googlevideo.com';
 const EMBED_PATH    = '/embed/';
 const INFO_PATH     = '/get_video_info?';
 
+
+before(function() { nock.disableNetConnect(); });
+after(function() { nock.enableNetConnect(); });
 
 exports = module.exports = function(id, opts) {
   opts = opts || {};
@@ -34,6 +38,14 @@ exports = module.exports = function(id, opts) {
       .get('/api/manifest/dash/')
       .replyWithFile(opts.dashmpd2[1] || 200,
         path.resolve(__dirname, dirpath + '/dashmpd2.xml')));
+  }
+
+  if (opts.m3u8) {
+    scopes.push(nock(M3U8_HOST, { reqheaders: opts.headers  })
+      .filteringPath(function() { return '/api/manifest/hls_variant/'; })
+      .get('/api/manifest/hls_variant/')
+      .replyWithFile(opts.m3u8[1] || 200,
+        path.resolve(__dirname, dirpath + '/playlist.m3u8')));
   }
 
   if (opts.player) {
@@ -63,9 +75,6 @@ exports = module.exports = function(id, opts) {
       .replyWithFile(200,
         path.resolve(__dirname, dirpath + '/get_video_info')));
   }
-
-  before(function() { nock.disableNetConnect(); });
-  after(function() { nock.enableNetConnect(); });
 
   return {
     done: function() {
