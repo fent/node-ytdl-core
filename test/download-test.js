@@ -1,6 +1,7 @@
 const assert      = require('assert');
 const path        = require('path');
 const fs          = require('fs');
+const url         = require('url');
 const streamEqual = require('stream-equal');
 const nock        = require('./nock');
 const ytdl        = require('..');
@@ -294,9 +295,12 @@ describe('Download video', function() {
 
   describe('with range', function() {
     it('Range added to download URL', function(done) {
-      var stream = ytdl.downloadFromInfo(testInfo, { range: {start: 500, end: 1000} });
+      var stream = ytdl.downloadFromInfo(testInfo, {
+        range: { start: 500, end: 1000 }
+      });
       stream.on('info', function(info, format) {
-        nock.url(format.url + '&range=500-1000').reply(200, '', {'content-length': '0'});
+        nock.url(format.url + '&range=500-1000')
+          .reply(200, '', {'content-length': '0'});
       });
       stream.resume();
       stream.on('error', done);
@@ -324,6 +328,49 @@ describe('Download video', function() {
       stream.on('error', function(err) {
         assert.ok(err);
         assert.ok(/No formats found/.test(err.message));
+        done();
+      });
+    });
+  });
+
+  describe('that is broadcasted live', function() {
+    it('Begins downloading video succesfully', function(done) {
+      var id = 'N4bU1i-XAxE';
+      var scope = nock(id, {
+        type: 'live',
+        dashmpd: true,
+        dashmpd2: true,
+        m3u8: true,
+        get_video_info: true,
+        player: 'player-en_US-vfl5-0t5t',
+      });
+      var stream = ytdl(id, { quality: 91 });
+      stream.on('info', function(info, format) {
+        var host = url.parse(format.url).host;
+        scope.urlReply(format.url, 200, [
+          '#EXTM3U',
+          '#EXT-X-VERSION:3',
+          '#EXT-X-TARGETDURATION:8',
+          '#EXT-X-MEDIA-SEQUENCE:01',
+          '',
+          '#EXTINF:7.975,',
+          '/file01.ts',
+          '#EXTINF:7.941,',
+          '/file02.ts',
+          '#EXTINF:7.975,',
+          '/file03.ts',
+          '#EXT-X-ENDLIST',
+        ].join('\n'));
+        scope.urlReply('https://' + host + '/file01.ts', 200, 'one');
+        scope.urlReply('https://' + host + '/file02.ts', 200, 'two');
+        scope.urlReply('https://' + host + '/file03.ts', 200, 'tres');
+      });
+
+      var body = '';
+      stream.setEncoding('utf8');
+      stream.on('data', function(chunk) { body += chunk; });
+      stream.on('end', function() {
+        assert.equal(body, 'onetwotres');
         done();
       });
     });
