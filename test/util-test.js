@@ -287,21 +287,21 @@ describe('util.getVideoID()', function() {
   it('Retrives the video ID from the url', function() {
     var id;
     id = util.getVideoID('http://www.youtube.com/watch?v=RAW_VIDEOID');
-    assert(id, 'RAW_VIDEOID');
+    assert.equal(id, 'RAW_VIDEOID');
     id = util.getVideoID('http://youtu.be/RAW_VIDEOID');
-    assert(id, 'RAW_VIDEOID');
+    assert.equal(id, 'RAW_VIDEOID');
     id = util.getVideoID('http://youtube.com/v/RAW_VIDEOID');
-    assert(id, 'RAW_VIDEOID');
+    assert.equal(id, 'RAW_VIDEOID');
     id = util.getVideoID('http://youtube.com/embed/RAW_VIDEOID');
-    assert(id, 'RAW_VIDEOID');
+    assert.equal(id, 'RAW_VIDEOID');
     id = util.getVideoID('RAW_VIDEOID'); // Video ids are 11-character long
-    assert(id, 'RAW_VIDEOID');
+    assert.equal(id, 'RAW_VIDEOID');
     id = util.getVideoID('https://www.twitch.tv/user/v/1234');
-    assert(id, new Error('No video id found: https://www.twitch.tv/user/v/1234'));
+    assert.equal(id.message, 'No video id found: https://www.twitch.tv/user/v/1234');
     id = util.getVideoID('www.youtube.com');
-    assert(id, new Error('No video id found: www.youtube.com'));
-    id = util.getVideoID('www.youtube.com/playlist?list=1337');
-    assert(id, new Error('Video id (playlist) does not match expected format (/^[a-zA-Z0-9-_]{11}$/)'));
+    assert.equal(id.message, 'No video id found: www.youtube.com');
+    id = util.getVideoID('http://www.youtube.com/playlist?list=1337');
+    assert.equal(id.message, 'Video id (playlist) does not match expected format (/^[a-zA-Z0-9-_]{11}$/)');
   });
 });
 
