@@ -82,13 +82,20 @@ describe('Get tokens', function() {
 
 describe('Signature decipher', function() {
   describe('extract deciphering actions', function() {
-    it('Returns the correct set of actions', function() {
+    it('Returns the correct set of actions', function(done) {
+      var total = 0;
       for (var name in html5player) {
-        var filepath = path.resolve(
-          __dirname, 'files/html5player/' + name + '.js');
-        var body = fs.readFileSync(filepath, 'utf8');
-        var actions = sig.extractActions(body);
-        assert.deepEqual(actions, html5player[name]);
+        total++;
+        fs.readFile(path.resolve(
+        __dirname, 'files/html5player/' + name + '.js'),
+        'utf8', function(name, err, body) {
+          assert.ifError(err);
+          var actions = sig.extractActions(body);
+          assert.deepEqual(actions, html5player[name]);
+          if (--total === 0) {
+            done();
+          }
+        }.bind(null, name));
       }
     });
   });
