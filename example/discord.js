@@ -14,7 +14,7 @@ client.on('message', message => {
     voiceChannel.join()
       .then(connnection => {
         let stream = ytdl('https://www.youtube.com/watch?v=dQw4w9WgXcQ', {
-          audioonly: true
+          filter : 'audioonly'
         });
         const dispatcher = connnection.playStream(stream);
         dispatcher.on('end', () => {
