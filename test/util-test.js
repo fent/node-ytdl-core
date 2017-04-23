@@ -318,75 +318,87 @@ describe('util.parseFormats()', function() {
 
 
 describe('util.getVideoDescription()', function() {
-  it('Retrieves formatted video description', function() {
-    var html = fs.readFileSync(path.resolve(__dirname,
-      'files/util/multiline-video-description'), 'utf8');
-    var cleanDescription = util.getVideoDescription(html);
-    assert.ok(cleanDescription);
-    assert.equal(cleanDescription, 'Some Title\n' +
-      'Line 1\n' +
-      '"Line 2"\n' +
-      '1  First Song  5:30\n' +
-      '2  Second Song  5:42');
+  it('Retrieves formatted video description', function(done) {
+    fs.readFile(path.resolve(__dirname,
+    'files/util/multiline-video-description'), 'utf8', function(err, html) {
+      assert.ifError(err);
+      var cleanDescription = util.getVideoDescription(html);
+      assert.ok(cleanDescription);
+      assert.equal(cleanDescription, 'Some Title\n' +
+        'Line 1\n' +
+        '"Line 2"\n' +
+        '1  First Song  5:30\n' +
+        '2  Second Song  5:42');
+      done();
+    });
   });
 });
 
 
 describe('util.getAuthor()', function() {
-  it('Retrieves formatted video author', function() {
-    var html = fs.readFileSync(path.resolve(__dirname,
-      'files/util/related-video'), 'utf8');
-    var authorObj = util.getAuthor(html);
-    assert.deepEqual(authorObj, {
-      id: 'UC_aEa8K-EOJ3D6gOs7HcyNg',
-      name: 'NoCopyrightSounds',
-      avatar: 'https://www.youtube.com/hisprofile.pic',
-      user: 'NoCopyrightSounds',
-      channel_url: 'https://www.youtube.com/channel/UC_aEa8K-EOJ3D6gOs7HcyNg',
-      user_url: 'https://www.youtube.com/user/NoCopyrightSounds',
+  it('Retrieves formatted video author', function(done) {
+    fs.readFile(path.resolve(__dirname, 'files/util/related-video'),
+    'utf8', function(err, html) {
+      assert.ifError(err);
+      var authorObj = util.getAuthor(html);
+      assert.deepEqual(authorObj, {
+        id: 'UC_aEa8K-EOJ3D6gOs7HcyNg',
+        name: 'NoCopyrightSounds',
+        avatar: 'https://www.youtube.com/hisprofile.pic',
+        user: 'NoCopyrightSounds',
+        channel_url: 'https://www.youtube.com/channel/UC_aEa8K-EOJ3D6gOs7HcyNg',
+        user_url: 'https://www.youtube.com/user/NoCopyrightSounds',
+      });
+      done();
     });
   });
 });
 
 
 describe('util.getPublished()', function() {
-  it('Retrieves formatted published date', function() {
-    var html = fs.readFileSync(path.resolve(__dirname,
-      'files/util/related-video'), 'utf8');
-    var publishedTimestamp = util.getPublished(html);
-    assert.equal(publishedTimestamp, 1416355200000);
+  it('Retrieves formatted published date', function(done) {
+    fs.readFile(path.resolve(__dirname, 'files/util/related-video'),
+    'utf8', function(err, html) {
+      assert.ifError(err);
+      var publishedTimestamp = util.getPublished(html);
+      assert.equal(publishedTimestamp, 1416355200000);
+      done();
+    });
   });
 });
 
 
 describe('util.getRelatedVideos()', function() {
-  it('Retrieves formatted video author', function() {
-    var html = fs.readFileSync(path.resolve(__dirname,
-      'files/util/related-video'), 'utf8');
-    var relatedVideos = util.getRelatedVideos(html);
-    assert.deepEqual(relatedVideos, [
-      {
-        author: 'NoCopyrightSounds',
-        iurlmq: 'iurlmq1',
-        title: 'Alan Walker - Spectre [NCS Release]',
-        length_seconds: '227',
-        id: 'AOeY-nDp7hI',
-        session_data: 'itct=secondvid',
-        endscreen_autoplay_session_data: 'itct=endscreen_firstvid',
-        short_view_count_text: '119 Mio. Aufrufe',
-        iurlhq_webp: 'first.pic'
-      },
-      {
-        playlist_title: 'Mix – Alan Walker - Fade [NCS Release]',
-        list: 'RDbM7SZ5SBzyY',
-        playlist_iurlmq: 'iurlmq2',
-        session_data: 'itct=firstvid%3D%3D',
-        playlist_length: '0',
-        thumbnail_ids: 'AOeY-nDp7hI',
-        video_id: 'AOeY-nDp7hI',
-        playlist_iurlhq: 'second.pic'
-      }
-    ]);
+  it('Retrieves formatted video author', function(done) {
+    fs.readFile(path.resolve(__dirname, 'files/util/related-video'),
+    'utf8', function(err, html) {
+      assert.ifError(err);
+      var relatedVideos = util.getRelatedVideos(html);
+      assert.deepEqual(relatedVideos, [
+        {
+          author: 'NoCopyrightSounds',
+          iurlmq: 'iurlmq1',
+          title: 'Alan Walker - Spectre [NCS Release]',
+          length_seconds: '227',
+          id: 'AOeY-nDp7hI',
+          session_data: 'itct=secondvid',
+          endscreen_autoplay_session_data: 'itct=endscreen_firstvid',
+          short_view_count_text: '119 Mio. Aufrufe',
+          iurlhq_webp: 'first.pic'
+        },
+        {
+          playlist_title: 'Mix – Alan Walker - Fade [NCS Release]',
+          list: 'RDbM7SZ5SBzyY',
+          playlist_iurlmq: 'iurlmq2',
+          session_data: 'itct=firstvid%3D%3D',
+          playlist_length: '0',
+          thumbnail_ids: 'AOeY-nDp7hI',
+          video_id: 'AOeY-nDp7hI',
+          playlist_iurlhq: 'second.pic'
+        }
+      ]);
+      done();
+    });
   });
 });
 
