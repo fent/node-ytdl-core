@@ -31,6 +31,7 @@ Attempts to download a video from the given url. Returns a readable stream. `opt
 * `begin` - What time to begin downloading the video, supports formats 00:00:00.000, or 0ms, 0s, 0m, 0h, or number of milliseconds. Example: 1:30, 05:10.123, 10m30s. This option may not work on super short (less than 30s) videos, and has to be at ar above 6s. See [#129](https://github.com/fent/node-ytdl-core/issues/129)
 * `requestOptions` - Anything to merge into the request options which [miniget](https://github.com/fent/node-miniget) is called with, such as headers.
 * `highWaterMark` - How much of the video download to buffer into memory. See [node's docs](https://nodejs.org/api/stream.html#stream_constructor_new_stream_writable_options) for more.
+* `retries` - The number of retries ytdl is allowed to do before terminating the stream with an error. The default is set to 5.
 
 ```js
 // Example with `filter` option.
