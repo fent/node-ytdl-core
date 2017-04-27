@@ -307,7 +307,7 @@ describe('util.getVideoID()', function() {
 
 
 describe('util.parseFormats()', function() {
-  var info = require('./files/info/pJk0p-98Xzc_preparsed.json');
+  var info = require('./files/util/pJk0p-98Xzc_preparsed.json');
   it('Retrieves video formats from info', function() {
     var myinfo = util.objectAssign({}, info);
     var formats = util.parseFormats(myinfo);
@@ -323,7 +323,6 @@ describe('util.getVideoDescription()', function() {
     'files/util/multiline-video-description'), 'utf8', function(err, html) {
       assert.ifError(err);
       var cleanDescription = util.getVideoDescription(html);
-      assert.ok(cleanDescription);
       assert.equal(cleanDescription, 'Some Title\n' +
         'Line 1\n' +
         '"Line 2"\n' +
@@ -332,11 +331,21 @@ describe('util.getVideoDescription()', function() {
       done();
     });
   });
+
+  it('Fallbacks to empty description if element not found', function(done) {
+    fs.readFile(path.resolve(__dirname,
+    'files/util/bad-watch-page'), 'utf8', function(err, html) {
+      assert.ifError(err);
+      var cleanDescription = util.getVideoDescription(html);
+      assert.equal(cleanDescription, '');
+      done();
+    });
+  });
 });
 
 
 describe('util.getAuthor()', function() {
-  it('Retrieves formatted video author', function(done) {
+  it('Returns video author object', function(done) {
     fs.readFile(path.resolve(__dirname, 'files/util/related-video'),
     'utf8', function(err, html) {
       assert.ifError(err);
@@ -349,6 +358,16 @@ describe('util.getAuthor()', function() {
         channel_url: 'https://www.youtube.com/channel/UC_aEa8K-EOJ3D6gOs7HcyNg',
         user_url: 'https://www.youtube.com/user/NoCopyrightSounds',
       });
+      done();
+    });
+  });
+
+  it('Returns empty object if author not found', function(done) {
+    fs.readFile(path.resolve(__dirname,
+    'files/util/bad-watch-page'), 'utf8', function(err, html) {
+      assert.ifError(err);
+      var authorObj = util.getAuthor(html);
+      assert.deepEqual(authorObj, {});
       done();
     });
   });
@@ -369,7 +388,7 @@ describe('util.getPublished()', function() {
 
 
 describe('util.getRelatedVideos()', function() {
-  it('Retrieves formatted video author', function(done) {
+  it('Returns related videos', function(done) {
     fs.readFile(path.resolve(__dirname, 'files/util/related-video'),
     'utf8', function(err, html) {
       assert.ifError(err);
@@ -397,6 +416,16 @@ describe('util.getRelatedVideos()', function() {
           playlist_iurlhq: 'second.pic'
         }
       ]);
+      done();
+    });
+  });
+
+  it('Returns empty array when error parsing', function(done) {
+    fs.readFile(path.resolve(__dirname,
+    'files/util/bad-watch-page'), 'utf8', function(err, html) {
+      assert.ifError(err);
+      var relatedVideos = util.getRelatedVideos(html);
+      assert.deepEqual(relatedVideos, []);
       done();
     });
   });
@@ -472,6 +501,7 @@ describe('util.objectAssign()', function() {
 
 describe('util.fromHumanTime', function() {
   it('Time format 00:00:00.000', function() {
+    assert.equal(util.fromHumanTime('25.000'), 25000);
     assert.equal(util.fromHumanTime('05:30'), 60000 * 5 + 30000);
     assert.equal(util.fromHumanTime('01:05:30'), 60000 * 60 + 60000 * 5 + 30000);
     assert.equal(util.fromHumanTime('1:30.123'), 60000 + 30000 + 123);
