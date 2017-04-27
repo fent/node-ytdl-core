@@ -9,9 +9,10 @@ const ytdl        = require('..');
 
 describe('Download video', function() {
   var id = '_HSylqgVYQI';
-  var video = path.resolve(__dirname, 'files/videos/' + id + '/video.flv');
+  var video = path.resolve(__dirname,
+    'files/videos/' + id + '-regular/video.flv');
   var filter = function(format) { return format.container === 'mp4'; };
-  var testInfo = require('./files/videos/pJk0p-98Xzc/expected_info.json');
+  var testInfo = require('./files/videos/pJk0p-98Xzc-vevo/expected_info.json');
 
   beforeEach(function() {
     ytdl.cache.reset();
@@ -19,9 +20,10 @@ describe('Download video', function() {
 
   it('Should be pipeable and data equal to stored file', function(done) {
     var scope = nock(id, {
+      type: 'regular',
       dashmpd: true,
       get_video_info: true,
-      player: 'player-en_US-vflV3n15C',
+      player: 'player-vflppxuSE',
     });
     var stream = ytdl(id, { filter: filter });
 
@@ -42,9 +44,10 @@ describe('Download video', function() {
     describe('immediately', function() {
       it('Doesn\'t start the download', function(done) {
         var scope = nock(id, {
+          type: 'regular',
           dashmpd: true,
           get_video_info: true,
-          player: 'player-en_US-vflV3n15C',
+          player: 'player-vflppxuSE',
         });
         var stream = ytdl(id, { filter: filter });
         stream.destroy();
@@ -66,9 +69,10 @@ describe('Download video', function() {
       after(function() { nock.cleanAll(); });
       it('Doesn\'t start the download', function(done) {
         var scope = nock(id, {
+          type: 'regular',
           dashmpd: true,
           get_video_info: true,
-          player: 'player-en_US-vflV3n15C',
+          player: 'player-vflppxuSE',
         });
         var stream = ytdl(id, { filter: filter });
 
@@ -92,9 +96,10 @@ describe('Download video', function() {
     describe('after download has started', function() {
       it('Download is incomplete', function(done) {
         var scope = nock(id, {
+          type: 'regular',
           dashmpd: true,
           get_video_info: true,
-          player: 'player-en_US-vflV3n15C',
+          player: 'player-vflppxuSE',
         });
         var stream = ytdl(id, { filter: filter });
 
@@ -132,9 +137,10 @@ describe('Download video', function() {
 
     it('Still downloads the whole video', function(done) {
       var scope = nock(id, {
+        type: 'regular',
         dashmpd: true,
         get_video_info: true,
-        player: 'player-en_US-vflV3n15C',
+        player: 'player-vflppxuSE',
       });
       var stream = ytdl(id);
 
@@ -182,9 +188,10 @@ describe('Download video', function() {
     describe('with range', function() {
       it('Downloads from the given `start` to `end`', function(done) {
         var scope = nock(id, {
+          type: 'regular',
           dashmpd: true,
           get_video_info: true,
-          player: 'player-en_US-vflV3n15C',
+          player: 'player-vflppxuSE',
         });
 
         var start = Math.floor(filesize * 0.1);
@@ -242,9 +249,10 @@ describe('Download video', function() {
     describe('Stream keeps disconnecting', function() {
       it('Too many reconnects', function(done) {
         var scope = nock(id, {
+          type: 'regular',
           dashmpd: true,
           get_video_info: true,
-          player: 'player-en_US-vflV3n15C',
+          player: 'player-vflppxuSE',
         });
         var stream = ytdl(id);
 

@@ -21,15 +21,16 @@ exports = module.exports = function(id, opts) {
 
   scopes.push(nock(YT_HOST, { reqheaders: opts.headers })
     .get(VIDEO_PATH + id)
-    .replyWithFile(200,
+    .replyWithFile(opts.statusCode || 200,
       path.resolve(__dirname, dirpath + '/watch' + watchType + '.html')));
 
   if (opts.dashmpd) {
     scopes.push(nock(MANIFEST_HOST, { reqheaders: opts.headers })
       .filteringPath(function() { return '/api/manifest/dash/'; })
       .get('/api/manifest/dash/')
-      .replyWithFile(200,
-        path.resolve(__dirname, dirpath + '/dashmpd.xml')));
+      .replyWithFile(opts.dashmpd[1] || 200,
+        path.resolve(__dirname,
+        dirpath + '/dashmpd' + (opts.dashmpd[2] || '') + '.xml')));
   }
 
   if (opts.dashmpd2) {
@@ -37,7 +38,8 @@ exports = module.exports = function(id, opts) {
       .filteringPath(function() { return '/api/manifest/dash/'; })
       .get('/api/manifest/dash/')
       .replyWithFile(opts.dashmpd2[1] || 200,
-        path.resolve(__dirname, dirpath + '/dashmpd2.xml')));
+        path.resolve(__dirname,
+        dirpath + '/dashmpd2' + (opts.dashmpd2[2] || '') + '.xml')));
   }
 
   if (opts.m3u8) {
@@ -45,22 +47,24 @@ exports = module.exports = function(id, opts) {
       .filteringPath(function() { return '/api/manifest/hls_variant/'; })
       .get('/api/manifest/hls_variant/')
       .replyWithFile(opts.m3u8[1] || 200,
-        path.resolve(__dirname, dirpath + '/playlist.m3u8')));
+        path.resolve(__dirname,
+        dirpath + '/playlist' + (opts.m3u8[2] || '') + '.m3u8')));
   }
 
   if (opts.player) {
     scopes.push(nock('https://www.youtube.com', { reqheaders: opts.headers })
-      .get('/yts/jsbin/' + opts.player + '/' +
-        (opts.player.indexOf('new-') > -1 ? 'html5player-new.js' : 'base.js'))
-      .replyWithFile(200,
+      .filteringPath(/\/yts\/jsbin\/player.+$/g, '/yts/jsbin/player')
+      .get('/yts/jsbin/player')
+      .replyWithFile(opts.player[1] || 200,
         path.resolve(__dirname, dirpath + '/' + opts.player + '.js')));
   }
 
   if (opts.embed) {
     scopes.push(nock(YT_HOST, { reqheaders: opts.headers })
       .get(EMBED_PATH + id)
-      .replyWithFile(200,
-        path.resolve(__dirname, dirpath + '/embed.html')));
+      .replyWithFile(opts.embed[1] || 200,
+        path.resolve(__dirname,
+        dirpath + '/embed' + (opts.embed[2] || '') + '.html')));
   }
 
   if (opts.get_video_info) {
@@ -72,8 +76,9 @@ exports = module.exports = function(id, opts) {
         });
       })
       .get(INFO_PATH + 'video_id=' + id)
-      .replyWithFile(200,
-        path.resolve(__dirname, dirpath + '/get_video_info')));
+      .replyWithFile(opts.get_video_info[1] || 200,
+        path.resolve(__dirname,
+        dirpath + '/get_video_info' + (opts.get_video_info[2] || ''))));
   }
 
   return {
