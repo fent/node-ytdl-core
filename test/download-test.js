@@ -40,6 +40,20 @@ describe('Download video', function() {
     });
   });
 
+  it('Fals gracefully if error getting info', function(done) {
+    var scope = nock(id, {
+      type: 'regular',
+      statusCode: 500,
+    });
+    var stream = ytdl(id, { filter: filter });
+    stream.on('error', function(err) {
+      scope.done();
+      assert.ok(err);
+      assert.equal(err.message, 'Status code: 500');
+      done();
+    });
+  });
+
   describe('destroy stream', function() {
     describe('immediately', function() {
       it('Doesn\'t start the download', function(done) {

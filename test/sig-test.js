@@ -47,10 +47,11 @@ describe('Get tokens', function() {
   });
 
   describe('Unable to find key in filename', function() {
-    var warn = spy();
-    muk(console, 'warn', warn);
-    after(muk.restore);
     it('Warns the console, still attempts to get tokens', function(done) {
+      var warn = spy();
+      muk(console, 'warn', warn);
+      after(muk.restore);
+
       var url = 'https://s.ytimg.com/badfilename.js';
       var scope = nock.url(url).replyWithFile(200, filepath);
       sig.getTokens(url, {}, function(err, tokens) {
