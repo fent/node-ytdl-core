@@ -1,6 +1,8 @@
+const ytdl   = require('..');
 const assert = require('assert-diff');
 const nock   = require('./nock');
-const ytdl   = require('..');
+const spy    = require('sinon').spy;
+const muk    = require('muk-prop');
 
 
 describe('ytdl.getInfo()', function() {
@@ -200,33 +202,147 @@ describe('ytdl.getInfo()', function() {
   });
 
   describe('When there is an error requesting one of the pages', function() {
-    var id = 'pJk0p-98Xzc';
-
     it('Fails gracefully when unable to get watch page', function(done) {
-      nock.url('https://www.youtube.com/watch?v=' + id)
-        .replyWithError('sad');
+      var id = '_HSylqgVYQI';
+      var scope = nock(id, {
+        type: 'regular',
+        statusCode: 500,
+      });
       ytdl.getInfo(id, function(err) {
+        scope.done();
         assert.ok(err);
-        assert.equal(err.message, 'sad');
+        assert.equal(err.message, 'Status code: 500');
         done();
       });
     });
 
-    it('Fails gracefully when unable to find config');
+    it('Fails gracefully when unable to find config', function(done) {
+      var id = '_HSylqgVYQI';
+      var scope = nock(id, {
+        type: 'regular',
+        watch: 'no-config',
+      });
+      ytdl.getInfo(id, function(err) {
+        scope.done();
+        assert.ok(err);
+        assert.equal(err.message, 'Could not find player config');
+        done();
+      });
+    });
 
-    it('Fails gracefully when unable to parse config)');
+    it('Fails gracefully when unable to parse config', function(done) {
+      var id = '_HSylqgVYQI';
+      var scope = nock(id, {
+        type: 'regular',
+        watch: 'bad-config',
+      });
+      ytdl.getInfo(id, function(err) {
+        scope.done();
+        assert.ok(err);
+        assert.ok(/Error parsing config:/.test(err.message));
+        done();
+      });
+    });
 
-    it('Fails gracefully when unable to get embed page');
+    it('Fails gracefully when unable to get embed page', function(done) {
+      var id = 'rIqCiJKWx9I';
+      var scope = nock(id, {
+        type: 'age-restricted',
+        embed: [true, 500]
+      });
+      ytdl.getInfo(id, function(err) {
+        scope.done();
+        assert.ok(err);
+        assert.equal(err.message, 'Status code: 500');
+        done();
+      });
+    });
 
-    it('Fails gracefully when unable to get video info page');
+    it('Fails gracefully when unable to get video info page', function(done) {
+      var id = '_HSylqgVYQI';
+      var scope = nock(id, {
+        type: 'regular',
+        get_video_info: [true, 500]
+      });
+      ytdl.getInfo(id, function(err) {
+        scope.done();
+        assert.ok(err);
+        assert.equal(err.message, 'Status code: 500');
+        done();
+      });
+    });
 
-    it('Fails gracefully when unable to get html5player tokens');
+    it('Fails gracefully when unable to get html5player tokens', function(done) {
+      var id = '_HSylqgVYQI';
+      var scope = nock(id, {
+        type: 'regular',
+        get_video_info: true,
+        player: [true, 500, 'player-vflppxuSE'],
+      });
+      ytdl.getInfo(id, function(err) {
+        scope.done();
+        assert.ok(err);
+        assert.equal(err.message, 'Status code: 500');
+        done();
+      });
+    });
 
-    it('Fails gracefully when unable to get m3u8 playlist');
+    it('Fails gracefully when unable to get m3u8 playlist', function(done) {
+      var id = 'N4bU1i-XAxE';
+      var scope = nock(id, {
+        type: 'live',
+        m3u8: [true, 500],
+        get_video_info: true,
+        player: 'player-en_US-vfl5-0t5t',
+      });
+      ytdl.getInfo(id, function(err) {
+        scope.done();
+        assert.ok(err);
+        assert.equal(err.message, 'Status code: 500');
+        done();
+      });
+    });
+
+    it('Fails gracefully when no formats are found', function(done) {
+      var id = 'pJk0p-98Xzc';
+      var scope = nock(id, {
+        type: 'vevo',
+        watch: 'no-formats',
+        dashmpd: [true, 200, 'no-formats'],
+        get_video_info: [true, 200, 'no-formats'],
+        player: 'player-en_US-vflV3n15C',
+      });
+      ytdl.getInfo(id, function(err) {
+        scope.done();
+        assert.ok(err);
+        assert.equal(err.message, 'No formats found');
+        done();
+      });
+    });
   });
 
   describe('When encountering a format not yet known with debug', function() {
-    it('Warns the console', function() {
+    it('Warns the console', function(done) {
+      var warn = spy();
+      muk(console, 'warn', warn);
+      after(muk.restore);
+
+      var id = '_HSylqgVYQI';
+      var scope = nock(id, {
+        type: 'regular',
+        dashmpd: true,
+        get_video_info: [true, 200, 'unknown-format'],
+        player: 'player-vflppxuSE',
+      });
+      ytdl.getInfo(id, { debug: true}, function(err, info) {
+        assert.ifError(err);
+        scope.done();
+        assert.ok(warn.called);
+        assert.equal(warn.getCall(0).args[0],
+          'No format metadata for itag 9999 found');
+        assert.ok(info);
+        done();
+      });
     });
   });
 });
