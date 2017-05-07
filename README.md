@@ -32,6 +32,7 @@ Attempts to download a video from the given url. Returns a readable stream. `opt
 * `requestOptions` - Anything to merge into the request options which [miniget](https://github.com/fent/node-miniget) is called with, such as headers.
 * `highWaterMark` - How much of the video download to buffer into memory. See [node's docs](https://nodejs.org/api/stream.html#stream_constructor_new_stream_writable_options) for more.
 * `retries` - The number of retries ytdl is allowed to do before terminating the stream with an error. The default is set to 5.
+* `lang` - The 2 character symbol of a language. Is by default set to "en".
 
 ```js
 // Example with `filter` option.

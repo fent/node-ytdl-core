@@ -20,7 +20,7 @@ exports = module.exports = function(id, opts) {
   var watchType = opts.watch ? '-' + opts.watch : '';
 
   scopes.push(nock(YT_HOST, { reqheaders: opts.headers })
-    .get(VIDEO_PATH + id)
+    .get(VIDEO_PATH + id + '&hl=en')
     .replyWithFile(opts.statusCode || 200,
       path.resolve(__dirname, dirpath + '/watch' + watchType + '.html')));
 
@@ -71,7 +71,7 @@ exports = module.exports = function(id, opts) {
     var embedfile = Array.isArray(opts.embed) && opts.embed[2] ?
       '-' + opts.embed[2] : '';
     scopes.push(nock(YT_HOST, { reqheaders: opts.headers })
-      .get(EMBED_PATH + id)
+      .get(EMBED_PATH + id + '?hl=en')
       .replyWithFile(opts.embed[1] || 200,
         path.resolve(__dirname,
         dirpath + '/embed' + embedfile + '.html')));
