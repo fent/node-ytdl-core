@@ -1,6 +1,6 @@
-var assert = require('assert');
-var nock   = require('nock');
-var ytdl   = require('..');
+const assert = require('assert');
+const nock   = require('nock');
+const ytdl   = require('..');
 
 
 var videos = {
@@ -18,6 +18,7 @@ var videos = {
 describe('Try downloading videos without mocking', function() {
   beforeEach(function() {
     nock.cleanAll();
+    nock.enableNetConnect();
     ytdl.cache = null;
   });
 
@@ -26,7 +27,7 @@ describe('Try downloading videos without mocking', function() {
     describe(desc, function() {
       it('Request status code is not 403 Forbidden', function(done) {
         var stream = ytdl(video, { debug: false });
-        stream.on('response', function(res) {
+        stream.once('response', function(res) {
           assert.notEqual(res.statusCode, 403);
           res.destroy();
           done();

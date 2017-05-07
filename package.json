@@ -6,26 +6,46 @@
     "video",
     "download"
   ],
-  "version": "0.8.1",
+  "version": "0.13.3",
   "repository": {
     "type": "git",
     "url": "git://github.com/fent/node-ytdl-core.git"
   },
   "author": "Roly Fentanes (https://github.com/fent)",
+  "contributors": [
+    "Tobias Kutscha (https://github.com/TimeForANinja)",
+    "Andrew Kelley (https://github.com/andrewrk)",
+    "Mauricio Allende (https://github.com/mallendeo)",
+    "Rodrigo Altamirano (https://github.com/raltamirano)",
+    "Jim Buck (https://github.com/JimmyBoh)"
+  ],
   "main": "./lib/index.js",
+  "types": "./typings/index.d.ts",
+  "files": [
+    "lib",
+    "typings"
+  ],
   "scripts": {
     "test": "istanbul cover node_modules/.bin/_mocha -- -t 16000 test/*-test.js"
   },
   "dependencies": {
     "html-entities": "^1.1.3",
+    "m3u8stream": "^0.1.1",
+    "miniget": "^1.0.0",
     "sax": "^1.1.3"
   },
   "devDependencies": {
+    "@types/node": "^7.0.12",
     "assert-diff": "^1.0.1",
-    "istanbul": "*",
-    "mocha": "*",
+    "istanbul": "^0.4.5",
+    "mocha": "^3.2.0",
+    "muk-prop": "^1.0.0",
     "nock": "*",
-    "stream-equal": "~0.1.0"
+    "sinon": "^2.2.0",
+    "stream-equal": "~1.0.0"
+  },
+  "engines": {
+    "node": ">=0.12"
   },
   "license": "MIT"
 }
