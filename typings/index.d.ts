@@ -12,6 +12,7 @@ declare module 'ytdl-core' {
         end?: number;
       };
       requestOptions?: {};
+      lang?: string;
     }
 
     type videoFormat = {
