@@ -1,0 +1,19 @@
+{
+	"xtags": "",
+	"clen": "8428682",
+	"bitrate": null,
+	"type": "audio/webm; codecs=\"opus\"",
+	"lmt": "1493088099194605",
+	"projection_type": "1",
+	"s": "C33EF4CC981301CD687611A9503E0214CD426050.873CC269F8AB16BE2E9FBB3070146FA400CAFC61",
+	"init": "0-271",
+	"index": "272-1084",
+	"url": "https://r2---sn-25ge7ns7.googlevideo.com/videoplayback?dur=479.961&ipbits=0&expire=1495025633&lmt=1493088099194605&requiressl=yes&initcwndbps=2387500&key=yt6&mime=audio%2Fwebm&gir=yes&mn=sn-25ge7ns7&mm=31&keepalive=yes&id=o-AHttXxBHjtDoN1QMie0m3yKMpzOG3v_AOnzDMz874M3D&clen=8428682&ip=xx.xx.xx.xx&sparams=clen%2Cdur%2Cei%2Cgir%2Cid%2Cinitcwndbps%2Cip%2Cipbits%2Citag%2Ckeepalive%2Clmt%2Cmime%2Cmm%2Cmn%2Cms%2Cmv%2Cpl%2Crequiressl%2Csource%2Cupn%2Cexpire&mv=m&mt=1495003946&ms=au&pl=17&itag=251&ei=gPMbWdWoPIHVctP3gbAI&upn=JSuI88PsPeE&source=youtube&ratebypass=yes&signature=C33EF4CC981301CD687611A9503E0214CD426050.873CC269F8AB16BE2E9FBB3070146FA400CAFC61",
+	"itag": "251",
+	"container": "webm",
+	"resolution": null,
+	"encoding": null,
+	"profile": null,
+	"audioEncoding": "opus",
+	"audioBitrate": 160
+}
