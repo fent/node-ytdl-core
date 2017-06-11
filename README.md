@@ -48,6 +48,8 @@ Emitted when the a video's `info` hash is fetched. Along with the chosen format 
 
 An example of what Info and format may look like is in the [example folder](example/info.json).
 
+Note, for users using iurlmaxres, that will not ALWAYS exist. In this case, you'll want to send a GET request to the URL, and if it returns 404 set it null, otherwise it exists. This is the most simple way to ensure that iurlmaxres exists.
+
 #### Event: 'response'
 * `http.ServerResponse` - Response.
 
