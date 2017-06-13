@@ -519,3 +519,28 @@ describe('util.fromHumanTime', function() {
     assert.equal(util.fromHumanTime(200), 200);
   });
 });
+
+describe('util.parseRanges', function () {
+  it('Emits an error when the format contains no ranges', function (done) {
+    var format = formats[0]
+    try {
+      util.parseRanges(format)
+      done(new Error("Should emits an error"))
+    } catch (e) {
+      done()
+    }
+  });
+  it('returns valid ranges', function (done) {
+    var format = require(path.resolve(__dirname, "files/videos/xpTd6K70FmI/format.json"))
+    var ranges = util.parseRanges(format)
+    assert.deepEqual(ranges.init, {
+      start: 0,
+      end: 271
+    })
+    assert.deepEqual(ranges.index, {
+      start: 272,
+      end: 1084
+    })
+    done()
+  })
+});

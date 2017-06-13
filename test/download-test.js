@@ -331,12 +331,42 @@ describe('Download video', function() {
   });
 
   describe('with begin', function() {
-    it('Begin added to download URL', function(done) {
+    it('Begin added to download URL when there is no index', function(done) {
       var stream = ytdl.downloadFromInfo(testInfo, { begin: '1m' });
       stream.on('info', function(info, format) {
         nock.url(format.url + '&begin=60000').reply(200, '');
       });
       stream.resume();
+      stream.on('error', done);
+      stream.on('end', done);
+    });
+    it('Begin added to download URL when it cannot parse index', function (done) {
+       var infos = require('./files/videos/xpTd6K70FmI/infos.json')
+      var format = ytdl.chooseFormat(infos.formats, { quality: 251, filter: 'index' })
+      var stream = ytdl.downloadFromInfo(infos, { format, begin: "1m" })
+      var url = format.url + "&range=0-" + format.index.split('-')[1]
+      nock.url(url)
+        .replyWithFile(200, path.resolve(__dirname, 'files/videos/xpTd6K70FmI/xpTd6K70FmI-unknown-format.webm'))
+      nock.url(format.url + '&begin=60000').reply(200, '');
+      stream.resume()
+      stream.on('error', done);
+      stream.on('end', done);
+    });
+    it("Build the index of the file", function (done) {
+      var infos = require('./files/videos/xpTd6K70FmI/infos.json')
+      var format = ytdl.chooseFormat(infos.formats, { quality: 251, filter: 'index' })
+      var stream = ytdl.downloadFromInfo(infos, { format, begin: "1m" })
+      stream.on('index', function (index) {
+        // compare index to the right one
+        var expected_index = require(path.resolve(__dirname, 'files/videos/xpTd6K70FmI/expected-index.json'));
+        assert.deepEqual(index, expected_index)
+      });
+      var url = format.url + "&range=0-" + format.index.split('-')[1]
+      nock.url(url)
+        .replyWithFile(200, path.resolve(__dirname, 'files/videos/xpTd6K70FmI/xpTd6K70FmI-index.webm'))
+      nock.url(format.url + "&range=941756-" + format.clen)
+        .reply(200, '')
+      stream.resume()
       stream.on('error', done);
       stream.on('end', done);
     });
