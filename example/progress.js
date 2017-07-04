@@ -21,6 +21,6 @@ video.on('progress', (chunkLength, downloaded, total) => {
   process.stdout.write(`, running for: ${downloaded_min.toFixed(2)}minutes`);
   process.stdout.write(`, estimated time left: ${(downloaded_min / float_downloaded - downloaded_min).toFixed(2)}minutes`);
 });
-video.once('end', () => {
+video.on('end', () => {
   process.stdout.write('\n');
 });
