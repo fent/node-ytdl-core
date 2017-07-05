@@ -2,10 +2,13 @@
 const Discord = require('discord.js');
 const ytdl    = require('..');
 
-const client = new Discord.Client();
-client.login(' Y o u r   B o t   T o k e n ');
+const url = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
+const clientToken = ' Y o u r   B o t   T o k e n ';
 
-client.on('ready', () => {
+const client = new Discord.Client();
+client.login(clientToken);
+
+client.once('ready', () => {
   console.log('discord.js client ready');
 });
 
@@ -18,7 +21,7 @@ client.on('message', message => {
     }
     voiceChannel.join()
       .then(connnection => {
-        let stream = ytdl('https://www.youtube.com/watch?v=dQw4w9WgXcQ', {
+        const stream = ytdl(url, {
           filter : 'audioonly',
         });
         const dispatcher = connnection.playStream(stream);
