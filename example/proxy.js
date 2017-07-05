@@ -1,6 +1,6 @@
 const ytdl = require('..');
 
-var stream = ytdl('https://www.youtube.com/watch?v=2UBFIhS1YBk', {
+const stream = ytdl('https://www.youtube.com/watch?v=2UBFIhS1YBk', {
   requestOptions: (parsed) => {
     return {
       host: '127.0.0.1',
