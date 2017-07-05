@@ -3,9 +3,10 @@ const Discord = require('discord.js');
 const ytdl    = require('..');
 
 const url = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
+const clientToken = ' Y o u r   B o t   T o k e n ';
 
 const client = new Discord.Client();
-client.login(' Y o u r   B o t   T o k e n ');
+client.login(clientToken);
 
 client.once('ready', () => {
   console.log('discord.js client ready');

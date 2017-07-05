@@ -1,3 +1,4 @@
+const readline = require('readline');
 const path = require('path');
 const fs   = require('fs');
 const ytdl = require('..');
@@ -10,16 +11,16 @@ let starttime;
 video.pipe(fs.createWriteStream(output));
 video.once('response', () => {
   starttime = Date.now();
-})
+});
 video.on('progress', (chunkLength, downloaded, total) => {
-  const float_downloaded = downloaded / total;
-  const downloaded_min = (Date.now() - starttime) / 1000 / 60;
-  process.stdout.cursorTo(0);
-  process.stdout.clearLine(1);
-  process.stdout.write(`${(float_downloaded * 100).toFixed(2)}% downloaded`);
-  process.stdout.write(`(${downloaded / 1024 / 1025}MB of ${total / 1024 / 1024}MB)`);
-  process.stdout.write(`, running for: ${downloaded_min.toFixed(2)}minutes`);
-  process.stdout.write(`, estimated time left: ${(downloaded_min / float_downloaded - downloaded_min).toFixed(2)}minutes`);
+  const floatDownloaded = downloaded / total;
+  const downloadedMinutes = (Date.now() - starttime) / 1000 / 60;
+  readline.cursorTo(process.stdout, 0);
+  process.stdout.write(`${(floatDownloaded * 100).toFixed(2)}% downloaded`);
+  process.stdout.write(`(${(downloaded / 1024 / 1025).toFixed(2)}MB of ${(total / 1024 / 1024).toFixed(2)}MB)\n`);
+  process.stdout.write(`running for: ${downloadedMinutes.toFixed(2)}minutes`);
+  process.stdout.write(`, estimated time left: ${(downloadedMinutes / floatDownloaded - downloadedMinutes).toFixed(2)}minutes `);
+  readline.moveCursor(process.stdout, 0, -1);
 });
 video.on('end', () => {
   process.stdout.write('\n');
