@@ -305,6 +305,28 @@ describe('util.getVideoID()', function() {
   });
 });
 
+describe('util.validateLink()', function() {
+  it('Retrieves wether a string includes a parsable video ID', function() {
+    var id;
+    id = util.validateLink('http://www.youtube.com/watch?v=RAW_VIDEOID');
+    assert.equal(id, true);
+    id = util.validateLink('http://youtu.be/RAW_VIDEOID');
+    assert.equal(id, true);
+    id = util.validateLink('http://youtube.com/v/RAW_VIDEOID');
+    assert.equal(id, true);
+    id = util.validateLink('http://youtube.com/embed/RAW_VIDEOID');
+    assert.equal(id, true);
+    id = util.validateLink('RAW_VIDEOID'); // Video ids are 11-character long
+    assert.equal(id, true);
+    id = util.validateLink('https://www.twitch.tv/user/v/1234');
+    assert.equal(id.message, false);
+    id = util.validateLink('www.youtube.com');
+    assert.equal(id.message, false);
+    id = util.validateLink('http://www.youtube.com/playlist?list=1337');
+    assert.equal(id.message, false);
+  });
+});
+
 
 describe('util.parseFormats()', function() {
   var info = require('./files/util/pJk0p-98Xzc_preparsed.json');
@@ -471,7 +493,7 @@ describe('util.parallel()', function() {
       });
     });
   });
-  
+
   describe('Zero functions', function() {
     it('Still calls callback', function(done) {
       util.parallel([], done);
