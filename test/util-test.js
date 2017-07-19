@@ -311,7 +311,7 @@ describe('util.validateLink()', function() {
     id = util.validateLink('http://www.youtube.com/watch?v=RAW_VIDEOID');
     assert.equal(id, true);
     id = util.validateLink('https://www.twitch.tv/user/v/1234');
-    assert.equal(id.message, false);
+    assert.equal(id, false);
   });
 });
 
