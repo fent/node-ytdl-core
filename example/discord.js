@@ -20,11 +20,11 @@ client.on('message', message => {
       return message.reply('Please be in a voice channel first!');
     }
     voiceChannel.join()
-      .then(connnection => {
+      .then(connection => {
         const stream = ytdl(url, {
           filter : 'audioonly',
         });
-        const dispatcher = connnection.playStream(stream);
+        const dispatcher = connection.playStream(stream);
         dispatcher.on('end', () => {
           voiceChannel.leave();
         });
