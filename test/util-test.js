@@ -306,7 +306,7 @@ describe('util.getVideoID()', function() {
 });
 
 describe('util.validateLink()', function() {
-  it('Retrieves wether a string includes a parsable video ID', function() {
+  it('Retrieves whether a string includes a parsable video ID', function() {
     var id;
     id = util.validateLink('http://www.youtube.com/watch?v=RAW_VIDEOID');
     assert.equal(id, true);
