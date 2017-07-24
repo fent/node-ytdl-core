@@ -83,7 +83,7 @@ If you'd like to work with only some formats, you can use the [`filter` option a
 
 ### ytdl.validateLink(string)
 
-Returns true if this lib is able to parse out a valid videoID
+Returns true if able to parse out a valid videoID.
 
 ## Limitations
 
