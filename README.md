@@ -81,6 +81,10 @@ Can be used if you'd like to choose a format yourself with the [options above](#
 
 If you'd like to work with only some formats, you can use the [`filter` option above](#ytdlurl-options).
 
+### ytdl.validateLink(string)
+
+Returns true if able to parse out a valid videoID.
+
 ## Limitations
 
 ytdl cannot download videos that fall into the following

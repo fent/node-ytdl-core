@@ -305,6 +305,16 @@ describe('util.getVideoID()', function() {
   });
 });
 
+describe('util.validateLink()', function() {
+  it('Retrieves whether a string includes a parsable video ID', function() {
+    var id;
+    id = util.validateLink('http://www.youtube.com/watch?v=RAW_VIDEOID');
+    assert.equal(id, true);
+    id = util.validateLink('https://www.twitch.tv/user/v/1234');
+    assert.equal(id, false);
+  });
+});
+
 
 describe('util.parseFormats()', function() {
   var info = require('./files/util/pJk0p-98Xzc_preparsed.json');
@@ -471,7 +481,7 @@ describe('util.parallel()', function() {
       });
     });
   });
-  
+
   describe('Zero functions', function() {
     it('Still calls callback', function(done) {
       util.parallel([], done);
