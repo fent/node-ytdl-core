@@ -8,7 +8,7 @@ const clientToken = ' Y o u r   B o t   T o k e n ';
 const client = new Discord.Client();
 client.login(clientToken);
 
-client.once('ready', () => {
+client.on('ready', () => {
   console.log('discord.js client ready');
 });
 
