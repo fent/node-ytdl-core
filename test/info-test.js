@@ -168,7 +168,7 @@ describe('ytdl.getInfo()', function() {
       ytdl.getInfo(id, function(err) {
         assert.ok(err);
         scope.done();
-        assert.ok(/requires payment/.test(err.message));
+        assert.ok(/requires purchase/.test(err.message));
         done();
       });
     });
