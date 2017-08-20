@@ -19,7 +19,7 @@ describe('Try downloading videos without mocking', function() {
   beforeEach(function() {
     nock.cleanAll();
     nock.enableNetConnect();
-    ytdl.cache = null;
+    ytdl.cache.reset();
   });
 
   Object.keys(videos).forEach(function(desc) {
