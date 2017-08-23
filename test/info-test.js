@@ -158,6 +158,23 @@ describe('ytdl.getInfo()', function() {
     });
   });
 
+  describe('From a video that was live streamed', function() {
+    it('Returns correct video metainfo', function(done) {
+      var id = 'nu5uzMXfuLc';
+      var scope = nock(id, {
+        type: 'streamed',
+        player: 'player-vfleGnGfg',
+        get_video_info: true,
+      });
+      ytdl.getInfo(id, function(err, info) {
+        assert.ifError(err);
+        scope.done();
+        assert.equal(info.formats.length, 5);
+        done();
+      });
+    });
+  });
+
   describe('From a rental', function() {
     var id = 'SyKPsFRP_Oc';
     it('Returns an error about it', function(done) {
