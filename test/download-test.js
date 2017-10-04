@@ -161,27 +161,20 @@ describe('Download video', function() {
       var destroyedTimes = 0;
       stream.on('info', function(info, format) {
         var req, res;
-        scope.urlReplyFn(format.url, function() {
-          req = this.req;
-          return [
-            200,
-            fs.createReadStream(video),
-            { 'content-length': filesize }
-          ];
+        stream.once('request', function(a) { req = a; });
+        stream.once('response', function(a) { res = a; });
+
+        scope.urlReplyWithFile(format.url, 200, video, {
+          'content-length': filesize,
         });
 
-        stream.once('response', function(a) { res = a; });
 
         stream.on('progress', function(chunkLength, downloaded, total) {
           if (downloaded / total >= 0.5) {
             var newUrl = format.url + '&range=' + downloaded + '-';
-            scope.urlReplyFn(newUrl, function() {
-              return [
-                200,
-                fs.createReadStream(video, { start: downloaded }),
-                { 'content-length': filesize - downloaded }
-              ];
-            });
+            scope.urlReply(newUrl, 200, function() {
+              return fs.createReadStream(video, { start: downloaded });
+            }, { 'content-length': filesize - downloaded });
             stream.removeAllListeners('progress');
             destroyedTimes++;
             destroy(req, res);
@@ -216,32 +209,25 @@ describe('Download video', function() {
         var destroyedTimes = 0;
         stream.on('info', function(info, format) {
           var req, res;
-          var url = format.url + '&range=' + start + '-' + end;
-          scope.urlReplyFn(url, function() {
-            req = this.req;
-            return [
-              200,
-              fs.createReadStream(video, { start: start, end: end }),
-              { 'content-length': rangedSize }
-            ];
-          });
+          stream.on('request', function(a) { req = a; });
+          stream.on('response', function(a) { res = a; });
 
-          stream.once('response', function(a) { res = a; });
+          var url = format.url + '&range=' + start + '-' + end;
+          scope.urlReply(url, 200, function() {
+            return fs.createReadStream(video, { start: start, end: end });
+          }, { 'content-length': rangedSize });
+
 
           stream.on('progress', function(chunkLength, downloaded, total) {
             if (downloaded / total >= 0.5) {
               var newUrl = format.url +
                 '&range=' + (start + downloaded) + '-' + end;
-              scope.urlReplyFn(newUrl, function() {
-                return [
-                  200,
-                  fs.createReadStream(video, {
-                    start: start + downloaded,
-                    end: end,
-                  }),
-                  { 'content-length': rangedSize - downloaded }
-                ];
-              });
+              scope.urlReply(newUrl, 200, function() {
+                return fs.createReadStream(video, {
+                  start: start + downloaded,
+                  end: end,
+                });
+              }, { 'content-length': rangedSize - downloaded });
               destroyedTimes++;
               stream.removeAllListeners('progress');
               destroy(req, res);
@@ -273,27 +259,21 @@ describe('Download video', function() {
         var destroyedTimes = 0;
         stream.on('info', function(info, format) {
           var req, res;
-          scope.urlReplyFn(format.url, function() {
-            req = this.req;
-            return [
-              200,
-              fs.createReadStream(video),
-              { 'content-length': filesize }
-            ];
-          });
-
+          stream.on('request', function(a) { req = a; });
           stream.on('response', function(a) { res = a; });
+
+          scope.urlReplyWithFile(format.url, 200, video, {
+            'content-length': filesize,
+          });
 
           stream.on('progress', function(chunkLength, downloaded) {
             // Keep disconnecting.
             if (++destroyedTimes < 5) {
               var newUrl = format.url + '&range=' + downloaded + '-';
-              scope.urlReplyFn(newUrl, function() {
-                return [
-                  200,
-                  fs.createReadStream(video, { start: downloaded }),
-                  { 'content-length': filesize - downloaded }
-                ];
+              scope.urlReply(newUrl, 200, function() {
+                return fs.createReadStream(video, { start: downloaded });
+              }, {
+                'content-length': filesize - downloaded,
               });
             }
             destroy(req, res);
