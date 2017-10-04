@@ -32,7 +32,7 @@ exports = module.exports = function(id, opts) {
       .get('/api/manifest/dash/')
       .replyWithFile(opts.dashmpd[1] || 200,
         path.resolve(__dirname,
-        dirpath + '/dashmpd' + dashmpdfile + '.xml')));
+          dirpath + '/dashmpd' + dashmpdfile + '.xml')));
   }
 
   if (opts.dashmpd2) {
@@ -43,7 +43,7 @@ exports = module.exports = function(id, opts) {
       .get('/api/manifest/dash/')
       .replyWithFile(opts.dashmpd2[1] || 200,
         path.resolve(__dirname,
-        dirpath + '/dashmpd2' + dashmpd2file + '.xml')));
+          dirpath + '/dashmpd2' + dashmpd2file + '.xml')));
   }
 
   if (opts.m3u8) {
@@ -54,7 +54,7 @@ exports = module.exports = function(id, opts) {
       .get('/api/manifest/hls_variant/')
       .replyWithFile(opts.m3u8[1] || 200,
         path.resolve(__dirname,
-        dirpath + '/playlist' + m3u8file + '.m3u8')));
+          dirpath + '/playlist' + m3u8file + '.m3u8')));
   }
 
   if (opts.player) {
@@ -74,7 +74,7 @@ exports = module.exports = function(id, opts) {
       .get(EMBED_PATH + id + '?hl=en')
       .replyWithFile(opts.embed[1] || 200,
         path.resolve(__dirname,
-        dirpath + '/embed' + embedfile + '.html')));
+          dirpath + '/embed' + embedfile + '.html')));
   }
 
   if (opts.get_video_info) {
@@ -90,7 +90,7 @@ exports = module.exports = function(id, opts) {
       .get(INFO_PATH + 'video_id=' + id)
       .replyWithFile(opts.get_video_info[1] || 200,
         path.resolve(__dirname,
-        dirpath + '/get_video_info' + infofile)));
+          dirpath + '/get_video_info' + infofile)));
   }
 
   return {
@@ -105,12 +105,15 @@ exports = module.exports = function(id, opts) {
     urlReplyWithFile: function(uri, statusCode, file, headers) {
       scopes.push(exports.url(uri).replyWithFile(statusCode, file, headers));
     },
-    urlReplyFn: function(uri, fn) {
-      scopes.push(exports.url(uri).reply(fn));
-    },
   };
 };
 
+exports.filteringPath = function(uri, filter1, filter2) {
+  var parsed = url.parse(uri);
+  return nock(parsed.protocol + '//' + parsed.host)
+    .filteringPath(filter1, filter2)
+    .get(parsed.path);
+};
 
 exports.url = function(uri) {
   var parsed = url.parse(uri);

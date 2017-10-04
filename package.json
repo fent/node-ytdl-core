@@ -40,7 +40,7 @@
     "istanbul": "^0.4.5",
     "mocha": "^3.2.0",
     "muk-prop": "^1.0.0",
-    "nock": "*",
+    "nock": "^9.0.22",
     "sinon": "^3.0.0",
     "stream-equal": "~1.0.0"
   },
