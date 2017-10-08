@@ -31,7 +31,6 @@ var formats = [
     resolution    : '240p',
     encoding      : 'H.264',
     bitrate       : '0.15-0.3',
-    rtmp          : true,
     audioEncoding : null,
     audioBitrate  : null },
   { itag          : '36',
@@ -98,27 +97,27 @@ var formats = [
     audioEncoding : null,
     audioBitrate  : null },
 ];
-var getItags = function(format) { return format.itag; };
+var getItags = (format) => format.itag;
 
 
-describe('util.parseTime()', function() {
-  it('Returns milliseconds if given numbers', function() {
+describe('util.parseTime()', () => {
+  it('Returns milliseconds if given numbers', () => {
     assert.equal(1234, util.parseTime(1234));
   });
 
-  it('Works with minutes and seconds', function() {
+  it('Works with minutes and seconds', () => {
     assert.equal(2 * 60000 + 36 * 1000, util.parseTime('2m36s'));
   });
 
-  it('And even only hours and milliseconds', function() {
+  it('And even only hours and milliseconds', () => {
     assert.equal(3 * 3600000 + 4200, util.parseTime('3h4200ms'));
   });
 });
 
 
-describe('util.sortFormats()', function() {
-  describe('With `highest` given', function() {
-    it('Sorts available formats from highest to lowest quality', function() {
+describe('util.sortFormats()', () => {
+  describe('With `highest` given', () => {
+    it('Sorts available formats from highest to lowest quality', () => {
       var sortedFormats = formats.slice();
       sortedFormats.sort(util.sortFormats);
       var itags = sortedFormats.map(getItags);
@@ -130,161 +129,162 @@ describe('util.sortFormats()', function() {
 });
 
 
-describe('util.chooseFormat', function() {
+describe('util.chooseFormat', () => {
   var sortedFormats = formats.slice();
   sortedFormats.sort(util.sortFormats);
 
-  it('Is exposed in module', function() {
+  it('Is exposed in module', () => {
     assert.equal(ytdl.chooseFormat, util.chooseFormat);
   });
 
-  describe('with no options', function() {
-    it('Chooses highest quality', function() {
+  describe('with no options', () => {
+    it('Chooses highest quality', () => {
       var format = util.chooseFormat(sortedFormats, {});
       assert.equal(format.itag, '43');
     });
   });
 
-  describe('With lowest quality wanted', function() {
-    it('Chooses lowest itag', function() {
+  describe('With lowest quality wanted', () => {
+    it('Chooses lowest itag', () => {
       var format = util.chooseFormat(sortedFormats, { quality: 'lowest' });
       assert.equal(format.itag, '138');
     });
   });
 
-  describe('With itag given', function() {
-    it('Chooses matching format', function() {
+  describe('With itag given', () => {
+    it('Chooses matching format', () => {
       var format = util.chooseFormat(sortedFormats, { quality: 5 });
       assert.equal(format.itag, '5');
     });
 
-    describe('that is not in the format list', function() {
-      it('Returns an error', function() {
+    describe('that is not in the format list', () => {
+      it('Returns an error', () => {
         var err = util.chooseFormat(sortedFormats, { quality: 42 });
         assert.equal(err.message, 'No such format found: 42');
       });
     });
   });
 
-  describe('With list of itags given', function() {
-    it('Chooses matching format', function() {
+  describe('With list of itags given', () => {
+    it('Chooses matching format', () => {
       var format = util.chooseFormat(sortedFormats, { quality: [99, 160, 18] });
       assert.equal(format.itag, '160');
     });
   });
 
-  describe('With format object given', function() {
-    it('Chooses given format without searching', function() {
+  describe('With format object given', () => {
+    it('Chooses given format without searching', () => {
       var format = util.chooseFormat(sortedFormats, { format: formats[0] });
       assert.equal(format, formats[0]);
     });
   });
 
-  describe('With filter given', function() {
-    describe('that matches a format', function() {
-      it('Chooses a format', function() {
+  describe('With filter given', () => {
+    describe('that matches a format', () => {
+      it('Chooses a format', () => {
         var format = util.chooseFormat(sortedFormats, {
-          filter: function(format) { return format.container === 'mp4'; }
+          filter: (format) => format.container === 'mp4',
         });
         assert.equal(format.itag, '18');
       });
     });
 
-    describe('that does not match a format', function() {
-      it('Returns an error', function() {
-        var err = util.chooseFormat(sortedFormats, { filter: function() {} });
+    describe('that does not match a format', () => {
+      it('Returns an error', () => {
+        var err = util.chooseFormat(sortedFormats, { filter: () => {} });
         assert.equal(err.message, 'No formats found with custom filter');
       });
-    });
-  });
-
-  describe('Get an rtmp format (not supported)', function() {
-    it('Returns an error', function() {
-      var err = util.chooseFormat(sortedFormats, { quality: 133 });
-      assert.equal(err.message, 'rtmp protocol not supported');
     });
   });
 });
 
 
-describe('util.filterFormats', function() {
-  it('Tries to find formats that match', function() {
-    var filter = function(format) { return format.container === 'mp4'; };
+describe('util.filterFormats', () => {
+  it('Tries to find formats that match', () => {
+    var filter = (format) => format.container === 'mp4';
     var itags = util.filterFormats(formats, filter).map(getItags);
     assert.deepEqual(itags, ['18', '133', '160', '140', '139', '138']);
   });
 
-  it('Is exposed in module', function() {
+  it('Is exposed in module', () => {
     assert.equal(ytdl.filterFormats, util.filterFormats);
   });
 
-  describe('that doesn\'t match any format', function() {
-    it('Returns an empty list', function() {
-      var list = util.filterFormats(formats, function() { return false; });
+  describe('that doesn\'t match any format', () => {
+    it('Returns an empty list', () => {
+      var list = util.filterFormats(formats, () => false);
       assert.equal(list.length, 0);
     });
   });
 
-  describe('With `video` given', function() {
-    it('Returns only matching formats', function() {
+  describe('With `video` given', () => {
+    it('Returns only matching formats', () => {
       var itags = util.filterFormats(formats, 'video').map(getItags);
       assert.deepEqual(itags, ['18', '43', '133', '36', '5', '160', '17']);
     });
   });
 
-  describe('With `videoonly` given', function() {
-    it('Returns only matching formats', function() {
+  describe('With `videoonly` given', () => {
+    it('Returns only matching formats', () => {
       var itags = util.filterFormats(formats, 'videoonly').map(getItags);
       assert.deepEqual(itags, ['133', '160']);
     });
   });
 
-  describe('With `audio` given', function() {
-    it('Returns only matching formats', function() {
+  describe('With `audio` given', () => {
+    it('Returns only matching formats', () => {
       var itags = util.filterFormats(formats, 'audio').map(getItags);
       assert.deepEqual(itags, ['18', '43', '36', '5', '17', '140']);
     });
   });
 
-  describe('With `audioonly` given', function() {
-    it('Returns only matching formats', function() {
+  describe('With `audioonly` given', () => {
+    it('Returns only matching formats', () => {
       var itags = util.filterFormats(formats, 'audioonly').map(getItags);
       assert.deepEqual(itags, ['140']);
+    });
+  });
+
+  describe('With unsupported filter given', () => {
+    it('Returns only matching formats', () => {
+      assert.throws(() => {
+        util.filterFormats(formats, 'aaaa').map(getItags);
+      }, /not supported/);
     });
   });
 });
 
 
-describe('util.between()', function() {
-  it('`left` positioned at the start', function() {
+describe('util.between()', () => {
+  it('`left` positioned at the start', () => {
     var rs = util.between('<b>hello there friend</b>', '<b>', '</b>');
     assert.equal(rs, 'hello there friend');
   });
 
-  it('somewhere in the middle', function() {
+  it('somewhere in the middle', () => {
     var rs = util.between('something everything nothing', ' ', ' ');
     assert.equal(rs, 'everything');
   });
 
-  it('not found', function() {
+  it('not found', () => {
     var rs = util.between('oh oh _where_ is it', '<b>', '</b>');
     assert.equal(rs, '');
   });
 
-  it('`right` before `left`', function() {
+  it('`right` before `left`', () => {
     var rs = util.between('>>> a <this> and that', '<', '>');
     assert.equal(rs, 'this');
   });
 
-  it('`right` not found', function() {
+  it('`right` not found', () => {
     var rs = util.between('something [around[ somewhere', '[', ']');
     assert.equal(rs, '');
   });
 });
 
 
-describe('util.getVideoID()', function() {
-  it('Retrives the video ID from the url', function() {
+describe('util.getVideoID()', () => {
+  it('Retrives the video ID from the url', () => {
     var id;
     id = util.getVideoID('http://www.youtube.com/watch?v=RAW_VIDEOID');
     assert.equal(id, 'RAW_VIDEOID');
@@ -305,8 +305,8 @@ describe('util.getVideoID()', function() {
   });
 });
 
-describe('util.validateLink()', function() {
-  it('Retrieves whether a string includes a parsable video ID', function() {
+describe('util.validateLink()', () => {
+  it('Retrieves whether a string includes a parsable video ID', () => {
     var id;
     id = util.validateLink('http://www.youtube.com/watch?v=RAW_VIDEOID');
     assert.equal(id, true);
@@ -316,9 +316,9 @@ describe('util.validateLink()', function() {
 });
 
 
-describe('util.parseFormats()', function() {
+describe('util.parseFormats()', () => {
   var info = require('./files/util/pJk0p-98Xzc_preparsed.json');
-  it('Retrieves video formats from info', function() {
+  it('Retrieves video formats from info', () => {
     var myinfo = util.objectAssign({}, info);
     var formats = util.parseFormats(myinfo);
     assert.ok(formats);
@@ -327,10 +327,10 @@ describe('util.parseFormats()', function() {
 });
 
 
-describe('util.getVideoDescription()', function() {
-  it('Retrieves formatted video description', function(done) {
+describe('util.getVideoDescription()', () => {
+  it('Retrieves formatted video description', (done) => {
     fs.readFile(path.resolve(__dirname,
-    'files/util/multiline-video-description'), 'utf8', function(err, html) {
+      'files/util/multiline-video-description'), 'utf8', (err, html) => {
       assert.ifError(err);
       var cleanDescription = util.getVideoDescription(html);
       assert.equal(cleanDescription, 'Some Title\n' +
@@ -342,9 +342,9 @@ describe('util.getVideoDescription()', function() {
     });
   });
 
-  it('Fallbacks to empty description if element not found', function(done) {
+  it('Fallbacks to empty description if element not found', (done) => {
     fs.readFile(path.resolve(__dirname,
-    'files/util/bad-watch-page'), 'utf8', function(err, html) {
+      'files/util/bad-watch-page'), 'utf8', (err, html) => {
       assert.ifError(err);
       var cleanDescription = util.getVideoDescription(html);
       assert.equal(cleanDescription, '');
@@ -354,27 +354,28 @@ describe('util.getVideoDescription()', function() {
 });
 
 
-describe('util.getAuthor()', function() {
-  it('Returns video author object', function(done) {
+describe('util.getAuthor()', () => {
+  it('Returns video author object', (done) => {
     fs.readFile(path.resolve(__dirname, 'files/util/related-video'),
-    'utf8', function(err, html) {
-      assert.ifError(err);
-      var authorObj = util.getAuthor(html);
-      assert.deepEqual(authorObj, {
-        id: 'UC_aEa8K-EOJ3D6gOs7HcyNg',
-        name: 'NoCopyrightSounds',
-        avatar: 'https://www.youtube.com/hisprofile.pic',
-        user: 'NoCopyrightSounds',
-        channel_url: 'https://www.youtube.com/channel/UC_aEa8K-EOJ3D6gOs7HcyNg',
-        user_url: 'https://www.youtube.com/user/NoCopyrightSounds',
+      'utf8', (err, html) => {
+        assert.ifError(err);
+        var authorObj = util.getAuthor(html);
+        assert.deepEqual(authorObj, {
+          id: 'UC_aEa8K-EOJ3D6gOs7HcyNg',
+          name: 'NoCopyrightSounds',
+          avatar: 'https://www.youtube.com/hisprofile.pic',
+          user: 'NoCopyrightSounds',
+          channel_url:
+            'https://www.youtube.com/channel/UC_aEa8K-EOJ3D6gOs7HcyNg',
+          user_url: 'https://www.youtube.com/user/NoCopyrightSounds',
+        });
+        done();
       });
-      done();
-    });
   });
 
-  it('Returns empty object if author not found', function(done) {
+  it('Returns empty object if author not found', (done) => {
     fs.readFile(path.resolve(__dirname,
-    'files/util/bad-watch-page'), 'utf8', function(err, html) {
+      'files/util/bad-watch-page'), 'utf8', (err, html) => {
       assert.ifError(err);
       var authorObj = util.getAuthor(html);
       assert.deepEqual(authorObj, {});
@@ -384,55 +385,55 @@ describe('util.getAuthor()', function() {
 });
 
 
-describe('util.getPublished()', function() {
-  it('Retrieves formatted published date', function(done) {
+describe('util.getPublished()', () => {
+  it('Retrieves formatted published date', (done) => {
     fs.readFile(path.resolve(__dirname, 'files/util/related-video'),
-    'utf8', function(err, html) {
-      assert.ifError(err);
-      var publishedTimestamp = util.getPublished(html);
-      assert.equal(publishedTimestamp, 1416355200000);
-      done();
-    });
+      'utf8', (err, html) => {
+        assert.ifError(err);
+        var publishedTimestamp = util.getPublished(html);
+        assert.equal(publishedTimestamp, 1416355200000);
+        done();
+      });
   });
 });
 
 
-describe('util.getRelatedVideos()', function() {
-  it('Returns related videos', function(done) {
+describe('util.getRelatedVideos()', () => {
+  it('Returns related videos', (done) => {
     fs.readFile(path.resolve(__dirname, 'files/util/related-video'),
-    'utf8', function(err, html) {
-      assert.ifError(err);
-      var relatedVideos = util.getRelatedVideos(html);
-      assert.deepEqual(relatedVideos, [
-        {
-          author: 'NoCopyrightSounds',
-          iurlmq: 'iurlmq1',
-          title: 'Alan Walker - Spectre [NCS Release]',
-          length_seconds: '227',
-          id: 'AOeY-nDp7hI',
-          session_data: 'itct=secondvid',
-          endscreen_autoplay_session_data: 'itct=endscreen_firstvid',
-          short_view_count_text: '119 Mio. Aufrufe',
-          iurlhq_webp: 'first.pic'
-        },
-        {
-          playlist_title: 'Mix – Alan Walker - Fade [NCS Release]',
-          list: 'RDbM7SZ5SBzyY',
-          playlist_iurlmq: 'iurlmq2',
-          session_data: 'itct=firstvid%3D%3D',
-          playlist_length: '0',
-          thumbnail_ids: 'AOeY-nDp7hI',
-          video_id: 'AOeY-nDp7hI',
-          playlist_iurlhq: 'second.pic'
-        }
-      ]);
-      done();
-    });
+      'utf8', (err, html) => {
+        assert.ifError(err);
+        var relatedVideos = util.getRelatedVideos(html);
+        assert.deepEqual(relatedVideos, [
+          {
+            author: 'NoCopyrightSounds',
+            iurlmq: 'iurlmq1',
+            title: 'Alan Walker - Spectre [NCS Release]',
+            length_seconds: '227',
+            id: 'AOeY-nDp7hI',
+            session_data: 'itct=secondvid',
+            endscreen_autoplay_session_data: 'itct=endscreen_firstvid',
+            short_view_count_text: '119 Mio. Aufrufe',
+            iurlhq_webp: 'first.pic'
+          },
+          {
+            playlist_title: 'Mix – Alan Walker - Fade [NCS Release]',
+            list: 'RDbM7SZ5SBzyY',
+            playlist_iurlmq: 'iurlmq2',
+            session_data: 'itct=firstvid%3D%3D',
+            playlist_length: '0',
+            thumbnail_ids: 'AOeY-nDp7hI',
+            video_id: 'AOeY-nDp7hI',
+            playlist_iurlhq: 'second.pic'
+          }
+        ]);
+        done();
+      });
   });
 
-  it('Returns empty array when error parsing', function(done) {
+  it('Returns empty array when error parsing', (done) => {
     fs.readFile(path.resolve(__dirname,
-    'files/util/bad-watch-page'), 'utf8', function(err, html) {
+      'files/util/bad-watch-page'), 'utf8', (err, html) => {
       assert.ifError(err);
       var relatedVideos = util.getRelatedVideos(html);
       assert.deepEqual(relatedVideos, []);
@@ -442,16 +443,17 @@ describe('util.getRelatedVideos()', function() {
 });
 
 
-describe('util.parallel()', function() {
-  describe('Multiple asynchronous functions', function() {
-    it('Calls callback with results', function(done) {
+describe('util.parallel()', () => {
+  describe('Multiple asynchronous functions', () => {
+    it('Calls callback with results', (done) => {
+      'use strict';
       var funcs = [];
-      for (var i = 0; i < 5; i++) {
-        funcs.push(function(i, callback) {
-          setTimeout(function() { callback(null, i); }, ~~(Math.random() * 10));
-        }.bind(null, i));
+      for (let i = 0; i < 5; i++) {
+        funcs.push((callback) => {
+          setTimeout(() => { callback(null, i); }, ~~(Math.random() * 10));
+        });
       }
-      util.parallel(funcs, function(err, results) {
+      util.parallel(funcs, (err, results) => {
         assert.ifError(err);
         for (var i = 0, len = results.length; i < len; i++) {
           assert.equal(results[i], i);
@@ -460,21 +462,22 @@ describe('util.parallel()', function() {
       });
     });
 
-    describe('where one of them errors', function() {
-      it('Gives an error', function(done) {
+    describe('where one of them errors', () => {
+      it('Gives an error', (done) => {
+        'use strict';
         var funcs = [];
-        for (var i = 0; i < 5; i++) {
-          funcs.push(function(i, callback) {
-            setImmediate(function() {
+        for (let i = 0; i < 5; i++) {
+          funcs.push((callback) => {
+            setImmediate(() => {
               if (i === 0) {
                 callback(new Error('Something went wrong'));
               } else {
                 callback(null, i);
               }
             });
-          }.bind(null, i));
+          });
         }
-        util.parallel(funcs, function(err) {
+        util.parallel(funcs, (err) => {
           assert.ok(err);
           setImmediate(done);
         });
@@ -482,25 +485,25 @@ describe('util.parallel()', function() {
     });
   });
 
-  describe('Zero functions', function() {
-    it('Still calls callback', function(done) {
+  describe('Zero functions', () => {
+    it('Still calls callback', (done) => {
       util.parallel([], done);
     });
   });
 
-  describe('Functions call callback twice', function() {
-    it('Only calls final callback once', function(done) {
+  describe(' call callback twice', () => {
+    it('Only calls final callback once', (done) => {
       util.parallel([
-        function(callback) { setTimeout(callback, 10); },
-        function(callback) { setTimeout(callback, 10); }
+        (callback) => { setTimeout(callback, 10); },
+        (callback) => { setTimeout(callback, 10); }
       ], done);
     });
   });
 });
 
 
-describe('util.objectAssign()', function() {
-  it('Merges object into another', function() {
+describe('util.objectAssign()', () => {
+  it('Merges object into another', () => {
     var target = { headers: { one: 1, two: 2 }, my: 'mine' };
     var source = { headers: { one: 100 } };
     util.objectAssign(target, source, true);
@@ -509,22 +512,22 @@ describe('util.objectAssign()', function() {
 });
 
 
-describe('util.fromHumanTime', function() {
-  it('Time format 00:00:00.000', function() {
+describe('util.fromHumanTime', () => {
+  it('Time format 00:00:00.000', () => {
     assert.equal(util.fromHumanTime('25.000'), 25000);
     assert.equal(util.fromHumanTime('05:30'), 60000 * 5 + 30000);
     assert.equal(util.fromHumanTime('01:05:30'), 60000 * 60 + 60000 * 5 + 30000);
     assert.equal(util.fromHumanTime('1:30.123'), 60000 + 30000 + 123);
   });
 
-  it('Time format 0ms, 0s, 0m, 0h', function() {
+  it('Time format 0ms, 0s, 0m, 0h', () => {
     assert.equal(util.fromHumanTime('2ms'), 2);
     assert.equal(util.fromHumanTime('1m'), 60000);
     assert.equal(util.fromHumanTime('1m10s'), 60000 + 10000);
     assert.equal(util.fromHumanTime('2hm10s500ms'), 3600000 * 2 + 10000 + 500);
   });
 
-  it('No format', function() {
+  it('No format', () => {
     assert.equal(util.fromHumanTime('1000'), 1000);
     assert.equal(util.fromHumanTime(200), 200);
   });

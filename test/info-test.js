@@ -1,20 +1,31 @@
 const ytdl   = require('..');
+const path   = require('path');
+const fs     = require('fs');
 const assert = require('assert-diff');
 const nock   = require('./nock');
 const spy    = require('sinon').spy;
 const muk    = require('muk-prop');
 
 
-describe('ytdl.getInfo()', function() {
-  beforeEach(function() {
-    ytdl.cache.reset();
+describe('ytdl.getInfo()', () => {
+  beforeEach(() => {
+    ytdl.cache.clear();
   });
 
-  describe('From a regular video', function() {
+  describe('From a regular video', () => {
     var id = 'pJk0p-98Xzc';
-    var expectedInfo = require('./files/videos/' + id + '-vevo/expected_info.json');
+    var expectedInfo;
+    before((done) => {
+      fs.readFile(path.resolve(__dirname,
+        `files/videos/${id}-vevo/expected_info.json`),
+      'utf8', (err, body) => {
+        if (err) return done(err);
+        expectedInfo = JSON.parse(body);
+        done();
+      });
+    });
 
-    it('Retrieves correct metainfo', function(done) {
+    it('Retrieves correct metainfo', (done) => {
       var scope = nock(id, {
         type: 'vevo',
         dashmpd: true,
@@ -22,7 +33,7 @@ describe('ytdl.getInfo()', function() {
         player: 'player-en_US-vflV3n15C',
       });
 
-      ytdl.getInfo(id, function(err, info) {
+      ytdl.getInfo(id, (err, info) => {
         assert.ifError(err);
         scope.done();
         assert.ok(info.description.length);
@@ -31,25 +42,24 @@ describe('ytdl.getInfo()', function() {
       });
     });
 
-    describe('Use `ytdl.downloadFromInfo()`', function() {
-      it('Retrives video file', function(done) {
+    describe('Use `ytdl.downloadFromInfo()`', () => {
+      it('Retrives video file', (done) => {
         var stream = ytdl.downloadFromInfo(expectedInfo);
         var scope;
-        stream.on('info', function(info, format) {
-          scope = nock.url(format.url)
-            .reply(200);
+        stream.on('info', (info, format) => {
+          scope = nock.url(format.url).reply(200);
         });
         stream.resume();
         stream.on('error', done);
-        stream.on('end', function() {
+        stream.on('end', () => {
           scope.done();
           done();
         });
       });
     });
 
-    describe('Pass request options', function() {
-      it('Request gets called with more headers', function(done) {
+    describe('Pass request options', () => {
+      it('Request gets called with more headers', (done) => {
         var scope = nock(id, {
           type: 'vevo',
           dashmpd: true,
@@ -60,7 +70,7 @@ describe('ytdl.getInfo()', function() {
 
         ytdl.getInfo(id, {
           requestOptions: { headers: { 'X-Hello': '42' }}
-        }, function(err) {
+        }, (err) => {
           assert.ifError(err);
           scope.done();
           done();
@@ -68,8 +78,8 @@ describe('ytdl.getInfo()', function() {
       });
     });
 
-    describe('Using the promise API', function() {
-      it('Retrieves correct metainfo', function(done) {
+    describe('Using the promise API', () => {
+      it('Retrieves correct metainfo', (done) => {
         var scope = nock(id, {
           type: 'vevo',
           dashmpd: true,
@@ -78,7 +88,7 @@ describe('ytdl.getInfo()', function() {
         });
 
         ytdl.getInfo(id)
-          .then(function(info) {
+          .then((info) => {
             scope.done();
             assert.ok(info.description.length);
             assert.equal(info.formats.length, expectedInfo.formats.length);
@@ -87,13 +97,13 @@ describe('ytdl.getInfo()', function() {
           .catch(done);
       });
 
-      describe('On a video that fails', function() {
+      describe('On a video that fails', () => {
         var id = 'unknown-vid';
 
-        it('Error is catched', function(done) {
+        it('Error is catched', (done) => {
           var scope = nock(id);
           var p = ytdl.getInfo(id);
-          p.catch(function(err) {
+          p.catch((err) => {
             scope.done();
             assert.ok(err);
             assert.equal(err.message, 'This video does not exist.');
@@ -104,12 +114,12 @@ describe('ytdl.getInfo()', function() {
     });
   });
 
-  describe('From a non-existant video', function() {
+  describe('From a non-existant video', () => {
     var id = 'unknown-vid';
 
-    it('Should give an error', function(done) {
+    it('Should give an error', (done) => {
       var scope = nock(id);
-      ytdl.getInfo(id, function(err) {
+      ytdl.getInfo(id, (err) => {
         scope.done();
         assert.ok(err);
         assert.equal(err.message, 'This video does not exist.');
@@ -118,11 +128,11 @@ describe('ytdl.getInfo()', function() {
     });
   });
 
-  describe('From an age restricted video', function() {
+  describe('From an age restricted video', () => {
     var id = 'rIqCiJKWx9I';
     var expectedInfo = require('./files/videos/' + id + '-age-restricted/expected_info.json');
 
-    it('Returns correct video metainfo', function(done) {
+    it('Returns correct video metainfo', (done) => {
       var scope = nock(id, {
         type: 'age-restricted',
         dashmpd: true,
@@ -130,7 +140,7 @@ describe('ytdl.getInfo()', function() {
         player: 'player-en_US-vflV3n15C',
         get_video_info: true,
       });
-      ytdl.getInfo(id, function(err, info) {
+      ytdl.getInfo(id, (err, info) => {
         assert.ifError(err);
         scope.done();
         assert.equal(info.formats.length, expectedInfo.formats.length);
@@ -138,8 +148,8 @@ describe('ytdl.getInfo()', function() {
       });
     });
 
-    describe('In any language', function() {
-      it('Returns correct video metainfo', function(done) {
+    describe('In any language', () => {
+      it('Returns correct video metainfo', (done) => {
         var scope = nock(id, {
           type: 'age-restricted',
           watch: 'german',
@@ -148,7 +158,7 @@ describe('ytdl.getInfo()', function() {
           player: 'player-en_US-vflV3n15C',
           get_video_info: true,
         });
-        ytdl.getInfo(id, function(err, info) {
+        ytdl.getInfo(id, (err, info) => {
           assert.ifError(err);
           scope.done();
           assert.equal(info.formats.length, expectedInfo.formats.length);
@@ -158,15 +168,15 @@ describe('ytdl.getInfo()', function() {
     });
   });
 
-  describe('From a video that was live streamed', function() {
-    it('Returns correct video metainfo', function(done) {
+  describe('From a video that was live streamed', () => {
+    it('Returns correct video metainfo', (done) => {
       var id = 'nu5uzMXfuLc';
       var scope = nock(id, {
         type: 'streamed',
         player: 'player-vfleGnGfg',
         get_video_info: true,
       });
-      ytdl.getInfo(id, function(err, info) {
+      ytdl.getInfo(id, (err, info) => {
         assert.ifError(err);
         scope.done();
         assert.equal(info.formats.length, 5);
@@ -175,14 +185,14 @@ describe('ytdl.getInfo()', function() {
     });
   });
 
-  describe('From a rental', function() {
+  describe('From a rental', () => {
     var id = 'SyKPsFRP_Oc';
-    it('Returns an error about it', function(done) {
+    it('Returns an error about it', (done) => {
       var scope = nock(id, {
         type: 'rental',
         get_video_info: true,
       });
-      ytdl.getInfo(id, function(err) {
+      ytdl.getInfo(id, (err) => {
         assert.ok(err);
         scope.done();
         assert.ok(/requires purchase/.test(err.message));
@@ -191,14 +201,14 @@ describe('ytdl.getInfo()', function() {
     });
   });
 
-  describe('From a video that is not yet available', function() {
+  describe('From a video that is not yet available', () => {
     var id = 'iC9YT-5aUhI';
-    it('Returns an error', function(done) {
+    it('Returns an error', (done) => {
       var scope = nock(id, {
         type: 'unavailable',
         get_video_info: true,
       });
-      ytdl.getInfo(id, function(err) {
+      ytdl.getInfo(id, (err) => {
         scope.done();
         assert.ok(err);
         assert.equal(err.message, 'This video is unavailable');
@@ -207,10 +217,10 @@ describe('ytdl.getInfo()', function() {
     });
   });
 
-  describe('With a bad video ID', function() {
+  describe('With a bad video ID', () => {
     var id = 'bad';
-    it('Returns an error', function(done) {
-      ytdl.getInfo(id, function(err) {
+    it('Returns an error', (done) => {
+      ytdl.getInfo(id, (err) => {
         assert.ok(err);
         assert.equal(err.message, 'No video id found: bad');
         done();
@@ -218,14 +228,14 @@ describe('ytdl.getInfo()', function() {
     });
   });
 
-  describe('When there is an error requesting one of the pages', function() {
-    it('Fails gracefully when unable to get watch page', function(done) {
+  describe('When there is an error requesting one of the pages', () => {
+    it('Fails gracefully when unable to get watch page', (done) => {
       var id = '_HSylqgVYQI';
       var scope = nock(id, {
         type: 'regular',
         statusCode: 500,
       });
-      ytdl.getInfo(id, function(err) {
+      ytdl.getInfo(id, (err) => {
         scope.done();
         assert.ok(err);
         assert.equal(err.message, 'Status code: 500');
@@ -233,13 +243,13 @@ describe('ytdl.getInfo()', function() {
       });
     });
 
-    it('Fails gracefully when unable to find config', function(done) {
+    it('Fails gracefully when unable to find config', (done) => {
       var id = '_HSylqgVYQI';
       var scope = nock(id, {
         type: 'regular',
         watch: 'no-config',
       });
-      ytdl.getInfo(id, function(err) {
+      ytdl.getInfo(id, (err) => {
         scope.done();
         assert.ok(err);
         assert.equal(err.message, 'Could not find player config');
@@ -247,13 +257,13 @@ describe('ytdl.getInfo()', function() {
       });
     });
 
-    it('Fails gracefully when unable to parse config', function(done) {
+    it('Fails gracefully when unable to parse config', (done) => {
       var id = '_HSylqgVYQI';
       var scope = nock(id, {
         type: 'regular',
         watch: 'bad-config',
       });
-      ytdl.getInfo(id, function(err) {
+      ytdl.getInfo(id, (err) => {
         scope.done();
         assert.ok(err);
         assert.ok(/Error parsing config:/.test(err.message));
@@ -261,13 +271,13 @@ describe('ytdl.getInfo()', function() {
       });
     });
 
-    it('Fails gracefully when unable to get embed page', function(done) {
+    it('Fails gracefully when unable to get embed page', (done) => {
       var id = 'rIqCiJKWx9I';
       var scope = nock(id, {
         type: 'age-restricted',
         embed: [true, 500]
       });
-      ytdl.getInfo(id, function(err) {
+      ytdl.getInfo(id, (err) => {
         scope.done();
         assert.ok(err);
         assert.equal(err.message, 'Status code: 500');
@@ -275,13 +285,13 @@ describe('ytdl.getInfo()', function() {
       });
     });
 
-    it('Fails gracefully when unable to get video info page', function(done) {
+    it('Fails gracefully when unable to get video info page', (done) => {
       var id = '_HSylqgVYQI';
       var scope = nock(id, {
         type: 'regular',
         get_video_info: [true, 500]
       });
-      ytdl.getInfo(id, function(err) {
+      ytdl.getInfo(id, (err) => {
         scope.done();
         assert.ok(err);
         assert.equal(err.message, 'Status code: 500');
@@ -289,14 +299,14 @@ describe('ytdl.getInfo()', function() {
       });
     });
 
-    it('Fails gracefully when unable to get html5player tokens', function(done) {
+    it('Fails gracefully when unable to get html5player tokens', (done) => {
       var id = '_HSylqgVYQI';
       var scope = nock(id, {
         type: 'regular',
         get_video_info: true,
         player: [true, 500, 'player-vflppxuSE'],
       });
-      ytdl.getInfo(id, function(err) {
+      ytdl.getInfo(id, (err) => {
         scope.done();
         assert.ok(err);
         assert.equal(err.message, 'Status code: 500');
@@ -304,7 +314,7 @@ describe('ytdl.getInfo()', function() {
       });
     });
 
-    it('Fails gracefully when unable to get m3u8 playlist', function(done) {
+    it('Fails gracefully when unable to get m3u8 playlist', (done) => {
       var id = 'N4bU1i-XAxE';
       var scope = nock(id, {
         type: 'live',
@@ -312,7 +322,7 @@ describe('ytdl.getInfo()', function() {
         get_video_info: true,
         player: 'player-en_US-vfl5-0t5t',
       });
-      ytdl.getInfo(id, function(err) {
+      ytdl.getInfo(id, (err) => {
         scope.done();
         assert.ok(err);
         assert.equal(err.message, 'Status code: 500');
@@ -320,7 +330,7 @@ describe('ytdl.getInfo()', function() {
       });
     });
 
-    it('Fails gracefully when no formats are found', function(done) {
+    it('Fails gracefully when no formats are found', (done) => {
       var id = 'pJk0p-98Xzc';
       var scope = nock(id, {
         type: 'vevo',
@@ -329,7 +339,7 @@ describe('ytdl.getInfo()', function() {
         get_video_info: [true, 200, 'no-formats'],
         player: 'player-en_US-vflV3n15C',
       });
-      ytdl.getInfo(id, function(err) {
+      ytdl.getInfo(id, (err) => {
         scope.done();
         assert.ok(err);
         assert.equal(err.message, 'No formats found');
@@ -337,14 +347,14 @@ describe('ytdl.getInfo()', function() {
       });
     });
 
-    it('Fails gracefully when unable to parse player_response', function(done) {
+    it('Fails gracefully when unable to parse player_response', (done) => {
       var id = '_HSylqgVYQI';
       var scope = nock(id, {
         type: 'regular',
         watch: 'bad-player-response',
         get_video_info: true,
       });
-      ytdl.getInfo(id, function(err) {
+      ytdl.getInfo(id, (err) => {
         scope.done();
         assert.ok(err);
         assert.ok(/Error parsing `player_response`:/.test(err.message));
@@ -353,8 +363,8 @@ describe('ytdl.getInfo()', function() {
     });
   });
 
-  describe('When encountering a format not yet known with debug', function() {
-    it('Warns the console', function(done) {
+  describe('When encountering a format not yet known with debug', () => {
+    it('Warns the console', (done) => {
       var warn = spy();
       muk(console, 'warn', warn);
       after(muk.restore);
@@ -366,7 +376,7 @@ describe('ytdl.getInfo()', function() {
         get_video_info: [true, 200, 'unknown-format'],
         player: 'player-vflppxuSE',
       });
-      ytdl.getInfo(id, { debug: true}, function(err, info) {
+      ytdl.getInfo(id, { debug: true}, (err, info) => {
         assert.ifError(err);
         scope.done();
         assert.ok(warn.called);
