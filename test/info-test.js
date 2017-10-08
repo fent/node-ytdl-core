@@ -1,4 +1,6 @@
 const ytdl   = require('..');
+const path   = require('path');
+const fs     = require('fs');
 const assert = require('assert-diff');
 const nock   = require('./nock');
 const spy    = require('sinon').spy;
@@ -12,7 +14,16 @@ describe('ytdl.getInfo()', () => {
 
   describe('From a regular video', () => {
     var id = 'pJk0p-98Xzc';
-    var expectedInfo = require(`./files/videos/${id}-vevo/expected_info.json`);
+    var expectedInfo;
+    before((done) => {
+      fs.readFile(path.resolve(__dirname,
+        `files/videos/${id}-vevo/expected_info.json`),
+      'utf8', (err, body) => {
+        if (err) return done(err);
+        expectedInfo = JSON.parse(body);
+        done();
+      });
+    });
 
     it('Retrieves correct metainfo', (done) => {
       var scope = nock(id, {
