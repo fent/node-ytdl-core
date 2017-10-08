@@ -41,7 +41,7 @@
     "mocha": "^4.0.0",
     "muk-prop": "^1.0.0",
     "nock": "^9.0.22",
-    "sinon": "^3.0.0",
+    "sinon": "^4.0.0",
     "stream-equal": "~1.0.0"
   },
   "engines": {
