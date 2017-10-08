@@ -36,7 +36,7 @@ Attempts to download a video from the given url. Returns a readable stream. `opt
 
 ```js
 // Example with `filter` option.
-ytdl(url, { filter: function(format) { return format.container === 'mp4'; } })
+ytdl(url, { filter: (format) => format.container === 'mp4' })
   .pipe(fs.createWriteStream('video.mp4'));
 ```
 
