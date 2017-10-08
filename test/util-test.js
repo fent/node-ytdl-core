@@ -31,7 +31,6 @@ var formats = [
     resolution    : '240p',
     encoding      : 'H.264',
     bitrate       : '0.15-0.3',
-    rtmp          : true,
     audioEncoding : null,
     audioBitrate  : null },
   { itag          : '36',
@@ -195,13 +194,6 @@ describe('util.chooseFormat', () => {
         var err = util.chooseFormat(sortedFormats, { filter: () => {} });
         assert.equal(err.message, 'No formats found with custom filter');
       });
-    });
-  });
-
-  describe('Get an rtmp format (not supported)', () => {
-    it('Returns an error', () => {
-      var err = util.chooseFormat(sortedFormats, { quality: 133 });
-      assert.equal(err.message, 'rtmp protocol not supported');
     });
   });
 });
