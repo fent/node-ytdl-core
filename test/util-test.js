@@ -283,7 +283,36 @@ describe('util.between()', () => {
 });
 
 
+describe('util.getURLVideoID()', () => {
+  it('Is exposed in module', () => {
+    assert.equal(ytdl.getURLVideoID, util.getURLVideoID);
+  });
+
+  it('Retrives the video ID from the url', () => {
+    var id;
+    id = util.getVideoID('http://www.youtube.com/watch?v=RAW_VIDEOID');
+    assert.equal(id, 'RAW_VIDEOID');
+    id = util.getVideoID('http://youtu.be/RAW_VIDEOID');
+    assert.equal(id, 'RAW_VIDEOID');
+    id = util.getVideoID('http://youtube.com/v/RAW_VIDEOID');
+    assert.equal(id, 'RAW_VIDEOID');
+    id = util.getVideoID('http://youtube.com/embed/RAW_VIDEOID');
+    assert.equal(id, 'RAW_VIDEOID');
+    id = util.getVideoID('https://www.twitch.tv/user/v/1234');
+    assert.equal(id.message, 'No video id found: https://www.twitch.tv/user/v/1234');
+    id = util.getVideoID('www.youtube.com');
+    assert.equal(id.message, 'No video id found: www.youtube.com');
+    id = util.getVideoID('http://www.youtube.com/playlist?list=1337');
+    assert.equal(id.message, 'Video id (playlist) does not match expected format (/^[a-zA-Z0-9-_]{11}$/)');
+  });
+});
+
+
 describe('util.getVideoID()', () => {
+  it('Is exposed in module', () => {
+    assert.equal(ytdl.getVideoID, util.getVideoID);
+  });
+
   it('Retrives the video ID from the url', () => {
     var id;
     id = util.getVideoID('http://www.youtube.com/watch?v=RAW_VIDEOID');
@@ -305,13 +334,35 @@ describe('util.getVideoID()', () => {
   });
 });
 
-describe('util.validateLink()', () => {
+describe('util.validateID()', () => {
+  it('Is exposed in module', () => {
+    assert.equal(ytdl.validateID, util.validateID);
+  });
+
+  it('Retrieves whether a string includes a video ID', () => {
+    var rs;
+    rs = util.validateID('RAW_VIDEOID');
+    assert.equal(rs, true);
+    rs = util.validateID('http://www.youtube.com/watch?v=RAW_VIDEOID');
+    assert.equal(rs, false);
+    rs = util.validateID('https://www.twitch.tv/user/v/1234');
+    assert.equal(rs, false);
+  });
+});
+
+describe('util.validateURL()', () => {
+  it('Is exposed in module', () => {
+    assert.equal(ytdl.validateURL, util.validateURL);
+  });
+
   it('Retrieves whether a string includes a parsable video ID', () => {
-    var id;
-    id = util.validateLink('http://www.youtube.com/watch?v=RAW_VIDEOID');
-    assert.equal(id, true);
-    id = util.validateLink('https://www.twitch.tv/user/v/1234');
-    assert.equal(id, false);
+    var rs;
+    rs = util.validateURL('http://www.youtube.com/watch?v=RAW_VIDEOID');
+    assert.equal(rs, true);
+    rs = util.validateURL('RAW_VIDEOID');
+    assert.equal(rs, false);
+    rs = util.validateURL('https://www.twitch.tv/user/v/1234');
+    assert.equal(rs, false);
   });
 });
 

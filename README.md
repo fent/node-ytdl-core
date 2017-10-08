@@ -81,9 +81,21 @@ Can be used if you'd like to choose a format yourself with the [options above](#
 
 If you'd like to work with only some formats, you can use the [`filter` option above](#ytdlurl-options).
 
-### ytdl.validateLink(string)
+### ytdl.validateID(id)
 
-Returns true if able to parse out a valid videoID.
+Returns true if given string satisfies YouTube's ID format.
+
+### ytdl.validateURL(url)
+
+Returns true if able to parse out a valid video ID.
+
+### ytdl.getURLVideoID(url)
+
+Returns a video ID From a YouTube URL.
+
+### ytdl.getVideoID(str)
+
+Same as the above `ytdl.getURLVideoID()`, but can be called with the video ID directly, in which case it returns it. This is what ytdl uses internally.
 
 ## Limitations
 
