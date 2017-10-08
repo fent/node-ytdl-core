@@ -17,11 +17,7 @@ ytdl.getInfo(id, (err, info) => {
     if (track) {
       console.log('Retrieving captions:', track.name.simpleText);
       console.log('URL', track.baseUrl);
-      var output = [
-        info.title,
-        track.languageCode,
-        'xml',
-      ].join('.');
+      var output = `${info.title}.${track.languageCode}.xml`;
       console.log('Saving to', output);
       https.get(track.baseUrl, (res) => {
         res.pipe(fs.createWriteStream(path.resolve(__dirname, output)));
