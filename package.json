@@ -45,7 +45,7 @@
     "stream-equal": "~1.0.0"
   },
   "engines": {
-    "node": ">=0.12"
+    "node": ">=4"
   },
   "license": "MIT"
 }
