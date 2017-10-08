@@ -244,6 +244,14 @@ describe('util.filterFormats', () => {
       assert.deepEqual(itags, ['140']);
     });
   });
+
+  describe('With unsupported filter given', () => {
+    it('Returns only matching formats', () => {
+      assert.throws(() => {
+        util.filterFormats(formats, 'aaaa').map(getItags);
+      }, /not supported/);
+    });
+  });
 });
 
 
