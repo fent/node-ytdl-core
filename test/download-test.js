@@ -12,7 +12,16 @@ describe('Download video', () => {
   var video = path.resolve(__dirname,
     'files/videos/' + id + '-regular/video.flv');
   var filter = (format) => format.container === 'mp4';
-  var testInfo = require('./files/videos/pJk0p-98Xzc-vevo/expected_info.json');
+  var testInfo;
+  before((done) => {
+    fs.readFile(path.resolve(__dirname,
+      'files/videos/pJk0p-98Xzc-vevo/expected_info.json'),
+    'utf8', (err, body) => {
+      if (err) return done(err);
+      testInfo = JSON.parse(body);
+      done();
+    });
+  });
 
   beforeEach(() => {
     ytdl.cache.clear();
