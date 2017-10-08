@@ -15,19 +15,19 @@ var videos = {
 };
 
 
-describe('Try downloading videos without mocking', function() {
-  beforeEach(function() {
+describe('Try downloading videos without mocking', () => {
+  beforeEach(() => {
     nock.cleanAll();
     nock.enableNetConnect();
-    ytdl.cache.reset();
+    ytdl.cache.clear();
   });
 
-  Object.keys(videos).forEach(function(desc) {
+  Object.keys(videos).forEach((desc) => {
     var video = videos[desc];
-    describe(desc, function() {
-      it('Request status code is not 403 Forbidden', function(done) {
+    describe(desc, () => {
+      it('Request status code is not 403 Forbidden', (done) => {
         var stream = ytdl(video, { debug: false });
-        stream.once('response', function(res) {
+        stream.once('response', (res) => {
           assert.notEqual(res.statusCode, 403);
           res.destroy();
           done();
