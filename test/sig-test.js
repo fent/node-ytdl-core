@@ -9,14 +9,14 @@ const muk    = require('muk-prop');
 var html5player = require('./html5player.json');
 
 
-describe('Get tokens', function() {
+describe('Get tokens', () => {
   var key = 'en_US-vfljDEtYP';
   var url = 'https://s.ytimg.com/yts/jsbin/player-en_US-vfljDEtYP/base.js';
-  var filepath = path.resolve(__dirname, 'files/html5player/' + key + '.js');
+  var filepath = path.resolve(__dirname, `files/html5player/${key}.js`);
 
-  it('Returns a set of tokens', function(done) {
+  it('Returns a set of tokens', (done) => {
     var scope = nock.url(url).replyWithFile(200, filepath);
-    sig.getTokens(url, true, function(err, tokens) {
+    sig.getTokens(url, true, (err, tokens) => {
       assert.ifError(err);
       scope.done();
       assert.ok(tokens.length);
@@ -24,9 +24,9 @@ describe('Get tokens', function() {
     });
   });
 
-  describe('Hit the same video twice', function() {
-    it('Gets html5player tokens from cache', function(done) {
-      sig.getTokens(url, {}, function(err, tokens) {
+  describe('Hit the same video twice', () => {
+    it('Gets html5player tokens from cache', (done) => {
+      sig.getTokens(url, {}, (err, tokens) => {
         assert.ifError(err);
         assert.ok(tokens.length);
         done();
@@ -34,11 +34,11 @@ describe('Get tokens', function() {
     });
   });
 
-  describe('Get a bad html5player file', function() {
-    it('Gives an error', function(done) {
+  describe('Get a bad html5player file', () => {
+    it('Gives an error', (done) => {
       var url = 'https://s.ytimg.com/yts/jsbin/player-en_US-bad/base.js';
       var scope = nock.url(url).reply(404, 'uh oh');
-      sig.getTokens(url, {}, function(err) {
+      sig.getTokens(url, {}, (err) => {
         assert.ok(err);
         scope.done();
         done();
@@ -46,15 +46,15 @@ describe('Get tokens', function() {
     });
   });
 
-  describe('Unable to find key in filename', function() {
-    it('Warns the console, still attempts to get tokens', function(done) {
+  describe('Unable to find key in filename', () => {
+    it('Warns the console, still attempts to get tokens', (done) => {
       var warn = spy();
       muk(console, 'warn', warn);
       after(muk.restore);
 
       var url = 'https://s.ytimg.com/badfilename.js';
       var scope = nock.url(url).replyWithFile(200, filepath);
-      sig.getTokens(url, {}, function(err, tokens) {
+      sig.getTokens(url, {}, (err, tokens) => {
         assert.ifError(err);
         scope.done();
         assert.ok(warn.called);
@@ -64,14 +64,14 @@ describe('Get tokens', function() {
     });
   });
 
-  describe('Unable to find tokens', function() {
+  describe('Unable to find tokens', () => {
     var key = 'mykey';
-    var url = 'https://s.ytimg.com/yts/jsbin/player-' + key + '/base.js';
+    var url = `https://s.ytimg.com/yts/jsbin/player-${key}/base.js`;
     var contents = 'my personal contents';
 
-    it('Gives an error', function(done) {
+    it('Gives an error', (done) => {
       var scope = nock.url(url).reply(200, contents);
-      sig.getTokens(url, {}, function(err) {
+      sig.getTokens(url, {}, (err) => {
         scope.done();
         assert.ok(err);
         assert.ok(/Could not extract signature/.test(err.message));
@@ -81,22 +81,22 @@ describe('Get tokens', function() {
   });
 });
 
-describe('Signature decipher', function() {
-  describe('extract deciphering actions', function() {
-    it('Returns the correct set of actions', function(done) {
+describe('Signature decipher', () => {
+  describe('extract deciphering actions', () => {
+    it('Returns the correct set of actions', (done) => {
+      'use strict';
       var total = 0;
-      for (var name in html5player) {
+      for (let name in html5player) {
         total++;
-        fs.readFile(path.resolve(
-        __dirname, 'files/html5player/' + name + '.js'),
-        'utf8', function(name, err, body) {
-          assert.ifError(err);
-          var actions = sig.extractActions(body);
-          assert.deepEqual(actions, html5player[name]);
-          if (--total === 0) {
-            done();
-          }
-        }.bind(null, name));
+        fs.readFile(path.resolve(__dirname, `files/html5player/${name}.js`),
+          'utf8', (err, body) => {
+            assert.ifError(err);
+            var actions = sig.extractActions(body);
+            assert.deepEqual(actions, html5player[name]);
+            if (--total === 0) {
+              done();
+            }
+          });
       }
     });
   });
@@ -106,22 +106,22 @@ describe('Signature decipher', function() {
     assert.equal(result, expected);
   }
 
-  describe('properly apply actions based on tokens', function() {
-    it('reverses', function() {
+  describe('properly apply actions based on tokens', () => {
+    it('reverses', () => {
       testDecipher(['r'], 'abcdefg', 'gfedcba');
     });
 
-    it('swaps head and position', function() {
+    it('swaps head and position', () => {
       testDecipher(['w2'], 'abcdefg', 'cbadefg');
       testDecipher(['w3'], 'abcdefg', 'dbcaefg');
       testDecipher(['w5'], 'abcdefg', 'fbcdeag');
     });
 
-    it('slices', function() {
+    it('slices', () => {
       testDecipher(['s3'], 'abcdefg', 'defg');
     });
 
-    it('real set of tokens', function() {
+    it('real set of tokens', () => {
       testDecipher(html5player['en_US-vfl0Cbn9e'],
         'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ',
         'bbSdefghijklmnoaqrstuvwxyzAZCDEFGHIJKLMNOPQRpTUVWc');
@@ -129,8 +129,8 @@ describe('Signature decipher', function() {
   });
 });
 
-describe('Set download URL', function() {
-  it('Adds signature to download URL', function() {
+describe('Set download URL', () => {
+  it('Adds signature to download URL', () => {
     var format = {
       fallback_host: 'tc.v9.cache7.googlevideo.com',
       quality: 'small',
@@ -149,18 +149,18 @@ describe('Set download URL', function() {
     assert.ok(format.url.indexOf('signature=mysiggy') > -1);
   });
 
-  describe('With a badly formatted URL', function() {
+  describe('With a badly formatted URL', () => {
     var format = {
       url: 'https://r4---sn-p5qlsnsr.googlevideo.com/videoplayback?%',
     };
 
-    it('Does not set URL', function() {
+    it('Does not set URL', () => {
       sig.setDownloadURL(format, 'mysiggy', false);
       assert.ok(format.url.indexOf('signature=mysiggy') === -1);
     });
 
-    describe('With debug on', function() {
-      it('Logs to console', function() {
+    describe('With debug on', () => {
+      it('Logs to console', () => {
         var warn = spy();
         muk(console, 'warn', warn);
         after(muk.restore);
@@ -171,16 +171,16 @@ describe('Set download URL', function() {
     });
   });
 
-  describe('Without a URL', function() {
+  describe('Without a URL', () => {
     var format = { bla: 'blu' };
 
-    it('Does not set URL', function() {
+    it('Does not set URL', () => {
       sig.setDownloadURL(format, 'nothing', false);
       assert.deepEqual(format, { bla: 'blu' });
     });
 
-    describe('With debug on', function() {
-      it('Logs to console', function() {
+    describe('With debug on', () => {
+      it('Logs to console', () => {
         var warn = spy();
         muk(console, 'warn', warn);
         after(muk.restore);
