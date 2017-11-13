@@ -248,7 +248,7 @@ describe('util.filterFormats', () => {
   describe('With `audioandvideo` given', () => {
     it('Returns only matching formats', () => {
       var itags = util.filterFormats(formats, 'audioandvideo').map(getItags);
-      assert.deepEqual(itags, ['22', '43', '18', '36', '17']);
+      assert.deepEqual(itags, ['18', '43', '36', '5', '17']);
     });
   });
   
