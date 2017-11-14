@@ -244,7 +244,14 @@ describe('util.filterFormats', () => {
       assert.deepEqual(itags, ['140']);
     });
   });
-
+  
+  describe('With `audioandvideo` given', () => {
+    it('Returns only matching formats', () => {
+      var itags = util.filterFormats(formats, 'audioandvideo').map(getItags);
+      assert.deepEqual(itags, ['18', '43', '36', '5', '17']);
+    });
+  });
+  
   describe('With unsupported filter given', () => {
     it('Returns only matching formats', () => {
       assert.throws(() => {
