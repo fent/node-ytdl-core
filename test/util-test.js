@@ -377,7 +377,7 @@ describe('util.validateURL()', () => {
 describe('util.parseFormats()', () => {
   var info = require('./files/util/pJk0p-98Xzc_preparsed.json');
   it('Retrieves video formats from info', () => {
-    var myinfo = util.objectAssign({}, info);
+    var myinfo = Object.assign({}, info);
     var formats = util.parseFormats(myinfo);
     assert.ok(formats);
     assert.equal(formats.length, 15);
@@ -556,16 +556,6 @@ describe('util.parallel()', () => {
         (callback) => { setTimeout(callback, 10); }
       ], done);
     });
-  });
-});
-
-
-describe('util.objectAssign()', () => {
-  it('Merges object into another', () => {
-    var target = { headers: { one: 1, two: 2 }, my: 'mine' };
-    var source = { headers: { one: 100 } };
-    util.objectAssign(target, source, true);
-    assert.deepEqual(target, { headers: { one: 100, two: 2 }, my: 'mine' });
   });
 });
 
