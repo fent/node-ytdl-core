@@ -12,7 +12,7 @@ declare module 'ytdl-core' {
         end?: number;
       };
       requestOptions?: {};
-      retries: number;
+      retries?: number;
       lang?: string;
     }
 
