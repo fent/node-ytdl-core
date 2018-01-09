@@ -299,6 +299,22 @@ describe('ytdl.getInfo()', () => {
       });
     });
 
+    it('Fails gracefully when get video info page errors', (done) => {
+      var id = '_HSylqgVYQI';
+      var scope = nock(id, {
+        type: 'regular',
+        get_video_info: [true, 200, 'error']
+      });
+      ytdl.getInfo(id, (err) => {
+        scope.done();
+        assert.ok(err);
+        assert.equal(err.message,
+          'Code 2: Watch this video on YouTube. ' +
+          'Playback on other websites has been disabled by the video owner.');
+        done();
+      });
+    });
+
     it('Fails gracefully when unable to get html5player tokens', (done) => {
       var id = '_HSylqgVYQI';
       var scope = nock(id, {

@@ -341,6 +341,7 @@ describe('util.getVideoID()', () => {
   });
 });
 
+
 describe('util.validateID()', () => {
   it('Is exposed in module', () => {
     assert.equal(ytdl.validateID, util.validateID);
@@ -356,6 +357,7 @@ describe('util.validateID()', () => {
     assert.equal(rs, false);
   });
 });
+
 
 describe('util.validateURL()', () => {
   it('Is exposed in module', () => {
