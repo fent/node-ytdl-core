@@ -138,11 +138,9 @@ Run the tests at `test/irl-test.js` just to make sure that this is actually an i
 
     mocha test/irl-test.js
 
-These tests are not mocked, and actually try to start downloading a few videos. If these fail, then it's time to debug.
+These tests are not mocked, and they actually try to start downloading a few videos. If these fail, then it's time to debug.
 
-Set `debug: true` in the tests. Debug will write the html5player file to `test/files/html5player` and will add an entry for its name in `test/html5player.json`. With the html5player downloaded, you can open it and figure how it's failing to extract the signature deciphering function.
-
-For the specifics on that, you can look at the `extractActions()` function in [`/lib/sig.js`](https://github.com/fent/node-ytdl-core/blob/master/lib/sig.js).
+For getting started with that, you can look at the `extractActions()` function in [`/lib/sig.js`](https://github.com/fent/node-ytdl-core/blob/master/lib/sig.js).
 
 
 # Install
