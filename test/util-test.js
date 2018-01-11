@@ -151,14 +151,14 @@ describe('util.chooseFormat', () => {
     });
   });
 
-  describe('With lowest quality wanted', () => {
+  describe('With highest audio quality wanted', () => {
     it('Chooses highest audio itag', () => {
       var format = util.chooseFormat(sortedFormats, { quality: 'highestaudio' });
       assert.equal(format.itag, '140');
     });
   });
 
-  describe('With lowest quality wanted', () => {
+  describe('With highest video quality wanted', () => {
     it('Chooses highest video itag', () => {
       var format = util.chooseFormat(sortedFormats, { quality: 'highestvideo' });
       assert.equal(format.itag, '18');
