@@ -151,6 +151,20 @@ describe('util.chooseFormat', () => {
     });
   });
 
+  describe('With highest audio quality wanted', () => {
+    it('Chooses highest audio itag', () => {
+      var format = util.chooseFormat(formats, { quality: 'highestaudio' });
+      assert.equal(format.itag, '140');
+    });
+  });
+
+  describe('With highest video quality wanted', () => {
+    it('Chooses highest video itag', () => {
+      var format = util.chooseFormat(formats, { quality: 'highestvideo' });
+      assert.equal(format.itag, '18');
+    });
+  });
+
   describe('With itag given', () => {
     it('Chooses matching format', () => {
       var format = util.chooseFormat(sortedFormats, { quality: 5 });
@@ -244,14 +258,14 @@ describe('util.filterFormats', () => {
       assert.deepEqual(itags, ['140']);
     });
   });
-  
+
   describe('With `audioandvideo` given', () => {
     it('Returns only matching formats', () => {
       var itags = util.filterFormats(formats, 'audioandvideo').map(getItags);
       assert.deepEqual(itags, ['18', '43', '36', '5', '17']);
     });
   });
-  
+
   describe('With unsupported filter given', () => {
     it('Returns only matching formats', () => {
       assert.throws(() => {
