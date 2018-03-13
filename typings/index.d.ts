@@ -197,7 +197,10 @@ declare module 'ytdl-core' {
     function downloadFromInfo(info: videoInfo, options?: downloadOptions): Readable;
     function chooseFormat(format: videoFormat | videoFormat[], options?: downloadOptions): videoFormat | Error;
     function filterFormats(formats: videoFormat | videoFormat[], filter?: 'video' | 'videoonly' | 'audio' | 'audioonly' | ((format: videoFormat) => boolean)): videoFormat[];
-    function validateLink(string: string): boolean;
+    function validateID(string: string): boolean;
+    function validateURL(string: string): boolean;
+    function getURLVideoID(string: string): string | Error;
+    function getVideoID(string: string): string | Error;
   }
 
   function ytdl(link: string, options?: ytdl.downloadOptions): Readable;
