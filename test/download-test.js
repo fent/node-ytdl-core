@@ -3,6 +3,7 @@ const path        = require('path');
 const fs          = require('fs');
 const url         = require('url');
 const streamEqual = require('stream-equal');
+const spy         = require('sinon').spy;
 const nock        = require('./nock');
 const ytdl        = require('..');
 
@@ -102,7 +103,6 @@ describe('Download video', () => {
         stream.on('request', () => {
           stream.destroy();
           scope.done();
-          done();
         });
         stream.on('info', (info, format) => {
           nock.url(format.url).reply(200, 'aaaaaaaaaaaa');
@@ -112,6 +112,14 @@ describe('Download video', () => {
         });
         stream.on('data', () => {
           throw new Error('Should not emit `data`');
+        });
+        var abort = spy();
+        stream.on('abort', abort);
+        stream.on('error', (err) => {
+          scope.done();
+          assert.ok(abort.called);
+          assert.equal(err.message, 'socket hang up');
+          done();
         });
       });
     });
@@ -137,7 +145,14 @@ describe('Download video', () => {
           });
         });
 
-        stream.on('abort', done);
+        var abort = spy();
+        stream.on('abort', abort);
+        stream.on('error', (err) => {
+          scope.done();
+          assert.ok(abort.called);
+          assert.equal(err.message, 'socket hang up');
+          done();
+        });
       });
     });
   });
