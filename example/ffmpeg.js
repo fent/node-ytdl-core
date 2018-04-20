@@ -9,13 +9,13 @@ const audioOutput = path.resolve(__dirname, 'sound.mp4');
 const mainOutput = path.resolve(__dirname, 'output.mp4');
 
 ytdl(url, { filter: format => {
-  return format.container === 'mp4' && !format.encoding; } })
+  return format.container === 'm4a' && !format.encoding; } })
   // Write audio to file since ffmpeg supports only one input stream.
   .pipe(fs.createWriteStream(audioOutput))
   .on('finish', () => {
     ffmpeg()
-    .input(ytdl(url, { filter: format => {
-      return format.container === 'mp4' && !format.audioEncoding; } }))
+      .input(ytdl(url, { filter: format => {
+        return format.container === 'mp4' && !format.audioEncoding; } }))
       .videoCodec('copy')
       .input(audioOutput)
       .audioCodec('copy')
