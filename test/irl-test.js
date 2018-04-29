@@ -8,7 +8,7 @@ var videos = {
   'VEVO'                    : 'qQ31INpjXX0',
   'VEVO 2'                  : 'pJk0p-98Xzc',
   'Age restricted VEVO'     : 'B3eAMGXFw1o',
-  'Age restricted'          : 'otfd2UTrP_Q',
+  'Age restricted'          : 'BlhyROz85OU',
   'Age restricted 2'        : 'Tzuvfy4jFwE',
   'Embed domain restricted' : 'B3eAMGXFw1o',
   'No embed allowed'        : 'GFg8BP01F5Q',
