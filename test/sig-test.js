@@ -84,7 +84,6 @@ describe('Get tokens', () => {
 describe('Signature decipher', () => {
   describe('extract deciphering actions', () => {
     it('Returns the correct set of actions', (done) => {
-      'use strict';
       var total = 0;
       for (let name in html5player) {
         total++;

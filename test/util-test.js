@@ -520,7 +520,6 @@ describe('util.getRelatedVideos()', () => {
 describe('util.parallel()', () => {
   describe('Multiple asynchronous functions', () => {
     it('Calls callback with results', (done) => {
-      'use strict';
       var funcs = [];
       for (let i = 0; i < 5; i++) {
         funcs.push((callback) => {
@@ -538,7 +537,6 @@ describe('util.parallel()', () => {
 
     describe('where one of them errors', () => {
       it('Gives an error', (done) => {
-        'use strict';
         var funcs = [];
         for (let i = 0; i < 5; i++) {
           funcs.push((callback) => {
