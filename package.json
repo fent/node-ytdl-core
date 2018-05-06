@@ -26,7 +26,7 @@
     "typings"
   ],
   "scripts": {
-    "test": "istanbul cover node_modules/.bin/_mocha -- -t 16000 test/*-test.js"
+    "test": "istanbul cover node_modules/mocha/bin/_mocha -- -t 16000 test/*-test.js"
   },
   "dependencies": {
     "html-entities": "^1.1.3",
