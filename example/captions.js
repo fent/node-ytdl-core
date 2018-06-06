@@ -7,17 +7,17 @@ const lang  = 'en';
 
 ytdl.getInfo(id, (err, info) => {
   if (err) throw err;
-  var tracks = info
+  const tracks = info
     .player_response.captions
     .playerCaptionsTracklistRenderer.captionTracks;
   if (tracks && tracks.length) {
     console.log('Found captions for',
       tracks.map(t => t.name.simpleText).join(', '));
-    var track = tracks.find(t => t.languageCode === lang);
+    const track = tracks.find(t => t.languageCode === lang);
     if (track) {
       console.log('Retrieving captions:', track.name.simpleText);
       console.log('URL', track.baseUrl);
-      var output = `${info.title}.${track.languageCode}.xml`;
+      const output = `${info.title}.${track.languageCode}.xml`;
       console.log('Saving to', output);
       https.get(track.baseUrl, (res) => {
         res.pipe(fs.createWriteStream(path.resolve(__dirname, output)));
