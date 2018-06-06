@@ -13,8 +13,8 @@ describe('ytdl.getInfo()', () => {
   });
 
   describe('From a regular video', () => {
-    var id = 'pJk0p-98Xzc';
-    var expectedInfo;
+    const id = 'pJk0p-98Xzc';
+    let expectedInfo;
     before((done) => {
       fs.readFile(path.resolve(__dirname,
         `files/videos/${id}-vevo/expected_info.json`),
@@ -26,7 +26,7 @@ describe('ytdl.getInfo()', () => {
     });
 
     it('Retrieves correct metainfo', (done) => {
-      var scope = nock(id, {
+      const scope = nock(id, {
         type: 'vevo',
         dashmpd: true,
         get_video_info: true,
@@ -44,8 +44,8 @@ describe('ytdl.getInfo()', () => {
 
     describe('Use `ytdl.downloadFromInfo()`', () => {
       it('Retrives video file', (done) => {
-        var stream = ytdl.downloadFromInfo(expectedInfo);
-        var scope;
+        const stream = ytdl.downloadFromInfo(expectedInfo);
+        let scope;
         stream.on('info', (info, format) => {
           scope = nock.url(format.url).reply(200);
         });
@@ -60,7 +60,7 @@ describe('ytdl.getInfo()', () => {
 
     describe('Pass request options', () => {
       it('Request gets called with more headers', (done) => {
-        var scope = nock(id, {
+        const scope = nock(id, {
           type: 'vevo',
           dashmpd: true,
           get_video_info: true,
@@ -80,7 +80,7 @@ describe('ytdl.getInfo()', () => {
 
     describe('Using the promise API', () => {
       it('Retrieves correct metainfo', (done) => {
-        var scope = nock(id, {
+        const scope = nock(id, {
           type: 'vevo',
           dashmpd: true,
           get_video_info: true,
@@ -98,11 +98,11 @@ describe('ytdl.getInfo()', () => {
       });
 
       describe('On a video that fails', () => {
-        var id = 'unknown-vid';
+        const id = 'unknown-vid';
 
         it('Error is catched', (done) => {
-          var scope = nock(id);
-          var p = ytdl.getInfo(id);
+          const scope = nock(id);
+          const p = ytdl.getInfo(id);
           p.catch((err) => {
             scope.done();
             assert.ok(err);
@@ -115,10 +115,10 @@ describe('ytdl.getInfo()', () => {
   });
 
   describe('From a non-existant video', () => {
-    var id = 'unknown-vid';
+    const id = 'unknown-vid';
 
     it('Should give an error', (done) => {
-      var scope = nock(id);
+      const scope = nock(id);
       ytdl.getInfo(id, (err) => {
         scope.done();
         assert.ok(err);
@@ -129,11 +129,11 @@ describe('ytdl.getInfo()', () => {
   });
 
   describe('From an age restricted video', () => {
-    var id = 'rIqCiJKWx9I';
-    var expectedInfo = require('./files/videos/' + id + '-age-restricted/expected_info.json');
+    const id = 'rIqCiJKWx9I';
+    const expectedInfo = require('./files/videos/' + id + '-age-restricted/expected_info.json');
 
     it('Returns correct video metainfo', (done) => {
-      var scope = nock(id, {
+      const scope = nock(id, {
         type: 'age-restricted',
         dashmpd: true,
         embed: true,
@@ -150,7 +150,7 @@ describe('ytdl.getInfo()', () => {
 
     describe('In any language', () => {
       it('Returns correct video metainfo', (done) => {
-        var scope = nock(id, {
+        const scope = nock(id, {
           type: 'age-restricted',
           watch: 'german',
           dashmpd: true,
@@ -170,8 +170,8 @@ describe('ytdl.getInfo()', () => {
 
   describe('From a video that was live streamed', () => {
     it('Returns correct video metainfo', (done) => {
-      var id = 'nu5uzMXfuLc';
-      var scope = nock(id, {
+      const id = 'nu5uzMXfuLc';
+      const scope = nock(id, {
         type: 'streamed',
         player: 'player-vfleGnGfg',
         get_video_info: true,
@@ -186,9 +186,9 @@ describe('ytdl.getInfo()', () => {
   });
 
   describe('From a rental', () => {
-    var id = 'SyKPsFRP_Oc';
+    const id = 'SyKPsFRP_Oc';
     it('Returns an error about it', (done) => {
-      var scope = nock(id, {
+      const scope = nock(id, {
         type: 'rental',
         get_video_info: true,
       });
@@ -202,9 +202,9 @@ describe('ytdl.getInfo()', () => {
   });
 
   describe('From a video that is not yet available', () => {
-    var id = 'iC9YT-5aUhI';
+    const id = 'iC9YT-5aUhI';
     it('Returns an error', (done) => {
-      var scope = nock(id, {
+      const scope = nock(id, {
         type: 'unavailable',
         get_video_info: true,
       });
@@ -218,7 +218,7 @@ describe('ytdl.getInfo()', () => {
   });
 
   describe('With a bad video ID', () => {
-    var id = 'bad';
+    const id = 'bad';
     it('Returns an error', (done) => {
       ytdl.getInfo(id, (err) => {
         assert.ok(err);
@@ -230,8 +230,8 @@ describe('ytdl.getInfo()', () => {
 
   describe('When there is an error requesting one of the pages', () => {
     it('Fails gracefully when unable to get watch page', (done) => {
-      var id = '_HSylqgVYQI';
-      var scope = nock(id, {
+      const id = '_HSylqgVYQI';
+      const scope = nock(id, {
         type: 'regular',
         statusCode: 500,
       });
@@ -244,8 +244,8 @@ describe('ytdl.getInfo()', () => {
     });
 
     it('Fails gracefully when unable to find config', (done) => {
-      var id = '_HSylqgVYQI';
-      var scope = nock(id, {
+      const id = '_HSylqgVYQI';
+      const scope = nock(id, {
         type: 'regular',
         watch: 'no-config',
       });
@@ -258,8 +258,8 @@ describe('ytdl.getInfo()', () => {
     });
 
     it('Fails gracefully when unable to parse config', (done) => {
-      var id = '_HSylqgVYQI';
-      var scope = nock(id, {
+      const id = '_HSylqgVYQI';
+      const scope = nock(id, {
         type: 'regular',
         watch: 'bad-config',
       });
@@ -272,8 +272,8 @@ describe('ytdl.getInfo()', () => {
     });
 
     it('Fails gracefully when unable to get embed page', (done) => {
-      var id = 'rIqCiJKWx9I';
-      var scope = nock(id, {
+      const id = 'rIqCiJKWx9I';
+      const scope = nock(id, {
         type: 'age-restricted',
         embed: [true, 500]
       });
@@ -286,8 +286,8 @@ describe('ytdl.getInfo()', () => {
     });
 
     it('Fails gracefully when unable to get video info page', (done) => {
-      var id = '_HSylqgVYQI';
-      var scope = nock(id, {
+      const id = '_HSylqgVYQI';
+      const scope = nock(id, {
         type: 'regular',
         get_video_info: [true, 500]
       });
@@ -300,8 +300,8 @@ describe('ytdl.getInfo()', () => {
     });
 
     it('Fails gracefully when get video info page errors', (done) => {
-      var id = '_HSylqgVYQI';
-      var scope = nock(id, {
+      const id = '_HSylqgVYQI';
+      const scope = nock(id, {
         type: 'regular',
         get_video_info: [true, 200, 'error']
       });
@@ -316,8 +316,8 @@ describe('ytdl.getInfo()', () => {
     });
 
     it('Fails gracefully when unable to get html5player tokens', (done) => {
-      var id = '_HSylqgVYQI';
-      var scope = nock(id, {
+      const id = '_HSylqgVYQI';
+      const scope = nock(id, {
         type: 'regular',
         get_video_info: true,
         player: [true, 500, 'player-vflppxuSE'],
@@ -331,8 +331,8 @@ describe('ytdl.getInfo()', () => {
     });
 
     it('Fails gracefully when unable to get m3u8 playlist', (done) => {
-      var id = 'N4bU1i-XAxE';
-      var scope = nock(id, {
+      const id = 'N4bU1i-XAxE';
+      const scope = nock(id, {
         type: 'live',
         m3u8: [true, 500],
         get_video_info: true,
@@ -347,8 +347,8 @@ describe('ytdl.getInfo()', () => {
     });
 
     it('Fails gracefully when no formats are found', (done) => {
-      var id = 'pJk0p-98Xzc';
-      var scope = nock(id, {
+      const id = 'pJk0p-98Xzc';
+      const scope = nock(id, {
         type: 'vevo',
         watch: 'no-formats',
         dashmpd: [true, 200, 'no-formats'],
@@ -364,8 +364,8 @@ describe('ytdl.getInfo()', () => {
     });
 
     it('Fails gracefully when unable to parse player_response', (done) => {
-      var id = '_HSylqgVYQI';
-      var scope = nock(id, {
+      const id = '_HSylqgVYQI';
+      const scope = nock(id, {
         type: 'regular',
         watch: 'bad-player-response',
         get_video_info: true,
@@ -381,12 +381,12 @@ describe('ytdl.getInfo()', () => {
 
   describe('When encountering a format not yet known with debug', () => {
     it('Warns the console', (done) => {
-      var warn = spy();
+      const warn = spy();
       muk(console, 'warn', warn);
       after(muk.restore);
 
-      var id = '_HSylqgVYQI';
-      var scope = nock(id, {
+      const id = '_HSylqgVYQI';
+      const scope = nock(id, {
         type: 'regular',
         dashmpd: true,
         get_video_info: [true, 200, 'unknown-format'],

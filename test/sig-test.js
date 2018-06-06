@@ -6,16 +6,16 @@ const nock   = require('./nock');
 const spy    = require('sinon').spy;
 const muk    = require('muk-prop');
 
-var html5player = require('./html5player.json');
+const html5player = require('./html5player.json');
 
 
 describe('Get tokens', () => {
-  var key = 'en_US-vfljDEtYP';
-  var url = 'https://s.ytimg.com/yts/jsbin/player-en_US-vfljDEtYP/base.js';
-  var filepath = path.resolve(__dirname, `files/html5player/${key}.js`);
+  const key = 'en_US-vfljDEtYP';
+  const url = 'https://s.ytimg.com/yts/jsbin/player-en_US-vfljDEtYP/base.js';
+  const filepath = path.resolve(__dirname, `files/html5player/${key}.js`);
 
   it('Returns a set of tokens', (done) => {
-    var scope = nock.url(url).replyWithFile(200, filepath);
+    const scope = nock.url(url).replyWithFile(200, filepath);
     sig.getTokens(url, true, (err, tokens) => {
       assert.ifError(err);
       scope.done();
@@ -36,8 +36,8 @@ describe('Get tokens', () => {
 
   describe('Get a bad html5player file', () => {
     it('Gives an error', (done) => {
-      var url = 'https://s.ytimg.com/yts/jsbin/player-en_US-bad/base.js';
-      var scope = nock.url(url).reply(404, 'uh oh');
+      const url = 'https://s.ytimg.com/yts/jsbin/player-en_US-bad/base.js';
+      const scope = nock.url(url).reply(404, 'uh oh');
       sig.getTokens(url, {}, (err) => {
         assert.ok(err);
         scope.done();
@@ -48,12 +48,12 @@ describe('Get tokens', () => {
 
   describe('Unable to find key in filename', () => {
     it('Warns the console, still attempts to get tokens', (done) => {
-      var warn = spy();
+      const warn = spy();
       muk(console, 'warn', warn);
       after(muk.restore);
 
-      var url = 'https://s.ytimg.com/badfilename.js';
-      var scope = nock.url(url).replyWithFile(200, filepath);
+      const url = 'https://s.ytimg.com/badfilename.js';
+      const scope = nock.url(url).replyWithFile(200, filepath);
       sig.getTokens(url, {}, (err, tokens) => {
         assert.ifError(err);
         scope.done();
@@ -65,12 +65,12 @@ describe('Get tokens', () => {
   });
 
   describe('Unable to find tokens', () => {
-    var key = 'mykey';
-    var url = `https://s.ytimg.com/yts/jsbin/player-${key}/base.js`;
-    var contents = 'my personal contents';
+    const key = 'mykey';
+    const url = `https://s.ytimg.com/yts/jsbin/player-${key}/base.js`;
+    const contents = 'my personal contents';
 
     it('Gives an error', (done) => {
-      var scope = nock.url(url).reply(200, contents);
+      const scope = nock.url(url).reply(200, contents);
       sig.getTokens(url, {}, (err) => {
         scope.done();
         assert.ok(err);
@@ -84,13 +84,13 @@ describe('Get tokens', () => {
 describe('Signature decipher', () => {
   describe('extract deciphering actions', () => {
     it('Returns the correct set of actions', (done) => {
-      var total = 0;
+      let total = 0;
       for (let name in html5player) {
         total++;
         fs.readFile(path.resolve(__dirname, `files/html5player/${name}.js`),
           'utf8', (err, body) => {
             assert.ifError(err);
-            var actions = sig.extractActions(body);
+            const actions = sig.extractActions(body);
             assert.deepEqual(actions, html5player[name]);
             if (--total === 0) {
               done();
@@ -101,7 +101,7 @@ describe('Signature decipher', () => {
   });
 
   function testDecipher(tokens, input, expected) {
-    var result = sig.decipher(tokens, input);
+    const result = sig.decipher(tokens, input);
     assert.equal(result, expected);
   }
 
@@ -130,7 +130,7 @@ describe('Signature decipher', () => {
 
 describe('Set download URL', () => {
   it('Adds signature to download URL', () => {
-    var format = {
+    const format = {
       fallback_host: 'tc.v9.cache7.googlevideo.com',
       quality: 'small',
       type: 'video/x-flv',
@@ -149,7 +149,7 @@ describe('Set download URL', () => {
   });
 
   describe('With a badly formatted URL', () => {
-    var format = {
+    const format = {
       url: 'https://r4---sn-p5qlsnsr.googlevideo.com/videoplayback?%',
     };
 
@@ -160,7 +160,7 @@ describe('Set download URL', () => {
 
     describe('With debug on', () => {
       it('Logs to console', () => {
-        var warn = spy();
+        const warn = spy();
         muk(console, 'warn', warn);
         after(muk.restore);
         sig.setDownloadURL(format, 'mysiggy', true);
@@ -171,7 +171,7 @@ describe('Set download URL', () => {
   });
 
   describe('Without a URL', () => {
-    var format = { bla: 'blu' };
+    const format = { bla: 'blu' };
 
     it('Does not set URL', () => {
       sig.setDownloadURL(format, 'nothing', false);
@@ -180,7 +180,7 @@ describe('Set download URL', () => {
 
     describe('With debug on', () => {
       it('Logs to console', () => {
-        var warn = spy();
+        const warn = spy();
         muk(console, 'warn', warn);
         after(muk.restore);
         sig.setDownloadURL(format, 'nothing', true);

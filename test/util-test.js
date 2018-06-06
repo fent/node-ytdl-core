@@ -5,7 +5,7 @@ const path   = require('path');
 const assert = require('assert-diff');
 
 
-var formats = [
+const formats = [
   { itag          : '18',
     type          : 'video/mp4; codecs="avc1.42001E, mp4a.40.2"',
     quality       : 'medium',
@@ -97,7 +97,7 @@ var formats = [
     audioEncoding : null,
     audioBitrate  : null },
 ];
-var getItags = (format) => format.itag;
+const getItags = (format) => format.itag;
 
 
 describe('util.parseTime()', () => {
@@ -118,9 +118,9 @@ describe('util.parseTime()', () => {
 describe('util.sortFormats()', () => {
   describe('With `highest` given', () => {
     it('Sorts available formats from highest to lowest quality', () => {
-      var sortedFormats = formats.slice();
+      const sortedFormats = formats.slice();
       sortedFormats.sort(util.sortFormats);
-      var itags = sortedFormats.map(getItags);
+      const itags = sortedFormats.map(getItags);
       assert.deepEqual(itags, [
         '43', '18', '5', '36', '17', '133', '160', '140', '139', '138'
       ]);
@@ -130,7 +130,7 @@ describe('util.sortFormats()', () => {
 
 
 describe('util.chooseFormat', () => {
-  var sortedFormats = formats.slice();
+  const sortedFormats = formats.slice();
   sortedFormats.sort(util.sortFormats);
 
   it('Is exposed in module', () => {
@@ -139,41 +139,41 @@ describe('util.chooseFormat', () => {
 
   describe('with no options', () => {
     it('Chooses highest quality', () => {
-      var format = util.chooseFormat(sortedFormats, {});
+      const format = util.chooseFormat(sortedFormats, {});
       assert.equal(format.itag, '43');
     });
   });
 
   describe('With lowest quality wanted', () => {
     it('Chooses lowest itag', () => {
-      var format = util.chooseFormat(sortedFormats, { quality: 'lowest' });
+      const format = util.chooseFormat(sortedFormats, { quality: 'lowest' });
       assert.equal(format.itag, '138');
     });
   });
 
   describe('With highest audio quality wanted', () => {
     it('Chooses highest audio itag', () => {
-      var format = util.chooseFormat(formats, { quality: 'highestaudio' });
+      const format = util.chooseFormat(formats, { quality: 'highestaudio' });
       assert.equal(format.itag, '140');
     });
   });
 
   describe('With highest video quality wanted', () => {
     it('Chooses highest video itag', () => {
-      var format = util.chooseFormat(formats, { quality: 'highestvideo' });
+      const format = util.chooseFormat(formats, { quality: 'highestvideo' });
       assert.equal(format.itag, '18');
     });
   });
 
   describe('With itag given', () => {
     it('Chooses matching format', () => {
-      var format = util.chooseFormat(sortedFormats, { quality: 5 });
+      const format = util.chooseFormat(sortedFormats, { quality: 5 });
       assert.equal(format.itag, '5');
     });
 
     describe('that is not in the format list', () => {
       it('Returns an error', () => {
-        var err = util.chooseFormat(sortedFormats, { quality: 42 });
+        const err = util.chooseFormat(sortedFormats, { quality: 42 });
         assert.equal(err.message, 'No such format found: 42');
       });
     });
@@ -181,14 +181,14 @@ describe('util.chooseFormat', () => {
 
   describe('With list of itags given', () => {
     it('Chooses matching format', () => {
-      var format = util.chooseFormat(sortedFormats, { quality: [99, 160, 18] });
+      const format = util.chooseFormat(sortedFormats, { quality: [99, 160, 18] });
       assert.equal(format.itag, '160');
     });
   });
 
   describe('With format object given', () => {
     it('Chooses given format without searching', () => {
-      var format = util.chooseFormat(sortedFormats, { format: formats[0] });
+      const format = util.chooseFormat(sortedFormats, { format: formats[0] });
       assert.equal(format, formats[0]);
     });
   });
@@ -196,7 +196,7 @@ describe('util.chooseFormat', () => {
   describe('With filter given', () => {
     describe('that matches a format', () => {
       it('Chooses a format', () => {
-        var format = util.chooseFormat(sortedFormats, {
+        const format = util.chooseFormat(sortedFormats, {
           filter: (format) => format.container === 'mp4',
         });
         assert.equal(format.itag, '18');
@@ -205,7 +205,7 @@ describe('util.chooseFormat', () => {
 
     describe('that does not match a format', () => {
       it('Returns an error', () => {
-        var err = util.chooseFormat(sortedFormats, { filter: () => {} });
+        const err = util.chooseFormat(sortedFormats, { filter: () => {} });
         assert.equal(err.message, 'No formats found with custom filter');
       });
     });
@@ -215,8 +215,8 @@ describe('util.chooseFormat', () => {
 
 describe('util.filterFormats', () => {
   it('Tries to find formats that match', () => {
-    var filter = (format) => format.container === 'mp4';
-    var itags = util.filterFormats(formats, filter).map(getItags);
+    const filter = (format) => format.container === 'mp4';
+    const itags = util.filterFormats(formats, filter).map(getItags);
     assert.deepEqual(itags, ['18', '133', '160', '140', '139', '138']);
   });
 
@@ -226,42 +226,42 @@ describe('util.filterFormats', () => {
 
   describe('that doesn\'t match any format', () => {
     it('Returns an empty list', () => {
-      var list = util.filterFormats(formats, () => false);
+      const list = util.filterFormats(formats, () => false);
       assert.equal(list.length, 0);
     });
   });
 
   describe('With `video` given', () => {
     it('Returns only matching formats', () => {
-      var itags = util.filterFormats(formats, 'video').map(getItags);
+      const itags = util.filterFormats(formats, 'video').map(getItags);
       assert.deepEqual(itags, ['18', '43', '133', '36', '5', '160', '17']);
     });
   });
 
   describe('With `videoonly` given', () => {
     it('Returns only matching formats', () => {
-      var itags = util.filterFormats(formats, 'videoonly').map(getItags);
+      const itags = util.filterFormats(formats, 'videoonly').map(getItags);
       assert.deepEqual(itags, ['133', '160']);
     });
   });
 
   describe('With `audio` given', () => {
     it('Returns only matching formats', () => {
-      var itags = util.filterFormats(formats, 'audio').map(getItags);
+      const itags = util.filterFormats(formats, 'audio').map(getItags);
       assert.deepEqual(itags, ['18', '43', '36', '5', '17', '140']);
     });
   });
 
   describe('With `audioonly` given', () => {
     it('Returns only matching formats', () => {
-      var itags = util.filterFormats(formats, 'audioonly').map(getItags);
+      const itags = util.filterFormats(formats, 'audioonly').map(getItags);
       assert.deepEqual(itags, ['140']);
     });
   });
 
   describe('With `audioandvideo` given', () => {
     it('Returns only matching formats', () => {
-      var itags = util.filterFormats(formats, 'audioandvideo').map(getItags);
+      const itags = util.filterFormats(formats, 'audioandvideo').map(getItags);
       assert.deepEqual(itags, ['18', '43', '36', '5', '17']);
     });
   });
@@ -278,27 +278,27 @@ describe('util.filterFormats', () => {
 
 describe('util.between()', () => {
   it('`left` positioned at the start', () => {
-    var rs = util.between('<b>hello there friend</b>', '<b>', '</b>');
+    const rs = util.between('<b>hello there friend</b>', '<b>', '</b>');
     assert.equal(rs, 'hello there friend');
   });
 
   it('somewhere in the middle', () => {
-    var rs = util.between('something everything nothing', ' ', ' ');
+    const rs = util.between('something everything nothing', ' ', ' ');
     assert.equal(rs, 'everything');
   });
 
   it('not found', () => {
-    var rs = util.between('oh oh _where_ is it', '<b>', '</b>');
+    const rs = util.between('oh oh _where_ is it', '<b>', '</b>');
     assert.equal(rs, '');
   });
 
   it('`right` before `left`', () => {
-    var rs = util.between('>>> a <this> and that', '<', '>');
+    const rs = util.between('>>> a <this> and that', '<', '>');
     assert.equal(rs, 'this');
   });
 
   it('`right` not found', () => {
-    var rs = util.between('something [around[ somewhere', '[', ']');
+    const rs = util.between('something [around[ somewhere', '[', ']');
     assert.equal(rs, '');
   });
 });
@@ -310,7 +310,7 @@ describe('util.getURLVideoID()', () => {
   });
 
   it('Retrives the video ID from the url', () => {
-    var id;
+    let id;
     id = util.getVideoID('http://www.youtube.com/watch?v=RAW_VIDEOID');
     assert.equal(id, 'RAW_VIDEOID');
     id = util.getVideoID('http://youtu.be/RAW_VIDEOID');
@@ -335,7 +335,7 @@ describe('util.getVideoID()', () => {
   });
 
   it('Retrives the video ID from the url', () => {
-    var id;
+    let id;
     id = util.getVideoID('http://www.youtube.com/watch?v=RAW_VIDEOID');
     assert.equal(id, 'RAW_VIDEOID');
     id = util.getVideoID('http://youtu.be/RAW_VIDEOID');
@@ -362,7 +362,7 @@ describe('util.validateID()', () => {
   });
 
   it('Retrieves whether a string includes a video ID', () => {
-    var rs;
+    let rs;
     rs = util.validateID('RAW_VIDEOID');
     assert.equal(rs, true);
     rs = util.validateID('http://www.youtube.com/watch?v=RAW_VIDEOID');
@@ -379,7 +379,7 @@ describe('util.validateURL()', () => {
   });
 
   it('Retrieves whether a string includes a parsable video ID', () => {
-    var rs;
+    let rs;
     rs = util.validateURL('http://www.youtube.com/watch?v=RAW_VIDEOID');
     assert.equal(rs, true);
     rs = util.validateURL('RAW_VIDEOID');
@@ -391,10 +391,10 @@ describe('util.validateURL()', () => {
 
 
 describe('util.parseFormats()', () => {
-  var info = require('./files/util/pJk0p-98Xzc_preparsed.json');
+  const info = require('./files/util/pJk0p-98Xzc_preparsed.json');
   it('Retrieves video formats from info', () => {
-    var myinfo = Object.assign({}, info);
-    var formats = util.parseFormats(myinfo);
+    const myinfo = Object.assign({}, info);
+    const formats = util.parseFormats(myinfo);
     assert.ok(formats);
     assert.equal(formats.length, 15);
   });
@@ -406,7 +406,7 @@ describe('util.getVideoDescription()', () => {
     fs.readFile(path.resolve(__dirname,
       'files/util/multiline-video-description'), 'utf8', (err, html) => {
       assert.ifError(err);
-      var cleanDescription = util.getVideoDescription(html);
+      const cleanDescription = util.getVideoDescription(html);
       assert.equal(cleanDescription, 'Some Title\n' +
         'Line 1\n' +
         '"Line 2"\n' +
@@ -420,7 +420,7 @@ describe('util.getVideoDescription()', () => {
     fs.readFile(path.resolve(__dirname,
       'files/util/bad-watch-page'), 'utf8', (err, html) => {
       assert.ifError(err);
-      var cleanDescription = util.getVideoDescription(html);
+      const cleanDescription = util.getVideoDescription(html);
       assert.equal(cleanDescription, '');
       done();
     });
@@ -433,7 +433,7 @@ describe('util.getAuthor()', () => {
     fs.readFile(path.resolve(__dirname, 'files/util/related-video'),
       'utf8', (err, html) => {
         assert.ifError(err);
-        var authorObj = util.getAuthor(html);
+        const authorObj = util.getAuthor(html);
         assert.deepEqual(authorObj, {
           id: 'UC_aEa8K-EOJ3D6gOs7HcyNg',
           name: 'NoCopyrightSounds',
@@ -451,7 +451,7 @@ describe('util.getAuthor()', () => {
     fs.readFile(path.resolve(__dirname,
       'files/util/bad-watch-page'), 'utf8', (err, html) => {
       assert.ifError(err);
-      var authorObj = util.getAuthor(html);
+      const authorObj = util.getAuthor(html);
       assert.deepEqual(authorObj, {});
       done();
     });
@@ -464,7 +464,7 @@ describe('util.getPublished()', () => {
     fs.readFile(path.resolve(__dirname, 'files/util/related-video'),
       'utf8', (err, html) => {
         assert.ifError(err);
-        var publishedTimestamp = util.getPublished(html);
+        const publishedTimestamp = util.getPublished(html);
         assert.equal(publishedTimestamp, 1416355200000);
         done();
       });
@@ -477,7 +477,7 @@ describe('util.getRelatedVideos()', () => {
     fs.readFile(path.resolve(__dirname, 'files/util/related-video'),
       'utf8', (err, html) => {
         assert.ifError(err);
-        var relatedVideos = util.getRelatedVideos(html);
+        const relatedVideos = util.getRelatedVideos(html);
         assert.deepEqual(relatedVideos, [
           {
             author: 'NoCopyrightSounds',
@@ -509,7 +509,7 @@ describe('util.getRelatedVideos()', () => {
     fs.readFile(path.resolve(__dirname,
       'files/util/bad-watch-page'), 'utf8', (err, html) => {
       assert.ifError(err);
-      var relatedVideos = util.getRelatedVideos(html);
+      const relatedVideos = util.getRelatedVideos(html);
       assert.deepEqual(relatedVideos, []);
       done();
     });
@@ -520,7 +520,7 @@ describe('util.getRelatedVideos()', () => {
 describe('util.parallel()', () => {
   describe('Multiple asynchronous functions', () => {
     it('Calls callback with results', (done) => {
-      var funcs = [];
+      const funcs = [];
       for (let i = 0; i < 5; i++) {
         funcs.push((callback) => {
           setTimeout(() => { callback(null, i); }, ~~(Math.random() * 10));
@@ -528,7 +528,7 @@ describe('util.parallel()', () => {
       }
       util.parallel(funcs, (err, results) => {
         assert.ifError(err);
-        for (var i = 0, len = results.length; i < len; i++) {
+        for (let i = 0, len = results.length; i < len; i++) {
           assert.equal(results[i], i);
         }
         done();
@@ -537,7 +537,7 @@ describe('util.parallel()', () => {
 
     describe('where one of them errors', () => {
       it('Gives an error', (done) => {
-        var funcs = [];
+        const funcs = [];
         for (let i = 0; i < 5; i++) {
           funcs.push((callback) => {
             setImmediate(() => {

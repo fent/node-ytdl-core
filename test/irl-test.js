@@ -23,10 +23,10 @@ describe('Try downloading videos without mocking', () => {
   });
 
   Object.keys(videos).forEach((desc) => {
-    var video = videos[desc];
+    const video = videos[desc];
     describe(desc, () => {
       it('Request status code is not 403 Forbidden', (done) => {
-        var stream = ytdl(video, { debug: false });
+        const stream = ytdl(video, { debug: false });
         stream.once('response', (res) => {
           assert.notEqual(res.statusCode, 403);
           res.destroy();
