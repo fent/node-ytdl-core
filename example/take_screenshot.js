@@ -20,4 +20,4 @@ takeScreenshot('https://www.youtube.com/watch?v=livestream', 'stream.png')
   .catch(console.error);
 takeScreenshot('https://www.youtube.com/watch?v=regularVideo', 'video.png', '4:20')
   .then(() => console.log('finished screenshot video'))
-  .catch(console.error)
+  .catch(console.error);

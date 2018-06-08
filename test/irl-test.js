@@ -3,7 +3,7 @@ const nock   = require('nock');
 const ytdl   = require('..');
 
 
-var videos = {
+let videos = {
   'Regular video'           : 'mgOS64BF2eU',
   'VEVO'                    : 'qQ31INpjXX0',
   'VEVO 2'                  : 'pJk0p-98Xzc',
