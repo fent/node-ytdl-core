@@ -11,7 +11,8 @@ declare module 'ytdl-core' {
         start?: number;
         end?: number;
       };
-      begin?: string; 
+      begin?: string | number | Date;
+      liveBuffer?: number;
       requestOptions?: {};
       highWaterMark?: number;
       retries?: number;
