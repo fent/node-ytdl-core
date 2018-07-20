@@ -11,6 +11,7 @@ declare module 'ytdl-core' {
         start?: number;
         end?: number;
       };
+      begin?: string; 
       requestOptions?: {};
       highWaterMark?: number;
       retries?: number;
