@@ -82,6 +82,14 @@ declare module 'ytdl-core' {
       fflags: string;
       ssl: string;
       pltype: string;
+      extras: {
+        game?: string;
+        category: string;
+        song?: string;
+        artist?: string;
+        writers?: string;
+        licensed_by?: string;
+      },
       author: {
         id: string;
         name: string;

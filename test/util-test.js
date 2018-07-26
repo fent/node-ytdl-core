@@ -459,6 +459,24 @@ describe('util.getAuthor()', () => {
 });
 
 
+describe('util.getVideoExtras()', () => {
+  it('Returns extras object', (done) => {
+    fs.readFile(path.resolve(__dirname, 'files/util/related-video'),
+      'utf8', (err, html) => {
+        assert.ifError(err);
+        const extrasObj = util.getVideoExtras(html);
+        assert.deepEqual(extrasObj, {
+          category: 'Music',
+          song: 'Faded (Lost Stories Remix)',
+          artist: 'Alan Walker',
+          licensed_by: 'SME (on behalf of MER Recordings); Warner Chappell, UBEM, Sony ATV Publishing, ASCAP, and 18 Music Rights Societies'
+        });
+        done();
+      });
+  });
+});
+
+
 describe('util.getPublished()', () => {
   it('Retrieves formatted published date', (done) => {
     fs.readFile(path.resolve(__dirname, 'files/util/related-video'),
