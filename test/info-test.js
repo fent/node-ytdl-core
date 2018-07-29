@@ -100,7 +100,7 @@ describe('ytdl.getInfo()', () => {
       describe('On a video that fails', () => {
         const id = 'unknown-vid';
 
-        it('Error is catched', (done) => {
+        it('Error is caught', (done) => {
           const scope = nock(id);
           const p = ytdl.getInfo(id);
           p.catch((err) => {
