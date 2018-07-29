@@ -94,6 +94,7 @@ declare module 'ytdl-core' {
         id: string;
         name: string;
         avatar: string;
+        verified: boolean;
         user: string;
         channel_url: string;
         user_url: string;
