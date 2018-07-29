@@ -438,6 +438,7 @@ describe('util.getAuthor()', () => {
           id: 'UC_aEa8K-EOJ3D6gOs7HcyNg',
           name: 'NoCopyrightSounds',
           avatar: 'https://www.youtube.com/hisprofile.pic',
+          verified: false,
           user: 'NoCopyrightSounds',
           channel_url:
             'https://www.youtube.com/channel/UC_aEa8K-EOJ3D6gOs7HcyNg',
