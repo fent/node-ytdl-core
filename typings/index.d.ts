@@ -82,7 +82,7 @@ declare module 'ytdl-core' {
       fflags: string;
       ssl: string;
       pltype: string;
-      extras: {
+      media: {
         game?: string;
         category: string;
         song?: string;

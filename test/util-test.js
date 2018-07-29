@@ -460,13 +460,13 @@ describe('util.getAuthor()', () => {
 });
 
 
-describe('util.getVideoExtras()', () => {
+describe('util.getVideoMedia()', () => {
   it('Returns extras object', (done) => {
     fs.readFile(path.resolve(__dirname, 'files/util/related-video'),
       'utf8', (err, html) => {
         assert.ifError(err);
-        const extrasObj = util.getVideoExtras(html);
-        assert.deepEqual(extrasObj, {
+        const mediaObj = util.getVideoMedia(html);
+        assert.deepEqual(mediaObj, {
           category: 'Music',
           song: 'Faded (Lost Stories Remix)',
           artist: 'Alan Walker',
