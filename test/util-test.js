@@ -438,7 +438,7 @@ describe('util.getAuthor()', () => {
           id: 'UC_aEa8K-EOJ3D6gOs7HcyNg',
           name: 'NoCopyrightSounds',
           avatar: 'https://www.youtube.com/hisprofile.pic',
-          verified: false,
+          verified: true,
           user: 'NoCopyrightSounds',
           channel_url:
             'https://www.youtube.com/channel/UC_aEa8K-EOJ3D6gOs7HcyNg',
@@ -456,6 +456,24 @@ describe('util.getAuthor()', () => {
       assert.deepEqual(authorObj, {});
       done();
     });
+  });
+});
+
+
+describe('util.getVideoMedia()', () => {
+  it('Returns extras object', (done) => {
+    fs.readFile(path.resolve(__dirname, 'files/util/related-video'),
+      'utf8', (err, html) => {
+        assert.ifError(err);
+        const mediaObj = util.getVideoMedia(html);
+        assert.deepEqual(mediaObj, {
+          category: 'Music',
+          song: 'Faded (Lost Stories Remix)',
+          artist: 'Alan Walker',
+          licensed_by: 'SME (on behalf of MER Recordings); Warner Chappell, UBEM, Sony ATV Publishing, ASCAP, and 18 Music Rights Societies'
+        });
+        done();
+      });
   });
 });
 
