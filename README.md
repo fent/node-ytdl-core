@@ -54,7 +54,7 @@ Emitted when the a video's `info` hash is fetched, along with the chosen format 
 #### Event: response
 * [`http.ServerResponse`](https://nodejs.org/api/http.html#http_class_http_serverresponse) - Response.
 
-Emitted when the video response has been found and has started downloading. Can be used to get the size of the download. This is not emitted if there is an error with the download or it needs to reconnect to YouTube, although it is emitted after it has reconnected.
+Emitted when the video response has been found and has started downloading. Can be used to get the size of the download. This is not emitted if there is an error with the download or it needs to reconnect to YouTube, although it is emitted after a successful reconnect.
 
 #### Event: progress
 * `number` - Chunk length.
