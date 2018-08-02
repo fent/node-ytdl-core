@@ -54,7 +54,7 @@ Emitted when the a video's `info` hash is fetched, along with the chosen format 
 #### Event: response
 * [`http.ServerResponse`](https://nodejs.org/api/http.html#http_class_http_serverresponse) - Response.
 
-Emitted when the video response has been found and has started downloading. Can be used to get the size of download. This is also emitted if there is an error with the download or it needs to reconnect to YouTube.
+Emitted when the video response has been found and has started downloading. Can be used to get the size of the download. This is not emitted if there is an error with the download or it needs to reconnect to YouTube, although it is emitted after it has reconnected.
 
 #### Event: progress
 * `number` - Chunk length.
@@ -145,7 +145,7 @@ These tests are not mocked, and they actually try to start downloading a few vid
 For getting started with that, you can look at the `extractActions()` function in [`/lib/sig.js`](https://github.com/fent/node-ytdl-core/blob/master/lib/sig.js).
 
 
-# Installation
+# Install
 
 ```bash
 npm install ytdl-core
