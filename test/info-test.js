@@ -3,14 +3,14 @@ const path   = require('path');
 const fs     = require('fs');
 const assert = require('assert-diff');
 const nock   = require('./nock');
-const spy    = require('sinon').spy;
+const sinon = require('sinon');
 const muk    = require('muk-prop');
 
 
 describe('ytdl.getInfo()', () => {
-  beforeEach(() => {
-    ytdl.cache.clear();
-  });
+  let clock;
+  before(() => { clock = sinon.useFakeTimers({ toFake: ['setTimeout'] }); });
+  after(() => { clock.restore(); });
 
   describe('From a regular video', () => {
     const id = 'pJk0p-98Xzc';
@@ -107,6 +107,33 @@ describe('ytdl.getInfo()', () => {
             scope.done();
             assert.ok(err);
             assert.equal(err.message, 'This video does not exist.');
+            done();
+          });
+        });
+      });
+    });
+
+    describe('Called twice', () => {
+      const id = 'pJk0p-98Xzc';
+
+      it('Only makes requests once', (done) => {
+        const scope = nock(id, {
+          type: 'vevo',
+          dashmpd: true,
+          get_video_info: true,
+          player: 'player-en_US-vflV3n15C',
+        });
+
+        let myinfo = null;
+        ytdl.getInfo(id, (err, info) => {
+          assert.ifError(err);
+          myinfo = info;
+          assert.ok(info.description.length);
+          assert.equal(info.formats.length, expectedInfo.formats.length);
+          ytdl.getInfo(id, (err, info) => {
+            assert.ifError(err);
+            scope.done();
+            assert.equal(info, myinfo);
             done();
           });
         });
@@ -381,7 +408,7 @@ describe('ytdl.getInfo()', () => {
 
   describe('When encountering a format not yet known with debug', () => {
     it('Warns the console', (done) => {
-      const warn = spy();
+      const warn = sinon.spy();
       muk(console, 'warn', warn);
       after(muk.restore);
 

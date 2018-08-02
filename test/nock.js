@@ -1,6 +1,7 @@
-const path = require('path');
-const url  = require('url');
-const nock = require('nock');
+const ytdl   = require('..');
+const path  = require('path');
+const url   = require('url');
+const nock  = require('nock');
 
 const YT_HOST       = 'https://www.youtube.com';
 const VIDEO_PATH    = '/watch?v=';
@@ -12,6 +13,12 @@ const INFO_PATH     = '/get_video_info?';
 
 before(() => { nock.disableNetConnect(); });
 after(() => { nock.enableNetConnect(); });
+
+beforeEach(() => {
+  ytdl.cache.sig.clear();
+  ytdl.cache.info.clear();
+});
+
 
 exports = module.exports = (id, opts) => {
   opts = opts || {};

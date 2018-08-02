@@ -3,7 +3,7 @@ const path        = require('path');
 const fs          = require('fs');
 const url         = require('url');
 const streamEqual = require('stream-equal');
-const spy         = require('sinon').spy;
+const sinon       = require('sinon');
 const nock        = require('./nock');
 const ytdl        = require('..');
 
@@ -24,9 +24,9 @@ describe('Download video', () => {
     });
   });
 
-  beforeEach(() => {
-    ytdl.cache.clear();
-  });
+  let clock;
+  before(() => { clock = sinon.useFakeTimers({ toFake: ['setTimeout'] }); });
+  after(() => { clock.restore(); });
 
   it('Should be pipeable and data equal to stored file', (done) => {
     const scope = nock(id, {
@@ -113,7 +113,7 @@ describe('Download video', () => {
         stream.on('data', () => {
           throw new Error('Should not emit `data`');
         });
-        const abort = spy();
+        const abort = sinon.spy();
         stream.on('abort', abort);
         stream.on('error', (err) => {
           scope.done();
@@ -145,7 +145,7 @@ describe('Download video', () => {
           });
         });
 
-        const abort = spy();
+        const abort = sinon.spy();
         stream.on('abort', abort);
         stream.on('error', (err) => {
           scope.done();

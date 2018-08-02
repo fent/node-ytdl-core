@@ -26,10 +26,16 @@ describe('Get tokens', () => {
 
   describe('Hit the same video twice', () => {
     it('Gets html5player tokens from cache', (done) => {
-      sig.getTokens(url, {}, (err, tokens) => {
+      const scope = nock.url(url).replyWithFile(200, filepath);
+      sig.getTokens(url, true, (err, tokens) => {
         assert.ifError(err);
+        scope.done();
         assert.ok(tokens.length);
-        done();
+        sig.getTokens(url, {}, (err, tokens) => {
+          assert.ifError(err);
+          assert.ok(tokens.length);
+          done();
+        });
       });
     });
   });
