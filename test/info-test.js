@@ -171,6 +171,7 @@ describe('ytdl.getInfo()', () => {
         assert.ifError(err);
         scope.done();
         assert.equal(info.formats.length, expectedInfo.formats.length);
+        assert.ok(info.age_restricted);
         done();
       });
     });

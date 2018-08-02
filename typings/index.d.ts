@@ -182,6 +182,8 @@ declare module 'ytdl-core' {
       description: string;
       related_videos: relatedVideo[]
       video_url: string;
+      no_embed_allowed?: boolean;
+      age_restricted: boolean;
     }
 
     type relatedVideo = {
