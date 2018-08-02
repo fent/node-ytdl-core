@@ -177,6 +177,9 @@ declare module 'ytdl-core' {
       video_id: string;
       dbp: string;
       ad_flags: string;
+      dashmpd?: string;
+      dashmpd2?: string;
+      hlsvp?: string;
       formats: videoFormat[];
       published: number;
       description: string;
