@@ -3,7 +3,7 @@ const path   = require('path');
 const fs     = require('fs');
 const assert = require('assert-diff');
 const nock   = require('./nock');
-const sinon = require('sinon');
+const sinon  = require('sinon');
 const muk    = require('muk-prop');
 
 
@@ -39,6 +39,63 @@ describe('ytdl.getInfo()', () => {
         assert.ok(info.description.length);
         assert.equal(info.formats.length, expectedInfo.formats.length);
         done();
+      });
+    });
+
+    describe('Use ytdl.getBasicInfo()', () => {
+      it('Retrieves just enough metainfo', (done) => {
+        const scope = nock(id, {
+          type: 'vevo',
+          dashmpd: false,
+          get_video_info: true,
+        });
+
+        ytdl.getBasicInfo(id, (err, info) => {
+          assert.ifError(err);
+          scope.done();
+          assert.equal(info.formats.length, expectedInfo.formats.length - 1);
+          done();
+        });
+      });
+
+      describe('Followed by ytdl.getInfo()', () => {
+        it('Does not make extra requests', (done) => {
+          const scope = nock(id, {
+            type: 'vevo',
+            dashmpd: true,
+            get_video_info: true,
+            player: 'player-en_US-vflV3n15C',
+          });
+
+          ytdl.getBasicInfo(id, (err, info) => {
+            assert.ifError(err);
+            assert.equal(info.formats.length, expectedInfo.formats.length - 1);
+            ytdl.getInfo(id, (err, info) => {
+              scope.done();
+              assert.equal(info.formats.length, expectedInfo.formats.length);
+              done();
+            });
+          });
+        });
+      });
+
+      describe('Use `ytdl.downloadFromInfo()`', () => {
+        it('Throw error', (done) => {
+          const scope = nock(id, {
+            type: 'vevo',
+            dashmpd: false,
+            get_video_info: true,
+          });
+
+          ytdl.getBasicInfo(id, (err, info) => {
+            assert.ifError(err);
+            scope.done();
+            assert.throws(() => {
+              ytdl.downloadFromInfo(info);
+            }, /Cannot use/);
+            done();
+          });
+        });
       });
     });
 
@@ -116,7 +173,7 @@ describe('ytdl.getInfo()', () => {
     describe('Called twice', () => {
       const id = 'pJk0p-98Xzc';
 
-      it('Only makes requests once', (done) => {
+      it('Makes requests once', (done) => {
         const scope = nock(id, {
           type: 'vevo',
           dashmpd: true,

@@ -63,9 +63,13 @@ Emitted when the video response has been found and has started downloading or af
 
 Emitted whenever a new chunk is received. Passes values descriping the download progress and the parsed percentage.
 
-### ytdl.getInfo(url, [options], [callback(err, info)])
+### ytdl.getBasicInfo(url, [options], [callback(err, info)])
 
 Use this if you only want to get metainfo from a video. If `callback` isn't given, returns a promise.
+
+### ytdl.getInfo(url, [options], [callback(err, info)])
+
+Gets metainfo from a video. Includes additional formats, and ready to download deciphered URL. This is what the `ytdl()` function uses internally. If `callback` isn't given, returns a promise.
 
 ### ytdl.downloadFromInfo(info, options)
 
