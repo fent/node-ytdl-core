@@ -319,8 +319,14 @@ describe('util.getURLVideoID()', () => {
     assert.equal(id, 'RAW_VIDEOID');
     id = util.getVideoID('http://youtube.com/embed/RAW_VIDEOID');
     assert.equal(id, 'RAW_VIDEOID');
+    id = util.getVideoID('https://music.youtube.com/watch?v=RAW_VIDEOID&list=RDAMVMmtLgabce8KQ');
+    assert.equal(id, 'RAW_VIDEOID');
+    id = util.getVideoID('https://gaming.youtube.com/watch?v=RAW_VIDEOID');
+    assert.equal(id, 'RAW_VIDEOID');
+    id = util.getVideoID('https://any.youtube.com/watch?v=RAW_VIDEOID');
+    assert.equal(id.message, 'Not a YouTube domain');
     id = util.getVideoID('https://www.twitch.tv/user/v/1234');
-    assert.equal(id.message, 'No video id found: https://www.twitch.tv/user/v/1234');
+    assert.equal(id.message, 'Not a YouTube domain');
     id = util.getVideoID('www.youtube.com');
     assert.equal(id.message, 'No video id found: www.youtube.com');
     id = util.getVideoID('http://www.youtube.com/playlist?list=1337');
@@ -347,7 +353,7 @@ describe('util.getVideoID()', () => {
     id = util.getVideoID('RAW_VIDEOID'); // Video ids are 11-character long
     assert.equal(id, 'RAW_VIDEOID');
     id = util.getVideoID('https://www.twitch.tv/user/v/1234');
-    assert.equal(id.message, 'No video id found: https://www.twitch.tv/user/v/1234');
+    assert.equal(id.message, 'Not a YouTube domain');
     id = util.getVideoID('www.youtube.com');
     assert.equal(id.message, 'No video id found: www.youtube.com');
     id = util.getVideoID('http://www.youtube.com/playlist?list=1337');
