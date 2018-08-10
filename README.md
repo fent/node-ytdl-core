@@ -81,7 +81,7 @@ Can be used if you'd like to choose a format yourself with the [options above](#
 
 ```js
 // Example of choosing a video format.
-ytdl.getInfo(videoID, (err, info) {
+ytdl.getInfo(videoID, (err, info) => {
   if (err) throw err;
   var format = ytdl.chooseFormat(info.formats, { quality: '134' });
   if (format) {
@@ -96,7 +96,7 @@ If you'd like to work with only some formats, you can use the [`filter` option a
 
 ```js
 // Example of filtering the formats to audio only.
-ytdl.getInfo(videoID, (err, info) {
+ytdl.getInfo(videoID, (err, info) => {
   if (err) throw err;
   var audioFormats = ytdl.filterFormats(info.formats, 'audioonly');
   console.log('Formats with only audio: ' + audioFormats.length);
