@@ -366,7 +366,6 @@ describe('Download video', () => {
       });
       const stream = ytdl(id, { quality: 91 });
       stream.on('info', (info, format) => {
-        const host = url.parse(format.url).host;
         scope.urlReply(format.url, 200, [
           '#EXTM3U',
           '#EXT-X-VERSION:3',
@@ -381,6 +380,7 @@ describe('Download video', () => {
           '/file03.ts',
           '#EXT-X-ENDLIST',
         ].join('\n'));
+        const host = url.parse(format.url).host;
         scope.urlReply(`https://${host}/file01.ts`, 200, 'one');
         scope.urlReply(`https://${host}/file02.ts`, 200, 'two');
         scope.urlReply(`https://${host}/file03.ts`, 200, 'tres');
@@ -392,6 +392,37 @@ describe('Download video', () => {
       stream.on('end', () => {
         assert.equal(body, 'onetwotres');
         done();
+      });
+    });
+
+    describe('from a dash-mpd itag', () => {
+      it('Begins downloading video succesfully', (done) => {
+        const id = 'N4bU1i-XAxE';
+        const scope = nock(id, {
+          type: 'live',
+          dashmpd: true,
+          dashmpd2: true,
+          m3u8: true,
+          get_video_info: true,
+          player: 'player-en_US-vfl5-0t5t',
+        });
+        const stream = ytdl(id, { quality: 142 });
+        stream.on('info', (info, format) => {
+          scope.urlReplyWithFile(format.url, 200, path.resolve(__dirname,
+            'files/videos/' + id + '-live/playlist.mpd'));
+          const host = url.parse(format.url).host;
+          scope.urlReply(`https://${host}/video/file01.ts`, 200, 'one');
+          scope.urlReply(`https://${host}/video/file02.ts`, 200, 'two');
+          scope.urlReply(`https://${host}/video/file03.ts`, 200, 'tres');
+        });
+
+        let body = '';
+        stream.setEncoding('utf8');
+        stream.on('data', (chunk) => { body += chunk; });
+        stream.on('end', () => {
+          assert.equal(body, 'onetwotres');
+          done();
+        });
       });
     });
   });

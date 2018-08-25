@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MPD xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns="urn:mpeg:DASH:schema:MPD:2011"
+xsi:schemaLocation="urn:mpeg:DASH:schema:MPD:2011 DASH-MPD.xsd"
+type="static">
+  <Period>
+    <SegmentList startNumber="1" timescale="1000">
+      <SegmentTimeline>
+        <S d="1000" />
+        <S d="1000" />
+        <S d="1000" />
+      </SegmentTimeline>
+    </SegmentList>
+    <AdaptationSet>
+      <Representation id="142">
+        <BaseURL>/video/</BaseURL>
+        <SegmentList>
+          <SegmentURL media="file01.ts" />
+          <SegmentURL media="file02.ts" />
+          <SegmentURL media="file03.ts" />
+        </SegmentList>
+      </Representation>
+    </AdaptationSet>
+  </Period>
+</MPD>

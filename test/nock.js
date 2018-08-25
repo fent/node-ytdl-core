@@ -32,57 +32,57 @@ exports = module.exports = (id, opts) => {
       path.resolve(__dirname, `${dirpath}/watch${watchType}.html`)));
 
   if (opts.dashmpd) {
-    let dashmpdfile = Array.isArray(opts.dashmpd) && opts.dashmpd[2] ?
+    let file = Array.isArray(opts.dashmpd) && opts.dashmpd[2] ?
       '-' + opts.dashmpd[2] : '';
     scopes.push(nock(MANIFEST_HOST, { reqheaders: opts.headers })
       .filteringPath(() => '/api/manifest/dash/')
       .get('/api/manifest/dash/')
       .replyWithFile(opts.dashmpd[1] || 200,
-        path.resolve(__dirname, `${dirpath}/dashmpd${dashmpdfile}.xml`)));
+        path.resolve(__dirname, `${dirpath}/dashmpd${file}.xml`)));
   }
 
   if (opts.dashmpd2) {
-    let dashmpd2file = Array.isArray(opts.dashmpd2) && opts.dashmpd2[2] ?
+    let file = Array.isArray(opts.dashmpd2) && opts.dashmpd2[2] ?
       '-' + opts.dashmpd2[2] : '';
     scopes.push(nock(MANIFEST_HOST, { reqheaders: opts.headers })
       .filteringPath(() => '/api/manifest/dash/')
       .get('/api/manifest/dash/')
       .replyWithFile(opts.dashmpd2[1] || 200,
-        path.resolve(__dirname, `${dirpath}/dashmpd2${dashmpd2file}.xml`)));
+        path.resolve(__dirname, `${dirpath}/dashmpd2${file}.xml`)));
   }
 
   if (opts.m3u8) {
-    let m3u8file = Array.isArray(opts.m3u8) && opts.m3u8[2] ?
+    let file = Array.isArray(opts.m3u8) && opts.m3u8[2] ?
       '-' + opts.m3u8[2] : '';
     scopes.push(nock(M3U8_HOST, { reqheaders: opts.headers  })
       .filteringPath(() => '/api/manifest/hls_variant/')
       .get('/api/manifest/hls_variant/')
       .replyWithFile(opts.m3u8[1] || 200,
-        path.resolve(__dirname, `${dirpath}/playlist${m3u8file}.m3u8`)));
+        path.resolve(__dirname, `${dirpath}/playlist${file}.m3u8`)));
   }
 
   if (opts.player) {
-    let playerfile = Array.isArray(opts.player) && opts.player[2] ?
+    let file = Array.isArray(opts.player) && opts.player[2] ?
       opts.player[2] : opts.player;
     scopes.push(nock('https://www.youtube.com', { reqheaders: opts.headers })
       .filteringPath(/\/yts\/jsbin\/player.+$/g, '/yts/jsbin/player')
       .get('/yts/jsbin/player')
       .replyWithFile(opts.player[1] || 200,
-        path.resolve(__dirname, `${dirpath}/${playerfile}.js`)));
+        path.resolve(__dirname, `${dirpath}/${file}.js`)));
   }
 
   if (opts.embed) {
-    let embedfile = Array.isArray(opts.embed) && opts.embed[2] ?
+    let file = Array.isArray(opts.embed) && opts.embed[2] ?
       '-' + opts.embed[2] : '';
     scopes.push(nock(YT_HOST, { reqheaders: opts.headers })
       .get(EMBED_PATH + id + '?hl=en')
       .replyWithFile(opts.embed[1] || 200,
         path.resolve(__dirname,
-          `${dirpath}/embed${embedfile}.html`)));
+          `${dirpath}/embed${file}.html`)));
   }
 
   if (opts.get_video_info) {
-    let infofile = Array.isArray(opts.get_video_info) && opts.get_video_info[2] ?
+    let file = Array.isArray(opts.get_video_info) && opts.get_video_info[2] ?
       '-' + opts.get_video_info[2] : '';
     scopes.push(nock(YT_HOST, { reqheaders: opts.headers })
       .filteringPath((path) => {
@@ -91,7 +91,7 @@ exports = module.exports = (id, opts) => {
       })
       .get(INFO_PATH + 'video_id=' + id)
       .replyWithFile(opts.get_video_info[1] || 200,
-        path.resolve(__dirname, `${dirpath}/get_video_info${infofile}`)));
+        path.resolve(__dirname, `${dirpath}/get_video_info${file}`)));
   }
 
   return {
