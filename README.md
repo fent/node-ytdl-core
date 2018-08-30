@@ -8,6 +8,9 @@ Yet another youtube downloading module. Written with only Javascript and a node-
 
 For a CLI version of this, check out [ytdl](https://github.com/fent/node-ytdl) and [pully](https://github.com/JimmyBoh/pully).
 
+# Support
+You can contact us for support on our [chat server](https://discord.gg/V3vSCs7)
+
 # Usage
 
 ```js
