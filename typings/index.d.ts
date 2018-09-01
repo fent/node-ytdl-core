@@ -15,7 +15,6 @@ declare module 'ytdl-core' {
       liveBuffer?: number;
       requestOptions?: {};
       highWaterMark?: number;
-      retries?: number;
       lang?: string;
     }
 

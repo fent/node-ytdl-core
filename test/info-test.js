@@ -320,7 +320,7 @@ describe('ytdl.getInfo()', () => {
         type: 'regular',
         statusCode: 500,
       });
-      ytdl.getInfo(id, (err) => {
+      ytdl.getInfo(id, { requestOptions: { maxRetries: 0 } }, (err) => {
         scope.done();
         assert.ok(err);
         assert.equal(err.message, 'Status code: 500');
@@ -362,7 +362,7 @@ describe('ytdl.getInfo()', () => {
         type: 'age-restricted',
         embed: [true, 500]
       });
-      ytdl.getInfo(id, (err) => {
+      ytdl.getInfo(id, { requestOptions: { maxRetries: 0 } }, (err) => {
         scope.done();
         assert.ok(err);
         assert.equal(err.message, 'Status code: 500');
@@ -376,7 +376,7 @@ describe('ytdl.getInfo()', () => {
         type: 'regular',
         get_video_info: [true, 500]
       });
-      ytdl.getInfo(id, (err) => {
+      ytdl.getInfo(id, { requestOptions: { maxRetries: 0 } }, (err) => {
         scope.done();
         assert.ok(err);
         assert.equal(err.message, 'Status code: 500');
@@ -407,7 +407,7 @@ describe('ytdl.getInfo()', () => {
         get_video_info: true,
         player: [true, 500, 'player-vflppxuSE'],
       });
-      ytdl.getInfo(id, (err) => {
+      ytdl.getInfo(id, { requestOptions: { maxRetries: 0 } }, (err) => {
         scope.done();
         assert.ok(err);
         assert.equal(err.message, 'Status code: 500');
@@ -419,11 +419,13 @@ describe('ytdl.getInfo()', () => {
       const id = 'N4bU1i-XAxE';
       const scope = nock(id, {
         type: 'live',
+        dashmpd: true,
+        dashmpd2: true,
         m3u8: [true, 500],
         get_video_info: true,
         player: 'player-en_US-vfl5-0t5t',
       });
-      ytdl.getInfo(id, (err) => {
+      ytdl.getInfo(id, { requestOptions: { maxRetries: 0 } }, (err) => {
         scope.done();
         assert.ok(err);
         assert.equal(err.message, 'Status code: 500');

@@ -13,6 +13,7 @@ const INFO_PATH     = '/get_video_info?';
 
 before(() => { nock.disableNetConnect(); });
 after(() => { nock.enableNetConnect(); });
+afterEach(() => { nock.cleanAll(); });
 
 beforeEach(() => {
   ytdl.cache.sig.clear();

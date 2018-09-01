@@ -181,23 +181,29 @@ describe('Download video', () => {
         player: 'player-vflppxuSE',
       });
       const stream = ytdl(id);
+      stream.on('error', done);
 
       let destroyedTimes = 0;
       stream.on('info', (info, format) => {
         let req, res;
         stream.once('request', (a) => { req = a; });
         stream.once('response', (a) => { res = a; });
+        stream.on('reconnect', () => { clock.tick(100); });
 
         scope.urlReplyWithFile(format.url, 200, video, {
           'content-length': filesize,
+          'accept-ranges': 'bytes',
         });
 
         stream.on('progress', (chunkLength, downloaded, total) => {
           if (downloaded / total >= 0.5) {
-            const newUrl = `${format.url}&range=${downloaded}-`;
-            scope.urlReply(newUrl, 200, () => {
+            scope.urlReply(format.url, 206, () => {
               return fs.createReadStream(video, { start: downloaded });
-            }, { 'content-length': filesize - downloaded });
+            }, {
+              'content-range': `bytes=${downloaded}-${filesize}/${filesize}`,
+              'content-length': filesize - downloaded,
+              'accept-ranges': 'bytes',
+            });
             stream.removeAllListeners('progress');
             destroyedTimes++;
             destroy(req, res);
@@ -234,22 +240,25 @@ describe('Download video', () => {
           let req, res;
           stream.on('request', (a) => { req = a; });
           stream.on('response', (a) => { res = a; });
+          stream.on('reconnect', () => { clock.tick(100); });
 
-          const url = `${format.url}&range=${start}-${end}`;
-          scope.urlReply(url, 200, () => {
+          scope.urlReply(format.url, 206, () => {
             return fs.createReadStream(video, { start, end });
-          }, { 'content-length': rangedSize });
-
+          }, {
+            'content-range': `bytes=${start}-${end}/${filesize}`,
+            'content-length': rangedSize,
+            'accept-ranges': 'bytes',
+          });
 
           stream.on('progress', (chunkLength, downloaded, total) => {
             if (downloaded / total >= 0.5) {
-              const newUrl = `${format.url}&range=${(start + downloaded)}-${end}`;
-              scope.urlReply(newUrl, 200, () => {
-                return fs.createReadStream(video, {
-                  start: start + downloaded,
-                  end,
-                });
-              }, { 'content-length': rangedSize - downloaded });
+              scope.urlReply(format.url, 206, () => {
+                return fs.createReadStream(video, { start: start + downloaded, end });
+              }, {
+                'content-range': `bytes=${downloaded}-${end}/${filesize}`,
+                'content-length': rangedSize - downloaded,
+                'accept-ranges': 'bytes',
+              });
               destroyedTimes++;
               stream.removeAllListeners('progress');
               destroy(req, res);
@@ -267,62 +276,31 @@ describe('Download video', () => {
         });
       });
     });
+  });
 
-    describe('Stream keeps disconnecting', () => {
-      it('Too many reconnects', (done) => {
-        const scope = nock(id, {
-          type: 'regular',
-          dashmpd: true,
-          get_video_info: true,
-          player: 'player-vflppxuSE',
-        });
-        const stream = ytdl(id);
-
-        let destroyedTimes = 0;
-        stream.on('info', (info, format) => {
-          let req, res;
-          stream.on('request', (a) => { req = a; });
-          stream.on('response', (a) => { res = a; });
-
-          scope.urlReplyWithFile(format.url, 200, video, {
-            'content-length': filesize,
-          });
-
-          stream.on('progress', (chunkLength, downloaded) => {
-            // Keep disconnecting.
-            if (++destroyedTimes < 5) {
-              const newUrl = `${format.url}&range=${downloaded}-`;
-              scope.urlReply(newUrl, 200, () => {
-                return fs.createReadStream(video, { start: downloaded });
-              }, { 'content-length': filesize - downloaded });
-            }
-            destroy(req, res);
-          });
-        });
-
-        stream.on('end', () => {
-          throw new Error('Stream should not end');
-        });
-
-        stream.on('error', (err) => {
-          scope.done();
-          assert.ok(err);
-          assert.equal(err.message, 'Too many reconnects');
-          assert.equal(destroyedTimes, 5);
-          done();
-        });
+  describe('with start range', () => {
+    it('Range added to download headers', (done) => {
+      const stream = ytdl.downloadFromInfo(testInfo, {
+        range: { start: 500 },
       });
+      stream.on('info', (info, format) => {
+        nock.url(format.url)
+          .reply(206, '', {'content-length': '0'});
+      });
+      stream.resume();
+      stream.on('error', done);
+      stream.on('end', done);
     });
   });
 
-  describe('with range', () => {
-    it('Range added to download URL', (done) => {
+  describe('with end range', () => {
+    it('Range added to download headers', (done) => {
       const stream = ytdl.downloadFromInfo(testInfo, {
-        range: { start: 500, end: 1000 },
+        range: { end: 1000 },
       });
       stream.on('info', (info, format) => {
-        nock.url(format.url + '&range=500-1000')
-          .reply(200, '', {'content-length': '0'});
+        nock.url(format.url)
+          .reply(206, '', {'content-length': '0'});
       });
       stream.resume();
       stream.on('error', done);
