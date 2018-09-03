@@ -51,13 +51,35 @@ describe('extras.getAuthor()', () => {
       });
   });
 
-  it('Returns empty object if author not found', (done) => {
-    fs.readFile(path.resolve(__dirname,
-      'files/extras/bad-watch-page'), 'utf8', (err, html) => {
-      assert.ifError(err);
-      const authorObj = extras.getAuthor(html);
-      assert.deepEqual(authorObj, {});
-      done();
+  describe('watch page without author', () => {
+    it('Returns empty object if author not found', (done) => {
+      fs.readFile(path.resolve(__dirname,
+        'files/extras/bad-watch-page'), 'utf8', (err, html) => {
+        assert.ifError(err);
+        const authorObj = extras.getAuthor(html);
+        assert.deepEqual(authorObj, {});
+        done();
+      });
+    });
+  });
+
+  describe('from a rental', () => {
+    it('Returns video author object', (done) => {
+      fs.readFile(path.resolve(__dirname,
+        'files/videos/SyKPsFRP_Oc-rental/watch.html'), 'utf8', (err, html) => {
+        assert.ifError(err);
+        const authorObj = extras.getAuthor(html);
+        assert.deepEqual(authorObj, {
+          id: 'UCuDN9Ko6TmIj_imV3BQo0lQ',
+          name: 'Curiosity',
+          avatar: 'https://s.ytimg.com/yts/img/avatar_720-vflYJnzBZ.png',
+          verified: false,
+          user: 'discoveryfulleps',
+          channel_url: 'https://www.youtube.com/channel/UCuDN9Ko6TmIj_imV3BQo0lQ',
+          user_url: 'https://www.youtube.com/user/discoveryfulleps',
+        });
+        done();
+      });
     });
   });
 });
