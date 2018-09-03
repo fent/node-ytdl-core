@@ -280,7 +280,7 @@ describe('ytdl.getInfo()', () => {
       ytdl.getInfo(id, (err) => {
         assert.ok(err);
         scope.done();
-        assert.ok(/requires purchase/.test(err.message));
+        assert.equal(err.message, 'This video requires payment to watch.');
         done();
       });
     });
