@@ -19,7 +19,7 @@ describe('ytdl.getInfo()', () => {
       fs.readFile(path.resolve(__dirname,
         `files/videos/${id}-vevo/expected_info.json`),
       'utf8', (err, body) => {
-        if (err) return done(err);
+        assert.ifError(err);
         expectedInfo = JSON.parse(body);
         done();
       });

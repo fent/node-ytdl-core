@@ -18,7 +18,7 @@ describe('Download video', () => {
     fs.readFile(path.resolve(__dirname,
       'files/videos/pJk0p-98Xzc-vevo/expected_info.json'),
     'utf8', (err, body) => {
-      if (err) return done(err);
+      assert.ifError(err);
       testInfo = JSON.parse(body);
       done();
     });
@@ -161,17 +161,17 @@ describe('Download video', () => {
     let filesize;
     before((done) => {
       fs.stat(video, (err, stat) => {
-        if (err) return done(err);
+        assert.ifError(err);
         filesize = stat.size;
         done();
       });
     });
 
-    function destroy(req, res) {
+    const destroy = (req, res) => {
       req.abort();
       res.unpipe();
       res.emit('end');
-    }
+    };
 
     it('Still downloads the whole video', (done) => {
       const scope = nock(id, {

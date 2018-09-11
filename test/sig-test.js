@@ -106,10 +106,10 @@ describe('Signature decipher', () => {
     });
   });
 
-  function testDecipher(tokens, input, expected) {
+  const testDecipher = (tokens, input, expected) => {
     const result = sig.decipher(tokens, input);
     assert.equal(result, expected);
-  }
+  };
 
   describe('properly apply actions based on tokens', () => {
     it('reverses', () => {
