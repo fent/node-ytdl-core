@@ -77,10 +77,10 @@ describe('Download video', () => {
         stream.destroy();
 
         stream.on('request', () => {
-          done(new Error('Should not emit `request`'));
+          done(Error('Should not emit `request`'));
         });
         stream.on('response', () => {
-          done(new Error('Should not emit `response`'));
+          done(Error('Should not emit `response`'));
         });
         stream.on('info', () => {
           scope.done();
@@ -108,10 +108,10 @@ describe('Download video', () => {
           nock.url(format.url).reply(200, 'aaaaaaaaaaaa');
         });
         stream.on('response', () => {
-          throw new Error('Should not emit `response`');
+          throw Error('Should not emit `response`');
         });
         stream.on('data', () => {
-          throw new Error('Should not emit `data`');
+          throw Error('Should not emit `data`');
         });
         const abort = sinon.spy();
         stream.on('abort', abort);
@@ -141,7 +141,7 @@ describe('Download video', () => {
         stream.on('response', (res) => {
           stream.destroy();
           res.on('data', () => {
-            done(new Error('Should not emit `data`'));
+            done(Error('Should not emit `data`'));
           });
         });
 
