@@ -41,6 +41,9 @@ declare module 'ytdl-core' {
       bitrate: string;
       audioEncoding: 'mp3' | 'vorbis' | 'aac' | 'opus' | 'flac';
       audioBitrate: number;
+      live: boolean;
+      isHLS: boolean;
+      isDashMPD: boolean;
     }
 
     type videoInfo = {
