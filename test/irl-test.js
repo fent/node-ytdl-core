@@ -12,7 +12,7 @@ let videos = {
   'Age restricted 2'        : 'Tzuvfy4jFwE',
   'Embed domain restricted' : 'B3eAMGXFw1o',
   'No embed allowed'        : 'GFg8BP01F5Q',
-  'Offensive'               : 'PXDc8M3L_gw',
+  'Offensive'               : 'hCKDsjLt_qU',
 };
 
 
