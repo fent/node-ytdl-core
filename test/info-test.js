@@ -385,9 +385,9 @@ describe('ytdl.getInfo()', () => {
     });
 
     it('Fails gracefully when get video info page errors', (done) => {
-      const id = '_HSylqgVYQI';
+      const id = 'iC9YT-5aUhI';
       const scope = nock(id, {
-        type: 'regular',
+        type: 'unavailable',
         get_video_info: [true, 200, 'error']
       });
       ytdl.getInfo(id, (err) => {
