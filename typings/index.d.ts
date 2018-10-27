@@ -85,10 +85,15 @@ declare module 'ytdl-core' {
       ssl: string;
       pltype: string;
       media: {
-        game?: string;
+        image?: string;
         category: string;
+        category_url: string;
+        game?: string;
+        game_url?: string;
+        year?: int;
         song?: string;
         artist?: string;
+        artist_url?: string;
         writers?: string;
         licensed_by?: string;
       },

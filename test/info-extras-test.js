@@ -86,20 +86,60 @@ describe('extras.getAuthor()', () => {
 
 
 describe('extras.getVideoMedia()', () => {
-  it('Returns extras object', (done) => {
+  it('Returns media object', (done) => {
     fs.readFile(path.resolve(__dirname, 'files/extras/related-video'),
       'utf8', (err, html) => {
         assert.ifError(err);
         const mediaObj = extras.getVideoMedia(html);
         assert.deepEqual(mediaObj, {
           category: 'Music',
+          category_url: 'https://www.youtube.com/channel/UC-9-kyTW8ZkZNDHQJ6FgpwQ',
           song: 'Faded (Lost Stories Remix)',
           artist: 'Alan Walker',
-          licensed_by: 'SME (on behalf of MER Recordings); Warner Chappell, UBEM, Sony ATV Publishing, ASCAP, and 18 Music Rights Societies'
+          artist_url: 'https://www.youtube.com/channel/UCJrOtniJ0-NWz37R30urifQ',
+          licensed_by: 'SME (on behalf of MER Recordings); Warner Chappell, UBEM, Sony ATV Publishing, ASCAP, and 18 Music Rights Societies',
         });
         done();
       });
   });
+
+  describe('On a video with an older game', () => {
+    it('Returns media object', (done) => {
+      fs.readFile(path.resolve(__dirname, 'files/extras/game'),
+        'utf8', (err, html) => {
+          assert.ifError(err);
+          const mediaObj = extras.getVideoMedia(html);
+          assert.deepEqual(mediaObj, {
+            category: 'Gaming',
+            category_url: 'https://www.youtube.com/gaming',
+            game: 'Pokémon Snap',
+            game_url: 'https://gaming.youtube.com/game/UCWbUPCN6z_KYDS5qx1AeNQg',
+            year: 1999,
+          });
+          done();
+        });
+    });
+  });
+
+  describe('On a video with a game with an image', () => {
+    it('Returns media object', (done) => {
+      fs.readFile(path.resolve(__dirname, 'files/extras/game_image'),
+        'utf8', (err, html) => {
+          assert.ifError(err);
+          const mediaObj = extras.getVideoMedia(html);
+          assert.deepEqual(mediaObj, {
+            image: 'https://yt3.ggpht.com/FaZqW4WE3D4npqAplZsJSzlZfDQ7XJSb-vEoL3rIOHkRfGd2uDK4ldxeCxyvg2CcqFgfCpCgGlzgy1-rtQ=w40-nd',
+            category: 'Gaming',
+            category_url: 'https://www.youtube.com/gaming',
+            game: 'Super Mario 64',
+            game_url: 'https://gaming.youtube.com/game/UCVNUxXs1fnUdcU-xQeNGjmg',
+            year: 1996,
+          });
+          done();
+        });
+    });
+  });
+
 });
 
 
