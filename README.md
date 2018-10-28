@@ -62,9 +62,9 @@ Emitted when the video response has been found and has started downloading or af
 #### Event: progress
 * `number` - Chunk length.
 * `number` - Total downloaded.
-* `number` - Total download length.
+* `number` - Total download length. Not available for HLS, Dash, or live formats.
 
-Emitted whenever a new chunk is received. Passes values descriping the download progress and the parsed percentage.
+Emitted whenever a new chunk is received. Passes values describing the download progress.
 
 ### ytdl.getBasicInfo(url, [options], [callback(err, info)])
 

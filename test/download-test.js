@@ -367,9 +367,36 @@ describe('Download video', () => {
       let body = '';
       stream.setEncoding('utf8');
       stream.on('data', (chunk) => { body += chunk; });
+      let progress = sinon.spy();
+      stream.on('progress', progress);
       stream.on('end', () => {
         assert.equal(body, 'onetwotres');
+        assert.ok(progress.called);
         done();
+      });
+    });
+
+    describe('end download early', () => {
+      it('Stops downloading video', (done) => {
+        const id = 'N4bU1i-XAxE';
+        const scope = nock(id, {
+          type: 'live',
+          dashmpd: true,
+          dashmpd2: true,
+          m3u8: true,
+          get_video_info: true,
+          player: 'player-en_US-vfl5-0t5t',
+        });
+        const stream = ytdl(id, { quality: 91 });
+        stream.on('info', () => {
+          process.nextTick(() => {
+            stream.destroy();
+            scope.done();
+            done();
+          });
+        });
+
+        stream.on('data', () => { throw Error('should not emit `data`'); });
       });
     });
 
