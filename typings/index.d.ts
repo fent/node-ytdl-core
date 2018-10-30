@@ -90,7 +90,7 @@ declare module 'ytdl-core' {
         category_url: string;
         game?: string;
         game_url?: string;
-        year?: int;
+        year?: number;
         song?: string;
         artist?: string;
         artist_url?: string;
