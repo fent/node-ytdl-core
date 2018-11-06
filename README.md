@@ -60,9 +60,9 @@ Emitted when the a video's `info` hash is fetched, along with the chosen format 
 Emitted when the video response has been found and has started downloading or after any successful reconnects. Can be used to get the size of the download.
 
 #### Event: progress
-* `number` - Chunk length.
-* `number` - Total downloaded.
-* `number` - Total download length. Not available for HLS, Dash, or live formats.
+* `number` - Chunk byte length.
+* `number` - Total bytes or segments downloaded.
+* `number` - Total bytes or segments.
 
 Emitted whenever a new chunk is received. Passes values describing the download progress.
 

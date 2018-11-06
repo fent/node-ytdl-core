@@ -359,9 +359,15 @@ describe('Download video', () => {
           '#EXT-X-ENDLIST',
         ].join('\n'));
         const host = url.parse(format.url).host;
-        scope.urlReply(`https://${host}/file01.ts`, 200, 'one');
-        scope.urlReply(`https://${host}/file02.ts`, 200, 'two');
-        scope.urlReply(`https://${host}/file03.ts`, 200, 'tres');
+        scope.urlReply(`https://${host}/file01.ts`, 200, 'one', {
+          'content-length': '3'
+        });
+        scope.urlReply(`https://${host}/file02.ts`, 200, 'two', {
+          'content-length': '3'
+        });
+        scope.urlReply(`https://${host}/file03.ts`, 200, 'tres', {
+          'content-length': '4'
+        });
       });
 
       let body = '';
@@ -372,6 +378,11 @@ describe('Download video', () => {
       stream.on('end', () => {
         assert.equal(body, 'onetwotres');
         assert.ok(progress.called);
+        assert.deepEqual(progress.args, [
+          [3, 1, 3],
+          [3, 2, 3],
+          [4, 3, 3]
+        ]);
         done();
       });
     });
