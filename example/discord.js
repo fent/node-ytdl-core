@@ -1,4 +1,4 @@
-// Install discord.js, ffmpeg and ytdl-core before running this!
+// Install discord.js, ffmpeg, node-opus and ytdl-core before running this!
 const {Client} = require('discord.js');
 const ytdl    = require('ytdl-core');
 
