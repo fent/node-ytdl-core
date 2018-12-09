@@ -98,21 +98,6 @@ const formats = [
 const getItags = (format) => format.itag;
 
 
-describe('util.parseTime()', () => {
-  it('Returns milliseconds if given numbers', () => {
-    assert.equal(1234, util.parseTime(1234));
-  });
-
-  it('Works with minutes and seconds', () => {
-    assert.equal(2 * 60000 + 36 * 1000, util.parseTime('2m36s'));
-  });
-
-  it('And even only hours and milliseconds', () => {
-    assert.equal(3 * 3600000 + 4200, util.parseTime('3h4200ms'));
-  });
-});
-
-
 describe('util.sortFormats()', () => {
   describe('With `highest` given', () => {
     it('Sorts available formats from highest to lowest quality', () => {
