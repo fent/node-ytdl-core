@@ -129,7 +129,6 @@ declare module 'ytdl-core' {
       allow_html5_ads: string;
       core_dbp: string;
       ad_device: string;
-      view_count: string;
       itct: string;
       root_ve_type: string;
       excluded_ads: string;
@@ -165,7 +164,6 @@ declare module 'ytdl-core' {
       iurlmaxres: string;
       ad_preroll: string;
       tmi: string;
-      keywords: string[];
       trueview: string;
       host_language: string;
       innertube_api_key: string;
@@ -191,10 +189,38 @@ declare module 'ytdl-core' {
       formats: videoFormat[];
       published: number;
       description: string;
-      related_videos: relatedVideo[]
+      related_videos: relatedVideo[];
       video_url: string;
       no_embed_allowed?: boolean;
       age_restricted: boolean;
+      player_response: {
+        playabilityStatus: {
+          status: string;
+        };
+        streamingData: {
+          expiresInSeconds: string;
+          formats: {}[];
+          adaptiveFormats: {}[];
+        };
+        videoDetails: {
+          videoId: string;
+          title: string;
+          lengthSeconds: number;
+          keywords: string[];
+          channelId: string;
+          isCrawlable: boolean;
+          thumbnail: {
+            thumbnails: {
+              url: string;
+              width: number;
+              height: number
+            }[];
+          };
+          viewCount: number;
+          author: string;
+          isLiveContent: boolean;
+        }
+      };
     }
 
     type relatedVideo = {
