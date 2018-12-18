@@ -64,7 +64,6 @@ declare module 'ytdl-core' {
       ldpj?: string;
       videostats_playback_base_url?: string;
       innertube_context_client_version?: string;
-      player_response?: string;
       t?: string;
       fade_in_start_milliseconds: string;
       timestamp: string;
