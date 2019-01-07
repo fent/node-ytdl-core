@@ -27,7 +27,7 @@ ytdl('http://www.youtube.com/watch?v=A02s8omM_hI')
 
 Attempts to download a video from the given url. Returns a [readable stream](https://nodejs.org/api/stream.html#stream_class_stream_readable). `options` can have the following keys
 
-* `quality` - Video quality to download. Can be an [itag value](http://en.wikipedia.org/wiki/YouTube#Quality_and_formats), a list of itag values, or `highest`/`lowest`/`highestaudio`/`highestvideo`. `highestaudio`/`highestvideo` both prefer audio/video only respectively. Defaults to `highest`.
+* `quality` - Video quality to download. Can be an [itag value](http://en.wikipedia.org/wiki/YouTube#Quality_and_formats), a list of itag values, or `highest`/`lowest`/`highestaudio`/`lowestaudio`/`highestvideo`/`lowestvideo`. `highestaudio`/`lowestaudio`/`highestvideo`/`lowestvideo` all prefer audio/video only respectively. Defaults to `highest`.
 * `filter` - Used to decide what format to download. Can be `audioandvideo` to filter formats that contain both video and audio, `video` to filter for formats that contain video, or `videoonly` for formats that contain video and no additional audio track. Can also be `audio` or `audioonly`. You can give a filtering function that gets called with each format available. This function is given the `format` object as its first argument, and should return true if the format is preferable.
 * `format` - Primarily used to download specific video or audio streams. This can be a specific `format` object returned from `getInfo`.
   * Supplying this option will ignore the `filter` and `quality` options since the format is explicitly provided.

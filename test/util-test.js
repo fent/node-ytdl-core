@@ -141,10 +141,24 @@ describe('util.chooseFormat', () => {
     });
   });
 
+  describe('With lowest audio quality wanted', () => {
+    it('Chooses lowest audio itag', () => {
+      const format = util.chooseFormat(formats, { quality: 'lowestaudio' });
+      assert.equal(format.itag, '17');
+    });
+  });
+
   describe('With highest video quality wanted', () => {
     it('Chooses highest video itag', () => {
       const format = util.chooseFormat(formats, { quality: 'highestvideo' });
       assert.equal(format.itag, '18');
+    });
+  });
+
+  describe('With lowest video quality wanted', () => {
+    it('Chooses lowest video itag', () => {
+      const format = util.chooseFormat(formats, { quality: 'lowestvideo' });
+      assert.equal(format.itag, '17');
     });
   });
 
