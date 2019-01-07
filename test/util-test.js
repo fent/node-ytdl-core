@@ -13,6 +13,15 @@ const formats = [
     bitrate       : '0.5',
     audioEncoding : 'aac',
     audioBitrate  : 96 },
+  { itag          : '19',
+    type          : 'audio/mp4; codecs="avc1.42001E, mp4a.40.2"',
+    quality       : null,
+    container     : 'mp4',
+    resolution    : null,
+    encoding      : null,
+    bitrate       : '0.5',
+    audioEncoding : 'aac',
+    audioBitrate  : 96 },
   { itag          : '43',
     type          : 'video/webm; codecs="vp8.0, vorbis"',
     quality       : 'medium',
@@ -105,7 +114,7 @@ describe('util.sortFormats()', () => {
       sortedFormats.sort(util.sortFormats);
       const itags = sortedFormats.map(getItags);
       assert.deepEqual(itags, [
-        '43', '18', '5', '36', '17', '133', '160', '140', '139', '138'
+        '43', '18', '5', '36', '17', '133', '160', '19', '140', '139', '138'
       ]);
     });
   });
@@ -214,7 +223,7 @@ describe('util.filterFormats', () => {
   it('Tries to find formats that match', () => {
     const filter = (format) => format.container === 'mp4';
     const itags = util.filterFormats(formats, filter).map(getItags);
-    assert.deepEqual(itags, ['18', '133', '160', '140', '139', '138']);
+    assert.deepEqual(itags, ['18', '19', '133', '160', '140', '139', '138']);
   });
 
   it('Is exposed in module', () => {
@@ -231,7 +240,7 @@ describe('util.filterFormats', () => {
   describe('With `video` given', () => {
     it('Returns only matching formats', () => {
       const itags = util.filterFormats(formats, 'video').map(getItags);
-      assert.deepEqual(itags, ['18', '43', '133', '36', '5', '160', '17']);
+      assert.deepEqual(itags, ['18', '19', '43', '133', '36', '5', '160', '17']);
     });
   });
 
@@ -245,7 +254,7 @@ describe('util.filterFormats', () => {
   describe('With `audio` given', () => {
     it('Returns only matching formats', () => {
       const itags = util.filterFormats(formats, 'audio').map(getItags);
-      assert.deepEqual(itags, ['18', '43', '36', '5', '17', '140']);
+      assert.deepEqual(itags, ['18', '19', '43', '36', '5', '17', '140']);
     });
   });
 
@@ -259,7 +268,7 @@ describe('util.filterFormats', () => {
   describe('With `audioandvideo` given', () => {
     it('Returns only matching formats', () => {
       const itags = util.filterFormats(formats, 'audioandvideo').map(getItags);
-      assert.deepEqual(itags, ['18', '43', '36', '5', '17']);
+      assert.deepEqual(itags, ['18', '19', '43', '36', '5', '17']);
     });
   });
 
