@@ -4,7 +4,7 @@ declare module 'ytdl-core' {
 
   namespace ytdl {
     type downloadOptions = {
-      quality?: 'lowest' | 'highest' | string | number;
+      quality?: 'lowest' | 'highest' | 'highestaudio' | 'lowestaudio' | 'highestvideo' | 'lowestvideo' | string | number;
       filter?: 'video' | 'videoonly' | 'audio' | 'audioonly' | ((format: videoFormat) => boolean);
       format?: videoFormat;
       range?: {
