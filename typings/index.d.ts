@@ -182,9 +182,6 @@ declare module 'ytdl-core' {
       dbp: string;
       ad_flags: string;
       html5player: string;
-      dashmpd?: string;
-      dashmpd2?: string;
-      hlsvp?: string;
       formats: videoFormat[];
       published: number;
       description: string;
