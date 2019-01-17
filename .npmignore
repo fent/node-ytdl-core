@@ -1,0 +1,13 @@
+node_modules
+coverage
+.DS_Store
+.idea/*
+yarn.lock
+
+example/
+test/
+.github/
+.travis.yml
+tsconfig.json
+package-lock.json
+LICENSE.md
