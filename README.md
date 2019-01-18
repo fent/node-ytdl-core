@@ -16,13 +16,8 @@ You can contact us for support on our [chat server](https://discord.gg/V3vSCs7)
 ```js
 const fs = require('fs');
 const ytdl = require('ytdl-core');
-/**
- * or for Babel / TypeScript:
- * import ytdl from 'ytdl-core';
- * Note: Requires --esmoduleinterop for TypeScript
- * use "import * as ytdl" with --allowsyntheticdefaultimport
- * or "import ytdl = require('ytdl-core')" with neither
- */
+// TypeScript: import ytdl from 'ytdl-core'; with --esmoduleinterop
+// TypeScript: import * as ytdl from 'ytdl-core'; with --allowsynthethicdefaultimport
 
 ytdl('http://www.youtube.com/watch?v=A02s8omM_hI')
   .pipe(fs.createWriteStream('video.flv'));
