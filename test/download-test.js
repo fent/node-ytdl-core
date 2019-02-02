@@ -16,7 +16,7 @@ describe('Download video', () => {
   let testInfo;
   before((done) => {
     fs.readFile(path.resolve(__dirname,
-      'files/videos/pJk0p-98Xzc-vevo/expected_info.json'),
+      'files/videos/pJk0p-98Xzc-vevo/expected-info.json'),
     'utf8', (err, body) => {
       assert.ifError(err);
       testInfo = JSON.parse(body);
@@ -31,9 +31,8 @@ describe('Download video', () => {
   it('Should be pipeable and data equal to stored file', (done) => {
     const scope = nock(id, {
       type: 'regular',
-      dashmpd: true,
       get_video_info: true,
-      player: 'player-vflppxuSE',
+      player: 'player_ias-vflehrYuM',
     });
     const stream = ytdl(id, { filter: filter });
 
@@ -57,9 +56,9 @@ describe('Download video', () => {
     });
     const stream = ytdl(id, { filter: filter });
     stream.on('error', (err) => {
-      scope.done();
       assert.ok(err);
       assert.equal(err.message, 'Status code: 500');
+      scope.done();
       done();
     });
   });
@@ -69,9 +68,8 @@ describe('Download video', () => {
       it('Doesn\'t start the download', (done) => {
         const scope = nock(id, {
           type: 'regular',
-          dashmpd: true,
           get_video_info: true,
-          player: 'player-vflppxuSE',
+          player: 'player_ias-vflehrYuM',
         });
         const stream = ytdl(id, { filter });
         stream.destroy();
@@ -94,9 +92,8 @@ describe('Download video', () => {
       it('Doesn\'t start the download', (done) => {
         const scope = nock(id, {
           type: 'regular',
-          dashmpd: true,
           get_video_info: true,
-          player: 'player-vflppxuSE',
+          player: 'player_ias-vflehrYuM',
         });
         const stream = ytdl(id, { filter });
 
@@ -116,9 +113,9 @@ describe('Download video', () => {
         const abort = sinon.spy();
         stream.on('abort', abort);
         stream.on('error', (err) => {
-          scope.done();
           assert.ok(abort.called);
           assert.equal(err.message, 'socket hang up');
+          scope.done();
           done();
         });
       });
@@ -128,9 +125,8 @@ describe('Download video', () => {
       it('Download is incomplete', (done) => {
         const scope = nock(id, {
           type: 'regular',
-          dashmpd: true,
           get_video_info: true,
-          player: 'player-vflppxuSE',
+          player: 'player_ias-vflehrYuM',
         });
         const stream = ytdl(id, { filter });
 
@@ -148,9 +144,9 @@ describe('Download video', () => {
         const abort = sinon.spy();
         stream.on('abort', abort);
         stream.on('error', (err) => {
-          scope.done();
           assert.ok(abort.called);
           assert.equal(err.message, 'socket hang up');
+          scope.done();
           done();
         });
       });
@@ -176,9 +172,8 @@ describe('Download video', () => {
     it('Still downloads the whole video', (done) => {
       const scope = nock(id, {
         type: 'regular',
-        dashmpd: true,
         get_video_info: true,
-        player: 'player-vflppxuSE',
+        player: 'player_ias-vflehrYuM',
       });
       const stream = ytdl(id);
       stream.on('error', done);
@@ -225,9 +220,8 @@ describe('Download video', () => {
       it('Downloads from the given `start` to `end`', (done) => {
         const scope = nock(id, {
           type: 'regular',
-          dashmpd: true,
           get_video_info: true,
-          player: 'player-vflppxuSE',
+          player: 'player_ias-vflehrYuM',
         });
 
         const start = Math.floor(filesize * 0.1);
@@ -333,16 +327,15 @@ describe('Download video', () => {
 
   describe('that is broadcasted live', () => {
     it('Begins downloading video succesfully', (done) => {
-      const id = 'N4bU1i-XAxE';
+      const id = 'hHW1oY26kxQ';
       const scope = nock(id, {
         type: 'live',
         dashmpd: true,
-        dashmpd2: true,
         m3u8: true,
         get_video_info: true,
-        player: 'player-en_US-vfl5-0t5t',
+        player: true,
       });
-      const stream = ytdl(id, { quality: 91 });
+      const stream = ytdl(id, { filter: format => format.isHLS });
       stream.on('info', (info, format) => {
         scope.urlReply(format.url, 200, [
           '#EXTM3U',
@@ -389,16 +382,15 @@ describe('Download video', () => {
 
     describe('end download early', () => {
       it('Stops downloading video', (done) => {
-        const id = 'N4bU1i-XAxE';
+        const id = 'hHW1oY26kxQ';
         const scope = nock(id, {
           type: 'live',
           dashmpd: true,
-          dashmpd2: true,
           m3u8: true,
           get_video_info: true,
-          player: 'player-en_US-vfl5-0t5t',
+          player: true,
         });
-        const stream = ytdl(id, { quality: 91 });
+        const stream = ytdl(id);
         stream.on('info', () => {
           process.nextTick(() => {
             stream.destroy();
@@ -413,16 +405,15 @@ describe('Download video', () => {
 
     describe('from a dash-mpd itag', () => {
       it('Begins downloading video succesfully', (done) => {
-        const id = 'N4bU1i-XAxE';
+        const id = 'hHW1oY26kxQ';
         const scope = nock(id, {
           type: 'live',
           dashmpd: true,
-          dashmpd2: true,
           m3u8: true,
           get_video_info: true,
-          player: 'player-en_US-vfl5-0t5t',
+          player: true,
         });
-        const stream = ytdl(id, { quality: 142 });
+        const stream = ytdl(id, { filter: format => format.isDashMPD });
         stream.on('info', (info, format) => {
           scope.urlReplyWithFile(format.url, 200, path.resolve(__dirname,
             'files/videos/' + id + '-live/playlist.mpd'));

@@ -16,7 +16,7 @@ describe('Get tokens', () => {
 
   it('Returns a set of tokens', (done) => {
     const scope = nock.url(url).replyWithFile(200, filepath);
-    sig.getTokens(url, true, (err, tokens) => {
+    sig.getTokens(url, {}, (err, tokens) => {
       assert.ifError(err);
       scope.done();
       assert.ok(tokens.length);
@@ -27,7 +27,7 @@ describe('Get tokens', () => {
   describe('Hit the same video twice', () => {
     it('Gets html5player tokens from cache', (done) => {
       const scope = nock.url(url).replyWithFile(200, filepath);
-      sig.getTokens(url, true, (err, tokens) => {
+      sig.getTokens(url, {}, (err, tokens) => {
         assert.ifError(err);
         scope.done();
         assert.ok(tokens.length);

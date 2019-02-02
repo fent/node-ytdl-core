@@ -17,7 +17,7 @@ describe('ytdl.getInfo()', () => {
     let expectedInfo;
     before((done) => {
       fs.readFile(path.resolve(__dirname,
-        `files/videos/${id}-vevo/expected_info.json`),
+        `files/videos/${id}-vevo/expected-info.json`),
       'utf8', (err, body) => {
         assert.ifError(err);
         expectedInfo = JSON.parse(body);
@@ -28,9 +28,8 @@ describe('ytdl.getInfo()', () => {
     it('Retrieves correct metainfo', (done) => {
       const scope = nock(id, {
         type: 'vevo',
-        dashmpd: true,
         get_video_info: true,
-        player: 'player-en_US-vflV3n15C',
+        player: 'player_ias-vflok_OV_',
       });
 
       ytdl.getInfo(id, (err, info) => {
@@ -46,14 +45,14 @@ describe('ytdl.getInfo()', () => {
       it('Retrieves just enough metainfo', (done) => {
         const scope = nock(id, {
           type: 'vevo',
-          dashmpd: false,
           get_video_info: true,
         });
 
         ytdl.getBasicInfo(id, (err, info) => {
           assert.ifError(err);
           scope.done();
-          assert.equal(info.formats.length, expectedInfo.formats.length - 1);
+          assert.equal(info.formats.length, expectedInfo.formats.length);
+          assert.notEqual(info.formats[0].url, expectedInfo.formats[0].url);
           done();
         });
       });
@@ -62,17 +61,18 @@ describe('ytdl.getInfo()', () => {
         it('Does not make extra requests', (done) => {
           const scope = nock(id, {
             type: 'vevo',
-            dashmpd: true,
             get_video_info: true,
-            player: 'player-en_US-vflV3n15C',
+            player: 'player_ias-vflok_OV_',
           });
 
           ytdl.getBasicInfo(id, (err, info) => {
             assert.ifError(err);
-            assert.equal(info.formats.length, expectedInfo.formats.length - 1);
+            assert.equal(info.formats.length, expectedInfo.formats.length);
+            assert.notEqual(info.formats[0].url, expectedInfo.formats[0].url);
             ytdl.getInfo(id, (err, info) => {
+              assert.ifError(err);
               scope.done();
-              assert.equal(info.formats.length, expectedInfo.formats.length);
+              assert.equal(info.formats[0].url, expectedInfo.formats[0].url);
               done();
             });
           });
@@ -83,7 +83,6 @@ describe('ytdl.getInfo()', () => {
         it('Throw error', (done) => {
           const scope = nock(id, {
             type: 'vevo',
-            dashmpd: false,
             get_video_info: true,
           });
 
@@ -119,9 +118,8 @@ describe('ytdl.getInfo()', () => {
       it('Request gets called with more headers', (done) => {
         const scope = nock(id, {
           type: 'vevo',
-          dashmpd: true,
           get_video_info: true,
-          player: 'player-en_US-vflV3n15C',
+          player: 'player_ias-vflok_OV_',
           headers: { 'X-Hello': '42' }
         });
 
@@ -139,9 +137,8 @@ describe('ytdl.getInfo()', () => {
       it('Retrieves correct metainfo', (done) => {
         const scope = nock(id, {
           type: 'vevo',
-          dashmpd: true,
           get_video_info: true,
-          player: 'player-en_US-vflV3n15C',
+          player: 'player_ias-vflok_OV_',
         });
 
         ytdl.getInfo(id)
@@ -155,15 +152,15 @@ describe('ytdl.getInfo()', () => {
       });
 
       describe('On a video that fails', () => {
-        const id = 'unknown-vid';
+        const id = '99999999999';
 
         it('Error is caught', (done) => {
-          const scope = nock(id);
+          const scope = nock(id, { type: 'nonexistent' });
           const p = ytdl.getInfo(id);
           p.catch((err) => {
             scope.done();
             assert.ok(err);
-            assert.equal(err.message, 'This video does not exist.');
+            assert.equal(err.message, 'This video is unavailable.');
             done();
           });
         });
@@ -176,9 +173,8 @@ describe('ytdl.getInfo()', () => {
       it('Makes requests once', (done) => {
         const scope = nock(id, {
           type: 'vevo',
-          dashmpd: true,
           get_video_info: true,
-          player: 'player-en_US-vflV3n15C',
+          player: 'player_ias-vflok_OV_',
         });
 
         let myinfo = null;
@@ -199,14 +195,14 @@ describe('ytdl.getInfo()', () => {
   });
 
   describe('From a non-existant video', () => {
-    const id = 'unknown-vid';
+    const id = '99999999999';
 
     it('Should give an error', (done) => {
-      const scope = nock(id);
+      const scope = nock(id, { type: 'nonexistent' });
       ytdl.getInfo(id, (err) => {
-        scope.done();
         assert.ok(err);
-        assert.equal(err.message, 'This video does not exist.');
+        assert.equal(err.message, 'This video is unavailable.');
+        scope.done();
         done();
       });
     });
@@ -214,14 +210,13 @@ describe('ytdl.getInfo()', () => {
 
   describe('From an age restricted video', () => {
     const id = 'rIqCiJKWx9I';
-    const expectedInfo = require('./files/videos/' + id + '-age-restricted/expected_info.json');
+    const expectedInfo = require('./files/videos/' + id + '-age-restricted/expected-info.json');
 
     it('Returns correct video metainfo', (done) => {
       const scope = nock(id, {
         type: 'age-restricted',
-        dashmpd: true,
         embed: true,
-        player: 'player-en_US-vflV3n15C',
+        player: 'player-vfl3aEiZ8',
         get_video_info: true,
       });
       ytdl.getInfo(id, (err, info) => {
@@ -233,38 +228,32 @@ describe('ytdl.getInfo()', () => {
       });
     });
 
-    describe('In any language', () => {
-      it('Returns correct video metainfo', (done) => {
-        const scope = nock(id, {
-          type: 'age-restricted',
-          watch: 'german',
-          dashmpd: true,
-          embed: true,
-          player: 'player-en_US-vflV3n15C',
-          get_video_info: true,
-        });
-        ytdl.getInfo(id, (err, info) => {
-          assert.ifError(err);
-          scope.done();
-          assert.equal(info.formats.length, expectedInfo.formats.length);
-          done();
-        });
+    it('Fails gracefully when unable to find config', (done) => {
+      const scope = nock(id, {
+        type: 'age-restricted',
+        embed: [true, 200, 'no-config'],
+      });
+      ytdl.getInfo(id, (err) => {
+        assert.ok(err);
+        assert.equal(err.message, 'Could not find player config');
+        scope.done();
+        done();
       });
     });
   });
 
-  describe('From a video that was live streamed', () => {
+  describe('From a video that was live streamed but not currently live', () => {
     it('Returns correct video metainfo', (done) => {
       const id = 'nu5uzMXfuLc';
       const scope = nock(id, {
         type: 'streamed',
-        player: 'player-vfleGnGfg',
+        player: true,
         get_video_info: true,
       });
       ytdl.getInfo(id, (err, info) => {
         assert.ifError(err);
         scope.done();
-        assert.equal(info.formats.length, 5);
+        assert.equal(info.formats.length, 14);
         done();
       });
     });
@@ -279,28 +268,28 @@ describe('ytdl.getInfo()', () => {
       });
       ytdl.getInfo(id, (err) => {
         assert.ok(err);
-        scope.done();
         assert.equal(err.message, 'This video requires payment to watch.');
+        scope.done();
         done();
       });
     });
   });
 
-  describe('From a video that is not yet available', () => {
-    const id = 'iC9YT-5aUhI';
-    it('Returns an error', (done) => {
-      const scope = nock(id, {
-        type: 'unavailable',
-        get_video_info: true,
-      });
-      ytdl.getInfo(id, (err) => {
-        scope.done();
-        assert.ok(err);
-        assert.equal(err.message, 'This video is unavailable');
-        done();
-      });
-    });
-  });
+  // describe('From a video that is not yet available', () => {
+  //   const id = 'iC9YT-5aUhI';
+  //   it('Returns an error', (done) => {
+  //     const scope = nock(id, {
+  //       type: 'unavailable',
+  //       get_video_info: true,
+  //     });
+  //     ytdl.getInfo(id, (err) => {
+  //       assert.ok(err);
+  //       assert.equal(err.message, 'This video is unavailable');
+  //       scope.done();
+  //       done();
+  //     });
+  //   });
+  // });
 
   describe('With a bad video ID', () => {
     const id = 'bad';
@@ -321,23 +310,9 @@ describe('ytdl.getInfo()', () => {
         statusCode: 500,
       });
       ytdl.getInfo(id, { requestOptions: { maxRetries: 0 } }, (err) => {
-        scope.done();
         assert.ok(err);
         assert.equal(err.message, 'Status code: 500');
-        done();
-      });
-    });
-
-    it('Fails gracefully when unable to find config', (done) => {
-      const id = '_HSylqgVYQI';
-      const scope = nock(id, {
-        type: 'regular',
-        watch: 'no-config',
-      });
-      ytdl.getInfo(id, (err) => {
         scope.done();
-        assert.ok(err);
-        assert.equal(err.message, 'Could not find player config');
         done();
       });
     });
@@ -349,9 +324,9 @@ describe('ytdl.getInfo()', () => {
         watch: 'bad-config',
       });
       ytdl.getInfo(id, (err) => {
-        scope.done();
         assert.ok(err);
         assert.ok(/Error parsing config:/.test(err.message));
+        scope.done();
         done();
       });
     });
@@ -363,9 +338,9 @@ describe('ytdl.getInfo()', () => {
         embed: [true, 500]
       });
       ytdl.getInfo(id, { requestOptions: { maxRetries: 0 } }, (err) => {
-        scope.done();
         assert.ok(err);
         assert.equal(err.message, 'Status code: 500');
+        scope.done();
         done();
       });
     });
@@ -377,25 +352,26 @@ describe('ytdl.getInfo()', () => {
         get_video_info: [true, 500]
       });
       ytdl.getInfo(id, { requestOptions: { maxRetries: 0 } }, (err) => {
-        scope.done();
         assert.ok(err);
         assert.equal(err.message, 'Status code: 500');
+        scope.done();
         done();
       });
     });
 
     it('Fails gracefully when get video info page errors', (done) => {
-      const id = 'iC9YT-5aUhI';
+      const id = 'pJk0p-98Xzc';
       const scope = nock(id, {
-        type: 'unavailable',
+        type: 'vevo',
+        watch: 'no-formats',
         get_video_info: [true, 200, 'error']
       });
       ytdl.getInfo(id, (err) => {
-        scope.done();
         assert.ok(err);
         assert.equal(err.message,
           'Code 2: Watch this video on YouTube. ' +
           'Playback on other websites has been disabled by the video owner.');
+        scope.done();
         done();
       });
     });
@@ -405,30 +381,29 @@ describe('ytdl.getInfo()', () => {
       const scope = nock(id, {
         type: 'regular',
         get_video_info: true,
-        player: [true, 500, 'player-vflppxuSE'],
+        player: [true, 500],
       });
       ytdl.getInfo(id, { requestOptions: { maxRetries: 0 } }, (err) => {
-        scope.done();
         assert.ok(err);
         assert.equal(err.message, 'Status code: 500');
+        scope.done();
         done();
       });
     });
 
     it('Fails gracefully when unable to get m3u8 playlist', (done) => {
-      const id = 'N4bU1i-XAxE';
+      const id = 'hHW1oY26kxQ';
       const scope = nock(id, {
         type: 'live',
         dashmpd: true,
-        dashmpd2: true,
         m3u8: [true, 500],
         get_video_info: true,
-        player: 'player-en_US-vfl5-0t5t',
+        player: true,
       });
       ytdl.getInfo(id, { requestOptions: { maxRetries: 0 } }, (err) => {
-        scope.done();
         assert.ok(err);
         assert.equal(err.message, 'Status code: 500');
+        scope.done();
         done();
       });
     });
@@ -438,14 +413,12 @@ describe('ytdl.getInfo()', () => {
       const scope = nock(id, {
         type: 'vevo',
         watch: 'no-formats',
-        dashmpd: [true, 200, 'no-formats'],
         get_video_info: [true, 200, 'no-formats'],
-        player: 'player-en_US-vflV3n15C',
       });
       ytdl.getInfo(id, (err) => {
-        scope.done();
         assert.ok(err);
-        assert.equal(err.message, 'No formats found');
+        assert.equal(err.message, 'This video is unavailable');
+        scope.done();
         done();
       });
     });
@@ -458,9 +431,9 @@ describe('ytdl.getInfo()', () => {
         get_video_info: true,
       });
       ytdl.getInfo(id, (err) => {
-        scope.done();
         assert.ok(err);
         assert.ok(/Error parsing `player_response`:/.test(err.message));
+        scope.done();
         done();
       });
     });
@@ -475,16 +448,15 @@ describe('ytdl.getInfo()', () => {
       const id = '_HSylqgVYQI';
       const scope = nock(id, {
         type: 'regular',
-        dashmpd: true,
         get_video_info: [true, 200, 'unknown-format'],
-        player: 'player-vflppxuSE',
+        player: 'player_ias-vflehrYuM',
       });
-      ytdl.getInfo(id, { debug: true}, (err, info) => {
+      ytdl.getInfo(id, { debug: true }, (err, info) => {
         assert.ifError(err);
         scope.done();
         assert.ok(warn.called);
         assert.equal(warn.getCall(0).args[0],
-          'No format metadata for itag 9999 found');
+          'No format metadata for itag unknown found');
         assert.ok(info);
         done();
       });
