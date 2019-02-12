@@ -35,7 +35,7 @@
     "sax": "^1.1.3"
   },
   "devDependencies": {
-    "@types/node": "^10.0.3",
+    "@types/node": "^11.9.0",
     "assert-diff": "^2.0.0",
     "istanbul": "^0.4.5",
     "mocha": "^5.0.0",
