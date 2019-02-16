@@ -124,6 +124,10 @@ Returns a video ID from a YouTube URL.
 
 Same as the above `ytdl.getURLVideoID()`, but can be called with the video ID directly, in which case it returns it. This is what ytdl uses internally.
 
+### ytdl.getVideoURLwithID(str) 
+
+Gets the video link from the YouTube video ID.
+
 ## Limitations
 
 ytdl cannot download videos that fall into the following
