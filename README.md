@@ -126,6 +126,8 @@ Same as the above `ytdl.getURLVideoID()`, but can be called with the video ID di
 
 ## Limitations
 
+Generated download links are valid for 6 hours, for the same computer (IP address).
+
 ytdl cannot download videos that fall into the following
 * Regionally restricted (requires a [proxy](example/proxy.js))
 * Private
