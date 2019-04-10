@@ -31,7 +31,6 @@ describe('Download video', () => {
   it('Should be pipeable and data equal to stored file', (done) => {
     const scope = nock(id, {
       type: 'regular',
-      dashmpd: true,
       get_video_info: true,
       player: 'player-vflppxuSE',
     });
@@ -69,7 +68,6 @@ describe('Download video', () => {
       it('Doesn\'t start the download', (done) => {
         const scope = nock(id, {
           type: 'regular',
-          dashmpd: true,
           get_video_info: true,
           player: 'player-vflppxuSE',
         });
@@ -94,7 +92,6 @@ describe('Download video', () => {
       it('Doesn\'t start the download', (done) => {
         const scope = nock(id, {
           type: 'regular',
-          dashmpd: true,
           get_video_info: true,
           player: 'player-vflppxuSE',
         });
@@ -128,7 +125,6 @@ describe('Download video', () => {
       it('Download is incomplete', (done) => {
         const scope = nock(id, {
           type: 'regular',
-          dashmpd: true,
           get_video_info: true,
           player: 'player-vflppxuSE',
         });
@@ -176,7 +172,6 @@ describe('Download video', () => {
     it('Still downloads the whole video', (done) => {
       const scope = nock(id, {
         type: 'regular',
-        dashmpd: true,
         get_video_info: true,
         player: 'player-vflppxuSE',
       });
@@ -225,7 +220,6 @@ describe('Download video', () => {
       it('Downloads from the given `start` to `end`', (done) => {
         const scope = nock(id, {
           type: 'regular',
-          dashmpd: true,
           get_video_info: true,
           player: 'player-vflppxuSE',
         });
@@ -273,8 +267,7 @@ describe('Download video', () => {
           assert.equal(destroyedTimes, 1);
           assert.ok(equal);
           done();
-        });
-      });
+        });      });
     });
   });
 
@@ -333,14 +326,12 @@ describe('Download video', () => {
 
   describe('that is broadcasted live', () => {
     it('Begins downloading video succesfully', (done) => {
-      const id = 'N4bU1i-XAxE';
+      const id = 'UVxU2HzPGug';
       const scope = nock(id, {
         type: 'live',
-        dashmpd: true,
-        dashmpd2: true,
-        m3u8: true,
-        get_video_info: true,
-        player: 'player-en_US-vfl5-0t5t',
+        m3u8: false,
+        get_video_info: false,
+        player: 'player_ias-vflLXg1wb',
       });
       const stream = ytdl(id, { quality: 91 });
       stream.on('info', (info, format) => {
@@ -389,14 +380,12 @@ describe('Download video', () => {
 
     describe('end download early', () => {
       it('Stops downloading video', (done) => {
-        const id = 'N4bU1i-XAxE';
+        const id = 'UVxU2HzPGug';
         const scope = nock(id, {
           type: 'live',
-          dashmpd: true,
-          dashmpd2: true,
-          m3u8: true,
-          get_video_info: true,
-          player: 'player-en_US-vfl5-0t5t',
+          m3u8: false,
+          get_video_info: false,
+          player: 'player_ias-vflLXg1wb',
         });
         const stream = ytdl(id, { quality: 91 });
         stream.on('info', () => {
@@ -408,37 +397,6 @@ describe('Download video', () => {
         });
 
         stream.on('data', () => { throw Error('should not emit `data`'); });
-      });
-    });
-
-    describe('from a dash-mpd itag', () => {
-      it('Begins downloading video succesfully', (done) => {
-        const id = 'N4bU1i-XAxE';
-        const scope = nock(id, {
-          type: 'live',
-          dashmpd: true,
-          dashmpd2: true,
-          m3u8: true,
-          get_video_info: true,
-          player: 'player-en_US-vfl5-0t5t',
-        });
-        const stream = ytdl(id, { quality: 142 });
-        stream.on('info', (info, format) => {
-          scope.urlReplyWithFile(format.url, 200, path.resolve(__dirname,
-            'files/videos/' + id + '-live/playlist.mpd'));
-          const host = url.parse(format.url).host;
-          scope.urlReply(`https://${host}/video/file01.ts`, 200, 'one');
-          scope.urlReply(`https://${host}/video/file02.ts`, 200, 'two');
-          scope.urlReply(`https://${host}/video/file03.ts`, 200, 'tres');
-        });
-
-        let body = '';
-        stream.setEncoding('utf8');
-        stream.on('data', (chunk) => { body += chunk; });
-        stream.on('end', () => {
-          assert.equal(body, 'onetwotres');
-          done();
-        });
       });
     });
   });

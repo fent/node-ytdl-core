@@ -32,26 +32,6 @@ exports = module.exports = (id, opts) => {
     .replyWithFile(opts.statusCode || 200,
       path.resolve(__dirname, `${dirpath}/watch${watchType}.html`)));
 
-  if (opts.dashmpd) {
-    let file = Array.isArray(opts.dashmpd) && opts.dashmpd[2] ?
-      '-' + opts.dashmpd[2] : '';
-    scopes.push(nock(MANIFEST_HOST, { reqheaders: opts.headers })
-      .filteringPath(() => '/api/manifest/dash/')
-      .get('/api/manifest/dash/')
-      .replyWithFile(opts.dashmpd[1] || 200,
-        path.resolve(__dirname, `${dirpath}/dashmpd${file}.xml`)));
-  }
-
-  if (opts.dashmpd2) {
-    let file = Array.isArray(opts.dashmpd2) && opts.dashmpd2[2] ?
-      '-' + opts.dashmpd2[2] : '';
-    scopes.push(nock(MANIFEST_HOST, { reqheaders: opts.headers })
-      .filteringPath(() => '/api/manifest/dash/')
-      .get('/api/manifest/dash/')
-      .replyWithFile(opts.dashmpd2[1] || 200,
-        path.resolve(__dirname, `${dirpath}/dashmpd2${file}.xml`)));
-  }
-
   if (opts.m3u8) {
     let file = Array.isArray(opts.m3u8) && opts.m3u8[2] ?
       '-' + opts.m3u8[2] : '';
