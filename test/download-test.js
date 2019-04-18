@@ -50,7 +50,7 @@ describe('Download video', () => {
     });
   });
 
-  it('Fals gracefully if error getting info', (done) => {
+  it('Fails gracefully if error getting info', (done) => {
     const scope = nock(id, {
       type: 'regular',
       statusCode: 500,
