@@ -4,6 +4,9 @@
  *     node refresh.js [type]
  *
  * Provide a `type` to only update the one video.
+ *
+ * If there are ever issues with a specific type of video, we can use this script
+ * to update that type, investigate what changed, and run tests.
  */
 
 const videos = [
@@ -85,6 +88,18 @@ const videos = [
   {
     id: '99999999999',
     type: 'nonexistent',
+  },
+  {
+    id: 'OYXswyLkek4',
+    type: 'game-image',
+    basicInfo: true,
+    skip: ['get_video_info'],
+  },
+  {
+    id: 'xRu7qKijBso',
+    type: 'game',
+    basicInfo: true,
+    skip: ['get_video_info'],
   }
 ];
 
@@ -165,7 +180,8 @@ const refreshVideo = async (video) => {
           // Otherwise, use url path as filename.
           s[s.length - 1];
         console.log('request:', url.length > 100 ? url.slice(0, 97) + '...' : url);
-        if (!video.keep || video.keep.indexOf(filename) === -1) {
+        if ((!video.keep || video.keep.indexOf(filename) === -1) &&
+            (!video.skip || video.skip.indexOf(filename) === -1)) {
           body = cleanBody(body);
           writeFile(filename, body, playerfile.test(url));
 
@@ -197,7 +213,12 @@ const refreshVideo = async (video) => {
 
   // Make the call to ytdl.
   try {
-    let info = await getInfo.getFullInfo(video.id);
+    let info;
+    if (video.basicInfo) {
+      info = await getInfo.getBasicInfo(video.id);
+    } else {
+      info = getInfo.getFullInfo(video.id);
+    }
     if (video.saveInfo) {
       writeFile('expected-info.json', cleanBody(JSON.stringify(info)));
     }
