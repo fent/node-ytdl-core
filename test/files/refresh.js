@@ -19,8 +19,8 @@ const videos = [
         saveAs: 'transformed',
         fn: (body) => {
           const replaceBetweenTags = (tagName, content) => {
-            const regexp = new RegExp(`<${tagName}>(.+?)</${tagName}`, 'g');
-            body = body.replace(regexp, `<${tagName}>${content}</${tagName}`);
+            const regex = new RegExp(`<${tagName}>(.+?)</${tagName}`, 'g');
+            body = body.replace(regex, `<${tagName}>${content}</${tagName}`);
           };
 
           // Create a playlist file that has only 3 short segments
@@ -63,6 +63,31 @@ const videos = [
         page: 'watch.html',
         saveAs: 'bad-player-response',
         fn: (body) => body.replace('"player_response":"{', '"player_response":"')
+      },
+      {
+        page: 'watch.html',
+        saveAs: 'no-extras',
+        fn: (body) => {
+          body = body.replace('id="watch7-user-header"', '');
+          body = body.replace('id="eow-description"', '');
+          body = body.replace('{"rvs":', '{"rvs":}');
+          return body;
+        }
+      },
+      {
+        page: 'watch.html',
+        saveAs: 'multiline-description',
+        fn: (body) => {
+          const regex = /(<p.*?id="eow-description".*?>).+?(<\/p>)/;
+          body = body.replace(regex, '$1Some Title<br>' +
+            'Line 1<br>' +
+            '"Line 2"<br>' +
+            '1  First Song  5:30<br>' +
+            '2  Second Song  5:42' +
+            '$2'
+          );
+          return body;
+        }
       }
     ]
   },
