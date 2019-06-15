@@ -408,7 +408,7 @@ describe('Download video', () => {
         const id = 'hHW1oY26kxQ';
         const scope = nock(id, {
           type: 'live',
-          dashmpd: true,
+          dashmpd: [true, 'transformed'],
           m3u8: true,
           get_video_info: true,
           player: true,
@@ -416,17 +416,17 @@ describe('Download video', () => {
         const stream = ytdl(id, { filter: format => format.isDashMPD });
         stream.on('info', (info, format) => {
           scope.urlReplyWithFile(format.url, 200, path.resolve(__dirname,
-            'files/videos/' + id + '-live/playlist.mpd'));
-          const host = url.parse(format.url).host;
-          scope.urlReply(`https://${host}/video/file01.ts`, 200, 'one');
-          scope.urlReply(`https://${host}/video/file02.ts`, 200, 'two');
-          scope.urlReply(`https://${host}/video/file03.ts`, 200, 'tres');
+            'files/videos/' + id + '-live/dash-manifest-transformed.xml'));
+          scope.urlReply(`https://googlevideo.com/videoplayback/sq/video01.ts`, 200, 'one');
+          scope.urlReply(`https://googlevideo.com/videoplayback/sq/video02.ts`, 200, 'two');
+          scope.urlReply(`https://googlevideo.com/videoplayback/sq/video03.ts`, 200, 'tres');
         });
 
         let body = '';
         stream.setEncoding('utf8');
         stream.on('data', (chunk) => { body += chunk; });
         stream.on('end', () => {
+          scope.done();
           assert.equal(body, 'onetwotres');
           done();
         });

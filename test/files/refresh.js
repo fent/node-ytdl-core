@@ -13,7 +13,32 @@ const videos = [
   {
     id: 'hHW1oY26kxQ',
     type: 'live',
-    keep: ['playlist.m3u8'],
+    transform: [
+      {
+        page: 'dash-manifest.xml',
+        saveAs: 'transformed',
+        fn: (body) => {
+          const replaceBetweenTags = (tagName, content) => {
+            const regexp = new RegExp(`<${tagName}>(.+?)</${tagName}`, 'g');
+            body = body.replace(regexp, `<${tagName}>${content}</${tagName}`);
+          };
+
+          // Create a playlist file that has only 3 short segments
+          // so we can easily mock these in tests.
+          replaceBetweenTags('SegmentTimeline', `
+            <S d="5000" /><S d="5000" /><S d="5000">
+            `);
+          replaceBetweenTags('BaseURL', 'https://googlevideo.com/videoplayback/');
+          replaceBetweenTags('SegmentList', `
+            <SegmentURL media="sq/video01.ts" />
+            <SegmentURL media="sq/video02.ts" />
+            <SegmentURL media="sq/video03.ts" />
+            `);
+          body = body.replace('type="dynamic"', '');
+          return body;
+        }
+      }
+    ]
   },
   {
     id: 'SyKPsFRP_Oc',
@@ -217,7 +242,7 @@ const refreshVideo = async (video) => {
     if (video.basicInfo) {
       info = await getInfo.getBasicInfo(video.id);
     } else {
-      info = getInfo.getFullInfo(video.id);
+      info = await getInfo.getFullInfo(video.id);
     }
     if (video.saveInfo) {
       writeFile('expected-info.json', cleanBody(JSON.stringify(info)));

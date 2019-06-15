@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MPD xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:mpeg:DASH:schema:MPD:2011" xmlns:yt="http://youtube.com/yt/2012/10/10" xsi:schemaLocation="urn:mpeg:DASH:schema:MPD:2011 DASH-MPD.xsd" minBufferTime="PT1.500S" profiles="urn:mpeg:dash:profile:isoff-main:2011"  availabilityStartTime="2019-06-14T10:53:17" timeShiftBufferDepth="PT14400.000S" minimumUpdatePeriod="PT5.000S" yt:earliestMediaSequence="542480" yt:mpdRequestTime="2019-06-15T05:08:02.864" yt:mpdResponseTime="2019-06-15T05:08:03.119"><Period start="PT2712377.438S" yt:segmentIngestTime="2019-06-15T01:07:55.023"><SegmentList presentationTimeOffset="2712377437" startNumber="542480" timescale="1000"><SegmentTimeline>
+            <S d="5000" /><S d="5000" /><S d="5000">
+            </SegmentTimeline></SegmentList><AdaptationSet id="0" mimeType="audio/mp4" subsegmentAlignment="true"><Role schemeIdUri="urn:mpeg:DASH:role:2011" value="main"/><Representation id="139" codecs="mp4a.40.5" audioSamplingRate="24000" startWithSAP="1" bandwidth="64000"><AudioChannelConfiguration schemeIdUri="urn:mpeg:dash:23003:3:audio_channel_configuration:2011" value="2"/><BaseURL>https://googlevideo.com/videoplayback/</BaseURL><SegmentList>
+            <SegmentURL media="sq/video01.ts" />
+            <SegmentURL media="sq/video02.ts" />
+            <SegmentURL media="sq/video03.ts" />
+            </SegmentList></Representation><Representation id="140" codecs="mp4a.40.2" audioSamplingRate="48000" startWithSAP="1" bandwidth="144000"><AudioChannelConfiguration schemeIdUri="urn:mpeg:dash:23003:3:audio_channel_configuration:2011" value="2"/><BaseURL>https://googlevideo.com/videoplayback/</BaseURL><SegmentList>
+            <SegmentURL media="sq/video01.ts" />
+            <SegmentURL media="sq/video02.ts" />
+            <SegmentURL media="sq/video03.ts" />
+            </SegmentList></Representation></AdaptationSet><AdaptationSet id="1" mimeType="video/mp4" subsegmentAlignment="true"><Role schemeIdUri="urn:mpeg:DASH:role:2011" value="main"/><Representation id="133" codecs="avc1.4d4015" width="426" height="240" startWithSAP="1" maxPlayoutRate="1" bandwidth="258000" frameRate="30"><BaseURL>https://googlevideo.com/videoplayback/</BaseURL><SegmentList>
+            <SegmentURL media="sq/video01.ts" />
+            <SegmentURL media="sq/video02.ts" />
+            <SegmentURL media="sq/video03.ts" />
+            </SegmentList></Representation><Representation id="134" codecs="avc1.4d401e" width="640" height="360" startWithSAP="1" maxPlayoutRate="1" bandwidth="646000" frameRate="30"><BaseURL>https://googlevideo.com/videoplayback/</BaseURL><SegmentList>
+            <SegmentURL media="sq/video01.ts" />
+            <SegmentURL media="sq/video02.ts" />
+            <SegmentURL media="sq/video03.ts" />
+            </SegmentList></Representation><Representation id="135" codecs="avc1.4d401f" width="854" height="480" startWithSAP="1" maxPlayoutRate="1" bandwidth="1171000" frameRate="30"><BaseURL>https://googlevideo.com/videoplayback/</BaseURL><SegmentList>
+            <SegmentURL media="sq/video01.ts" />
+            <SegmentURL media="sq/video02.ts" />
+            <SegmentURL media="sq/video03.ts" />
+            </SegmentList></Representation><Representation id="160" codecs="avc1.42c00b" width="256" height="144" startWithSAP="1" maxPlayoutRate="1" bandwidth="124000" frameRate="30"><BaseURL>https://googlevideo.com/videoplayback/</BaseURL><SegmentList>
+            <SegmentURL media="sq/video01.ts" />
+            <SegmentURL media="sq/video02.ts" />
+            <SegmentURL media="sq/video03.ts" />
+            </SegmentList></Representation><Representation id="136" codecs="avc1.4d401f" width="1280" height="720" startWithSAP="1" maxPlayoutRate="1" bandwidth="2326000" frameRate="30"><BaseURL>https://googlevideo.com/videoplayback/</BaseURL><SegmentList>
+            <SegmentURL media="sq/video01.ts" />
+            <SegmentURL media="sq/video02.ts" />
+            <SegmentURL media="sq/video03.ts" />
+            </SegmentList></Representation><Representation id="137" codecs="avc1.640028" width="1920" height="1080" startWithSAP="1" maxPlayoutRate="1" bandwidth="4347250" frameRate="30"><BaseURL>https://googlevideo.com/videoplayback/</BaseURL><SegmentList>
+            <SegmentURL media="sq/video01.ts" />
+            <SegmentURL media="sq/video02.ts" />
+            <SegmentURL media="sq/video03.ts" />
+            </SegmentList></Representation></AdaptationSet></Period></MPD>
