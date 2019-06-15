@@ -400,14 +400,3 @@ describe('util.validateURL()', () => {
     assert.equal(rs, false);
   });
 });
-
-
-describe('util.parseFormats()', () => {
-  const info = require('./files/util/pJk0p-98Xzc_preparsed.json');
-  it('Retrieves video formats from info', () => {
-    const myinfo = Object.assign({}, info);
-    const formats = util.parseFormats(myinfo);
-    assert.ok(formats);
-    assert.equal(formats.length, 15);
-  });
-});

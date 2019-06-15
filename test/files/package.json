@@ -1,0 +1,9 @@
+{
+  "name": "refresh",
+  "version": "1.0.0",
+  "description": "",
+  "main": "refresh.js",
+  "dependencies": {
+    "muk-require": "^1.2.0"
+  }
+}
