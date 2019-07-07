@@ -31,17 +31,17 @@
   "dependencies": {
     "html-entities": "^1.1.3",
     "m3u8stream": "^0.6.2",
-    "miniget": "^1.5.1",
+    "miniget": "^1.5.2",
     "sax": "^1.1.3"
   },
   "devDependencies": {
-    "@types/node": "^10.0.3",
+    "@types/node": "^10.14.12",
     "assert-diff": "^2.0.0",
     "istanbul": "^0.4.5",
-    "mocha": "^5.0.0",
+    "mocha": "^5.2.0",
     "muk-prop": "^2.0.0",
     "nock": "^10.0.0",
-    "sinon": "^6.0.0",
+    "sinon": "^6.3.5",
     "stream-equal": "~1.1.0"
   },
   "engines": {
