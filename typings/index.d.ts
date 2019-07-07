@@ -41,6 +41,7 @@ declare module 'ytdl-core' {
       bitrate: string;
       audioEncoding: 'mp3' | 'vorbis' | 'aac' | 'opus' | 'flac';
       audioBitrate: number;
+      audio_sample_rate?: string;
       live: boolean;
       isHLS: boolean;
       isDashMPD: boolean;
