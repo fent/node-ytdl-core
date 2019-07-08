@@ -166,7 +166,6 @@ describe('Download video', () => {
     const destroy = (req, res) => {
       req.abort();
       res.unpipe();
-      res.emit('end');
     };
 
     it('Still downloads the whole video', (done) => {
