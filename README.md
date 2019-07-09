@@ -163,13 +163,15 @@ For getting started with that, you can look at the `extractActions()` function i
 # Install
 
 ```bash
-npm install ytdl-core
+npm install ytdl-core@latest
 ```
 
 Or for Yarn users:
 ```bash
-yarn add ytdl-core
+yarn add ytdl-core@latest
 ```
+
+If you're using a bot or app that uses ytdl-core, it may be dependent on an older version. Make sure you're installing the latest version of ytdl-core to keep up with the latest fixes.
 
 # Tests
 Tests are written with [mocha](https://mochajs.org)
