@@ -68,6 +68,10 @@ Emitted when the video response has been found and has started downloading or af
 
 Emitted whenever a new chunk is received. Passes values describing the download progress.
 
+### Stream#destroy()
+
+Call to abort and stop downloading a video.
+
 ### ytdl.getBasicInfo(url, [options], [callback(err, info)])
 
 Use this if you only want to get metainfo from a video. If `callback` isn't given, returns a promise.
