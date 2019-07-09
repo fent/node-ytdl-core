@@ -16,7 +16,8 @@ let videos = {
 };
 
 
-describe('Try downloading videos without mocking', () => {
+describe('Try downloading videos without mocking', function() {
+  this.retries(1);
   beforeEach(() => {
     nock.cleanAll();
     nock.enableNetConnect();
