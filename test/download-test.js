@@ -32,7 +32,7 @@ describe('Download video', () => {
     const scope = nock(id, {
       type: 'regular',
       get_video_info: true,
-      player: 'player_ias-vflehrYuM',
+      player: true,
     });
     const stream = ytdl(id, { filter: filter });
 
@@ -69,7 +69,7 @@ describe('Download video', () => {
         const scope = nock(id, {
           type: 'regular',
           get_video_info: true,
-          player: 'player_ias-vflehrYuM',
+          player: true,
         });
         const stream = ytdl(id, { filter });
         stream.destroy();
@@ -93,7 +93,7 @@ describe('Download video', () => {
         const scope = nock(id, {
           type: 'regular',
           get_video_info: true,
-          player: 'player_ias-vflehrYuM',
+          player: true,
         });
         const stream = ytdl(id, { filter });
 
@@ -126,7 +126,7 @@ describe('Download video', () => {
         const scope = nock(id, {
           type: 'regular',
           get_video_info: true,
-          player: 'player_ias-vflehrYuM',
+          player: true,
         });
         const stream = ytdl(id, { filter });
 
@@ -172,7 +172,7 @@ describe('Download video', () => {
       const scope = nock(id, {
         type: 'regular',
         get_video_info: true,
-        player: 'player_ias-vflehrYuM',
+        player: true,
       });
       const stream = ytdl(id);
       stream.on('error', done);
@@ -220,7 +220,7 @@ describe('Download video', () => {
         const scope = nock(id, {
           type: 'regular',
           get_video_info: true,
-          player: 'player_ias-vflehrYuM',
+          player: true,
         });
 
         const start = Math.floor(filesize * 0.1);
@@ -407,7 +407,7 @@ describe('Download video', () => {
         const id = 'hHW1oY26kxQ';
         const scope = nock(id, {
           type: 'live',
-          dashmpd: [true, 'transformed'],
+          dashmpd: [true, 200, 'transformed'],
           m3u8: true,
           get_video_info: true,
           player: true,

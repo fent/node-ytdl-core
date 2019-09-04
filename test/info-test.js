@@ -29,7 +29,7 @@ describe('ytdl.getInfo()', () => {
       const scope = nock(id, {
         type: 'vevo',
         get_video_info: true,
-        player: 'player_ias-vflok_OV_',
+        player: true,
       });
 
       ytdl.getInfo(id, (err, info) => {
@@ -62,7 +62,7 @@ describe('ytdl.getInfo()', () => {
           const scope = nock(id, {
             type: 'vevo',
             get_video_info: true,
-            player: 'player_ias-vflok_OV_',
+            player: true,
           });
 
           ytdl.getBasicInfo(id, (err, info) => {
@@ -119,7 +119,7 @@ describe('ytdl.getInfo()', () => {
         const scope = nock(id, {
           type: 'vevo',
           get_video_info: true,
-          player: 'player_ias-vflok_OV_',
+          player: true,
           headers: { 'X-Hello': '42' }
         });
 
@@ -138,7 +138,7 @@ describe('ytdl.getInfo()', () => {
         const scope = nock(id, {
           type: 'vevo',
           get_video_info: true,
-          player: 'player_ias-vflok_OV_',
+          player: true,
         });
 
         ytdl.getInfo(id)
@@ -174,7 +174,7 @@ describe('ytdl.getInfo()', () => {
         const scope = nock(id, {
           type: 'vevo',
           get_video_info: true,
-          player: 'player_ias-vflok_OV_',
+          player: true,
         });
 
         let myinfo = null;
@@ -216,7 +216,7 @@ describe('ytdl.getInfo()', () => {
       const scope = nock(id, {
         type: 'age-restricted',
         embed: true,
-        player: 'player-vfl3aEiZ8',
+        player: true,
         get_video_info: true,
       });
       ytdl.getInfo(id, (err, info) => {
@@ -449,7 +449,7 @@ describe('ytdl.getInfo()', () => {
       const scope = nock(id, {
         type: 'regular',
         get_video_info: [true, 200, 'unknown-format'],
-        player: 'player_ias-vflehrYuM',
+        player: true,
       });
       ytdl.getInfo(id, { debug: true }, (err, info) => {
         assert.ifError(err);
