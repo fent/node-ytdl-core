@@ -5,8 +5,6 @@
 
 Yet another youtube downloading module. Written with only Javascript and a node-friendly streaming interface.
 
-For a CLI version of this, check out [ytdl](https://github.com/fent/node-ytdl) and [pully](https://github.com/JimmyBoh/pully).
-
 # Support
 You can contact us for support on our [chat server](https://discord.gg/V3vSCs7)
 
@@ -171,6 +169,14 @@ yarn add ytdl-core@latest
 ```
 
 If you're using a bot or app that uses ytdl-core, it may be dependent on an older version. Make sure you're installing the latest version of ytdl-core to keep up with the latest fixes.
+
+# Related Projects
+
+- [ytdl](https://github.com/fent/node-ytdl) - A cli wrapper of this.
+- [pully](https://github.com/JimmyBoh/pully). - Another cli wrapper of this aimed at high quality formats.
+- [ytsr](https://github.com/TimeForANinja/node-ytsr) - YouTube video search results.
+- [ytpl](https://github.com/TimeForANinja/node-ytpl) - YouTube playlist and channel resolver.
+
 
 # Tests
 Tests are written with [mocha](https://mochajs.org)
