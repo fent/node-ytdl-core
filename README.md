@@ -132,7 +132,7 @@ ytdl cannot download videos that fall into the following
 * Private
 * Rentals
 
-YouTube intentionally ratelimits downloads, likely to prevent bandwidth abuse. The download rate is still faster than a media player can play the video, even on 2x. See [#294](https://github.com/fent/node-ytdl-core/issues/294).
+YouTube intentionally rate limits downloads, particularly audio only formats, likely to prevent bandwidth abuse. The download rate is still faster than a media player can play the video, even on 2x. See [#294](https://github.com/fent/node-ytdl-core/issues/294).
 
 Generated download links are valid for 6 hours, for the same IP address.
 
