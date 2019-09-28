@@ -182,7 +182,7 @@ describe('Download video', () => {
         let req, res;
         stream.once('request', (a) => { req = a; });
         stream.once('response', (a) => { res = a; });
-        stream.on('reconnect', () => { clock.tick(100); });
+        stream.on('reconnect', () => { clock.tick(500); });
 
         scope.urlReplyWithFile(format.url, 200, video, {
           'content-length': filesize,
@@ -233,7 +233,7 @@ describe('Download video', () => {
           let req, res;
           stream.on('request', (a) => { req = a; });
           stream.on('response', (a) => { res = a; });
-          stream.on('reconnect', () => { clock.tick(100); });
+          stream.on('reconnect', () => { clock.tick(500); });
 
           scope.urlReply(format.url, 206, () => {
             return fs.createReadStream(video, { start, end });
