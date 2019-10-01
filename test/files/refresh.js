@@ -150,7 +150,12 @@ const videos = [
     type: 'game',
     basicInfo: true,
     skip: ['get_video_info'],
-  }
+  },
+  {
+    id: '3IqtmUscE_U',
+    type: 'related',
+    skip: ['get_video_info'],
+  },
 ];
 
 

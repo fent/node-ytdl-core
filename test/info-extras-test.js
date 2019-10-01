@@ -158,9 +158,10 @@ describe('extras.getPublished()', () => {
 describe('extras.getRelatedVideos()', () => {
   it('Returns related videos', (done) => {
     fs.readFile(path.resolve(__dirname,
-      'files/videos/_HSylqgVYQI-regular/watch.html'), 'utf8', (err, html) => {
+      'files/videos/3IqtmUscE_U-related/watch.html'), 'utf8', (err, html) => {
       assert.ifError(err);
       const relatedVideos = extras.getRelatedVideos(html);
+      assert.ok(relatedVideos && relatedVideos.length > 0);
       for (let video of relatedVideos) {
         assert.ok(video.id);
         assert.ok(video.author);
