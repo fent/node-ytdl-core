@@ -166,6 +166,7 @@ describe('extras.getRelatedVideos()', () => {
         assert.ok(video.author);
         assert.ok(video.title);
         assert.ok(video.length_seconds);
+        assert.ok(video.video_thumbnail);
       }
       done();
     });
