@@ -1,9 +1,11 @@
 /*
  * Run this file to update test files used to test specific types of videos.
  *
- *     node refresh.js [type]
+ *     node refresh.js [type] [no-request]
  *
  * Provide a `type` to only update the one video.
+ *
+ * Give `no-request` if you want to update `transform`'d files without making requests.
  *
  * If there are ever issues with a specific type of video, we can use this script
  * to update that type, investigate what changed, and run tests.
@@ -154,7 +156,7 @@ const videos = [
   {
     id: '3IqtmUscE_U',
     type: 'related',
-    skip: ['get_video_info'],
+    skip: ['get_video_info', /player/],
   },
 ];
 
@@ -172,19 +174,32 @@ const cleanBody = (body) => {
     .replace(/(ip(?:=|\\?\/|%3D|%253D|%2F))((?:(?:25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(?:25[0-5]|2[0-4]\d|[01]?\d\d?)|[0-9a-f]{1,4}(?:(?::|%3A)[0-9a-f]{1,4}){7})/ig, '$10.0.0.0');
 };
 
-const refreshVideo = async (video) => {
+// Returns true if `filename` is found in `video.skip`.
+// `video.skipcan be a regex.
+const skipFile = (video, filename) => {
+  return video.skip && video.skip.some(skip =>
+    skip instanceof RegExp ? skip.test(filename) : filename.includes(skip)
+  );
+};
+
+const getTransformFilename = (transform) => {
+  let [basename, ext] = transform.page.split('.');
+  return `${basename}-${transform.saveAs}${ext ? '.' + ext : ''}`;
+};
+
+const refreshVideo = async (video, noRequests) => {
   console.log('refreshing video:', video.id, video.type);
   const folder = path.join(__dirname, 'videos/' + video.id + '-' + video.type);
   let existingFiles = {};
   try {
     fs.accessSync(folder);
     let files = fs.readdirSync(folder);
-    for (let file of files) {
-      existingFiles[file] = false;
+    for (let filename of files) {
+      existingFiles[filename] = false;
     }
     if (video.keep) {
-      for (let file of video.keep) {
-        existingFiles[file] = true;
+      for (let filename of video.keep) {
+        existingFiles[filename] = true;
       }
     }
   } catch (err) {
@@ -207,6 +222,15 @@ const refreshVideo = async (video) => {
     }
     fs.writeFileSync(path.join(folder, filename), body);
     existingFiles[filename] = true;
+  };
+
+  const writeTransforms = (filename, body) => {
+    for (let transform of video.transform || []) {
+      if (transform.page == filename) {
+        let tfilename = getTransformFilename(transform);
+        writeFile(tfilename, transform.fn(body));
+      }
+    }
   };
 
   const getInfo = mukRequire('../../lib/info', {
@@ -236,17 +260,10 @@ const refreshVideo = async (video) => {
           s[s.length - 1];
         console.log('request:', url.length > 100 ? url.slice(0, 97) + '...' : url);
         if ((!video.keep || video.keep.indexOf(filename) === -1) &&
-            (!video.skip || video.skip.indexOf(filename) === -1)) {
+            !skipFile(video, filename)) {
           body = cleanBody(body);
           writeFile(filename, body, playerfile.test(url));
-
-          for (let transform of video.transform || []) {
-            if (transform.page == filename) {
-              let [basename, ext] = filename.split('.');
-              let tfilename = `${basename}-${transform.saveAs}${ext ? '.' + ext : ''}`;
-              writeFile(tfilename, transform.fn(body));
-            }
-          }
+          writeTransforms(filename, body);
         }
       };
 
@@ -266,19 +283,36 @@ const refreshVideo = async (video) => {
     }
   });
 
+  if (noRequests) {
+    for (let filename in existingFiles) {
+      // Ignore existing transformed files.
+      if (video.transform &&
+          video.transform.some(t => filename === getTransformFilename(t)) ||
+          skipFile(video, filename)
+      ) {
+        continue;
+      }
+      console.log('using local copy:', filename);
+      let body = fs.readFileSync(path.join(folder, filename), 'utf8');
+      existingFiles[filename] = true;
+      writeTransforms(filename, body);
+    }
+
+  } else {
   // Make the call to ytdl.
-  try {
-    let info;
-    if (video.basicInfo) {
-      info = await getInfo.getBasicInfo(video.id);
-    } else {
-      info = await getInfo.getFullInfo(video.id);
+    try {
+      let info;
+      if (video.basicInfo) {
+        info = await getInfo.getBasicInfo(video.id);
+      } else {
+        info = await getInfo.getFullInfo(video.id);
+      }
+      if (video.saveInfo) {
+        writeFile('expected-info.json', cleanBody(JSON.stringify(info)));
+      }
+    } catch (err) {
+      console.log('error retreiveing video info:', err.message);
     }
-    if (video.saveInfo) {
-      writeFile('expected-info.json', cleanBody(JSON.stringify(info)));
-    }
-  } catch (err) {
-    console.log('error retreiveing video info:', err.message);
   }
 
   // Delete any files no longer used from the `getInfo()` call.
@@ -292,22 +326,23 @@ const refreshVideo = async (video) => {
   console.log();
 };
 
-const refreshAll = async () => {
+const refreshAll = async (noRequests) => {
   for (let video of videos) {
-    await refreshVideo(video);
+    await refreshVideo(video, noRequests);
   }
 };
 
 
 // Accept only refreshing one video type.
 let type = process.argv[2];
+let noRequests = !!process.argv[3];
 if (type) {
   let video = videos.find(video => video.type === type);
   if (video) {
-    refreshVideo(video);
+    refreshVideo(video, noRequests);
   } else {
     console.error('video type not found', type);
   }
 } else {
-  refreshAll();
+  refreshAll(noRequests);
 }
