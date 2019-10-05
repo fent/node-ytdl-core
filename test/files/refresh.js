@@ -157,6 +157,23 @@ const videos = [
     id: '3IqtmUscE_U',
     type: 'related',
     skip: ['get_video_info', /player/],
+    transform: [
+      {
+        page: 'watch.html',
+        saveAs: 'no-rvs',
+        fn: (body) => body.replace(/"rvs":"[^"]+"/, '"rvs":""')
+      },
+      {
+        page: 'watch.html',
+        saveAs: 'bad-details',
+        fn: (body) => body.replace(/\\"shortBylineText\\"/g, '\\"___\\"')
+      },
+    ]
+  },
+  {
+    id: 'wYgaarivXv4',
+    type: 'related2',
+    skip: ['get_video_info', /player/],
   },
 ];
 

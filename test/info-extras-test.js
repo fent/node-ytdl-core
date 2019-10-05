@@ -158,7 +158,7 @@ describe('extras.getPublished()', () => {
 describe('extras.getRelatedVideos()', () => {
   it('Returns related videos', (done) => {
     fs.readFile(path.resolve(__dirname,
-      'files/videos/3IqtmUscE_U-related/watch.html'), 'utf8', (err, html) => {
+      'files/videos/wYgaarivXv4-related2/watch.html'), 'utf8', (err, html) => {
       assert.ifError(err);
       const relatedVideos = extras.getRelatedVideos(html);
       assert.ok(relatedVideos && relatedVideos.length > 0);
@@ -173,13 +173,39 @@ describe('extras.getRelatedVideos()', () => {
     });
   });
 
-  it('Returns empty array when error parsing', (done) => {
-    fs.readFile(path.resolve(__dirname,
-      'files/videos/_HSylqgVYQI-regular/watch-no-extras.html'), 'utf8', (err, html) => {
-      assert.ifError(err);
-      const relatedVideos = extras.getRelatedVideos(html);
-      assert.deepEqual(relatedVideos, []);
-      done();
+  describe('Without `rvs` params', () => {
+    it('Unable to find some view counts', (done) => {
+      fs.readFile(path.resolve(__dirname,
+        'files/videos/3IqtmUscE_U-related/watch-no-rvs.html'), 'utf8', (err, html) => {
+        assert.ifError(err);
+        const relatedVideos = extras.getRelatedVideos(html);
+        assert.ok(relatedVideos.some(video => video.short_view_count_text === ''));
+        done();
+      });
+    });
+  });
+
+  describe('With an unparseable video', () => {
+    it('Cathes errors', (done) => {
+      fs.readFile(path.resolve(__dirname,
+        'files/videos/3IqtmUscE_U-related/watch-bad-details.html'), 'utf8', (err, html) => {
+        assert.ifError(err);
+        const relatedVideos = extras.getRelatedVideos(html);
+        assert.ok(!relatedVideos.length);
+        done();
+      });
+    });
+  });
+
+  describe('When error parsing', () => {
+    it('Returns empty array', (done) => {
+      fs.readFile(path.resolve(__dirname,
+        'files/videos/_HSylqgVYQI-regular/watch-no-extras.html'), 'utf8', (err, html) => {
+        assert.ifError(err);
+        const relatedVideos = extras.getRelatedVideos(html);
+        assert.deepEqual(relatedVideos, []);
+        done();
+      });
     });
   });
 });
