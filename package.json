@@ -26,7 +26,8 @@
     "typings"
   ],
   "scripts": {
-    "test": "istanbul cover node_modules/mocha/bin/_mocha -- -t 16000 test/*-test.js"
+    "test": "istanbul cover node_modules/mocha/bin/_mocha -- --ignore test/irl-test.js test/*-test.js",
+    "test:irl": "mocha --timeout 16000 test/irl-test.js"
   },
   "dependencies": {
     "html-entities": "^1.1.3",
