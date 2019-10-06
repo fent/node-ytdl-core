@@ -26,7 +26,7 @@
     "typings"
   ],
   "scripts": {
-    "test": "istanbul cover node_modules/mocha/bin/_mocha -- --ignore test/irl-test.js test/*-test.js",
+    "test": "nyc --reporter=lcov --reporter=text-summary mocha -- --ignore test/irl-test.js test/*-test.js",
     "test:irl": "mocha --timeout 16000 test/irl-test.js"
   },
   "dependencies": {
@@ -38,11 +38,11 @@
   "devDependencies": {
     "@types/node": "^12.6.0",
     "assert-diff": "^2.0.0",
-    "istanbul": "^0.4.5",
     "mocha": "^6.2.0",
     "muk-prop": "^2.0.0",
     "muk-require": "^1.2.0",
     "nock": "^11.1.0",
+    "nyc": "^14.1.1",
     "sinon": "^7.3.2",
     "stream-equal": "~1.1.0"
   },
