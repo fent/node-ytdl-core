@@ -292,22 +292,6 @@ describe('ytdl.getInfo()', () => {
     });
   });
 
-  // describe('From a video that is not yet available', () => {
-  //   const id = 'iC9YT-5aUhI';
-  //   it('Returns an error', (done) => {
-  //     const scope = nock(id, {
-  //       type: 'unavailable',
-  //       get_video_info: true,
-  //     });
-  //     ytdl.getInfo(id, (err) => {
-  //       assert.ok(err);
-  //       assert.equal(err.message, 'This video is unavailable');
-  //       scope.done();
-  //       done();
-  //     });
-  //   });
-  // });
-
   describe('With a bad video ID', () => {
     const id = 'bad';
     it('Returns an error', (done) => {
