@@ -175,6 +175,10 @@ const videos = [
     type: 'related2',
     skip: ['get_video_info', /player/],
   },
+  {
+    id: 'GFg8BP01F5Q',
+    type: 'noembed',
+  },
 ];
 
 

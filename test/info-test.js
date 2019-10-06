@@ -259,6 +259,23 @@ describe('ytdl.getInfo()', () => {
     });
   });
 
+  describe('From a video that is not embeddable outside of YouTube', () => {
+    it('Returns correct video metainfo', (done) => {
+      const id = 'GFg8BP01F5Q';
+      const scope = nock(id, {
+        type: 'noembed',
+        player: true,
+        get_video_info: true,
+      });
+      ytdl.getInfo(id, (err, info) => {
+        assert.ifError(err);
+        scope.done();
+        assert.equal(info.formats.length, 15);
+        done();
+      });
+    });
+  });
+
   describe('From a rental', () => {
     const id = 'SyKPsFRP_Oc';
     it('Returns an error about it', (done) => {
