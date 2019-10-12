@@ -1,4 +1,3 @@
-declare module 'ytdl-core' {
   import { ClientRequest } from 'http';
   import { Readable } from 'stream';
 
@@ -29,7 +28,9 @@ declare module 'ytdl-core' {
       init?: string;
       fps?: string;
       index?: string;
-      type?: string;
+      mimeType?: string;
+      lastModified: string;
+      contentLength?: string;
       quality?: 'hd720' | 'medium' | 'small' | string;
       quality_label?: '144p' | '240p' | '270p' | '360p' | '480p' | '720p' | '1080p' | '1440p' | '2160p' | '4320p';
       url: string;
@@ -39,7 +40,9 @@ declare module 'ytdl-core' {
       encoding: 'Sorenson H.283' | 'MPEG-4 Visual' | 'VP8' | 'VP9' | 'H.264';
       profile: '3d' | 'high' | 'main' | 'simple' | 'baseline' | 'Main@L3.1';
       bitrate: string;
+      audioQuality?: string;
       audioEncoding: 'mp3' | 'vorbis' | 'aac' | 'opus' | 'flac';
+      averageBitrate?: string
       audioBitrate: number;
       audio_sample_rate?: string;
       live: boolean;
@@ -255,4 +258,3 @@ declare module 'ytdl-core' {
   function ytdl(link: string, options?: ytdl.downloadOptions): Readable;
 
   export = ytdl;
-}
