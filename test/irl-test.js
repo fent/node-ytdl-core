@@ -27,11 +27,11 @@ describe('Try downloading videos without mocking', function() {
   Object.keys(videos).forEach((desc) => {
     const video = videos[desc];
     describe(desc, () => {
-      it('Request status code is not 403 Forbidden', (done) => {
+      it('Request status code is 2xx', (done) => {
         const stream = ytdl(video, { debug: false });
         stream.once('response', (res) => {
           stream.destroy();
-          assert.notEqual(res.statusCode, 403);
+          assert.ok(200 <= res.statusCode && res.statusCode < 300);
           done();
         });
       });
