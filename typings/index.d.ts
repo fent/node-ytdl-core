@@ -18,7 +18,6 @@
     }
 
     type videoFormat = {
-      s?: string;
       sig?: string;
       xtags?: string;
       clen?: string;
@@ -28,7 +27,7 @@
       init?: string;
       fps?: string;
       index?: string;
-      mimeType?: string;
+      type?: string;
       lastModified: string;
       contentLength?: string;
       quality?: 'hd720' | 'medium' | 'small' | string;
