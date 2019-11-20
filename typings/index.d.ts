@@ -244,12 +244,12 @@ declare module 'ytdl-core' {
     function getInfo(url: string, callback?: (err: Error, info: videoInfo) => void): Promise<videoInfo>;
     function getInfo(url: string, options?: downloadOptions, callback?: (err: Error, info: videoInfo) => void): Promise<videoInfo>;
     function downloadFromInfo(info: videoInfo, options?: downloadOptions): Readable;
-    function chooseFormat(format: videoFormat | videoFormat[], options?: downloadOptions): videoFormat | Error;
+    function chooseFormat(format: videoFormat | videoFormat[], options?: downloadOptions): videoFormat throws Error;
     function filterFormats(formats: videoFormat | videoFormat[], filter?: 'video' | 'videoonly' | 'audio' | 'audioonly' | ((format: videoFormat) => boolean)): videoFormat[];
     function validateID(string: string): boolean;
     function validateURL(string: string): boolean;
-    function getURLVideoID(string: string): string | Error;
-    function getVideoID(string: string): string | Error;
+    function getURLVideoID(string: string): string throws Error;
+    function getVideoID(string: string): string throws Error;
   }
 
   function ytdl(link: string, options?: ytdl.downloadOptions): Readable;

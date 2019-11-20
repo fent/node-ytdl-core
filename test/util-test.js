@@ -179,8 +179,9 @@ describe('util.chooseFormat', () => {
 
     describe('that is not in the format list', () => {
       it('Returns an error', () => {
-        const err = util.chooseFormat(sortedFormats, { quality: 42 });
-        assert.equal(err.message, 'No such format found: 42');
+        assert.throws(() => {
+          util.chooseFormat(sortedFormats, { quality: 42 });
+        });
       });
     });
   });
@@ -211,8 +212,9 @@ describe('util.chooseFormat', () => {
 
     describe('that does not match a format', () => {
       it('Returns an error', () => {
-        const err = util.chooseFormat(sortedFormats, { filter: () => {} });
-        assert.equal(err.message, 'No formats found with custom filter');
+        assert.throws(() => {
+          util.chooseFormat(sortedFormats, { filter: () => {} });
+        });
       });
     });
   });
@@ -329,14 +331,18 @@ describe('util.getURLVideoID()', () => {
     assert.equal(id, 'RAW_VIDEOID');
     id = util.getVideoID('https://gaming.youtube.com/watch?v=RAW_VIDEOID');
     assert.equal(id, 'RAW_VIDEOID');
-    id = util.getVideoID('https://any.youtube.com/watch?v=RAW_VIDEOID');
-    assert.equal(id.message, 'Not a YouTube domain');
-    id = util.getVideoID('https://www.twitch.tv/user/v/1234');
-    assert.equal(id.message, 'Not a YouTube domain');
-    id = util.getVideoID('www.youtube.com');
-    assert.equal(id.message, 'No video id found: www.youtube.com');
-    id = util.getVideoID('http://www.youtube.com/playlist?list=1337');
-    assert.equal(id.message, 'Video id (playlist) does not match expected format (/^[a-zA-Z0-9-_]{11}$/)');
+    assert.throws(() => {
+      util.getVideoID('https://any.youtube.com/watch?v=RAW_VIDEOID');
+    });
+    assert.throws(() => {
+      util.getVideoID('https://www.twitch.tv/user/v/1234');
+    });
+    assert.throws(() => {
+      util.getVideoID('www.youtube.com');
+    });
+    assert.throws(() => {
+      util.getVideoID('http://www.youtube.com/playlist?list=1337');
+    });
   });
 });
 
@@ -358,12 +364,15 @@ describe('util.getVideoID()', () => {
     assert.equal(id, 'RAW_VIDEOID');
     id = util.getVideoID('RAW_VIDEOID'); // Video ids are 11-character long
     assert.equal(id, 'RAW_VIDEOID');
-    id = util.getVideoID('https://www.twitch.tv/user/v/1234');
-    assert.equal(id.message, 'Not a YouTube domain');
-    id = util.getVideoID('www.youtube.com');
-    assert.equal(id.message, 'No video id found: www.youtube.com');
-    id = util.getVideoID('http://www.youtube.com/playlist?list=1337');
-    assert.equal(id.message, 'Video id (playlist) does not match expected format (/^[a-zA-Z0-9-_]{11}$/)');
+    assert.throw(() => {
+      util.getVideoID('https://www.twitch.tv/user/v/1234');
+    });
+    assert.throw(() => {
+      util.getVideoID('www.youtube.com');
+    });
+    assert.throw(() => {
+      util.getVideoID('http://www.youtube.com/playlist?list=1337');
+    });
   });
 });
 
