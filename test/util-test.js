@@ -364,13 +364,13 @@ describe('util.getVideoID()', () => {
     assert.equal(id, 'RAW_VIDEOID');
     id = util.getVideoID('RAW_VIDEOID'); // Video ids are 11-character long
     assert.equal(id, 'RAW_VIDEOID');
-    assert.throw(() => {
+    assert.throws(() => {
       util.getVideoID('https://www.twitch.tv/user/v/1234');
     });
-    assert.throw(() => {
+    assert.throws(() => {
       util.getVideoID('www.youtube.com');
     });
-    assert.throw(() => {
+    assert.throws(() => {
       util.getVideoID('http://www.youtube.com/playlist?list=1337');
     });
   });
