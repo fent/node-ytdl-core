@@ -181,7 +181,7 @@ describe('util.chooseFormat', () => {
       it('Returns an error', () => {
         assert.throws(() => {
           util.chooseFormat(sortedFormats, { quality: 42 });
-        });
+        }, 'No such format found: 42');
       });
     });
   });
@@ -214,7 +214,7 @@ describe('util.chooseFormat', () => {
       it('Returns an error', () => {
         assert.throws(() => {
           util.chooseFormat(sortedFormats, { filter: () => {} });
-        });
+        }, 'No formats found with custom filter');
       });
     });
   });
@@ -333,16 +333,16 @@ describe('util.getURLVideoID()', () => {
     assert.equal(id, 'RAW_VIDEOID');
     assert.throws(() => {
       util.getVideoID('https://any.youtube.com/watch?v=RAW_VIDEOID');
-    });
+    }, 'Not a YouTube domain');
     assert.throws(() => {
       util.getVideoID('https://www.twitch.tv/user/v/1234');
-    });
+    }, 'Not a YouTube domain');
     assert.throws(() => {
       util.getVideoID('www.youtube.com');
-    });
+    }, 'No video id found: www.youtube.com');
     assert.throws(() => {
       util.getVideoID('http://www.youtube.com/playlist?list=1337');
-    });
+    }, 'Video id (playlist) does not match expected format (/^[a-zA-Z0-9-_]{11}$/)');
   });
 });
 
@@ -366,13 +366,13 @@ describe('util.getVideoID()', () => {
     assert.equal(id, 'RAW_VIDEOID');
     assert.throws(() => {
       util.getVideoID('https://www.twitch.tv/user/v/1234');
-    });
+    }, 'Not a YouTube domain');
     assert.throws(() => {
       util.getVideoID('www.youtube.com');
-    });
+    }, 'No video id found: www.youtube.com');
     assert.throws(() => {
       util.getVideoID('http://www.youtube.com/playlist?list=1337');
-    });
+    }, 'Video id (playlist) does not match expected format (/^[a-zA-Z0-9-_]{11}$/)');
   });
 });
 
