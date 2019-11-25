@@ -439,28 +439,4 @@ describe('ytdl.getInfo()', () => {
       });
     });
   });
-
-  describe('When encountering a format not yet known with debug', () => {
-    it('Warns the console', (done) => {
-      const warn = sinon.spy();
-      muk(console, 'warn', warn);
-      after(muk.restore);
-
-      const id = '_HSylqgVYQI';
-      const scope = nock(id, {
-        type: 'regular',
-        get_video_info: [true, 200, 'unknown-format'],
-        player: true,
-      });
-      ytdl.getInfo(id, { debug: true }, (err, info) => {
-        assert.ifError(err);
-        scope.done();
-        assert.ok(warn.called);
-        assert.equal(warn.getCall(0).args[0],
-          'No format metadata for itag unknown found');
-        assert.ok(info);
-        done();
-      });
-    });
-  });
 });

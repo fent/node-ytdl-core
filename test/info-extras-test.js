@@ -32,21 +32,40 @@ describe('extras.getVideoDescription()', () => {
 });
 
 
+const assertURL = (url) => {
+  assert.ok(/^https?:\/\//.test(url), 'Not a URL: ' + url);
+};
+
+const assertChannelURL = (url) => {
+  assert.ok(/^https?:\/\/www\.youtube\.com\/channel\/[a-zA-Z0-9_-]+$/.test(url), 'Not a channel URL: '+ url);
+};
+
+const assertUserID = (str) => {
+  assert.ok(/^[a-zA-Z0-9_-]+$/.test(str), 'Not a user id:' + str);
+};
+
+const assertUserName = (str) => {
+  assert.ok(/^[a-zA-Z0-9_-]+$/.test(str), 'Not a username: '+ str);
+};
+
+const assertUserURL = (url) => {
+  assert.ok(/^https?:\/\/www\.youtube\.com\/user\/[a-zA-Z0-9_-]+$/.test(url), 'Not a user URL: ' + url);
+};
+
 describe('extras.getAuthor()', () => {
   it('Returns video author object', (done) => {
     fs.readFile(path.resolve(__dirname, 'files/videos/pJk0p-98Xzc-vevo/watch.html'),
       'utf8', (err, html) => {
         assert.ifError(err);
-        const authorObj = extras.getAuthor(html);
-        assert.deepEqual(authorObj, {
-          avatar: 'https://yt3.ggpht.com/-avUggmTNBZI/AAAAAAAAAAI/AAAAAAAAAAs/phQLsBWs458/s48-c-k-c0xffffffff-no-nd-rj/photo.jpg',
-          channel_url: 'https://www.youtube.com/channel/UC1wNaX00osCIK4VjwboFqzA',
-          id: 'UC1wNaX00osCIK4VjwboFqzA',
-          name: 'Wu-Tang Clan',
-          user: 'WuTangClanVEVO',
-          user_url: 'https://www.youtube.com/user/WuTangClanVEVO',
-          verified: true
-        });
+        const author = extras.getAuthor(html);
+        assert.ok(author);
+        assertURL(author.avatar);
+        assertChannelURL(author.channel_url);
+        assertUserID(author.id);
+        assertUserName(author.user);
+        assert.ok(author.name);
+        assertUserURL(author.user_url);
+        assert.equal(typeof author.verified, 'boolean');
         done();
       });
   });
@@ -56,8 +75,8 @@ describe('extras.getAuthor()', () => {
       fs.readFile(path.resolve(__dirname,
         'files/videos/_HSylqgVYQI-regular/watch-no-extras.html'), 'utf8', (err, html) => {
         assert.ifError(err);
-        const authorObj = extras.getAuthor(html);
-        assert.deepEqual(authorObj, {});
+        const author = extras.getAuthor(html);
+        assert.deepEqual(author, {});
         done();
       });
     });
@@ -68,16 +87,15 @@ describe('extras.getAuthor()', () => {
       fs.readFile(path.resolve(__dirname,
         'files/videos/SyKPsFRP_Oc-rental/watch.html'), 'utf8', (err, html) => {
         assert.ifError(err);
-        const authorObj = extras.getAuthor(html);
-        assert.deepEqual(authorObj, {
-          id: 'UCuDN9Ko6TmIj_imV3BQo0lQ',
-          name: 'Curiosity',
-          avatar: 'https://s.ytimg.com/yts/img/avatar_720-vflYJnzBZ.png',
-          verified: false,
-          user: 'discoveryfulleps',
-          channel_url: 'https://www.youtube.com/channel/UCuDN9Ko6TmIj_imV3BQo0lQ',
-          user_url: 'https://www.youtube.com/user/discoveryfulleps',
-        });
+        const author = extras.getAuthor(html);
+        assert.ok(author);
+        assertURL(author.avatar);
+        assertChannelURL(author.channel_url);
+        assertUserID(author.id);
+        assertUserName(author.user);
+        assert.ok(author.name);
+        assertUserURL(author.user_url);
+        assert.equal(typeof author.verified, 'boolean');
         done();
       });
     });
@@ -91,13 +109,11 @@ describe('extras.getVideoMedia()', () => {
       'utf8', (err, html) => {
         assert.ifError(err);
         const mediaObj = extras.getVideoMedia(html);
-        assert.deepEqual(mediaObj, {
-          artist: 'Wu-Tang Clan',
-          artist_url: 'https://www.youtube.com/channel/UCl0q_XqiWDMA-Q9SzUO3y-Q',
-          category: 'Music',
-          category_url: 'https://www.youtube.com/channel/UC-9-kyTW8ZkZNDHQJ6FgpwQ',
-          licensed_to_youtube_by: 'SME (on behalf of SBME Strategic Marketing Group); ASCAP, AMRA, LatinAutor, LatinAutor - SonyATV, UMPG Publishing, UBEM, UMPI, and 8 Music Rights Societies', song: "Da Mystery Of Chessboxin'"
-        });
+        assert.ok(mediaObj);
+        assert.equal(mediaObj.artist, 'Wu-Tang Clan');
+        assertChannelURL(mediaObj.artist_url);
+        assert.equal(mediaObj.category, 'Music');
+        assertChannelURL(mediaObj.category_url);
         done();
       });
   });

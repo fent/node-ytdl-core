@@ -111,12 +111,12 @@ const videos = [
       {
         page: 'get_video_info',
         saveAs: 'no-formats',
-        fn: body => body.replace(/fmt/g, '')
+        fn: body => body.replace(/streamingData/g, 'no')
       },
       {
         page: 'watch.html',
         saveAs: 'no-formats',
-        fn: body => body.replace(/fmt/g, '')
+        fn: body => body.replace(/streamingData/g, 'no')
       }
     ]
   },
