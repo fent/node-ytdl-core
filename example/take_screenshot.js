@@ -1,4 +1,4 @@
-const bin = require('ffmpeg-binaries').ffmpegPath();
+const bin = require('ffmpeg-static').path;
 const execFile = require('child_process').execFile;
 const ytdl = require('..');
 
@@ -15,9 +15,9 @@ const takeScreenshot = (url, outFile, position) => new Promise((resolve, reject)
 });
 
 // Usage:
-takeScreenshot('https://www.youtube.com/watch?v=livestream', 'stream.png')
-  .then(() => console.log('finished screenshot stream'))
-  .catch(console.error);
-takeScreenshot('https://www.youtube.com/watch?v=regularVideo', 'video.png', '4:20')
+// takeScreenshot('https://www.youtube.com/watch?v=livestream', 'stream.png')
+//   .then(() => console.log('finished screenshot stream'))
+//   .catch(console.error);
+takeScreenshot('https://www.youtube.com/watch?v=aQCRzMx7T3M', 'video.png', '4:20')
   .then(() => console.log('finished screenshot video'))
   .catch(console.error);
