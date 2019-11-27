@@ -16,7 +16,7 @@ before(() => { nock.disableNetConnect(); });
 after(() => { nock.enableNetConnect(); });
 afterEach(() => { nock.cleanAll(); });
 
-beforeEach(() => {
+afterEach(() => {
   ytdl.cache.sig.clear();
   ytdl.cache.info.clear();
 });

@@ -4,7 +4,6 @@ const fs     = require('fs');
 const assert = require('assert-diff');
 const nock   = require('./nock');
 const sinon  = require('sinon');
-const muk    = require('muk-prop');
 
 
 describe('ytdl.getInfo()', () => {
