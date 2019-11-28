@@ -50,7 +50,7 @@ const formats = [
     audioEncoding : 'aac',
     audioBitrate  : 38 },
   { itag          : '5',
-    mimeType      : 'video/x-flv',
+    mimeType      : 'video/flv; codecs="Sorenson H.283, mp3"',
     quality       : 'small',
     container     : 'flv',
     qualityLabel  : '240p',
@@ -237,7 +237,7 @@ describe('util.filterFormats', () => {
   describe('With `video` given', () => {
     it('Returns only matching formats', () => {
       const itags = util.filterFormats(formats, 'video').map(getItags);
-      assert.deepEqual(itags, ['18', '19', '43', '133', '36', '5', '160', '17']);
+      assert.deepEqual(itags, ['18', '43', '133', '36', '5', '160', '17']);
     });
   });
 
@@ -258,14 +258,14 @@ describe('util.filterFormats', () => {
   describe('With `audioonly` given', () => {
     it('Returns only matching formats', () => {
       const itags = util.filterFormats(formats, 'audioonly').map(getItags);
-      assert.deepEqual(itags, ['140']);
+      assert.deepEqual(itags, ['19', '140']);
     });
   });
 
   describe('With `audioandvideo` given', () => {
     it('Returns only matching formats', () => {
       const itags = util.filterFormats(formats, 'audioandvideo').map(getItags);
-      assert.deepEqual(itags, ['18', '19', '43', '36', '5', '17']);
+      assert.deepEqual(itags, ['18', '43', '36', '5', '17']);
     });
   });
 
