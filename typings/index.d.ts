@@ -3,9 +3,10 @@ declare module 'ytdl-core' {
   import { Readable } from 'stream';
 
   namespace ytdl {
+    type Filter = 'video' | 'videoonly' | 'audio' | 'audioonly' | ((format: videoFormat) => boolean);
     type downloadOptions = {
       quality?: 'lowest' | 'highest' | 'highestaudio' | 'lowestaudio' | 'highestvideo' | 'lowestvideo' | string | number;
-      filter?: 'video' | 'videoonly' | 'audio' | 'audioonly' | ((format: videoFormat) => boolean);
+      filter?: Filter;
       format?: videoFormat;
       range?: {
         start?: number;
@@ -252,7 +253,7 @@ declare module 'ytdl-core' {
     function getInfo(url: string, options?: downloadOptions, callback?: (err: Error, info: videoInfo) => void): Promise<videoInfo>;
     function downloadFromInfo(info: videoInfo, options?: downloadOptions): Readable;
     function chooseFormat(format: videoFormat | videoFormat[], options?: downloadOptions): videoFormat | Error;
-    function filterFormats(formats: videoFormat | videoFormat[], filter?: 'video' | 'videoonly' | 'audio' | 'audioonly' | ((format: videoFormat) => boolean)): videoFormat[];
+    function filterFormats(formats: videoFormat | videoFormat[], filter?: Filter): videoFormat[];
     function validateID(string: string): boolean;
     function validateURL(string: string): boolean;
     function getURLVideoID(string: string): string | Error;
