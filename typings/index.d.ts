@@ -3,9 +3,10 @@ declare module 'ytdl-core' {
   import { Readable } from 'stream';
 
   namespace ytdl {
+    type Filter = 'video' | 'videoonly' | 'audio' | 'audioonly' | ((format: videoFormat) => boolean);
     type downloadOptions = {
       quality?: 'lowest' | 'highest' | 'highestaudio' | 'lowestaudio' | 'highestvideo' | 'lowestvideo' | string | number;
-      filter?: 'video' | 'videoonly' | 'audio' | 'audioonly' | ((format: videoFormat) => boolean);
+      filter?: Filter;
       format?: videoFormat;
       range?: {
         start?: number;
@@ -19,29 +20,36 @@ declare module 'ytdl-core' {
     }
 
     type videoFormat = {
-      s?: string;
-      sig?: string;
-      xtags?: string;
-      clen?: string;
-      size?: string;
-      projection_type?: string;
-      lmt?: string;
-      init?: string;
-      fps?: string;
-      index?: string;
-      type?: string;
-      quality?: 'hd720' | 'medium' | 'small' | string;
-      quality_label?: '144p' | '240p' | '270p' | '360p' | '480p' | '720p' | '1080p' | '1440p' | '2160p' | '4320p';
+      itag: number;
       url: string;
-      itag: string;
+      mimeType?: string;
+      bitrate?: number | string;
+      width?: number;
+      height?: number;
+      initRange?: { start: string; end: string };
+      indexRange?: { start: string; end: string };
+      lastModified: string;
+      contentLength: string;
+      quality: 'tiny' | 'small' | 'medium' | 'large' | 'hd720' | 'hd1080' | 'hd1440' | string;
+      qualityLabel: '144p' | '240p' | '270p' | '360p' | '480p' | '720p' | '1080p' | '1440p' | '2160p' | '4320p';
+      projectionType: 'RECTANGULAR';
+      fps?: number;
+      averageBitrate: number;
+      audioQuality?: 'ADIO_QUALITY_LOW' | 'ADIO_QUALITY_MEDIUM';
+      colorInfo?: {
+        primaries: string;
+        transferCharacteristics: string;
+        matrixCoefficients: string;
+      };
+      highReplication?: boolean;
+      approxDurationMs: string;
+      audioSampleRate?: string;
+      audioChannels?: number;
+
+      // Added by ytdl-core
       container: 'flv' | '3gp' | 'mp4' | 'webm' | 'ts';
-      resolution: '144p' | '240p' | '270p' | '360p' | '480p' | '720p' | '1080p' | '1440p' | '2160p' | '4320p';
-      encoding: 'Sorenson H.283' | 'MPEG-4 Visual' | 'VP8' | 'VP9' | 'H.264';
-      profile: '3d' | 'high' | 'main' | 'simple' | 'baseline' | 'Main@L3.1';
-      bitrate: string;
-      audioEncoding: 'mp3' | 'vorbis' | 'aac' | 'opus' | 'flac';
-      audioBitrate: number;
-      audio_sample_rate?: string;
+      codecs: string;
+
       live: boolean;
       isHLS: boolean;
       isDashMPD: boolean;
@@ -96,7 +104,7 @@ declare module 'ytdl-core' {
         artist_url?: string;
         writers?: string;
         licensed_by?: string;
-      },
+      };
       author: {
         id: string;
         name: string;
@@ -210,13 +218,13 @@ declare module 'ytdl-core' {
             thumbnails: {
               url: string;
               width: number;
-              height: number
+              height: number;
             }[];
           };
           viewCount: number;
           author: string;
           isLiveContent: boolean;
-        }
+        };
       };
     }
 
@@ -245,7 +253,7 @@ declare module 'ytdl-core' {
     function getInfo(url: string, options?: downloadOptions, callback?: (err: Error, info: videoInfo) => void): Promise<videoInfo>;
     function downloadFromInfo(info: videoInfo, options?: downloadOptions): Readable;
     function chooseFormat(format: videoFormat | videoFormat[], options?: downloadOptions): videoFormat | never;
-    function filterFormats(formats: videoFormat | videoFormat[], filter?: 'video' | 'videoonly' | 'audio' | 'audioonly' | ((format: videoFormat) => boolean)): videoFormat[];
+    function filterFormats(formats: videoFormat | videoFormat[], filter?: Filter): videoFormat[];
     function validateID(string: string): boolean;
     function validateURL(string: string): boolean;
     function getURLVideoID(string: string): string | never;

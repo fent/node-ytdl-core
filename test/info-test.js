@@ -4,7 +4,6 @@ const fs     = require('fs');
 const assert = require('assert-diff');
 const nock   = require('./nock');
 const sinon  = require('sinon');
-const muk    = require('muk-prop');
 
 
 describe('ytdl.getInfo()', () => {
@@ -435,30 +434,6 @@ describe('ytdl.getInfo()', () => {
         assert.ok(err);
         assert.ok(/Error parsing `player_response`:/.test(err.message));
         scope.done();
-        done();
-      });
-    });
-  });
-
-  describe('When encountering a format not yet known with debug', () => {
-    it('Warns the console', (done) => {
-      const warn = sinon.spy();
-      muk(console, 'warn', warn);
-      after(muk.restore);
-
-      const id = '_HSylqgVYQI';
-      const scope = nock(id, {
-        type: 'regular',
-        get_video_info: [true, 200, 'unknown-format'],
-        player: true,
-      });
-      ytdl.getInfo(id, { debug: true }, (err, info) => {
-        assert.ifError(err);
-        scope.done();
-        assert.ok(warn.called);
-        assert.equal(warn.getCall(0).args[0],
-          'No format metadata for itag unknown found');
-        assert.ok(info);
         done();
       });
     });

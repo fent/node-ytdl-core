@@ -4,105 +4,83 @@ const assert = require('assert-diff');
 
 
 const formats = [
-  { itag          : '18',
-    type          : 'video/mp4; codecs="avc1.42001E, mp4a.40.2"',
-    quality       : 'medium',
-    container     : 'mp4',
-    resolution    : '360p',
-    encoding      : 'H.264',
-    bitrate       : '0.5',
-    audioEncoding : 'aac',
-    audioBitrate  : 96 },
-  { itag          : '19',
-    type          : 'audio/mp4; codecs="avc1.42001E, mp4a.40.2"',
-    quality       : null,
-    container     : 'mp4',
-    resolution    : null,
-    encoding      : null,
-    bitrate       : '0.5',
-    audioEncoding : 'aac',
-    audioBitrate  : 96 },
-  { itag          : '43',
-    type          : 'video/webm; codecs="vp8.0, vorbis"',
-    quality       : 'medium',
-    container     : 'webm',
-    resolution    : '360p',
-    encoding      : 'VP8',
-    bitrate       : '0.5',
-    audioEncoding : 'vorbis',
-    audioBitrate  : 128 },
-  { itag          : '133',
-    type          : 'video/mp4; codecs="avc1.4d400d"',
-    quality       : null,
-    container     : 'mp4',
-    resolution    : '240p',
-    encoding      : 'H.264',
-    bitrate       : '0.15-0.3',
-    audioEncoding : null,
-    audioBitrate  : null },
-  { itag          : '36',
-    type          : 'video/3gpp; codecs="mp4v.20.3, mp4a.40.2"',
-    quality       : 'small',
-    container     : '3gp',
-    resolution    : '240p',
-    encoding      : 'MPEG-4 Visual',
-    bitrate       : '0.17',
-    audioEncoding : 'aac',
-    audioBitrate  : 38 },
-  { itag          : '5',
-    type          : 'video/x-flv',
-    quality       : 'small',
-    container     : 'flv',
-    resolution    : '240p',
-    encoding      : 'Sorenson H.283',
-    bitrate       : '0.25',
-    audioEncoding : 'mp3',
-    audioBitrate  : 64 },
-  { itag          : '160',
-    type          : 'video/mp4; codecs="avc1.4d400c"',
-    quality       : null,
-    container     : 'mp4',
-    resolution    : '144p',
-    encoding      : 'H.264',
-    bitrate       : '0.1',
-    audioEncoding : null,
-    audioBitrate  : null },
-  { itag          : '17',
-    type          : 'video/3gpp; codecs="mp4v.20.3, mp4a.40.2"',
-    quality       : 'small',
-    container     : '3gp',
-    resolution    : '144p',
-    encoding      : 'MPEG-4 Visual',
-    bitrate       : '0.05',
-    audioEncoding : 'aac',
-    audioBitrate  : 24 },
-  { itag          : '140',
-    type          : 'audio/mp4; codecs="mp4a.40.2"',
-    quality       : null,
-    container     : 'mp4',
-    resolution    : null,
-    enoding       : null,
-    bitrate       : null,
-    audioEncoding : 'aac',
-    audioBitrate  : 128 },
-  { itag          : '139',
-    type          : 'audio/mp4; codecs="mp4a.40.2"',
-    quality       : null,
-    container     : 'mp4',
-    resolution    : null,
-    enoding       : null,
-    bitrate       : null,
-    audioEncoding : null,
-    audioBitrate  : null },
-  { itag          : '138',
-    type          : 'audio/mp4; codecs="mp4a.40.2"',
-    quality       : null,
-    container     : 'mp4',
-    resolution    : null,
-    enoding       : null,
-    bitrate       : null,
-    audioEncoding : null,
-    audioBitrate  : null },
+  { itag         : '18',
+    mimeType     : 'video/mp4; codecs="avc1.42001E, mp4a.40.2"',
+    container    : 'mp4',
+    qualityLabel : '360p',
+    codecs       : 'avc1.42001E, mp4a.40.2',
+    bitrate      : 500000,
+    audioBitrate : 96 },
+  { itag         : '19',
+    mimeType     : 'audio/mp4; codecs="avc1.42001E, mp4a.40.2"',
+    container    : 'mp4',
+    qualityLabel : null,
+    codecs       : 'avc1.42001E, mp4a.40.2',
+    bitrate      : 500000,
+    audioBitrate : 96 },
+  { itag         : '43',
+    mimeType     : 'video/webm; codecs="vp8.0, vorbis"',
+    container    : 'webm',
+    qualityLabel : '360p',
+    codecs       : 'vp8.0, vorbis',
+    bitrate      : 500000,
+    audioBitrate : 128 },
+  { itag         : '133',
+    mimeType     : 'video/mp4; codecs="avc1.4d400d"',
+    container    : 'mp4',
+    qualityLabel : '240p',
+    codecs       : 'avc1.4d400d',
+    bitrate      : 300000,
+    audioBitrate : null },
+  { itag         : '36',
+    mimeType     : 'video/3gpp; codecs="mp4v.20.3, mp4a.40.2"',
+    container    : '3gp',
+    qualityLabel : '240p',
+    codecs       : 'mp4v.20.3, mp4a.40.2',
+    bitrate      : 170000,
+    audioBitrate : 38 },
+  { itag         : '5',
+    mimeType     : 'video/flv; codecs="Sorenson H.283, mp3"',
+    container    : 'flv',
+    qualityLabel : '240p',
+    codecs       : 'Sorenson H.283, mp3',
+    bitrate      : 250000,
+    audioBitrate : 64 },
+  { itag         : '160',
+    mimeType     : 'video/mp4; codecs="avc1.4d400c"',
+    container    : 'mp4',
+    qualityLabel : '144p',
+    codecs       : 'avc1.4d400c',
+    bitrate      : 100000,
+    audioBitrate : null },
+  { itag         : '17',
+    mimeType     : 'video/3gpp; codecs="mp4v.20.3, mp4a.40.2"',
+    container    : '3gp',
+    qualityLabel : '144p',
+    codecs       : 'mp4v.20.3, mp4a.40.2',
+    bitrate      : 50000,
+    audioBitrate : 24 },
+  { itag         : '140',
+    mimeType     : 'audio/mp4; codecs="mp4a.40.2"',
+    container    : 'mp4',
+    qualityLabel : null,
+    codecs       : 'mp4a.40.2',
+    bitrate      : null,
+    audioBitrate : 128 },
+  { itag         : '139',
+    mimeType     : 'audio/mp4; codecs="mp4a.40.2"',
+    container    : 'mp4',
+    qualityLabel : null,
+    codecs       : 'mp4a.40.2',
+    bitrate      : null,
+    audioBitrate : null },
+  { itag         : '138',
+    mimeType     : 'audio/mp4; codecs="mp4a.40.2"',
+    container    : 'mp4',
+    qualityLabel : null,
+    codecs       : 'mp4a.40.2',
+    bitrate      : null,
+    audioBitrate : null },
 ];
 const getItags = (format) => format.itag;
 
@@ -146,7 +124,7 @@ describe('util.chooseFormat', () => {
   describe('With highest audio quality wanted', () => {
     it('Chooses highest audio itag', () => {
       const format = util.chooseFormat(formats, { quality: 'highestaudio' });
-      assert.equal(format.itag, '140');
+      assert.equal(format.itag, '43');
     });
   });
 
@@ -242,7 +220,7 @@ describe('util.filterFormats', () => {
   describe('With `video` given', () => {
     it('Returns only matching formats', () => {
       const itags = util.filterFormats(formats, 'video').map(getItags);
-      assert.deepEqual(itags, ['18', '19', '43', '133', '36', '5', '160', '17']);
+      assert.deepEqual(itags, ['18', '43', '133', '36', '5', '160', '17']);
     });
   });
 
@@ -263,14 +241,14 @@ describe('util.filterFormats', () => {
   describe('With `audioonly` given', () => {
     it('Returns only matching formats', () => {
       const itags = util.filterFormats(formats, 'audioonly').map(getItags);
-      assert.deepEqual(itags, ['140']);
+      assert.deepEqual(itags, ['19', '140']);
     });
   });
 
   describe('With `audioandvideo` given', () => {
     it('Returns only matching formats', () => {
       const itags = util.filterFormats(formats, 'audioandvideo').map(getItags);
-      assert.deepEqual(itags, ['18', '19', '43', '36', '5', '17']);
+      assert.deepEqual(itags, ['18', '43', '36', '5', '17']);
     });
   });
 
@@ -407,5 +385,45 @@ describe('util.validateURL()', () => {
     assert.equal(rs, false);
     rs = util.validateURL('https://www.twitch.tv/user/v/1234');
     assert.equal(rs, false);
+  });
+});
+
+
+describe('util.addFormatMeta()', () => {
+  it('Adds extra metadata to a format', () => {
+    let format = util.addFormatMeta({
+      itag: 94,
+      url: 'http://video.com/1/2.ts',
+    });
+    assert.deepEqual(format, {
+      itag: 94,
+      url: 'http://video.com/1/2.ts',
+      mimeType: 'video/ts; codecs="H.264, aac"',
+      container: 'ts',
+      codecs: 'H.264, aac',
+      qualityLabel: '480p',
+      bitrate: 800000,
+      audioBitrate: 128,
+      live: false,
+      isHLS: false,
+      isDashMPD: false,
+    });
+  });
+  describe('With an unknown itag', () => {
+    it('Adds does not add extra metadata to a format', () => {
+      let format = util.addFormatMeta({
+        itag: -1,
+        url: 'http://video.com/3/4.ts',
+      });
+      assert.deepEqual(format, {
+        itag: -1,
+        url: 'http://video.com/3/4.ts',
+        container: null,
+        codecs: null,
+        live: false,
+        isHLS: false,
+        isDashMPD: false,
+      });
+    });
   });
 });
