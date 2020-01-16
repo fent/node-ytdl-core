@@ -6,7 +6,7 @@ const ffmpeg = require('fluent-ffmpeg');
 const ytdl = require('..');
 
 const url = 'https://www.youtube.com/watch?v=qgRUr-YUk1Q';
-const audioOutput = path.resolve(__dirname, 'sound.m4a');
+const audioOutput = path.resolve(__dirname, 'sound.mp4');
 const mainOutput = path.resolve(__dirname, 'output.mp4');
 
 console.log('downloading audio track');
@@ -14,7 +14,7 @@ ytdl(url, {
   filter: format => format.container === 'mp4' && !format.qualityLabel
 })
   .on('error', console.error)
-  .on('progress', (_, downloaded, total) => {
+  .on('progress', (chunkLength, downloaded, total) => {
     const percent = downloaded / total;
     readline.cursorTo(process.stdout, 0);
     process.stdout.write(`${(percent * 100).toFixed(2)}% downloaded `);
