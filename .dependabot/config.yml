@@ -9,4 +9,4 @@ update_configs:
           update_type: "all"
       - match:
           dependency_type: "direct"
-          update_type: "all"
+          update_type: "security"
