@@ -55,6 +55,24 @@ declare module 'ytdl-core' {
       isDashMPD: boolean;
     }
 
+    type thumbnail = {
+      url: string;
+      width: number;
+      height: number;
+    }
+
+    type captionTrack = {
+      baseUrl: string;
+      name: {
+        simpleText: 'Afrikaans' | 'Albanian' | 'Amharic' | 'Arabic' | 'Armenian' | 'Azerbaijani' | 'Bangla' | 'Basque' | 'Belarusian' | 'Bosnian' | 'Bulgarian' | 'Burmese' | 'Catalan' | 'Cebuano' | 'Chinese (Simplified)' | 'Chinese (Traditional)' | 'Corsican' | 'Croatian' | 'Czech' | 'Danish' | 'Dutch' | 'English' | 'English (auto-generated)' | 'Esperanto' | 'Estonian' | 'Filipino' | 'Finnish' | 'French' | 'Galician' | 'Georgian' | 'German' | 'Greek' | 'Gujarati' | 'Haitian Creole' | 'Hausa' | 'Hawaiian' | 'Hebrew' | 'Hindi' | 'Hmong' | 'Hungarian' | 'Icelandic' | 'Igbo' | 'Indonesian' | 'Irish' | 'Italian' | 'Japanese' | 'Javanese' | 'Kannada' | 'Kazakh' | 'Khmer' | 'Korean' | 'Kurdish' | 'Kyrgyz' | 'Lao' | 'Latin' | 'Latvian' | 'Lithuanian' | 'Luxembourgish' | 'Macedonian' | 'Malagasy' | 'Malay' | 'Malayalam' | 'Maltese' | 'Maori' | 'Marathi' | 'Mongolian' | 'Nepali' | 'Norwegian' | 'Nyanja' | 'Pashto' | 'Persian' | 'Polish' | 'Portuguese' | 'Punjabi' | 'Romanian' | 'Russian' | 'Samoan' | 'Scottish Gaelic' | 'Serbian' | 'Shona' | 'Sindhi' | 'Sinhala' | 'Slovak' | 'Slovenian' | 'Somali' | 'Southern Sotho' | 'Spanish' | 'Spanish (Spain)' | 'Sundanese' | 'Swahili' | 'Swedish' | 'Tajik' | 'Tamil' | 'Telugu' | 'Thai' | 'Turkish' | 'Ukrainian' | 'Urdu' | 'Uzbek' | 'Vietnamese' | 'Welsh' | 'Western Frisian' | 'Xhosa' | 'Yiddish' | 'Yoruba' | 'Zulu' | string;
+      };
+      vssId: string;
+      languageCode: 'af' | 'sq' | 'am' | 'ar' | 'hy' | 'az' | 'bn' | 'eu' | 'be' | 'bs' | 'bg' | 'my' | 'ca' | 'ceb' | 'zh-Hans' | 'zh-Hant' | 'co' | 'hr' | 'cs' | 'da' | 'nl' | 'en' | 'eo' | 'et' | 'fil' | 'fi' | 'fr' | 'gl' | 'ka' | 'de' | 'el' | 'gu' | 'ht' | 'ha' | 'haw' | 'iw' | 'hi' | 'hmn' | 'hu' | 'is' | 'ig' | 'id' | 'ga' | 'it' | 'ja' | 'jv' | 'kn' | 'kk' | 'km' | 'ko' | 'ku' | 'ky' | 'lo' | 'la' | 'lv' | 'lt' | 'lb' | 'mk' | 'mg' | 'ms' | 'ml' | 'mt' | 'mi' | 'mr' | 'mn' | 'ne' | 'no' | 'ny' | 'ps' | 'fa' | 'pl' | 'pt' | 'pa' | 'ro' | 'ru' | 'sm' | 'gd' | 'sr' | 'sn' | 'sd' | 'si' | 'sk' | 'sl' | 'so' | 'st' | 'es' | 'su' | 'sw' | 'sv' | 'tg' | 'ta' | 'te' | 'th' | 'tr' | 'uk' | 'ur' | 'uz' | 'vi' | 'cy' | 'fy' | 'xh' | 'yi' | 'yo' | 'zu' | string;
+      kind: string;
+      rtl?: boolean;
+      isTranslatable: boolean;
+    }
+
     type videoInfo = {
       iv_load_policy?: string;
       iv_allow_in_place_switch?: string;
@@ -207,6 +225,42 @@ declare module 'ytdl-core' {
           formats: {}[];
           adaptiveFormats: {}[];
         };
+        captions: {
+          playerCaptionsTracklistRenderer: {
+            captionTracks: captionTrack[];
+          };
+        };
+        microformat: {
+          playerMicroformatRenderer: {
+            thumbnail: {
+              thumbnails: thumbnail[];
+            };
+          };
+          embed: {
+            iframeUrl: string;
+            flashUrl: string;
+            width: number;
+            height: number;
+            flashSecureUrl: string;
+          };
+          title: {
+            simpleText: string;
+          };
+          description: {
+            simpleText: string;
+          };
+          lengthSeconds: string;
+          ownerProfileUrl: string;
+          externalChannelId: string;
+          isFamilySafe: boolean;
+          availableCountries: string[];
+          isUnlisted: boolean;
+          viewCount: string;
+          category: string;
+          publishDate: string;
+          ownerChannelName: string;
+          uploadDate: string;
+        };
         videoDetails: {
           videoId: string;
           title: string;
@@ -215,11 +269,7 @@ declare module 'ytdl-core' {
           channelId: string;
           isCrawlable: boolean;
           thumbnail: {
-            thumbnails: {
-              url: string;
-              width: number;
-              height: number;
-            }[];
+            thumbnails: thumbnail[];
           };
           viewCount: number;
           author: string;
