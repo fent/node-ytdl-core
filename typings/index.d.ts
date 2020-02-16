@@ -225,7 +225,7 @@ declare module 'ytdl-core' {
           formats: {}[];
           adaptiveFormats: {}[];
         };
-        captions: {
+        captions?: {
           playerCaptionsTracklistRenderer: {
             captionTracks: captionTrack[];
           };
@@ -251,10 +251,12 @@ declare module 'ytdl-core' {
           };
           lengthSeconds: string;
           ownerProfileUrl: string;
+          ownerGplusProfileUrl: string;
           externalChannelId: string;
           isFamilySafe: boolean;
           availableCountries: string[];
           isUnlisted: boolean;
+          hasYpcMetadata: boolean;
           viewCount: string;
           category: string;
           publishDate: string;
