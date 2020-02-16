@@ -235,33 +235,33 @@ declare module 'ytdl-core' {
             thumbnail: {
               thumbnails: thumbnail[];
             };
+            embed: {
+              iframeUrl: string;
+              flashUrl: string;
+              width: number;
+              height: number;
+              flashSecureUrl: string;
+            };
+            title: {
+              simpleText: string;
+            };
+            description: {
+              simpleText: string;
+            };
+            lengthSeconds: string;
+            ownerProfileUrl: string;
+            ownerGplusProfileUrl: string;
+            externalChannelId: string;
+            isFamilySafe: boolean;
+            availableCountries: string[];
+            isUnlisted: boolean;
+            hasYpcMetadata: boolean;
+            viewCount: string;
+            category: string;
+            publishDate: string;
+            ownerChannelName: string;
+            uploadDate: string;
           };
-          embed: {
-            iframeUrl: string;
-            flashUrl: string;
-            width: number;
-            height: number;
-            flashSecureUrl: string;
-          };
-          title: {
-            simpleText: string;
-          };
-          description: {
-            simpleText: string;
-          };
-          lengthSeconds: string;
-          ownerProfileUrl: string;
-          ownerGplusProfileUrl: string;
-          externalChannelId: string;
-          isFamilySafe: boolean;
-          availableCountries: string[];
-          isUnlisted: boolean;
-          hasYpcMetadata: boolean;
-          viewCount: string;
-          category: string;
-          publishDate: string;
-          ownerChannelName: string;
-          uploadDate: string;
         };
         videoDetails: {
           videoId: string;
