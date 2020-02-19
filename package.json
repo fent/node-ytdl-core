@@ -43,7 +43,7 @@
     "muk-require": "^1.2.0",
     "nock": "^12.0.0",
     "nyc": "^15.0.0",
-    "sinon": "^8.0.0",
+    "sinon": "^9.0.0",
     "stream-equal": "~1.1.0"
   },
   "engines": {
