@@ -12,6 +12,7 @@ let videos = {
   'Embed domain restricted' : 'B3eAMGXFw1o',
   'No embed allowed'        : 'GFg8BP01F5Q',
   'Offensive'               : 'hCKDsjLt_qU',
+  'No likes or dislikes'    : 'KKzOh0MRuZE',
 };
 
 

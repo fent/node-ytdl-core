@@ -225,3 +225,51 @@ describe('extras.getRelatedVideos()', () => {
     });
   });
 });
+
+describe('extras.getLikes()', () => {
+  it('Returnes like count', (done) => {
+    fs.readFile(path.resolve(__dirname,
+      'files/videos/_HSylqgVYQI-regular/watch.html'), 'utf8', (err, html) => {
+      assert.ifError(err);
+      const likes = extras.getLikes(html);
+      assert.ok(likes);
+      done();
+    });
+  });
+
+  describe('With no likes', () => {
+    it('Does not return likes', (done) => {
+      fs.readFile(path.resolve(__dirname,
+        'files/videos/KKzOh0MRuZE-no-likes-or-dislikes/watch.html'), 'utf8', (err, html) => {
+        assert.ifError(err);
+        const likes = extras.getLikes(html);
+        assert.ok(likes === null);
+        done();
+      });
+    });
+  });
+});
+
+describe('extras.getDislikes()', () => {
+  it('Returnes dislike count', (done) => {
+    fs.readFile(path.resolve(__dirname,
+      'files/videos/_HSylqgVYQI-regular/watch.html'), 'utf8', (err, html) => {
+      assert.ifError(err);
+      const dislikes = extras.getDislikes(html);
+      assert.ok(dislikes);
+      done();
+    });
+  });
+
+  describe('With no dislikes', () => {
+    it('Does not return dislikes', (done) => {
+      fs.readFile(path.resolve(__dirname,
+        'files/videos/KKzOh0MRuZE-no-likes-or-dislikes/watch.html'), 'utf8', (err, html) => {
+        assert.ifError(err);
+        const dislikes = extras.getDislikes(html);
+        assert.ok(dislikes === null);
+        done();
+      });
+    });
+  });
+});

@@ -179,6 +179,11 @@ const videos = [
     id: 'GFg8BP01F5Q',
     type: 'noembed',
   },
+  {
+    id: 'KKzOh0MRuZE',
+    type: 'no-likes-or-dislikes',
+    skip: ['get_video_info', /player/],
+  },
 ];
 
 
