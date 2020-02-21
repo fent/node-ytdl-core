@@ -35,7 +35,7 @@ declare module 'ytdl-core' {
       projectionType: 'RECTANGULAR';
       fps?: number;
       averageBitrate: number;
-      audioQuality?: 'ADIO_QUALITY_LOW' | 'ADIO_QUALITY_MEDIUM';
+      audioQuality?: 'AUDIO_QUALITY_LOW' | 'AUDIO_QUALITY_MEDIUM';
       colorInfo?: {
         primaries: string;
         transferCharacteristics: string;
