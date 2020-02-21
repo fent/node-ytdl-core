@@ -201,7 +201,7 @@ const cleanBody = (body) => {
 };
 
 // Returns true if `filename` is found in `video.skip`.
-// `video.skipcan be a regex.
+// `video.skip` can be a regex.
 const skipFile = (video, filename) => {
   return video.skip && video.skip.some(skip =>
     skip instanceof RegExp ? skip.test(filename) : filename.includes(skip)

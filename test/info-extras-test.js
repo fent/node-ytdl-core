@@ -103,12 +103,12 @@ describe('extras.getAuthor()', () => {
 });
 
 
-describe('extras.getVideoMedia()', () => {
+describe('extras.getMedia()', () => {
   it('Returns media object', (done) => {
     fs.readFile(path.resolve(__dirname, 'files/videos/pJk0p-98Xzc-vevo/watch.html'),
       'utf8', (err, html) => {
         assert.ifError(err);
-        const mediaObj = extras.getVideoMedia(html);
+        const mediaObj = extras.getMedia(html);
         assert.ok(mediaObj);
         assert.equal(mediaObj.artist, 'Wu-Tang Clan');
         assertChannelURL(mediaObj.artist_url);
@@ -123,7 +123,7 @@ describe('extras.getVideoMedia()', () => {
       fs.readFile(path.resolve(__dirname, 'files/videos/xRu7qKijBso-game/watch.html'),
         'utf8', (err, html) => {
           assert.ifError(err);
-          const mediaObj = extras.getVideoMedia(html);
+          const mediaObj = extras.getMedia(html);
           assert.deepEqual(mediaObj, {
             category: 'Gaming',
             category_url: 'https://www.youtube.com/gaming',
@@ -141,7 +141,7 @@ describe('extras.getVideoMedia()', () => {
       fs.readFile(path.resolve(__dirname, 'files/videos/OYXswyLkek4-game-image/watch.html'),
         'utf8', (err, html) => {
           assert.ifError(err);
-          const mediaObj = extras.getVideoMedia(html);
+          const mediaObj = extras.getMedia(html);
           assert.deepEqual(mediaObj, {
             image: 'https://yt3.ggpht.com/FaZqW4WE3D4npqAplZsJSzlZfDQ7XJSb-vEoL3rIOHkRfGd2uDK4ldxeCxyvg2CcqFgfCpCgGlzgy1-rtQ=w40-nd',
             category: 'Gaming',
