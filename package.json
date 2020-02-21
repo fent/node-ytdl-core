@@ -11,7 +11,7 @@
     "type": "git",
     "url": "git://github.com/fent/node-ytdl-core.git"
   },
-  "author": "fent (https://github.com/fent)",
+  "author": "fent <fentbox@gmail.com> (https://github.com/fent)",
   "contributors": [
     "Tobias Kutscha (https://github.com/TimeForANinja)",
     "Andrew Kelley (https://github.com/andrewrk)",
