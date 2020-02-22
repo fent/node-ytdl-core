@@ -216,6 +216,8 @@ declare module 'ytdl-core' {
       video_url: string;
       no_embed_allowed?: boolean;
       age_restricted: boolean;
+      likes?: number;
+      dislikes?: number;
       player_response: {
         playabilityStatus: {
           status: string;
