@@ -232,7 +232,7 @@ describe('extras.getLikes()', () => {
       'files/videos/_HSylqgVYQI-regular/watch.html'), 'utf8', (err, html) => {
       assert.ifError(err);
       const likes = extras.getLikes(html);
-      assert.ok(likes);
+      assert.equal(typeof likes, 'number');
       done();
     });
   });
@@ -243,7 +243,7 @@ describe('extras.getLikes()', () => {
         'files/videos/KKzOh0MRuZE-no-likes-or-dislikes/watch.html'), 'utf8', (err, html) => {
         assert.ifError(err);
         const likes = extras.getLikes(html);
-        assert.ok(likes === null);
+        assert.equal(likes, null);
         done();
       });
     });
@@ -256,7 +256,7 @@ describe('extras.getDislikes()', () => {
       'files/videos/_HSylqgVYQI-regular/watch.html'), 'utf8', (err, html) => {
       assert.ifError(err);
       const dislikes = extras.getDislikes(html);
-      assert.ok(dislikes);
+      assert.equal(typeof dislikes, 'number');
       done();
     });
   });
@@ -267,7 +267,7 @@ describe('extras.getDislikes()', () => {
         'files/videos/KKzOh0MRuZE-no-likes-or-dislikes/watch.html'), 'utf8', (err, html) => {
         assert.ifError(err);
         const dislikes = extras.getDislikes(html);
-        assert.ok(dislikes === null);
+        assert.equal(dislikes, null);
         done();
       });
     });
