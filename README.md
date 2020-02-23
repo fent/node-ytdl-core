@@ -96,6 +96,7 @@ Once you have received metadata from a video with the `ytdl.getInfo` function, y
 ### ytdl.chooseFormat(formats, options)
 
 Can be used if you'd like to choose a format yourself with the [options above](#ytdlurl-options).
+Throws an Error if it fails to find any matching format.
 
 ```js
 // Example of choosing a video format.
@@ -132,10 +133,12 @@ Returns true if able to parse out a valid video ID.
 ### ytdl.getURLVideoID(url)
 
 Returns a video ID from a YouTube URL.
+Throws an Error if it fails to parse a ID.
 
 ### ytdl.getVideoID(str)
 
 Same as the above `ytdl.getURLVideoID()`, but can be called with the video ID directly, in which case it returns it. This is what ytdl uses internally.
+Throws an Error if it fails to parse a ID.
 
 ## Limitations
 
