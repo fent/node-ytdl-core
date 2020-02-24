@@ -259,55 +259,61 @@ const refreshVideo = async (video, noRequests) => {
     }
   };
 
-  const getInfo = mukRequire('../../lib/info', {
-    'miniget': (url, options, callback) => {
-      if (typeof options === 'function') {
-        callback = options;
-      }
-
-      // Save contents to file.
-      const saveContents = (body) => {
-        let parsed = urlParse(url);
-        let s = parsed.pathname.split('/');
-        let playerfile = /((?:html5)?player[-_][a-zA-Z0-9\-_]+)(?:\.js|\/)/;
-        let filename =
-          // Special case for livestream manifest files.
-          /\/manifest\/dash\//.test(url) ? 'dash-manifest.xml' :
-          /\/manifest\/hls_(variant|playlist)\//.test(url) ? 'hls-manifest.m3u8' :
-
-          // Save the key of html5player file so we know if they've changed.
-          playerfile.test(url) ? playerfile.exec(url)[1] + '.js' :
-
-          // Save watch and embed pages with .html extension.
-          /^\/watch$/.test(parsed.pathname) ? 'watch.html' :
-          /^\/embed\//.test(parsed.pathname) ? 'embed.html' :
-
-          // Otherwise, use url path as filename.
-          s[s.length - 1];
-        console.log('request:', url.length > 100 ? url.slice(0, 97) + '...' : url);
-        if ((!video.keep || video.keep.indexOf(filename) === -1) &&
-            !skipFile(video, filename)) {
-          body = cleanBody(body);
-          writeFile(filename, body, playerfile.test(url));
-          writeTransforms(filename, body);
-        }
-      };
-
-      if (callback) {
-        return miniget(url, options, (err, res, body) => {
-          if (err) return callback(err);
-          saveContents(body);
-          callback(err, res, body);
-        });
-      } else {
-        let body = [];
-        let stream = miniget(url, options);
-        stream.on('data', (chunk) => { body.push(chunk); });
-        stream.on('end', () => { saveContents(body.join('')); });
-        return stream;
-      }
+  const minigetMock = (url, options, callback) => {
+    if (typeof options === 'function') {
+      callback = options;
     }
+
+    // Save contents to file.
+    const saveContents = (body) => {
+      let parsed = urlParse(url);
+      let s = parsed.pathname.split('/');
+      let playerfile = /((?:html5)?player[-_][a-zA-Z0-9\-_]+)(?:\.js|\/)/;
+      let filename =
+        // Special case for livestream manifest files.
+        /\/manifest\/dash\//.test(url) ? 'dash-manifest.xml' :
+        /\/manifest\/hls_(variant|playlist)\//.test(url) ? 'hls-manifest.m3u8' :
+
+        // Save the key of html5player file so we know if they've changed.
+        playerfile.test(url) ? playerfile.exec(url)[1] + '.js' :
+
+        // Save watch and embed pages with .html extension.
+        /^\/watch$/.test(parsed.pathname) ? 'watch.html' :
+        /^\/embed\//.test(parsed.pathname) ? 'embed.html' :
+
+        // Otherwise, use url path as filename.
+        s[s.length - 1];
+      console.log('request:', url.length > 100 ? url.slice(0, 97) + '...' : url);
+      if ((!video.keep || video.keep.indexOf(filename) === -1) &&
+          !skipFile(video, filename)) {
+        body = cleanBody(body);
+        writeFile(filename, body, playerfile.test(url));
+        writeTransforms(filename, body);
+      }
+    };
+
+    if (callback) {
+      return miniget(url, options, (err, res, body) => {
+        if (err) return callback(err);
+        saveContents(body);
+        callback(err, res, body);
+      });
+    } else {
+      let body = [];
+      let stream = miniget(url, options);
+      stream.on('data', (chunk) => { body.push(chunk); });
+      stream.on('end', () => { saveContents(body.join('')); });
+      return stream;
+    }
+  };
+  minigetMock.promise = (url, options) => new Promise((resolve, reject) => {
+    minigetMock(url, options, (err, res, body) => {
+      if (err) return reject(err);
+      resolve([res, body]);
+    });
   });
+
+  const getInfo = mukRequire('../../lib/info', { 'miniget': minigetMock });
 
   if (noRequests) {
     for (let filename in existingFiles) {

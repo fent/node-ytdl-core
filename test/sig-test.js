@@ -14,59 +14,45 @@ describe('Get tokens', () => {
   const url = 'https://s.ytimg.com/yts/jsbin/player-en_US-vfljDEtYP/base.js';
   const filepath = path.resolve(__dirname, `files/html5player/${key}.js`);
 
-  it('Returns a set of tokens', (done) => {
+  it('Returns a set of tokens', async () => {
     const scope = nock.url(url).replyWithFile(200, filepath);
-    sig.getTokens(url, {}, (err, tokens) => {
-      assert.ifError(err);
-      scope.done();
-      assert.ok(tokens.length);
-      done();
-    });
+    let tokens = await sig.getTokens(url, {});
+    scope.done();
+    assert.ok(tokens.length);
   });
 
   describe('Hit the same video twice', () => {
-    it('Gets html5player tokens from cache', (done) => {
+    it('Gets html5player tokens from cache', async () => {
       const scope = nock.url(url).replyWithFile(200, filepath);
-      sig.getTokens(url, {}, (err, tokens) => {
-        assert.ifError(err);
-        scope.done();
-        assert.ok(tokens.length);
-        sig.getTokens(url, {}, (err, tokens) => {
-          assert.ifError(err);
-          assert.ok(tokens.length);
-          done();
-        });
-      });
+      let tokens = await sig.getTokens(url, {});
+      scope.done();
+      assert.ok(tokens.length);
+      let tokens2 = await sig.getTokens(url, {});
+      assert.ok(tokens2.length);
     });
   });
 
   describe('Get a bad html5player file', () => {
-    it('Gives an error', (done) => {
+    it('Gives an error', async () => {
       const url = 'https://s.ytimg.com/yts/jsbin/player-en_US-bad/base.js';
       const scope = nock.url(url).reply(404, 'uh oh');
-      sig.getTokens(url, {}, (err) => {
-        assert.ok(err);
-        scope.done();
-        done();
-      });
+      await assert.rejects(sig.getTokens(url, {}));
+      scope.done();
     });
   });
 
   describe('Unable to find key in filename', () => {
-    it('Warns the console, still attempts to get tokens', (done) => {
+    it('Warns the console, still attempts to get tokens', async () => {
       const warn = spy();
       muk(console, 'warn', warn);
       after(muk.restore);
 
       const url = 'https://s.ytimg.com/badfilename.js';
       const scope = nock.url(url).replyWithFile(200, filepath);
-      sig.getTokens(url, {}, (err, tokens) => {
-        assert.ifError(err);
-        scope.done();
-        assert.ok(warn.called);
-        assert.ok(tokens.length);
-        done();
-      });
+      let tokens = await sig.getTokens(url, {});
+      scope.done();
+      assert.ok(warn.called);
+      assert.ok(tokens.length);
     });
   });
 
@@ -75,14 +61,10 @@ describe('Get tokens', () => {
     const url = `https://s.ytimg.com/yts/jsbin/player-${key}/base.js`;
     const contents = 'my personal contents';
 
-    it('Gives an error', (done) => {
+    it('Gives an error', async () => {
       const scope = nock.url(url).reply(200, contents);
-      sig.getTokens(url, {}, (err) => {
-        scope.done();
-        assert.ok(err);
-        assert.ok(/Could not extract signature/.test(err.message));
-        done();
-      });
+      await assert.rejects(sig.getTokens(url, {}), /Could not extract signature/);
+      scope.done();
     });
   });
 });
