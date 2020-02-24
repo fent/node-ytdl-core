@@ -26,7 +26,8 @@
     "typings"
   ],
   "scripts": {
-    "test": "nyc --reporter=lcov --reporter=text-summary mocha -- --ignore test/irl-test.js test/*-test.js --timeout 4000",
+    "test": "nyc --reporter=lcov --reporter=text-summary npm run test:unit",
+    "test:unit": "mocha --ignore test/irl-test.js test/*-test.js --timeout 4000",
     "test:irl": "mocha --timeout 16000 test/irl-test.js"
   },
   "dependencies": {
