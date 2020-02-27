@@ -30,21 +30,21 @@
     "test:irl": "mocha --timeout 16000 test/irl-test.js"
   },
   "dependencies": {
-    "html-entities": "^1.1.3",
-    "m3u8stream": "^0.6.3",
-    "miniget": "^1.6.0",
-    "sax": "^1.1.3"
+    "html-entities": "^1.2.1",
+    "m3u8stream": "^0.6.5",
+    "miniget": "^1.6.1",
+    "sax": "^1.2.4"
   },
   "devDependencies": {
-    "@types/node": "^13.1.0",
-    "assert-diff": "^2.0.0",
-    "mocha": "^7.0.0",
-    "muk-prop": "^2.0.0",
+    "@types/node": "^13.7.6",
+    "assert-diff": "^2.0.3",
+    "mocha": "^7.1.0",
+    "muk-prop": "^1.2.1",
     "muk-require": "^1.2.0",
-    "nock": "^12.0.0",
+    "nock": "^12.0.1",
     "nyc": "^15.0.0",
     "sinon": "^9.0.0",
-    "stream-equal": "~1.1.0"
+    "stream-equal": "^1.1.1"
   },
   "engines": {
     "node": ">=10"
