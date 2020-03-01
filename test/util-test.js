@@ -320,7 +320,10 @@ describe('util.getURLVideoID()', () => {
     }, /No video id found: \S+/);
     assert.throws(() => {
       util.getVideoID('http://www.youtube.com/playlist?list=1337');
-    }, /Video id \(\S+\) does not match expected format \S+/);
+    }, /No video id found: \S+/);
+    assert.throws(() => {
+      util.getVideoID('http://www.youtube.com/watch?v=asdf$%^ddf-');
+    }, /Video id \([^)]+\) does not match expected format/);
   });
 });
 
@@ -343,6 +346,9 @@ describe('util.getVideoID()', () => {
     id = util.getVideoID('RAW_VIDEOID'); // Video ids are 11-character long
     assert.equal(id, 'RAW_VIDEOID');
     assert.throws(() => {
+      util.getVideoID('http://youtube.com/RAW_VIDEOID');
+    }, /No video id found: \S+/);
+    assert.throws(() => {
       util.getVideoID('https://www.twitch.tv/user/v/1234');
     }, /Not a YouTube domain/);
     assert.throws(() => {
@@ -350,7 +356,7 @@ describe('util.getVideoID()', () => {
     }, /No video id found: \S+/);
     assert.throws(() => {
       util.getVideoID('http://www.youtube.com/playlist?list=1337');
-    }, /Video id \(\S+\) does not match expected format \S+/);
+    }, /No video id found: \S+/);
   });
 });
 
@@ -384,6 +390,8 @@ describe('util.validateURL()', () => {
     rs = util.validateURL('RAW_VIDEOID');
     assert.equal(rs, false);
     rs = util.validateURL('https://www.twitch.tv/user/v/1234');
+    assert.equal(rs, false);
+    rs = util.validateURL('https://www.youtube.com/wartwzwerwer');
     assert.equal(rs, false);
   });
 });
