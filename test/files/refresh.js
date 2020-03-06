@@ -268,7 +268,7 @@ const refreshVideo = async (video, noRequests) => {
     const saveContents = (body) => {
       let parsed = urlParse(url);
       let s = parsed.pathname.split('/');
-      let playerfile = /((?:html5)?player[-_][a-zA-Z0-9\-_]+)(?:\.js|\/)/;
+      let playerfile = /((?:html5)?player[-_][a-zA-Z0-9\-_.]+)(?:\.js|\/)/;
       let filename =
         // Special case for livestream manifest files.
         /\/manifest\/dash\//.test(url) ? 'dash-manifest.xml' :
