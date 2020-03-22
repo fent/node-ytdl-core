@@ -29,7 +29,7 @@ Attempts to download a video from the given url. Returns a [readable stream](htt
 
 * `quality` - Video quality to download. Can be an [itag value](http://en.wikipedia.org/wiki/YouTube#Quality_and_formats), a list of itag values, or `highest`/`lowest`/`highestaudio`/`lowestaudio`/`highestvideo`/`lowestvideo`. `highestaudio`/`lowestaudio`/`highestvideo`/`lowestvideo` all prefer audio/video only respectively. Defaults to `highest`, which prefers formats with both video and audio.
 
-  A typical video's formats will be sorted in the follwing way using `quality: 'highest'`
+  A typical video's formats will be sorted in the following way using `quality: 'highest'`
   ```
   itag container quality codecs                 bitrate  audio bitrate
   18   mp4       360p    avc1.42001E, mp4a.40.2 696.66KB 96KB
@@ -63,7 +63,7 @@ Attempts to download a video from the given url. Returns a [readable stream](htt
 * [`ytdl.videoInfo`](example/info.json) - Info.
 * [`ytdl.videoFormat`](typings/index.d.ts#L22) - Video Format.
 
-Emitted when the a video's `info` hash is fetched, along with the chosen format metadata to download. `format.url` might be different if `start` was given.
+Emitted when the video's `info` hash is fetched, along with the chosen format metadata to download. `format.url` might be different if `start` was given.
 
 #### Event: response
 * [`http.ServerResponse`](https://nodejs.org/api/http.html#http_class_http_serverresponse) - Response.
@@ -133,12 +133,12 @@ Returns true if able to parse out a valid video ID.
 ### ytdl.getURLVideoID(url)
 
 Returns a video ID from a YouTube URL.
-Throws an Error if it fails to parse a ID.
+Throws an Error if it fails to parse an ID.
 
 ### ytdl.getVideoID(str)
 
 Same as the above `ytdl.getURLVideoID()`, but can be called with the video ID directly, in which case it returns it. This is what ytdl uses internally.
-Throws an Error if it fails to parse a ID.
+Throws an Error if it fails to parse an ID.
 
 ## Limitations
 
