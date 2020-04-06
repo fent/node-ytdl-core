@@ -434,4 +434,18 @@ describe('util.addFormatMeta()', () => {
       });
     });
   });
+  describe('util.cutAfterJSON()', () => {
+    it('works with simple JSON', () => {
+      assert.equal(util.cutAfterJSON('{"a": 1, "b": 1}'), '{"a": 1, "b": 1}');
+    });
+    it('Cut extra characters after JSON  end', () => {
+      assert.equal(util.cutAfterJSON('{"a": 1, "b": 1}abcd'), '{"a": 1, "b": 1}');
+    });
+    it('tolerant to string constants', () => {
+      assert.equal(util.cutAfterJSON('{"a": "}1", "b": 1}abcd'), '{"a": "}1", "b": 1}');
+    });
+    it('tolerant to string with escaped quoting', () => {
+      assert.equal(util.cutAfterJSON('{"a": "\\\"}1", "b": 1}abcd'), '{"a": "\\\"}1", "b": 1}');
+    });
+  });
 });
