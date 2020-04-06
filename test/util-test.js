@@ -447,5 +447,20 @@ describe('util.addFormatMeta()', () => {
     it('tolerant to string with escaped quoting', () => {
       assert.equal(util.cutAfterJSON('{"a": "\\\"}1", "b": 1}abcd'), '{"a": "\\\"}1", "b": 1}');
     });
+    it('works with nested', () => {
+      assert.equal(util.cutAfterJSON(
+        '{"a": "\\\"1", "b": 1, "c": {"test": 1}}abcd'),
+        '{"a": "\\\"1", "b": 1, "c": {"test": 1}}');
+    });
+    it('works with utf', () => {
+      assert.equal(util.cutAfterJSON(
+        '{"a": "\\\"фыва", "b": 1, "c": {"test": 1}}abcd'),
+        '{"a": "\\\"фыва", "b": 1, "c": {"test": 1}}');
+    });
+    it('works with \\\\ in string', () => {
+      assert.equal(util.cutAfterJSON(
+        '{"a": "\\\\фыва", "b": 1, "c": {"test": 1}}abcd'),
+        '{"a": "\\\\фыва", "b": 1, "c": {"test": 1}}');
+    });
   });
 });
