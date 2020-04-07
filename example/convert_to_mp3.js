@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const readline = require('readline');
 const ytdl = require('..');
 const ffmpeg = require('fluent-ffmpeg');

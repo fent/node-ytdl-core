@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 // Install fluent-ffmpeg before running this!
 const readline = require('readline');
 const path = require('path');

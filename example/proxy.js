@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 const ytdl = require('..');
 const HttpsProxyAgent = require('https-proxy-agent');
 
