@@ -315,7 +315,7 @@ describe('Download video', () => {
       const stream = ytdl.downloadFromInfo(testInfo, { filter: () => false });
       stream.on('error', err => {
         assert.ok(err);
-        assert.ok(/No formats found/.test(err.message));
+        assert.ok(/No such format found/.test(err.message));
         done();
       });
     });

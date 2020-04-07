@@ -195,7 +195,7 @@ describe('util.chooseFormat', () => {
       it('Returns an error', () => {
         assert.throws(() => {
           util.chooseFormat(sortedFormats, { filter: () => false });
-        }, /No formats found with custom filter/);
+        }, /No such format found/);
       });
     });
   });
