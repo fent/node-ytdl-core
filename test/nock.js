@@ -38,8 +38,7 @@ exports = module.exports = (id, opts) => {
       path.join(__dirname, `${dirpath}/watch${watchType}.html`)));
 
   if (opts.dashmpd) {
-    let file = Array.isArray(opts.dashmpd) && opts.dashmpd[2] ?
-      `-${opts.dashmpd[2]}` : '';
+    let file = buildFile(opts.dashmpd);
     scopes.push(nock(MANIFEST_HOST, { reqheaders: opts.headers })
       .filteringPath(() => '/api/manifest/dash/')
       .get('/api/manifest/dash/')
@@ -47,19 +46,19 @@ exports = module.exports = (id, opts) => {
         path.join(__dirname, `${dirpath}/dash-manifest${file}.xml`)));
   }
 
-  // If (opts.dashmpd2) {
-  //   let file = Array.isArray(opts.dashmpd2) && opts.dashmpd2[2] ?
-  //     '-' + opts.dashmpd2[2] : '';
-  //   scopes.push(nock(MANIFEST_HOST, { reqheaders: opts.headers })
-  //     .filteringPath(() => '/api/manifest/dash/')
-  //     .get('/api/manifest/dash/')
-  //     .replyWithFile(opts.dashmpd2[1] || 200,
-  //       path.join(__dirname, `${dirpath}/dashmpd2${file}.xml`)));
-  // }
+  /* Unused:
+  if (opts.dashmpd2) {
+    let file = buildFile(opts.dashmpd2);
+    scopes.push(nock(MANIFEST_HOST, { reqheaders: opts.headers })
+      .filteringPath(() => '/api/manifest/dash/')
+      .get('/api/manifest/dash/')
+      .replyWithFile(opts.dashmpd2[1] || 200,
+    path.join(__dirname, `${dirpath}/dashmpd2${file}.xml`)));
+  }
+  */
 
   if (opts.m3u8) {
-    let file = Array.isArray(opts.m3u8) && opts.m3u8[2] ?
-      `-${opts.m3u8[2]}` : '';
+    let file = buildFile(opts.m3u8);
     scopes.push(nock(M3U8_HOST, { reqheaders: opts.headers })
       .filteringPath(() => '/api/manifest/hls_variant/')
       .get('/api/manifest/hls_variant/')
@@ -80,8 +79,7 @@ exports = module.exports = (id, opts) => {
   }
 
   if (opts.embed) {
-    let file = Array.isArray(opts.embed) && opts.embed[2] ?
-      `-${opts.embed[2]}` : '';
+    let file = buildFile(opts.embed);
     scopes.push(nock(YT_HOST, { reqheaders: opts.headers })
       .get(`${EMBED_PATH + id}?hl=en`)
       .replyWithFile(opts.embed[1] || 200,
@@ -89,8 +87,7 @@ exports = module.exports = (id, opts) => {
   }
 
   if (opts.get_video_info) {
-    let file = Array.isArray(opts.get_video_info) && opts.get_video_info[2] ?
-      `-${opts.get_video_info[2]}` : '';
+    let file = buildFile(opts.get_video_info);
     scopes.push(nock(YT_HOST, { reqheaders: opts.headers })
       .filteringPath(p => {
         let regexp = /\?video_id=([a-zA-Z0-9_-]+)&(.+)$/;
@@ -115,6 +112,8 @@ exports = module.exports = (id, opts) => {
     },
   };
 };
+
+const buildFile = a => Array.isArray(a) && a[2] ? `-${a[2]}` : '';
 
 exports.filteringPath = (uri, filter1, filter2) => {
   let parsed = url.parse(uri);

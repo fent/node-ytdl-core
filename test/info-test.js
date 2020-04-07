@@ -283,7 +283,9 @@ describe('ytdl.getInfo()', () => {
 
   describe('With a bad video ID', () => {
     const id = 'bad';
-    it('Returns an error', async() => assert.rejects(ytdl.getInfo(id), null, 'No video id found: bad'));
+    it('Returns an error', async() => {
+      await assert.rejects(ytdl.getInfo(id), null, 'No video id found: bad');
+    });
   });
 
   describe('When there is an error requesting one of the pages', () => {
