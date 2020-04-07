@@ -436,7 +436,9 @@ describe('util.addFormatMeta()', () => {
   });
   describe('util.cutAfterJSON()', () => {
     it('works with simple JSON', () => {
-      assert.equal(util.cutAfterJSON('{"a": 1, "b": 1}'), '{"a": 1, "b": 1}');
+      assert.equal(util.cutAfterJSON(
+	      '{"a": 1, "b": 1}'),
+	      '{"a": 1, "b": 1}');
     });
     it('Cut extra characters after JSON  end', () => {
       assert.equal(util.cutAfterJSON('{"a": 1, "b": 1}abcd'), '{"a": 1, "b": 1}');
