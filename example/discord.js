@@ -1,6 +1,6 @@
 // Install discord.js, ffmpeg, node-opus and ytdl-core before running this!
 const { Client } = require('discord.js');
-const ytdl    = require('ytdl-core');
+const ytdl = require('ytdl-core');
 
 const url = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
 const clientToken = ' Y o u r   B o t   T o k e n ';

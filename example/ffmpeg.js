@@ -1,8 +1,8 @@
 // Install fluent-ffmpeg before running this!
 const readline = require('readline');
-const path   = require('path');
-const fs     = require('fs');
-const ytdl   = require('..');
+const path = require('path');
+const fs = require('fs');
+const ytdl = require('..');
 const ffmpeg = require('fluent-ffmpeg');
 
 const url = 'https://www.youtube.com/watch?v=TGbwL8kSpEk';
@@ -19,7 +19,7 @@ const onProgress = (chunkLength, downloaded, total) => {
 console.log('downloading audio track');
 
 ytdl(url, {
-  filter: format => format.container === 'mp4' && !format.qualityLabel
+  filter: format => format.container === 'mp4' && !format.qualityLabel,
 }).on('error', console.error)
   .on('progress', onProgress)
 
@@ -28,7 +28,7 @@ ytdl(url, {
   .on('finish', () => {
     console.log('\ndownloading video');
     const video = ytdl(url, {
-      filter: format => format.container === 'mp4' && !format.audioEncoding
+      filter: format => format.container === 'mp4' && !format.audioEncoding,
     });
     video.on('progress', onProgress);
     ffmpeg()
@@ -41,7 +41,7 @@ ytdl(url, {
       .on('end', () => {
         fs.unlink(audioOutput, err => {
           if (err) console.error(err);
-          else console.log('\nfinished downloading, saved to ' + mainOutput);
+          else console.log(`\nfinished downloading, saved to ${mainOutput}`);
         });
       });
   });

@@ -1,7 +1,7 @@
 const path = require('path');
-const fs   = require('fs');
+const fs = require('fs');
 const ytdl = require('..');
-const id  = '7wNb0pHyGuI';
+const id = '7wNb0pHyGuI';
 
 const filepath = path.resolve(__dirname, 'info.json');
 

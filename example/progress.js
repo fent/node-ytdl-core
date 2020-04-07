@@ -1,6 +1,6 @@
 const readline = require('readline');
 const path = require('path');
-const fs   = require('fs');
+const fs = require('fs');
 const ytdl = require('..');
 
 const url = 'https://www.youtube.com/watch?v=WhXefyLs-uw';
