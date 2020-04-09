@@ -5,7 +5,8 @@
   },
   "env": {
     "es6": true,
-    "node": true
+    "node": true,
+    "mocha": false
   },
   "rules": {
     "no-await-in-loop": "warn",
