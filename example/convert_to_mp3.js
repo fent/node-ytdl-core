@@ -6,7 +6,6 @@ let id = 'sDLsSQf3Hc0';
 
 let stream = ytdl(id, {
   quality: 'highestaudio',
-  // Filter: 'audioonly',
 });
 
 let start = Date.now();

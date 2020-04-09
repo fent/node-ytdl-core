@@ -43,17 +43,6 @@ exports = module.exports = (id, opts) => {
         path.join(__dirname, `${dirpath}/dash-manifest${file}.xml`)));
   }
 
-  /* Unused:
-  if (opts.dashmpd2) {
-    let file = buildFile(opts.dashmpd2);
-    scopes.push(nock(MANIFEST_HOST, { reqheaders: opts.headers })
-      .filteringPath(() => '/api/manifest/dash/')
-      .get('/api/manifest/dash/')
-      .replyWithFile(opts.dashmpd2[1] || 200,
-    path.join(__dirname, `${dirpath}/dashmpd2${file}.xml`)));
-  }
-  */
-
   if (opts.m3u8) {
     let file = buildFile(opts.m3u8);
     scopes.push(nock(M3U8_HOST, { reqheaders: opts.headers })
