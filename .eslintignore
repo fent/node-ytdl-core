@@ -2,4 +2,5 @@ coverage
 node_modules
 .git
 .github
-test/files
+test/files/html5player
+test/files/videos
