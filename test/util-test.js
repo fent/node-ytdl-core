@@ -1,6 +1,3 @@
-/* global describe, it */
-/* eslint-disable max-nested-callbacks */
-
 const ytdl = require('..');
 const util = require('../lib/util');
 const assert = require('assert-diff');

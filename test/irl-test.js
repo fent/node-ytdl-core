@@ -1,6 +1,3 @@
-/* global it, describe, beforeEach */
-/* eslint-disable max-nested-callbacks */
-
 const assert = require('assert');
 const nock = require('nock');
 const ytdl = require('..');

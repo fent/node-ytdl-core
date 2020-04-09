@@ -1,6 +1,3 @@
-/* global describe, it */
-/* eslint-disable max-nested-callbacks */
-
 const fs = require('fs');
 const path = require('path');
 const assert = require('assert-diff');

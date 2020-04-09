@@ -1,6 +1,3 @@
-/* global describe, it, before, after */
-/* eslint-disable max-nested-callbacks */
-
 const assert = require('assert');
 const path = require('path');
 const fs = require('fs');

@@ -1,6 +1,3 @@
-/* global describe, it, after */
-/* eslint-disable max-nested-callbacks */
-
 const sig = require('../lib/sig');
 const assert = require('assert-diff');
 const fs = require('fs');
