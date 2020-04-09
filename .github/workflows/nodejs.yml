@@ -8,16 +8,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-
-      - uses: actions/setup-node@v1
+      - uses: hallee/eslint-action@master
         with:
-          node-version: 13.x
-
-      - name: npm install, build, and test
-        run: |
-          npm install
-          npm run build --if-present
-          npm run-script lint
+          repo-token: ${{secrets.GITHUB_TOKEN}}
 
   test:
     name: Test on node ${{ matrix.node-version }} and ${{ matrix.os }}
