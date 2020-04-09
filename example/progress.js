@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-
 const readline = require('readline');
 const path = require('path');
 const fs = require('fs');

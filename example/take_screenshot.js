@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-
 const bin = require('ffmpeg-static').path;
 const execFile = require('child_process').execFile;
 const ytdl = require('..');
