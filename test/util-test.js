@@ -56,7 +56,7 @@ const formats = [
   { itag: '17',
     mimeType: 'video/3gpp; codecs="mp4v.20.3, mp4a.40.2"',
     container: '3gp',
-    qualityLabel: '144p',
+    qualityLabel: '144p @ 60fps',
     codecs: 'mp4v.20.3, mp4a.40.2',
     bitrate: 50000,
     audioBitrate: 24 },
