@@ -1,9 +1,9 @@
-const ytdl   = require('..');
-const path   = require('path');
-const fs     = require('fs');
+const ytdl = require('..');
+const path = require('path');
+const fs = require('fs');
 const assert = require('assert-diff');
-const nock   = require('./nock');
-const sinon  = require('sinon');
+const nock = require('./nock');
+const sinon = require('sinon');
 
 
 describe('ytdl.getInfo()', () => {
@@ -14,7 +14,7 @@ describe('ytdl.getInfo()', () => {
   describe('From a regular video', () => {
     const id = 'pJk0p-98Xzc';
     let expectedInfo;
-    before((done) => {
+    before(done => {
       fs.readFile(path.resolve(__dirname,
         `files/videos/${id}-vevo/expected-info.json`),
       'utf8', (err, body) => {
@@ -24,7 +24,7 @@ describe('ytdl.getInfo()', () => {
       });
     });
 
-    it('Retrieves correct metainfo', async () => {
+    it('Retrieves correct metainfo', async() => {
       const scope = nock(id, {
         type: 'vevo',
         get_video_info: true,
@@ -38,7 +38,7 @@ describe('ytdl.getInfo()', () => {
     });
 
     describe('Use ytdl.getBasicInfo()', () => {
-      it('Retrieves just enough metainfo', async () => {
+      it('Retrieves just enough metainfo', async() => {
         const scope = nock(id, {
           type: 'vevo',
           get_video_info: true,
@@ -51,7 +51,7 @@ describe('ytdl.getInfo()', () => {
       });
 
       describe('Followed by ytdl.getInfo()', () => {
-        it('Does not make extra requests', async () => {
+        it('Does not make extra requests', async() => {
           const scope = nock(id, {
             type: 'vevo',
             get_video_info: true,
@@ -68,7 +68,7 @@ describe('ytdl.getInfo()', () => {
       });
 
       describe('Use `ytdl.downloadFromInfo()`', () => {
-        it('Throw error', async () => {
+        it('Throw error', async() => {
           const scope = nock(id, {
             type: 'vevo',
             get_video_info: true,
@@ -84,7 +84,7 @@ describe('ytdl.getInfo()', () => {
     });
 
     describe('Use `ytdl.downloadFromInfo()`', () => {
-      it('Retrives video file', (done) => {
+      it('Retrives video file', done => {
         const stream = ytdl.downloadFromInfo(expectedInfo);
         let scope;
         stream.on('info', (info, format) => {
@@ -100,23 +100,23 @@ describe('ytdl.getInfo()', () => {
     });
 
     describe('Pass request options', () => {
-      it('Request gets called with more headers', async () => {
+      it('Request gets called with more headers', async() => {
         const scope = nock(id, {
           type: 'vevo',
           get_video_info: true,
           player: true,
-          headers: { 'X-Hello': '42' }
+          headers: { 'X-Hello': '42' },
         });
 
         await ytdl.getInfo(id, {
-          requestOptions: { headers: { 'X-Hello': '42' }}
+          requestOptions: { headers: { 'X-Hello': '42' } },
         });
         scope.done();
       });
     });
 
     describe('Using the promise API', () => {
-      it('Retrieves correct metainfo', (done) => {
+      it('Retrieves correct metainfo', done => {
         const scope = nock(id, {
           type: 'vevo',
           get_video_info: true,
@@ -124,7 +124,7 @@ describe('ytdl.getInfo()', () => {
         });
 
         ytdl.getInfo(id)
-          .then((info) => {
+          .then(info => {
             scope.done();
             assert.ok(info.description.length);
             assert.equal(info.formats.length, expectedInfo.formats.length);
@@ -134,12 +134,12 @@ describe('ytdl.getInfo()', () => {
       });
 
       describe('On a video that fails', () => {
-        const id = '99999999999';
+        const testId = '99999999999';
 
-        it('Error is caught', (done) => {
-          const scope = nock(id, { type: 'nonexistent' });
-          const p = ytdl.getInfo(id);
-          p.catch((err) => {
+        it('Error is caught', done => {
+          const scope = nock(testId, { type: 'nonexistent' });
+          const p = ytdl.getInfo(testId);
+          p.catch(err => {
             scope.done();
             assert.ok(err);
             assert.equal(err.message, 'This video is unavailable.');
@@ -150,7 +150,7 @@ describe('ytdl.getInfo()', () => {
     });
 
     describe('Using the callback API', () => {
-      it('Retrieves correct metainfo', (done) => {
+      it('Retrieves correct metainfo', done => {
         const scope = nock(id, {
           type: 'vevo',
           get_video_info: true,
@@ -167,11 +167,11 @@ describe('ytdl.getInfo()', () => {
       });
 
       describe('On a video that fails', () => {
-        const id = '99999999999';
+        const testId = '99999999999';
 
-        it('Error is caught', (done) => {
-          const scope = nock(id, { type: 'nonexistent' });
-          ytdl.getInfo(id, (err) => {
+        it('Error is caught', done => {
+          const scope = nock(testId, { type: 'nonexistent' });
+          ytdl.getInfo(testId, err => {
             scope.done();
             assert.ok(err);
             assert.equal(err.message, 'This video is unavailable.');
@@ -182,19 +182,19 @@ describe('ytdl.getInfo()', () => {
     });
 
     describe('Called twice', () => {
-      const id = 'pJk0p-98Xzc';
+      const testId = 'pJk0p-98Xzc';
 
-      it('Makes requests once', async () => {
-        const scope = nock(id, {
+      it('Makes requests once', async() => {
+        const scope = nock(testId, {
           type: 'vevo',
           get_video_info: true,
           player: true,
         });
 
-        let info1 = await ytdl.getInfo(id);
+        let info1 = await ytdl.getInfo(testId);
         assert.ok(info1.description.length);
         assert.equal(info1.formats.length, expectedInfo.formats.length);
-        let info2 = await ytdl.getInfo(id);
+        let info2 = await ytdl.getInfo(testId);
         scope.done();
         assert.equal(info2, info1);
       });
@@ -204,7 +204,7 @@ describe('ytdl.getInfo()', () => {
   describe('From a non-existant video', () => {
     const id = '99999999999';
 
-    it('Should give an error', async () => {
+    it('Should give an error', async() => {
       const scope = nock(id, { type: 'nonexistent' });
       await assert.rejects(ytdl.getInfo(id), null, 'This video is unavailable.');
       scope.done();
@@ -213,9 +213,9 @@ describe('ytdl.getInfo()', () => {
 
   describe('From an age restricted video', () => {
     const id = 'rIqCiJKWx9I';
-    const expectedInfo = require('./files/videos/' + id + '-age-restricted/expected-info.json');
+    const expectedInfo = require(`./files/videos/${id}-age-restricted/expected-info.json`);
 
-    it('Returns correct video metainfo', async () => {
+    it('Returns correct video metainfo', async() => {
       const scope = nock(id, {
         type: 'age-restricted',
         embed: true,
@@ -228,7 +228,7 @@ describe('ytdl.getInfo()', () => {
       assert.ok(info.age_restricted);
     });
 
-    it('Fails gracefully when unable to find config', async () => {
+    it('Fails gracefully when unable to find config', async() => {
       const scope = nock(id, {
         type: 'age-restricted',
         embed: [true, 200, 'no-config'],
@@ -239,7 +239,7 @@ describe('ytdl.getInfo()', () => {
   });
 
   describe('From a video that was live streamed but not currently live', () => {
-    it('Returns correct video metainfo', async () => {
+    it('Returns correct video metainfo', async() => {
       const id = 'nu5uzMXfuLc';
       const scope = nock(id, {
         type: 'streamed',
@@ -253,7 +253,7 @@ describe('ytdl.getInfo()', () => {
   });
 
   describe('From a video that is not embeddable outside of YouTube', () => {
-    it('Returns correct video metainfo', async () => {
+    it('Returns correct video metainfo', async() => {
       const id = 'GFg8BP01F5Q';
       const scope = nock(id, {
         type: 'noembed',
@@ -268,7 +268,7 @@ describe('ytdl.getInfo()', () => {
 
   describe('From a rental', () => {
     const id = 'SyKPsFRP_Oc';
-    it('Returns an error about it', async () => {
+    it('Returns an error about it', async() => {
       const scope = nock(id, {
         type: 'rental',
         get_video_info: true,
@@ -280,13 +280,13 @@ describe('ytdl.getInfo()', () => {
 
   describe('With a bad video ID', () => {
     const id = 'bad';
-    it('Returns an error', async () => {
-      return assert.rejects(ytdl.getInfo(id), null, 'No video id found: bad');
+    it('Returns an error', async() => {
+      await assert.rejects(ytdl.getInfo(id), null, 'No video id found: bad');
     });
   });
 
   describe('When there is an error requesting one of the pages', () => {
-    it('Fails gracefully when unable to get watch page', async () => {
+    it('Fails gracefully when unable to get watch page', async() => {
       const id = '_HSylqgVYQI';
       const scope = nock(id, {
         type: 'regular',
@@ -294,12 +294,12 @@ describe('ytdl.getInfo()', () => {
       });
       await assert.rejects(
         ytdl.getInfo(id, { requestOptions: { maxRetries: 0 } }),
-        null, 'Status code: 500'
+        null, 'Status code: 500',
       );
       scope.done();
     });
 
-    it('Fails gracefully when unable to parse config', async () => {
+    it('Fails gracefully when unable to parse config', async() => {
       const id = '_HSylqgVYQI';
       const scope = nock(id, {
         type: 'regular',
@@ -309,48 +309,48 @@ describe('ytdl.getInfo()', () => {
       scope.done();
     });
 
-    it('Fails gracefully when unable to get embed page', async () => {
+    it('Fails gracefully when unable to get embed page', async() => {
       const id = 'rIqCiJKWx9I';
       const scope = nock(id, {
         type: 'age-restricted',
-        embed: [true, 500]
+        embed: [true, 500],
       });
       await assert.rejects(
         ytdl.getInfo(id, { requestOptions: { maxRetries: 0 } }),
-        null, 'Status code: 500'
+        null, 'Status code: 500',
       );
       scope.done();
     });
 
-    it('Fails gracefully when unable to get video info page', async () => {
+    it('Fails gracefully when unable to get video info page', async() => {
       const id = '_HSylqgVYQI';
       const scope = nock(id, {
         type: 'regular',
-        get_video_info: [true, 500]
+        get_video_info: [true, 500],
       });
       await assert.rejects(
         ytdl.getInfo(id, { requestOptions: { maxRetries: 0 } }),
-        null, 'Status code: 500'
+        null, 'Status code: 500',
       );
       scope.done();
     });
 
-    it('Fails gracefully when get video info page errors', async () => {
+    it('Fails gracefully when get video info page errors', async() => {
       const id = 'pJk0p-98Xzc';
       const scope = nock(id, {
         type: 'vevo',
         watch: 'no-formats',
-        get_video_info: [true, 200, 'error']
+        get_video_info: [true, 200, 'error'],
       });
       await assert.rejects(
         ytdl.getInfo(id), null,
         'Code 2: Watch this video on YouTube. ' +
-        'Playback on other websites has been disabled by the video owner.'
+        'Playback on other websites has been disabled by the video owner.',
       );
       scope.done();
     });
 
-    it('Fails gracefully when unable to get html5player tokens', async () => {
+    it('Fails gracefully when unable to get html5player tokens', async() => {
       const id = '_HSylqgVYQI';
       const scope = nock(id, {
         type: 'regular',
@@ -359,12 +359,12 @@ describe('ytdl.getInfo()', () => {
       });
       await assert.rejects(
         ytdl.getInfo(id, { requestOptions: { maxRetries: 0 } }),
-        null, 'Status code: 500'
+        null, 'Status code: 500',
       );
       scope.done();
     });
 
-    it('Fails gracefully when unable to get m3u8 playlist', async () => {
+    it('Fails gracefully when unable to get m3u8 playlist', async() => {
       const id = 'hHW1oY26kxQ';
       const scope = nock(id, {
         type: 'live',
@@ -375,12 +375,12 @@ describe('ytdl.getInfo()', () => {
       });
       await assert.rejects(
         ytdl.getInfo(id, { requestOptions: { maxRetries: 0 } }),
-        null, 'Status code: 500'
+        null, 'Status code: 500',
       );
       scope.done();
     });
 
-    it('Fails gracefully when no formats are found', async () => {
+    it('Fails gracefully when no formats are found', async() => {
       const id = 'pJk0p-98Xzc';
       const scope = nock(id, {
         type: 'vevo',
@@ -389,12 +389,12 @@ describe('ytdl.getInfo()', () => {
       });
       await assert.rejects(
         ytdl.getInfo(id),
-        null, 'This video is unavailable'
+        null, 'This video is unavailable',
       );
       scope.done();
     });
 
-    it('Fails gracefully when unable to parse player_response', async () => {
+    it('Fails gracefully when unable to parse player_response', async() => {
       const id = '_HSylqgVYQI';
       const scope = nock(id, {
         type: 'regular',
@@ -403,7 +403,7 @@ describe('ytdl.getInfo()', () => {
       });
       await assert.rejects(
         ytdl.getInfo(id),
-        null, /Error parsing `player_response`:/
+        null, /Error parsing `player_response`:/,
       );
       scope.done();
     });

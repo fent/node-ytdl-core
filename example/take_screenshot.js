@@ -8,8 +8,12 @@ const takeScreenshot = (url, outFile, position) => new Promise((resolve, reject)
     const args = ['-i', format.url, '-frames:v', '1', '-an', '-y', outFile];
     if (!format.live && position) args.splice(0, 0, '-ss', position);
     execFile(bin, args, (error, stdout, stderr) => {
-      if (error) return reject({ error, stdout, stderr });
-      resolve(outFile);
+      if (error) {
+        error.stdout = stdout;
+        error.stderr = stderr;
+        return reject(error);
+      }
+      return resolve(outFile);
     });
   }).catch(reject);
 });

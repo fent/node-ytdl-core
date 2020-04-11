@@ -19,7 +19,7 @@ const videos = [
       {
         page: 'dash-manifest.xml',
         saveAs: 'transformed',
-        fn: (body) => {
+        fn: body => {
           const replaceBetweenTags = (tagName, content) => {
             const regex = new RegExp(`<${tagName}>(.+?)</${tagName}`, 'g');
             body = body.replace(regex, `<${tagName}>${content}</${tagName}`);
@@ -38,9 +38,9 @@ const videos = [
             `);
           body = body.replace('type="dynamic"', '');
           return body;
-        }
-      }
-    ]
+        },
+      },
+    ],
   },
   {
     id: 'SyKPsFRP_Oc',
@@ -54,44 +54,44 @@ const videos = [
       {
         page: 'get_video_info',
         saveAs: 'unknown-format',
-        fn: (body) => body.replace(/(%26itag%3D)(?:\d+)(%26)/g, '$1unknown$2')
+        fn: body => body.replace(/(%26itag%3D)(?:\d+)(%26)/g, '$1unknown$2'),
       },
       {
         page: 'watch.html',
         saveAs: 'bad-config',
-        fn: (body) => body.replace('ytplayer.config = {', 'ytplayer.config = ')
+        fn: body => body.replace('ytplayer.config = {', 'ytplayer.config = '),
       },
       {
         page: 'watch.html',
         saveAs: 'bad-player-response',
-        fn: (body) => body.replace('"player_response":"{', '"player_response":"')
+        fn: body => body.replace('"player_response":"{', '"player_response":"'),
       },
       {
         page: 'watch.html',
         saveAs: 'no-extras',
-        fn: (body) => {
+        fn: body => {
           body = body.replace('id="watch7-user-header"', '');
           body = body.replace('id="eow-description"', '');
           body = body.replace('{"rvs":', '{"rvs":}');
           return body;
-        }
+        },
       },
       {
         page: 'watch.html',
         saveAs: 'multiline-description',
-        fn: (body) => {
+        fn: body => {
           const regex = /(<p.*?id="eow-description".*?>).+?(<\/p>)/;
           body = body.replace(regex, '$1Some Title<br>' +
             'Line 1<br>' +
             '"Line 2"<br>' +
             '1  First Song  5:30<br>' +
             '2  Second Song  5:42' +
-            '$2'
+            '$2',
           );
           return body;
-        }
-      }
-    ]
+        },
+      },
+    ],
   },
   {
     id: 'nu5uzMXfuLc',
@@ -106,19 +106,19 @@ const videos = [
       {
         page: 'dash-manifest.xml',
         saveAs: 'no-formats',
-        fn: body => body.replace(/<Representation>([\S\s]+)<\/Representation>/g, '')
+        fn: body => body.replace(/<Representation>([\S\s]+)<\/Representation>/g, ''),
       },
       {
         page: 'get_video_info',
         saveAs: 'no-formats',
-        fn: body => body.replace(/streamingData/g, 'no')
+        fn: body => body.replace(/streamingData/g, 'no'),
       },
       {
         page: 'watch.html',
         saveAs: 'no-formats',
-        fn: body => body.replace(/streamingData/g, 'no')
-      }
-    ]
+        fn: body => body.replace(/streamingData/g, 'no'),
+      },
+    ],
   },
   {
     id: 'rIqCiJKWx9I',
@@ -128,14 +128,14 @@ const videos = [
       {
         page: 'watch.html',
         saveAs: 'german',
-        fn: body => body
+        fn: body => body,
       },
       {
         page: 'embed.html',
         saveAs: 'no-config',
-        fn: (body) => body.replace('t.setConfig({\'PLAYER_CONFIG\': ', '')
+        fn: body => body.replace('t.setConfig({\'PLAYER_CONFIG\': ', ''),
       },
-    ]
+    ],
   },
   {
     id: '99999999999',
@@ -161,14 +161,14 @@ const videos = [
       {
         page: 'watch.html',
         saveAs: 'no-rvs',
-        fn: (body) => body.replace(/"rvs":"[^"]+"/, '"rvs":""')
+        fn: body => body.replace(/"rvs":"[^"]+"/, '"rvs":""'),
       },
       {
         page: 'watch.html',
         saveAs: 'bad-details',
-        fn: (body) => body.replace(/\\"shortBylineText\\"/g, '\\"___\\"')
+        fn: body => body.replace(/\\"shortBylineText\\"/g, '\\"___\\"'),
       },
-    ]
+    ],
   },
   {
     id: 'wYgaarivXv4',
@@ -187,35 +187,31 @@ const videos = [
 ];
 
 
-const fs         = require('fs');
-const path       = require('path');
-const urlParse   = require('url').parse;
+const fs = require('fs');
+const path = require('path');
+const urlParse = require('url').parse;
 const mukRequire = require('muk-require');
-const miniget    = require('miniget');
+const miniget = require('miniget');
 
 
 // Tries to remove instances of your ip from saved test files.
-const cleanBody = (body) => {
-  return body
-    .replace(/(ip(?:=|\\?\/|%3D|%253D|%2F))((?:(?:25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(?:25[0-5]|2[0-4]\d|[01]?\d\d?)|[0-9a-f]{1,4}(?:(?::|%3A)[0-9a-f]{1,4}){7})/ig, '$10.0.0.0');
-};
+const cleanBody = body => body
+  .replace(/(ip(?:=|\\?\/|%3D|%253D|%2F))((?:(?:25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(?:25[0-5]|2[0-4]\d|[01]?\d\d?)|[0-9a-f]{1,4}(?:(?::|%3A)[0-9a-f]{1,4}){7})/ig, '$10.0.0.0'); // eslint-disable-line max-len
 
 // Returns true if `filename` is found in `video.skip`.
 // `video.skipcan be a regex.
-const skipFile = (video, filename) => {
-  return video.skip && video.skip.some(skip =>
-    skip instanceof RegExp ? skip.test(filename) : filename.includes(skip)
-  );
-};
+const skipFile = (video, filename) => video.skip && video.skip.some(skip =>
+  skip instanceof RegExp ? skip.test(filename) : filename.includes(skip),
+);
 
-const getTransformFilename = (transform) => {
+const getTransformFilename = transform => {
   let [basename, ext] = transform.page.split('.');
-  return `${basename}-${transform.saveAs}${ext ? '.' + ext : ''}`;
+  return `${basename}-${transform.saveAs}${ext ? `.${ext}` : ''}`;
 };
 
-const refreshVideo = async (video, noRequests) => {
+const refreshVideo = async(video, noRequests) => {
   console.log('refreshing video:', video.id, video.type);
-  const folder = path.join(__dirname, 'videos/' + video.id + '-' + video.type);
+  const folder = path.join(__dirname, `videos/${video.id}-${video.type}`);
   let existingFiles = {};
   try {
     fs.accessSync(folder);
@@ -252,7 +248,7 @@ const refreshVideo = async (video, noRequests) => {
 
   const writeTransforms = (filename, body) => {
     for (let transform of video.transform || []) {
-      if (transform.page == filename) {
+      if (transform.page === filename) {
         let tfilename = getTransformFilename(transform);
         writeFile(tfilename, transform.fn(body));
       }
@@ -265,25 +261,25 @@ const refreshVideo = async (video, noRequests) => {
     }
 
     // Save contents to file.
-    const saveContents = (body) => {
+    const saveContents = body => {
       let parsed = urlParse(url);
       let s = parsed.pathname.split('/');
       let playerfile = /((?:html5)?player[-_][a-zA-Z0-9\-_.]+)(?:\.js|\/)/;
       let filename =
         // Special case for livestream manifest files.
         /\/manifest\/dash\//.test(url) ? 'dash-manifest.xml' :
-        /\/manifest\/hls_(variant|playlist)\//.test(url) ? 'hls-manifest.m3u8' :
+          /\/manifest\/hls_(variant|playlist)\//.test(url) ? 'hls-manifest.m3u8' :
 
-        // Save the key of html5player file so we know if they've changed.
-        playerfile.test(url) ? playerfile.exec(url)[1] + '.js' :
+          // Save the key of html5player file so we know if they've changed.
+            playerfile.test(url) ? `${playerfile.exec(url)[1]}.js` :
 
-        // Save watch and embed pages with .html extension.
-        /^\/watch$/.test(parsed.pathname) ? 'watch.html' :
-        /^\/embed\//.test(parsed.pathname) ? 'embed.html' :
+            // Save watch and embed pages with .html extension.
+              /^\/watch$/.test(parsed.pathname) ? 'watch.html' :
+                /^\/embed\//.test(parsed.pathname) ? 'embed.html' :
 
-        // Otherwise, use url path as filename.
-        s[s.length - 1];
-      console.log('request:', url.length > 100 ? url.slice(0, 97) + '...' : url);
+                // Otherwise, use url path as filename.
+                  s[s.length - 1];
+      console.log('request:', url.length > 100 ? `${url.slice(0, 97)}...` : url);
       if ((!video.keep || video.keep.indexOf(filename) === -1) &&
           !skipFile(video, filename)) {
         body = cleanBody(body);
@@ -296,12 +292,12 @@ const refreshVideo = async (video, noRequests) => {
       return miniget(url, options, (err, res, body) => {
         if (err) return callback(err);
         saveContents(body);
-        callback(err, res, body);
+        return callback(err, res, body);
       });
     } else {
       let body = [];
       let stream = miniget(url, options);
-      stream.on('data', (chunk) => { body.push(chunk); });
+      stream.on('data', chunk => { body.push(chunk); });
       stream.on('end', () => { saveContents(body.join('')); });
       return stream;
     }
@@ -309,18 +305,18 @@ const refreshVideo = async (video, noRequests) => {
   minigetMock.promise = (url, options) => new Promise((resolve, reject) => {
     minigetMock(url, options, (err, res, body) => {
       if (err) return reject(err);
-      resolve([res, body]);
+      return resolve([res, body]);
     });
   });
 
-  const getInfo = mukRequire('../../lib/info', { 'miniget': minigetMock });
+  const getInfo = mukRequire('../../lib/info', { miniget: minigetMock });
 
   if (noRequests) {
     for (let filename in existingFiles) {
       // Ignore existing transformed files.
-      if (video.transform &&
-          video.transform.some(t => filename === getTransformFilename(t)) ||
-          skipFile(video, filename)
+      if (
+        (video.transform && video.transform.some(t => filename === getTransformFilename(t))) ||
+        skipFile(video, filename)
       ) {
         continue;
       }
@@ -329,7 +325,6 @@ const refreshVideo = async (video, noRequests) => {
       existingFiles[filename] = true;
       writeTransforms(filename, body);
     }
-
   } else {
   // Make the call to ytdl.
     try {
@@ -358,9 +353,9 @@ const refreshVideo = async (video, noRequests) => {
   console.log();
 };
 
-const refreshAll = async (noRequests) => {
+const refreshAll = async noRequests => {
   for (let video of videos) {
-    await refreshVideo(video, noRequests);
+    await refreshVideo(video, noRequests); // eslint-disable-line no-await-in-loop
   }
 };
 
@@ -369,7 +364,7 @@ const refreshAll = async (noRequests) => {
 let type = process.argv[2];
 let noRequests = !!process.argv[3];
 if (type) {
-  let video = videos.find(video => video.type === type);
+  let video = videos.find(video2 => video2.type === type);
   if (video) {
     refreshVideo(video, noRequests);
   } else {

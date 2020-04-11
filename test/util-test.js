@@ -1,88 +1,88 @@
-const ytdl   = require('..');
-const util   = require('../lib/util');
+const ytdl = require('..');
+const util = require('../lib/util');
 const assert = require('assert-diff');
 
 
 const formats = [
-  { itag         : '18',
-    mimeType     : 'video/mp4; codecs="avc1.42001E, mp4a.40.2"',
-    container    : 'mp4',
-    qualityLabel : '360p',
-    codecs       : 'avc1.42001E, mp4a.40.2',
-    bitrate      : 500000,
-    audioBitrate : 96 },
-  { itag         : '19',
-    mimeType     : 'audio/mp4; codecs="avc1.42001E, mp4a.40.2"',
-    container    : 'mp4',
-    qualityLabel : null,
-    codecs       : 'avc1.42001E, mp4a.40.2',
-    bitrate      : 500000,
-    audioBitrate : 96 },
-  { itag         : '43',
-    mimeType     : 'video/webm; codecs="vp8.0, vorbis"',
-    container    : 'webm',
-    qualityLabel : '360p',
-    codecs       : 'vp8.0, vorbis',
-    bitrate      : 500000,
-    audioBitrate : 128 },
-  { itag         : '133',
-    mimeType     : 'video/mp4; codecs="avc1.4d400d"',
-    container    : 'mp4',
-    qualityLabel : '240p',
-    codecs       : 'avc1.4d400d',
-    bitrate      : 300000,
-    audioBitrate : null },
-  { itag         : '36',
-    mimeType     : 'video/3gpp; codecs="mp4v.20.3, mp4a.40.2"',
-    container    : '3gp',
-    qualityLabel : '240p',
-    codecs       : 'mp4v.20.3, mp4a.40.2',
-    bitrate      : 170000,
-    audioBitrate : 38 },
-  { itag         : '5',
-    mimeType     : 'video/flv; codecs="Sorenson H.283, mp3"',
-    container    : 'flv',
-    qualityLabel : '240p',
-    codecs       : 'Sorenson H.283, mp3',
-    bitrate      : 250000,
-    audioBitrate : 64 },
-  { itag         : '160',
-    mimeType     : 'video/mp4; codecs="avc1.4d400c"',
-    container    : 'mp4',
-    qualityLabel : '144p',
-    codecs       : 'avc1.4d400c',
-    bitrate      : 100000,
-    audioBitrate : null },
-  { itag         : '17',
-    mimeType     : 'video/3gpp; codecs="mp4v.20.3, mp4a.40.2"',
-    container    : '3gp',
-    qualityLabel : '144p',
-    codecs       : 'mp4v.20.3, mp4a.40.2',
-    bitrate      : 50000,
-    audioBitrate : 24 },
-  { itag         : '140',
-    mimeType     : 'audio/mp4; codecs="mp4a.40.2"',
-    container    : 'mp4',
-    qualityLabel : null,
-    codecs       : 'mp4a.40.2',
-    bitrate      : null,
-    audioBitrate : 128 },
-  { itag         : '139',
-    mimeType     : 'audio/mp4; codecs="mp4a.40.2"',
-    container    : 'mp4',
-    qualityLabel : null,
-    codecs       : 'mp4a.40.2',
-    bitrate      : null,
-    audioBitrate : null },
-  { itag         : '138',
-    mimeType     : 'audio/mp4; codecs="mp4a.40.2"',
-    container    : 'mp4',
-    qualityLabel : null,
-    codecs       : 'mp4a.40.2',
-    bitrate      : null,
-    audioBitrate : null },
+  { itag: '18',
+    mimeType: 'video/mp4; codecs="avc1.42001E, mp4a.40.2"',
+    container: 'mp4',
+    qualityLabel: '360p',
+    codecs: 'avc1.42001E, mp4a.40.2',
+    bitrate: 500000,
+    audioBitrate: 96 },
+  { itag: '19',
+    mimeType: 'audio/mp4; codecs="avc1.42001E, mp4a.40.2"',
+    container: 'mp4',
+    qualityLabel: null,
+    codecs: 'avc1.42001E, mp4a.40.2',
+    bitrate: 500000,
+    audioBitrate: 96 },
+  { itag: '43',
+    mimeType: 'video/webm; codecs="vp8.0, vorbis"',
+    container: 'webm',
+    qualityLabel: '360p',
+    codecs: 'vp8.0, vorbis',
+    bitrate: 500000,
+    audioBitrate: 128 },
+  { itag: '133',
+    mimeType: 'video/mp4; codecs="avc1.4d400d"',
+    container: 'mp4',
+    qualityLabel: '240p',
+    codecs: 'avc1.4d400d',
+    bitrate: 300000,
+    audioBitrate: null },
+  { itag: '36',
+    mimeType: 'video/3gpp; codecs="mp4v.20.3, mp4a.40.2"',
+    container: '3gp',
+    qualityLabel: '240p',
+    codecs: 'mp4v.20.3, mp4a.40.2',
+    bitrate: 170000,
+    audioBitrate: 38 },
+  { itag: '5',
+    mimeType: 'video/flv; codecs="Sorenson H.283, mp3"',
+    container: 'flv',
+    qualityLabel: '240p',
+    codecs: 'Sorenson H.283, mp3',
+    bitrate: 250000,
+    audioBitrate: 64 },
+  { itag: '160',
+    mimeType: 'video/mp4; codecs="avc1.4d400c"',
+    container: 'mp4',
+    qualityLabel: '144p',
+    codecs: 'avc1.4d400c',
+    bitrate: 100000,
+    audioBitrate: null },
+  { itag: '17',
+    mimeType: 'video/3gpp; codecs="mp4v.20.3, mp4a.40.2"',
+    container: '3gp',
+    qualityLabel: '144p',
+    codecs: 'mp4v.20.3, mp4a.40.2',
+    bitrate: 50000,
+    audioBitrate: 24 },
+  { itag: '140',
+    mimeType: 'audio/mp4; codecs="mp4a.40.2"',
+    container: 'mp4',
+    qualityLabel: null,
+    codecs: 'mp4a.40.2',
+    bitrate: null,
+    audioBitrate: 128 },
+  { itag: '139',
+    mimeType: 'audio/mp4; codecs="mp4a.40.2"',
+    container: 'mp4',
+    qualityLabel: null,
+    codecs: 'mp4a.40.2',
+    bitrate: null,
+    audioBitrate: null },
+  { itag: '138',
+    mimeType: 'audio/mp4; codecs="mp4a.40.2"',
+    container: 'mp4',
+    qualityLabel: null,
+    codecs: 'mp4a.40.2',
+    bitrate: null,
+    audioBitrate: null },
 ];
-const getItags = (format) => format.itag;
+const getItags = format => format.itag;
 
 
 describe('util.sortFormats()', () => {
@@ -92,7 +92,7 @@ describe('util.sortFormats()', () => {
       sortedFormats.sort(util.sortFormats);
       const itags = sortedFormats.map(getItags);
       assert.deepEqual(itags, [
-        '43', '18', '5', '36', '17', '133', '160', '19', '140', '139', '138'
+        '43', '18', '5', '36', '17', '133', '160', '19', '140', '139', '138',
       ]);
     });
   });
@@ -181,18 +181,18 @@ describe('util.chooseFormat', () => {
   describe('With filter given', () => {
     describe('that matches a format', () => {
       it('Chooses a format', () => {
-        const format = util.chooseFormat(sortedFormats, {
-          filter: (format) => format.container === 'mp4',
+        const choosenFormat = util.chooseFormat(sortedFormats, {
+          filter: format => format.container === 'mp4',
         });
-        assert.equal(format.itag, '18');
+        assert.equal(choosenFormat.itag, '18');
       });
     });
 
     describe('that does not match a format', () => {
       it('Returns an error', () => {
         assert.throws(() => {
-          util.chooseFormat(sortedFormats, { filter: () => {} });
-        }, /No formats found with custom filter/);
+          util.chooseFormat(sortedFormats, { filter: () => false });
+        }, /No such format found/);
       });
     });
   });
@@ -201,7 +201,7 @@ describe('util.chooseFormat', () => {
 
 describe('util.filterFormats', () => {
   it('Tries to find formats that match', () => {
-    const filter = (format) => format.container === 'mp4';
+    const filter = format => format.container === 'mp4';
     const itags = util.filterFormats(formats, filter).map(getItags);
     assert.deepEqual(itags, ['18', '19', '133', '160', '140', '139', '138']);
   });
@@ -343,8 +343,8 @@ describe('util.getVideoID()', () => {
     assert.equal(id, 'RAW_VIDEOID');
     id = util.getVideoID('http://youtube.com/embed/RAW_VIDEOID');
     assert.equal(id, 'RAW_VIDEOID');
-    id = util.getVideoID('RAW_VIDEOID'); // Video ids are 11-character long
-    assert.equal(id, 'RAW_VIDEOID');
+    id = util.getVideoID('_LENGTH_11_');
+    assert.equal(id, '_LENGTH_11_');
     assert.throws(() => {
       util.getVideoID('http://youtube.com/RAW_VIDEOID');
     }, /No video id found: \S+/);
