@@ -10,3 +10,4 @@ jobs:
       - uses: Krizzu/eslint-check-action@v1.1.0
         with:
           ghToken: ${{ secrets.GITHUB_TOKEN }}
+          eslintConfig: .eslintrc.json
