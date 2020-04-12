@@ -183,7 +183,15 @@ Or for Yarn users:
 yarn add ytdl-core@latest
 ```
 
-If you're using a bot or app that uses ytdl-core, it may be dependent on an older version. Make sure you're installing the latest version of ytdl-core to keep up with the latest fixes.
+Make sure you're installing the latest version of ytdl-core to keep up with the latest fixes.
+
+If you're using a bot or app that uses ytdl-core such as [ytdl-core-discord](https://github.com/amishshah/ytdl-core-discord) or [discord-player](https://github.com/Androz2091/discord-player), it may be dependent on an older version. To update its ytdl-core version, you'll have to fork the project and update its `package.json` file, you can't simply change the version on your project's `package.json`, the app will still use its own older version of ytdl-core.
+
+You can then submit a pull request to their project and point to your fork temporarily. You can also check their pull request and check if there's one open already, and point to that instead. To point to a github's repo's branch in your `package.json`, you can do
+
+```json
+  "ytdl-core-discord": "amishshah/ytdl-core-discord#dependabot/npm_and_yarn/ytdl-core-2.0.1"
+```
 
 # Related Projects
 
