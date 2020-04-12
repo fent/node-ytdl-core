@@ -56,7 +56,7 @@ Attempts to download a video from the given url. Returns a [readable stream](htt
   * This option is not very reliable, see [#129](https://github.com/fent/node-ytdl-core/issues/129), [#219](https://github.com/fent/node-ytdl-core/issues/219).
 * `liveBuffer` - How much time buffer to use for live videos in milliseconds. Default is `20000`.
 * `requestOptions` - Anything to merge into the request options which [miniget](https://github.com/fent/node-miniget) is called with, such as `headers`.
-* `highWaterMark` - How much of the video download to buffer into memory. See [node's docs](https://nodejs.org/api/stream.html#stream_constructor_new_stream_writable_options) for more.
+* `highWaterMark` - How much of the video download to buffer into memory. See [node's docs](https://nodejs.org/api/stream.html#stream_constructor_new_stream_writable_options) for more. Defaults to 512KB.
 * `lang` - The 2 character symbol of a language. Default is `en`.
 
 #### Event: info
