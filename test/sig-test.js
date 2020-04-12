@@ -1,10 +1,10 @@
-const sig    = require('../lib/sig');
+const sig = require('../lib/sig');
 const assert = require('assert-diff');
-const fs     = require('fs');
-const path   = require('path');
-const nock   = require('./nock');
-const spy    = require('sinon').spy;
-const muk    = require('muk-prop');
+const fs = require('fs');
+const path = require('path');
+const nock = require('./nock');
+const spy = require('sinon').spy;
+const muk = require('muk-prop');
 
 const html5player = require('./html5player.json');
 
@@ -14,7 +14,7 @@ describe('Get tokens', () => {
   const url = 'https://s.ytimg.com/yts/jsbin/player-en_US-vfljDEtYP/base.js';
   const filepath = path.resolve(__dirname, `files/html5player/${key}.js`);
 
-  it('Returns a set of tokens', async () => {
+  it('Returns a set of tokens', async() => {
     const scope = nock.url(url).replyWithFile(200, filepath);
     let tokens = await sig.getTokens(url, {});
     scope.done();
@@ -22,7 +22,7 @@ describe('Get tokens', () => {
   });
 
   describe('Hit the same video twice', () => {
-    it('Gets html5player tokens from cache', async () => {
+    it('Gets html5player tokens from cache', async() => {
       const scope = nock.url(url).replyWithFile(200, filepath);
       let tokens = await sig.getTokens(url, {});
       scope.done();
@@ -33,37 +33,22 @@ describe('Get tokens', () => {
   });
 
   describe('Get a bad html5player file', () => {
-    it('Gives an error', async () => {
-      const url = 'https://s.ytimg.com/yts/jsbin/player-en_US-bad/base.js';
-      const scope = nock.url(url).reply(404, 'uh oh');
-      await assert.rejects(sig.getTokens(url, {}));
+    it('Gives an error', async() => {
+      const testUrl = 'https://s.ytimg.com/yts/jsbin/player-en_US-bad/base.js';
+      const scope = nock.url(testUrl).reply(404, 'uh oh');
+      await assert.rejects(sig.getTokens(testUrl, {}));
       scope.done();
-    });
-  });
-
-  describe('Unable to find key in filename', () => {
-    it('Warns the console, still attempts to get tokens', async () => {
-      const warn = spy();
-      muk(console, 'warn', warn);
-      after(muk.restore);
-
-      const url = 'https://s.ytimg.com/badfilename.js';
-      const scope = nock.url(url).replyWithFile(200, filepath);
-      let tokens = await sig.getTokens(url, {});
-      scope.done();
-      assert.ok(warn.called);
-      assert.ok(tokens.length);
     });
   });
 
   describe('Unable to find tokens', () => {
-    const key = 'mykey';
-    const url = `https://s.ytimg.com/yts/jsbin/player-${key}/base.js`;
+    const testKey = 'mykey';
+    const testUrl = `https://s.ytimg.com/yts/jsbin/player-${testKey}/base.js`;
     const contents = 'my personal contents';
 
-    it('Gives an error', async () => {
-      const scope = nock.url(url).reply(200, contents);
-      await assert.rejects(sig.getTokens(url, {}), /Could not extract signature/);
+    it('Gives an error', async() => {
+      const scope = nock.url(testUrl).reply(200, contents);
+      await assert.rejects(sig.getTokens(testUrl, {}), /Could not extract signature/);
       scope.done();
     });
   });
@@ -71,7 +56,7 @@ describe('Get tokens', () => {
 
 describe('Signature decipher', () => {
   describe('extract deciphering actions', () => {
-    it('Returns the correct set of actions', (done) => {
+    it('Returns the correct set of actions', done => {
       let total = 0;
       for (let name in html5player) {
         total++;
@@ -123,14 +108,14 @@ describe('Set download URL', () => {
       quality: 'small',
       type: 'video/x-flv',
       itag: '5',
-      url: 'https://r4---sn-p5qlsnsr.googlevideo.com/videoplayback?nh=IgpwZjAxLmlhZDI2Kgw3Mi4xNC4yMDMuOTU&upn=utAH1aBebVk&source=youtube&sparams=cwbhb%2Cdur%2Cid%2Cinitcwndbps%2Cip%2Cipbits%2Citag%2Clmt%2Cmime%2Cmm%2Cmn%2Cms%2Cmv%2Cnh%2Cpl%2Crequiressl%2Csource%2Cupn%2Cexpire&initcwndbps=772500&pl=16&ip=0.0.0.0&lmt=1309008098017854&key=yt6&id=o-AJj1D_OYO_EieAH08Qa2tRsP6zid9dsuPAvktizyDRlv&expire=1444687469&mm=31&mn=sn-p5qlsnsr&itag=5&mt=1444665784&mv=m&cwbhb=yes&fexp=9408208%2C9408490%2C9408710%2C9409069%2C9414764%2C9415435%2C9416126%2C9417224%2C9417380%2C9417488%2C9417707%2C9418448%2C9418494%2C9419445%2C9419802%2C9420324%2C9420348%2C9420982%2C9421013%2C9421170%2C9422341%2C9422540&ms=au&sver=3&dur=298.109&requiressl=yes&ipbits=0&mime=video%2Fx-flv&ratebypass=yes',
+      url: 'https://r4---sn-p5qlsnsr.googlevideo.com/videoplayback?nh=IgpwZjAxLmlhZDI2Kgw3Mi4xNC4yMDMuOTU&upn=utAH1aBebVk&source=youtube&sparams=cwbhb%2Cdur%2Cid%2Cinitcwndbps%2Cip%2Cipbits%2Citag%2Clmt%2Cmime%2Cmm%2Cmn%2Cms%2Cmv%2Cnh%2Cpl%2Crequiressl%2Csource%2Cupn%2Cexpire&initcwndbps=772500&pl=16&ip=0.0.0.0&lmt=1309008098017854&key=yt6&id=o-AJj1D_OYO_EieAH08Qa2tRsP6zid9dsuPAvktizyDRlv&expire=1444687469&mm=31&mn=sn-p5qlsnsr&itag=5&mt=1444665784&mv=m&cwbhb=yes&fexp=9408208%2C9408490%2C9408710%2C9409069%2C9414764%2C9415435%2C9416126%2C9417224%2C9417380%2C9417488%2C9417707%2C9418448%2C9418494%2C9419445%2C9419802%2C9420324%2C9420348%2C9420982%2C9421013%2C9421170%2C9422341%2C9422540&ms=au&sver=3&dur=298.109&requiressl=yes&ipbits=0&mime=video%2Fx-flv&ratebypass=yes', // eslint-disable-line max-len
       container: 'flv',
       resolution: '240p',
       encoding: 'Sorenson H.283',
       profile: null,
       bitrate: '0.25',
       audioEncoding: 'mp3',
-      audioBitrate: 64
+      audioBitrate: 64,
     };
     sig.setDownloadURL(format, 'mysiggy', false);
     assert.ok(format.url.indexOf('signature=mysiggy') > -1);

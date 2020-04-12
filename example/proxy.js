@@ -9,16 +9,16 @@ const agent = HttpsProxyAgent({
 });
 
 const stream = ytdl('https://www.youtube.com/watch?v=2UBFIhS1YBk', {
-  requestOptions: { agent }
+  requestOptions: { agent },
 });
 
 console.log('Starting Download');
 
-stream.on('data', (chunk) => {
+stream.on('data', chunk => {
   console.log('downloaded', chunk.length);
 });
 
-stream.on('error', (err) => {
+stream.on('error', err => {
   console.error(err);
 });
 

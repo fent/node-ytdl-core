@@ -1,11 +1,11 @@
-const fs     = require('fs');
-const path   = require('path');
+const fs = require('fs');
+const path = require('path');
 const assert = require('assert-diff');
 const extras = require('../lib/info-extras');
 
 
 describe('extras.getVideoDescription()', () => {
-  it('Retrieves formatted video description', (done) => {
+  it('Retrieves formatted video description', done => {
     fs.readFile(path.resolve(__dirname,
       'files/videos/_HSylqgVYQI-regular/watch-multiline-description.html'),
     'utf8', (err, html) => {
@@ -20,7 +20,7 @@ describe('extras.getVideoDescription()', () => {
     });
   });
 
-  it('Fallbacks to empty description if element not found', (done) => {
+  it('Fallbacks to empty description if element not found', done => {
     fs.readFile(path.resolve(__dirname,
       'files/videos/_HSylqgVYQI-regular/watch-no-extras.html'), 'utf8', (err, html) => {
       assert.ifError(err);
@@ -32,28 +32,28 @@ describe('extras.getVideoDescription()', () => {
 });
 
 
-const assertURL = (url) => {
-  assert.ok(/^https?:\/\//.test(url), 'Not a URL: ' + url);
+const assertURL = url => {
+  assert.ok(/^https?:\/\//.test(url), `Not a URL: ${url}`);
 };
 
-const assertChannelURL = (url) => {
-  assert.ok(/^https?:\/\/www\.youtube\.com\/channel\/[a-zA-Z0-9_-]+$/.test(url), 'Not a channel URL: '+ url);
+const assertChannelURL = url => {
+  assert.ok(/^https?:\/\/www\.youtube\.com\/channel\/[a-zA-Z0-9_-]+$/.test(url), `Not a channel URL: ${url}`);
 };
 
-const assertUserID = (str) => {
-  assert.ok(/^[a-zA-Z0-9_-]+$/.test(str), 'Not a user id:' + str);
+const assertUserID = str => {
+  assert.ok(/^[a-zA-Z0-9_-]+$/.test(str), `Not a user id:${str}`);
 };
 
-const assertUserName = (str) => {
-  assert.ok(/^[a-zA-Z0-9_-]+$/.test(str), 'Not a username: '+ str);
+const assertUserName = str => {
+  assert.ok(/^[a-zA-Z0-9_-]+$/.test(str), `Not a username: ${str}`);
 };
 
-const assertUserURL = (url) => {
-  assert.ok(/^https?:\/\/www\.youtube\.com\/user\/[a-zA-Z0-9_-]+$/.test(url), 'Not a user URL: ' + url);
+const assertUserURL = url => {
+  assert.ok(/^https?:\/\/www\.youtube\.com\/user\/[a-zA-Z0-9_-]+$/.test(url), `Not a user URL: ${url}`);
 };
 
 describe('extras.getAuthor()', () => {
-  it('Returns video author object', (done) => {
+  it('Returns video author object', done => {
     fs.readFile(path.resolve(__dirname, 'files/videos/pJk0p-98Xzc-vevo/watch.html'),
       'utf8', (err, html) => {
         assert.ifError(err);
@@ -71,7 +71,7 @@ describe('extras.getAuthor()', () => {
   });
 
   describe('watch page without author', () => {
-    it('Returns empty object if author not found', (done) => {
+    it('Returns empty object if author not found', done => {
       fs.readFile(path.resolve(__dirname,
         'files/videos/_HSylqgVYQI-regular/watch-no-extras.html'), 'utf8', (err, html) => {
         assert.ifError(err);
@@ -83,7 +83,7 @@ describe('extras.getAuthor()', () => {
   });
 
   describe('from a rental', () => {
-    it('Returns video author object', (done) => {
+    it('Returns video author object', done => {
       fs.readFile(path.resolve(__dirname,
         'files/videos/SyKPsFRP_Oc-rental/watch.html'), 'utf8', (err, html) => {
         assert.ifError(err);
@@ -104,7 +104,7 @@ describe('extras.getAuthor()', () => {
 
 
 describe('extras.getMedia()', () => {
-  it('Returns media object', (done) => {
+  it('Returns media object', done => {
     fs.readFile(path.resolve(__dirname, 'files/videos/pJk0p-98Xzc-vevo/watch.html'),
       'utf8', (err, html) => {
         assert.ifError(err);
@@ -119,7 +119,7 @@ describe('extras.getMedia()', () => {
   });
 
   describe('On a video with an older game', () => {
-    it('Returns media object', (done) => {
+    it('Returns media object', done => {
       fs.readFile(path.resolve(__dirname, 'files/videos/xRu7qKijBso-game/watch.html'),
         'utf8', (err, html) => {
           assert.ifError(err);
@@ -137,13 +137,13 @@ describe('extras.getMedia()', () => {
   });
 
   describe('On a video with a game with an image', () => {
-    it('Returns media object', (done) => {
+    it('Returns media object', done => {
       fs.readFile(path.resolve(__dirname, 'files/videos/OYXswyLkek4-game-image/watch.html'),
         'utf8', (err, html) => {
           assert.ifError(err);
           const mediaObj = extras.getMedia(html);
           assert.deepEqual(mediaObj, {
-            image: 'https://yt3.ggpht.com/FaZqW4WE3D4npqAplZsJSzlZfDQ7XJSb-vEoL3rIOHkRfGd2uDK4ldxeCxyvg2CcqFgfCpCgGlzgy1-rtQ=w40-nd',
+            image: 'https://yt3.ggpht.com/FaZqW4WE3D4npqAplZsJSzlZfDQ7XJSb-vEoL3rIOHkRfGd2uDK4ldxeCxyvg2CcqFgfCpCgGlzgy1-rtQ=w40-nd', // eslint-disable-line max-len
             category: 'Gaming',
             category_url: 'https://www.youtube.com/gaming',
             game: 'Super Mario 64',
@@ -154,12 +154,11 @@ describe('extras.getMedia()', () => {
         });
     });
   });
-
 });
 
 
 describe('extras.getPublished()', () => {
-  it('Retrieves formatted published date', (done) => {
+  it('Retrieves formatted published date', done => {
     fs.readFile(path.resolve(__dirname,
       'files/videos/_HSylqgVYQI-regular/watch.html'), 'utf8', (err, html) => {
       assert.ifError(err);
@@ -172,7 +171,7 @@ describe('extras.getPublished()', () => {
 
 
 describe('extras.getRelatedVideos()', () => {
-  it('Returns related videos', (done) => {
+  it('Returns related videos', done => {
     fs.readFile(path.resolve(__dirname,
       'files/videos/wYgaarivXv4-related2/watch.html'), 'utf8', (err, html) => {
       assert.ifError(err);
@@ -190,7 +189,7 @@ describe('extras.getRelatedVideos()', () => {
   });
 
   describe('Without `rvs` params', () => {
-    it('Unable to find some view counts', (done) => {
+    it('Unable to find some view counts', done => {
       fs.readFile(path.resolve(__dirname,
         'files/videos/3IqtmUscE_U-related/watch-no-rvs.html'), 'utf8', (err, html) => {
         assert.ifError(err);
@@ -202,7 +201,7 @@ describe('extras.getRelatedVideos()', () => {
   });
 
   describe('With an unparseable video', () => {
-    it('Cathes errors', (done) => {
+    it('Cathes errors', done => {
       fs.readFile(path.resolve(__dirname,
         'files/videos/3IqtmUscE_U-related/watch-bad-details.html'), 'utf8', (err, html) => {
         assert.ifError(err);
@@ -214,7 +213,7 @@ describe('extras.getRelatedVideos()', () => {
   });
 
   describe('When error parsing', () => {
-    it('Returns empty array', (done) => {
+    it('Returns empty array', done => {
       fs.readFile(path.resolve(__dirname,
         'files/videos/_HSylqgVYQI-regular/watch-no-extras.html'), 'utf8', (err, html) => {
         assert.ifError(err);
@@ -227,7 +226,7 @@ describe('extras.getRelatedVideos()', () => {
 });
 
 describe('extras.getLikes()', () => {
-  it('Returnes like count', (done) => {
+  it('Returnes like count', done => {
     fs.readFile(path.resolve(__dirname,
       'files/videos/_HSylqgVYQI-regular/watch.html'), 'utf8', (err, html) => {
       assert.ifError(err);
@@ -238,7 +237,7 @@ describe('extras.getLikes()', () => {
   });
 
   describe('With no likes', () => {
-    it('Does not return likes', (done) => {
+    it('Does not return likes', done => {
       fs.readFile(path.resolve(__dirname,
         'files/videos/KKzOh0MRuZE-no-likes-or-dislikes/watch.html'), 'utf8', (err, html) => {
         assert.ifError(err);
@@ -251,7 +250,7 @@ describe('extras.getLikes()', () => {
 });
 
 describe('extras.getDislikes()', () => {
-  it('Returnes dislike count', (done) => {
+  it('Returnes dislike count', done => {
     fs.readFile(path.resolve(__dirname,
       'files/videos/_HSylqgVYQI-regular/watch.html'), 'utf8', (err, html) => {
       assert.ifError(err);
@@ -262,7 +261,7 @@ describe('extras.getDislikes()', () => {
   });
 
   describe('With no dislikes', () => {
-    it('Does not return dislikes', (done) => {
+    it('Does not return dislikes', done => {
       fs.readFile(path.resolve(__dirname,
         'files/videos/KKzOh0MRuZE-no-likes-or-dislikes/watch.html'), 'utf8', (err, html) => {
         assert.ifError(err);
