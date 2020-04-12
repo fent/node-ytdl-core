@@ -41,21 +41,6 @@ describe('Get tokens', () => {
     });
   });
 
-  describe('Unable to find key in filename', () => {
-    it('Warns the console, still attempts to get tokens', async() => {
-      const warn = spy();
-      muk(console, 'warn', warn);
-      after(muk.restore);
-
-      const testUrl = 'https://s.ytimg.com/badfilename.js';
-      const scope = nock.url(testUrl).replyWithFile(200, filepath);
-      let tokens = await sig.getTokens(testUrl, {});
-      scope.done();
-      assert.ok(warn.called);
-      assert.ok(tokens.length);
-    });
-  });
-
   describe('Unable to find tokens', () => {
     const testKey = 'mykey';
     const testUrl = `https://s.ytimg.com/yts/jsbin/player-${testKey}/base.js`;
