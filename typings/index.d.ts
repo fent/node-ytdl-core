@@ -132,6 +132,7 @@ declare module 'ytdl-core' {
         user: string;
         channel_url: string;
         user_url: string;
+        subscriber_count: number;
       };
       enabled_engage_types: string;
       hl: string;
