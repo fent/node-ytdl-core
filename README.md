@@ -52,8 +52,8 @@ Attempts to download a video from the given url. Returns a [readable stream](htt
 * `range` - A byte range in the form `{start: INT, end: INT}` that specifies part of the file to download, ie {start: 10355705, end: 12452856}.
   * This downloads a portion of the file, and not a separately spliced video.
 * `begin` - What time in the video to begin. Supports formats `00:00:00.000`, `0ms, 0s, 0m, 0h`, or number of milliseconds. Example: `1:30`, `05:10.123`, `10m30s`.
-  * For live videos, this also accepts a unix timestamp or Date, and defaults to `Date.now()`.
-  * This option is not very reliable, see [#129](https://github.com/fent/node-ytdl-core/issues/129), [#219](https://github.com/fent/node-ytdl-core/issues/219).
+  * For live videos, this also accepts a unix timestamp or Date object, and defaults to `Date.now()`.
+  * This option is not very reliable for non-live videos, see [#129](https://github.com/fent/node-ytdl-core/issues/129), [#219](https://github.com/fent/node-ytdl-core/issues/219).
 * `liveBuffer` - How much time buffer to use for live videos in milliseconds. Default is `20000`.
 * `requestOptions` - Anything to merge into the request options which [miniget](https://github.com/fent/node-miniget) is called with, such as `headers`.
 * `highWaterMark` - How much of the video download to buffer into memory. See [node's docs](https://nodejs.org/api/stream.html#stream_constructor_new_stream_writable_options) for more. Defaults to 512KB.
