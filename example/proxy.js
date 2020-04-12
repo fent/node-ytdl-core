@@ -5,7 +5,7 @@ const agent = HttpsProxyAgent({
   ip: '111.111.111.111',
   port: 8080,
   // Remove this if you don't need to authenticate to your proxy.
-  auth: 'user:pass'
+  auth: 'user:pass',
 });
 
 const stream = ytdl('https://www.youtube.com/watch?v=2UBFIhS1YBk', {
