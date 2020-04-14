@@ -1,12 +1,21 @@
 name: Lint
 
-on: pull_request
+on: [push, pull_request]
 
 jobs:
   eslint:
+    name: Lint
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - uses: hallee/eslint-action@master
+
+      - uses: actions/setup-node@v1
         with:
-          repo-token: ${{secrets.GITHUB_TOKEN}}
+          node-version: 13.x
+
+      - name: npm install, build, and lint
+        run: |
+          npm install
+          npm run build --if-present
+          npm run-script lint
+
