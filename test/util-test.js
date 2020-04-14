@@ -434,4 +434,41 @@ describe('util.addFormatMeta()', () => {
       });
     });
   });
+  describe('util.cutAfterJSON()', () => {
+    it('works with simple JSON', () => {
+      assert.equal(util.cutAfterJSON('{"a": 1, "b": 1}'), '{"a": 1, "b": 1}');
+    });
+    it('Cut extra characters after JSON  end', () => {
+      assert.equal(util.cutAfterJSON('{"a": 1, "b": 1}abcd'), '{"a": 1, "b": 1}');
+    });
+    it('tolerant to string constants', () => {
+      assert.equal(util.cutAfterJSON('{"a": "}1", "b": 1}abcd'), '{"a": "}1", "b": 1}');
+    });
+    it('tolerant to string with escaped quoting', () => {
+      // eslint-disable-next-line no-useless-escape
+      assert.equal(util.cutAfterJSON('{"a": "\\\"}1", "b": 1}abcd'), '{"a": "\\\"}1", "b": 1}');
+    });
+    it('works with nested', () => {
+      assert.equal(
+        // eslint-disable-next-line no-useless-escape
+        util.cutAfterJSON('{"a": "\\\"1", "b": 1, "c": {"test": 1}}abcd'),
+        // eslint-disable-next-line no-useless-escape, comma-dangle
+        '{"a": "\\\"1", "b": 1, "c": {"test": 1}}'
+      );
+    });
+    it('works with utf', () => {
+      assert.equal(
+        // eslint-disable-next-line no-useless-escape
+        util.cutAfterJSON('{"a": "\\\"фыва", "b": 1, "c": {"test": 1}}abcd'),
+        // eslint-disable-next-line no-useless-escape, comma-dangle
+        '{"a": "\\\"фыва", "b": 1, "c": {"test": 1}}'
+      );
+    });
+    it('works with \\\\ in string', () => {
+      assert.equal(
+        util.cutAfterJSON('{"a": "\\\\фыва", "b": 1, "c": {"test": 1}}abcd'),
+        '{"a": "\\\\фыва", "b": 1, "c": {"test": 1}}',
+      );
+    });
+  });
 });
