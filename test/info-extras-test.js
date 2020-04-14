@@ -66,6 +66,7 @@ describe('extras.getAuthor()', () => {
         assert.ok(author.name);
         assertUserURL(author.user_url);
         assert.equal(typeof author.verified, 'boolean');
+        assert.number(author.subscriber_count);
         done();
       });
   });
@@ -96,6 +97,7 @@ describe('extras.getAuthor()', () => {
         assert.ok(author.name);
         assertUserURL(author.user_url);
         assert.equal(typeof author.verified, 'boolean');
+        assert.number(author.subscriber_count);
         done();
       });
     });
