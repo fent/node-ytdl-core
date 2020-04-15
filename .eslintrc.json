@@ -16,8 +16,23 @@
     }],
     "no-template-curly-in-string": "error",
     "no-unsafe-negation": "error",
-    "valid-jsdoc": "off",
-
+    "valid-jsdoc": ["warn", {
+      "prefer": {
+        "arg": "param",
+        "return": "returns"
+      },
+      "preferType": {
+        "Boolean": "boolean",
+        "Number": "number",
+        "object": "Object",
+        "String": "string"
+      },
+      "requireReturn": false,
+      "requireReturnType": true,
+      "requireParamDescription": false,
+      "requireReturnDescription": false,
+      "requireParamType": true
+    }],
     "accessor-pairs": "warn",
     "array-callback-return": "error",
     "complexity": "warn",
