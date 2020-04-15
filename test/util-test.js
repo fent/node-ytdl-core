@@ -434,4 +434,52 @@ describe('util.addFormatMeta()', () => {
       });
     });
   });
+  describe('util.cutAfterJSON()', () => {
+    it('Works with simple JSON', () => {
+      assert.equal(util.cutAfterJSON('{"a": 1, "b": 1}'), '{"a": 1, "b": 1}');
+    });
+    it('Cut extra characters after JSON', () => {
+      assert.equal(util.cutAfterJSON('{"a": 1, "b": 1}abcd'), '{"a": 1, "b": 1}');
+    });
+    it('Tolerant to string constants', () => {
+      assert.equal(util.cutAfterJSON('{"a": "}1", "b": 1}abcd'), '{"a": "}1", "b": 1}');
+    });
+    it('Tolerant to string with escaped quoting', () => {
+      assert.equal(util.cutAfterJSON('{"a": "\\"}1", "b": 1}abcd'), '{"a": "\\"}1", "b": 1}');
+    });
+    it('works with nested', () => {
+      assert.equal(
+        util.cutAfterJSON('{"a": "\\"1", "b": 1, "c": {"test": 1}}abcd'),
+        '{"a": "\\"1", "b": 1, "c": {"test": 1}}',
+      );
+    });
+    it('Works with utf', () => {
+      assert.equal(
+        util.cutAfterJSON('{"a": "\\"фыва", "b": 1, "c": {"test": 1}}abcd'),
+        '{"a": "\\"фыва", "b": 1, "c": {"test": 1}}',
+      );
+    });
+    it('Works with \\\\ in string', () => {
+      assert.equal(
+        util.cutAfterJSON('{"a": "\\\\фыва", "b": 1, "c": {"test": 1}}abcd'),
+        '{"a": "\\\\фыва", "b": 1, "c": {"test": 1}}',
+      );
+    });
+    it('Works with [ as start', () => {
+      assert.equal(
+        util.cutAfterJSON('[{"a": 1}, {"b": 2}]abcd'),
+        '[{"a": 1}, {"b": 2}]',
+      );
+    });
+    it('Returns an error when not beginning with [ or {', () => {
+      assert.throws(() => {
+        util.cutAfterJSON('abcd]}');
+      }, /Can't cut unsupported JSON \(need to begin with \[ or { \) but got: ./);
+    });
+    it('Returns an error when missing closing bracket', () => {
+      assert.throws(() => {
+        util.cutAfterJSON('{"a": 1,{ "b": 1}');
+      }, /Can't cut unsupported JSON \(no matching closing bracket found\)/);
+    });
+  });
 });
