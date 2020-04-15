@@ -59,7 +59,7 @@ const videos = [
       {
         page: 'watch.html',
         saveAs: 'bad-config',
-        fn: body => body.replace('ytplayer.config = {', 'ytplayer.config = '),
+        fn: body => body.replace('ytplayer.config = {', 'ytplayer.config = {[}'),
       },
       {
         page: 'watch.html',
