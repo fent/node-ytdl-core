@@ -10,15 +10,19 @@ const formats = [
     qualityLabel: '360p',
     codecs: 'avc1.42001E, mp4a.40.2',
     bitrate: 500000,
-    audioBitrate: 96 },
-  { itag: '19',
+    audioBitrate: 96,
+  },
+  {
+    itag: '19',
     mimeType: 'audio/mp4; codecs="avc1.42001E, mp4a.40.2"',
     container: 'mp4',
     qualityLabel: null,
     codecs: 'avc1.42001E, mp4a.40.2',
     bitrate: 500000,
-    audioBitrate: 96 },
-  { itag: '43',
+    audioBitrate: 96,
+  },
+  {
+    itag: '43',
     mimeType: 'video/webm; codecs="vp8.0, vorbis"',
     container: 'webm',
     qualityLabel: '360p',
@@ -38,49 +42,62 @@ const formats = [
     qualityLabel: '240p',
     codecs: 'mp4v.20.3, mp4a.40.2',
     bitrate: 170000,
-    audioBitrate: 38 },
-  { itag: '5',
+    audioBitrate: 38,
+  },
+  {
+    itag: '5',
     mimeType: 'video/flv; codecs="Sorenson H.283, mp3"',
     container: 'flv',
     qualityLabel: '240p',
     codecs: 'Sorenson H.283, mp3',
     bitrate: 250000,
-    audioBitrate: 64 },
-  { itag: '160',
+    audioBitrate: 64,
+  },
+  {
+    itag: '160',
     mimeType: 'video/mp4; codecs="avc1.4d400c"',
     container: 'mp4',
     qualityLabel: '144p',
     codecs: 'avc1.4d400c',
     bitrate: 100000,
-    audioBitrate: null },
-  { itag: '17',
+    audioBitrate: null,
+  },
+  {
+    itag: '17',
     mimeType: 'video/3gpp; codecs="mp4v.20.3, mp4a.40.2"',
     container: '3gp',
     qualityLabel: '144p @ 60fps',
     codecs: 'mp4v.20.3, mp4a.40.2',
     bitrate: 50000,
-    audioBitrate: 24 },
-  { itag: '140',
+    audioBitrate: 24,
+  },
+  {
+    itag: '140',
     mimeType: 'audio/mp4; codecs="mp4a.40.2"',
     container: 'mp4',
     qualityLabel: null,
     codecs: 'mp4a.40.2',
     bitrate: null,
-    audioBitrate: 128 },
-  { itag: '139',
+    audioBitrate: 128,
+  },
+  {
+    itag: '139',
     mimeType: 'audio/mp4; codecs="mp4a.40.2"',
     container: 'mp4',
     qualityLabel: null,
     codecs: 'mp4a.40.2',
     bitrate: null,
-    audioBitrate: null },
-  { itag: '138',
+    audioBitrate: null,
+  },
+  {
+    itag: '138',
     mimeType: 'audio/mp4; codecs="mp4a.40.2"',
     container: 'mp4',
     qualityLabel: null,
     codecs: 'mp4a.40.2',
     bitrate: null,
-    audioBitrate: null },
+    audioBitrate: null,
+  },
 ];
 const getItags = format => format.itag;
 
@@ -433,5 +450,39 @@ describe('util.addFormatMeta()', () => {
         isDashMPD: false,
       });
     });
+  });
+});
+
+
+describe('util.stripHTML()', () => {
+  it('Normal text with some html', () => {
+    const html = '<p>This page isn\'t available. Sorry about that.</p><p>Try searching for something else.</p>';
+    const text = util.stripHTML(html);
+    assert.strictEqual(text, 'This page isn\'t available. Sorry about that.\nTry searching for something else.');
+  });
+  it('Redirect link in text', () => {
+    const html = '<a href="/redirect?q=https%3A%2F%2Ftwitter.com%2Flinustech&amp;redir_token=rJA12ePqgl4MjA4&amp"></a>';
+    const text = util.stripHTML(html);
+    assert.strictEqual(text, 'https://twitter.com/linustech');
+  });
+  it('Youtube watch link in text', () => {
+    const html = '<a spellcheck="false" href="/watch?v=PKfxmFU3lWY" dir="auto">https://youtube.com/watch?v=PKfx...</a>';
+    const text = util.stripHTML(html);
+    assert.strictEqual(text, 'https://youtube.com/watch?v=PKfxmFU3lWY');
+  });
+  it('Normal link in text', () => {
+    const html = '<a href="https://stackoverflow.com">stackoverflow.com</a>';
+    const text = util.stripHTML(html);
+    assert.strictEqual(text, 'https://stackoverflow.com/');
+  });
+  it('Silent on malformed URI in link', () => {
+    const html = '<a href="http://%E0%A4%A">malformed</a>';
+    const text = util.stripHTML(html);
+    assert.strictEqual(text, 'http://%E0%A4%A/');
+  });
+  it('Invalid html in text', () => {
+    const html = '<a href="#" <p/>Some text<div><div>';
+    const text = util.stripHTML(html);
+    assert.strictEqual(text, 'Some text');
   });
 });
