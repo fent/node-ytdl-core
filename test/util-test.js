@@ -483,3 +483,37 @@ describe('util.addFormatMeta()', () => {
     });
   });
 });
+
+
+describe('util.stripHTML()', () => {
+  it('Normal text with some html', () => {
+    const html = '<p>This page isn\'t available. Sorry about that.</p><p>Try searching for something else.</p>';
+    const text = util.stripHTML(html);
+    assert.strictEqual(text, 'This page isn\'t available. Sorry about that.\nTry searching for something else.');
+  });
+  it('Redirect link in text', () => {
+    const html = '<a href="/redirect?q=https%3A%2F%2Ftwitter.com%2Flinustech&amp;redir_token=rJA12ePqgl4MjA4&amp"></a>';
+    const text = util.stripHTML(html);
+    assert.strictEqual(text, 'https://twitter.com/linustech');
+  });
+  it('Youtube watch link in text', () => {
+    const html = '<a spellcheck="false" href="/watch?v=PKfxmFU3lWY" dir="auto">https://youtube.com/watch?v=PKfx...</a>';
+    const text = util.stripHTML(html);
+    assert.strictEqual(text, 'https://youtube.com/watch?v=PKfxmFU3lWY');
+  });
+  it('Normal link in text', () => {
+    const html = '<a href="https://stackoverflow.com">stackoverflow.com</a>';
+    const text = util.stripHTML(html);
+    assert.strictEqual(text, 'https://stackoverflow.com/');
+  });
+  it('Silent on malformed URI in link', () => {
+    const html = '<a href="http://%E0%A4%A">malformed</a>';
+    const text = util.stripHTML(html);
+    assert.strictEqual(text, 'http://%E0%A4%A/');
+  });
+  it('Invalid html in text', () => {
+    const html = '<a href="#" <p/>Some text<div><div>';
+    const text = util.stripHTML(html);
+    assert.strictEqual(text, 'Some text');
+  });
+});
