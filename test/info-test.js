@@ -406,5 +406,19 @@ describe('ytdl.getInfo()', () => {
       );
       scope.done();
     });
+
+    it('Able to catch error using callback', () => {
+      const id = 'pJk0p-98Xzc';
+      const scope = nock(id, {
+        type: 'vevo',
+        watch: 'no-formats',
+        get_video_info: [true, 200, 'no-formats'],
+      });
+      ytdl.getInfo(id, err => {
+        scope.done();
+        assert.ok(err);
+        assert.ok(/This video is unavailable/.test(err.message));
+      });
+    });
   });
 });
