@@ -84,7 +84,7 @@ describe('ytdl.getInfo()', () => {
     });
 
     describe('Use `ytdl.downloadFromInfo()`', () => {
-      it('Retrives video file', done => {
+      it('Retrieves video file', done => {
         const stream = ytdl.downloadFromInfo(expectedInfo);
         let scope;
         stream.on('info', (info, format) => {
@@ -407,7 +407,7 @@ describe('ytdl.getInfo()', () => {
       scope.done();
     });
 
-    it('Able to catch error using callback', () => {
+    it('Able to catch error using callback', done => {
       const id = 'pJk0p-98Xzc';
       const scope = nock(id, {
         type: 'vevo',
@@ -418,6 +418,7 @@ describe('ytdl.getInfo()', () => {
         scope.done();
         assert.ok(err);
         assert.ok(/This video is unavailable/.test(err.message));
+        done();
       });
     });
   });
