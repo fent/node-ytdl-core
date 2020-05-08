@@ -58,7 +58,7 @@ exports = module.exports = (id, opts) => {
       throw Error('html5player file not found');
     }
     scopes.push(nock('https://www.youtube.com', { reqheaders: opts.headers })
-      .filteringPath(/\/yts\/jsbin\/player.+$/g, '/yts/jsbin/player')
+      .filteringPath(/^(\/yts\/jsbin\/player.+|\/s\/player\/.+\/base\.js)$/g, '/yts/jsbin/player')
       .get('/yts/jsbin/player')
       .replyWithFile(opts.player[1] || 200,
         path.join(__dirname, `${dirpath}/${file}`)));
