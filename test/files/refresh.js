@@ -335,7 +335,7 @@ const refreshVideo = async(video, noRequests) => {
         info = await getInfo.getFullInfo(video.id);
       }
       if (video.saveInfo) {
-        writeFile('expected-info.json', cleanBody(JSON.stringify(info)));
+        writeFile('expected-info.json', cleanBody(JSON.stringify(info, null, 2)));
       }
     } catch (err) {
       console.log('error retreiveing video info:', err.message);
