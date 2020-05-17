@@ -61,7 +61,7 @@ const videos = [
       {
         page: 'watch.json',
         saveAs: 'bad-config',
-        fn: body => body.replace('ytplayer.config = {', 'ytplayer.config = '),
+        fn: body => body.replace('ytplayer.config = {', 'ytplayer.config = {[}'),
       },
       {
         page: 'watch.json',
@@ -347,7 +347,7 @@ const refreshVideo = async(video, noRequests) => {
       }
       if (video.saveInfo) {
         let filename = 'expected-info.json';
-        let body = cleanBody(JSON.stringify(info));
+        let body = cleanBody(JSON.stringify(info, null, 2));
         writeFile(filename, body);
         writeTransforms(filename, body);
       }

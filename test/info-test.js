@@ -78,7 +78,7 @@ describe('ytdl.getInfo()', () => {
     });
 
     describe('Use `ytdl.downloadFromInfo()`', () => {
-      it('Retrives video file', done => {
+      it('Retrieves video file', done => {
         const stream = ytdl.downloadFromInfo(expectedInfo);
         let scope;
         stream.on('info', (info, format) => {
@@ -200,7 +200,7 @@ describe('ytdl.getInfo()', () => {
 
     it('Should give an error', async() => {
       const scope = nock(id, { type: 'nonexistent' });
-      await assert.rejects(ytdl.getInfo(id), null, 'This video is unavailable.');
+      await assert.rejects(ytdl.getInfo(id), /This video is unavailable./);
       scope.done();
     });
   });
@@ -227,7 +227,7 @@ describe('ytdl.getInfo()', () => {
         type: 'age-restricted',
         embed: [true, 200, 'no-config'],
       });
-      await assert.rejects(ytdl.getInfo(id), null, /Could not find player config/);
+      await assert.rejects(ytdl.getInfo(id), /Could not find player config/);
       scope.done();
     });
   });
@@ -267,7 +267,7 @@ describe('ytdl.getInfo()', () => {
         type: 'rental',
         get_video_info: true,
       });
-      await assert.rejects(ytdl.getInfo(id), null, 'This video requires payment to watch.');
+      await assert.rejects(ytdl.getInfo(id), /This video requires payment to watch/);
       scope.done();
     });
   });
@@ -275,7 +275,7 @@ describe('ytdl.getInfo()', () => {
   describe('With a bad video ID', () => {
     const id = 'bad';
     it('Returns an error', async() => {
-      await assert.rejects(ytdl.getInfo(id), null, 'No video id found: bad');
+      await assert.rejects(ytdl.getInfo(id), /No video id found: bad/);
     });
   });
 
@@ -288,7 +288,7 @@ describe('ytdl.getInfo()', () => {
       });
       await assert.rejects(
         ytdl.getInfo(id, { requestOptions: { maxRetries: 0 } }),
-        null, 'Status code: 500',
+        /Status code: 500/,
       );
       scope.done();
     });
@@ -299,7 +299,7 @@ describe('ytdl.getInfo()', () => {
         type: 'regular',
         watch: 'bad-config',
       });
-      await assert.rejects(ytdl.getInfo(id), null, /Error parsing config:/);
+      await assert.rejects(ytdl.getInfo(id), /Error parsing config:/);
       scope.done();
     });
 
@@ -311,7 +311,7 @@ describe('ytdl.getInfo()', () => {
       });
       await assert.rejects(
         ytdl.getInfo(id, { requestOptions: { maxRetries: 0 } }),
-        null, 'Status code: 500',
+        /Status code: 500/,
       );
       scope.done();
     });
@@ -324,7 +324,7 @@ describe('ytdl.getInfo()', () => {
       });
       await assert.rejects(
         ytdl.getInfo(id, { requestOptions: { maxRetries: 0 } }),
-        null, 'Status code: 500',
+        /Status code: 500/,
       );
       scope.done();
     });
@@ -337,9 +337,8 @@ describe('ytdl.getInfo()', () => {
         get_video_info: [true, 200, 'error'],
       });
       await assert.rejects(
-        ytdl.getInfo(id), null,
-        'Code 2: Watch this video on YouTube. ' +
-        'Playback on other websites has been disabled by the video owner.',
+        ytdl.getInfo(id),
+        /Playback on other websites has been disabled by the video owner./,
       );
       scope.done();
     });
@@ -353,7 +352,7 @@ describe('ytdl.getInfo()', () => {
       });
       await assert.rejects(
         ytdl.getInfo(id, { requestOptions: { maxRetries: 0 } }),
-        null, 'Status code: 500',
+        /Status code: 500/,
       );
       scope.done();
     });
@@ -369,7 +368,7 @@ describe('ytdl.getInfo()', () => {
       });
       await assert.rejects(
         ytdl.getInfo(id, { requestOptions: { maxRetries: 0 } }),
-        null, 'Status code: 500',
+        /Status code: 500/,
       );
       scope.done();
     });
@@ -383,7 +382,7 @@ describe('ytdl.getInfo()', () => {
       });
       await assert.rejects(
         ytdl.getInfo(id),
-        null, 'This video is unavailable',
+        /This video is unavailable/,
       );
       scope.done();
     });
@@ -397,9 +396,24 @@ describe('ytdl.getInfo()', () => {
       });
       await assert.rejects(
         ytdl.getInfo(id),
-        null, /Error parsing `player_response`:/,
+        /Error parsing `player_response`:/,
       );
       scope.done();
+    });
+
+    it('Able to catch error using callback', done => {
+      const id = 'pJk0p-98Xzc';
+      const scope = nock(id, {
+        type: 'vevo',
+        watch: 'no-formats',
+        get_video_info: [true, 200, 'no-formats'],
+      });
+      ytdl.getInfo(id, err => {
+        scope.done();
+        assert.ok(err);
+        assert.ok(/This video is unavailable/.test(err.message));
+        done();
+      });
     });
   });
 });

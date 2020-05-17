@@ -36,6 +36,7 @@ describe('extras.getAuthor()', () => {
     assert.ok(author.name);
     assertUserURL(author.user_url);
     assert.equal(typeof author.verified, 'boolean');
+    assert.number(author.subscriber_count);
   });
 
   describe('watch page without author', () => {
@@ -60,6 +61,7 @@ describe('extras.getAuthor()', () => {
       assert.ok(author.name);
       assertUserURL(author.user_url);
       assert.equal(typeof author.verified, 'boolean');
+      assert.number(author.subscriber_count);
     });
   });
 });

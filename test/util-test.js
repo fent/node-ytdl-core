@@ -434,4 +434,86 @@ describe('util.addFormatMeta()', () => {
       });
     });
   });
+  describe('util.cutAfterJSON()', () => {
+    it('Works with simple JSON', () => {
+      assert.equal(util.cutAfterJSON('{"a": 1, "b": 1}'), '{"a": 1, "b": 1}');
+    });
+    it('Cut extra characters after JSON', () => {
+      assert.equal(util.cutAfterJSON('{"a": 1, "b": 1}abcd'), '{"a": 1, "b": 1}');
+    });
+    it('Tolerant to string constants', () => {
+      assert.equal(util.cutAfterJSON('{"a": "}1", "b": 1}abcd'), '{"a": "}1", "b": 1}');
+    });
+    it('Tolerant to string with escaped quoting', () => {
+      assert.equal(util.cutAfterJSON('{"a": "\\"}1", "b": 1}abcd'), '{"a": "\\"}1", "b": 1}');
+    });
+    it('works with nested', () => {
+      assert.equal(
+        util.cutAfterJSON('{"a": "\\"1", "b": 1, "c": {"test": 1}}abcd'),
+        '{"a": "\\"1", "b": 1, "c": {"test": 1}}',
+      );
+    });
+    it('Works with utf', () => {
+      assert.equal(
+        util.cutAfterJSON('{"a": "\\"фыва", "b": 1, "c": {"test": 1}}abcd'),
+        '{"a": "\\"фыва", "b": 1, "c": {"test": 1}}',
+      );
+    });
+    it('Works with \\\\ in string', () => {
+      assert.equal(
+        util.cutAfterJSON('{"a": "\\\\фыва", "b": 1, "c": {"test": 1}}abcd'),
+        '{"a": "\\\\фыва", "b": 1, "c": {"test": 1}}',
+      );
+    });
+    it('Works with [ as start', () => {
+      assert.equal(
+        util.cutAfterJSON('[{"a": 1}, {"b": 2}]abcd'),
+        '[{"a": 1}, {"b": 2}]',
+      );
+    });
+    it('Returns an error when not beginning with [ or {', () => {
+      assert.throws(() => {
+        util.cutAfterJSON('abcd]}');
+      }, /Can't cut unsupported JSON \(need to begin with \[ or { \) but got: ./);
+    });
+    it('Returns an error when missing closing bracket', () => {
+      assert.throws(() => {
+        util.cutAfterJSON('{"a": 1,{ "b": 1}');
+      }, /Can't cut unsupported JSON \(no matching closing bracket found\)/);
+    });
+  });
+});
+
+
+describe('util.stripHTML()', () => {
+  it('Normal text with some html', () => {
+    const html = '<p>This page isn\'t available. Sorry about that.</p><p>Try searching for something else.</p>';
+    const text = util.stripHTML(html);
+    assert.strictEqual(text, 'This page isn\'t available. Sorry about that.\nTry searching for something else.');
+  });
+  it('Redirect link in text', () => {
+    const html = '<a href="/redirect?q=https%3A%2F%2Ftwitter.com%2Flinustech&amp;redir_token=rJA12ePqgl4MjA4&amp"></a>';
+    const text = util.stripHTML(html);
+    assert.strictEqual(text, 'https://twitter.com/linustech');
+  });
+  it('Youtube watch link in text', () => {
+    const html = '<a spellcheck="false" href="/watch?v=PKfxmFU3lWY" dir="auto">https://youtube.com/watch?v=PKfx...</a>';
+    const text = util.stripHTML(html);
+    assert.strictEqual(text, 'https://youtube.com/watch?v=PKfxmFU3lWY');
+  });
+  it('Normal link in text', () => {
+    const html = '<a href="https://stackoverflow.com">stackoverflow.com</a>';
+    const text = util.stripHTML(html);
+    assert.strictEqual(text, 'https://stackoverflow.com/');
+  });
+  it('Silent on malformed URI in link', () => {
+    const html = '<a href="http://%E0%A4%A">malformed</a>';
+    const text = util.stripHTML(html);
+    assert.strictEqual(text, 'http://%E0%A4%A/');
+  });
+  it('Invalid html in text', () => {
+    const html = '<a href="#" <p/>Some text<div><div>';
+    const text = util.stripHTML(html);
+    assert.strictEqual(text, 'Some text');
+  });
 });
