@@ -1,6 +1,5 @@
 const ytdl = require('..');
 const path = require('path');
-const fs = require('fs');
 const assert = require('assert-diff');
 const nock = require('./nock');
 const sinon = require('sinon');
@@ -14,14 +13,9 @@ describe('ytdl.getInfo()', () => {
   describe('From a regular video', () => {
     const id = 'pJk0p-98Xzc';
     let expectedInfo;
-    before(done => {
-      fs.readFile(path.resolve(__dirname,
-        `files/videos/${id}-vevo/expected-info.json`),
-      'utf8', (err, body) => {
-        assert.ifError(err);
-        expectedInfo = JSON.parse(body);
-        done();
-      });
+    before(() => {
+      expectedInfo = require(path.resolve(__dirname,
+        `files/videos/${id}-vevo/expected-info.json`));
     });
 
     it('Retrieves correct metainfo', async() => {

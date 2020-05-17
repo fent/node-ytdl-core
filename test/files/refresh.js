@@ -45,11 +45,13 @@ const videos = [
   {
     id: 'SyKPsFRP_Oc',
     type: 'rental',
+    saveInfo: true,
   },
   {
     id: '_HSylqgVYQI',
     type: 'regular',
     keep: ['video.flv'],
+    saveInfo: true,
     transform: [
       {
         page: 'get_video_info',
@@ -57,27 +59,27 @@ const videos = [
         fn: body => body.replace(/(%26itag%3D)(?:\d+)(%26)/g, '$1unknown$2'),
       },
       {
-        page: 'watch.html',
+        page: 'watch.json',
         saveAs: 'bad-config',
         fn: body => body.replace('ytplayer.config = {', 'ytplayer.config = '),
       },
       {
-        page: 'watch.html',
+        page: 'watch.json',
         saveAs: 'bad-player-response',
         fn: body => body.replace('"player_response":"{', '"player_response":"'),
       },
       {
-        page: 'watch.html',
+        page: 'watch.json',
         saveAs: 'no-extras',
         fn: body => {
-          body = body.replace('id="watch7-user-header"', '');
+          body = body.replace('playerMicroformatRenderer', '');
+          // TODO: Remove?
           body = body.replace('id="eow-description"', '');
-          body = body.replace('{"rvs":', '{"rvs":}');
           return body;
         },
       },
       {
-        page: 'watch.html',
+        page: 'watch.json',
         saveAs: 'multiline-description',
         fn: body => {
           const regex = /(<p.*?id="eow-description".*?>).+?(<\/p>)/;
@@ -114,7 +116,7 @@ const videos = [
         fn: body => body.replace(/streamingData/g, 'no'),
       },
       {
-        page: 'watch.html',
+        page: 'watch.json',
         saveAs: 'no-formats',
         fn: body => body.replace(/streamingData/g, 'no'),
       },
@@ -126,7 +128,7 @@ const videos = [
     saveInfo: true,
     transform: [
       {
-        page: 'watch.html',
+        page: 'watch.json',
         saveAs: 'german',
         fn: body => body,
       },
@@ -145,26 +147,34 @@ const videos = [
     id: 'OYXswyLkek4',
     type: 'game-image',
     basicInfo: true,
-    skip: ['get_video_info'],
+    saveInfo: true,
+    skip: ['watch', 'get_video_info'],
   },
   {
     id: 'xRu7qKijBso',
     type: 'game',
     basicInfo: true,
-    skip: ['get_video_info'],
+    saveInfo: true,
+    skip: ['watch', 'get_video_info'],
   },
   {
     id: '3IqtmUscE_U',
     type: 'related',
     skip: ['get_video_info', /player/],
+    saveInfo: true,
     transform: [
       {
-        page: 'watch.html',
+        page: 'expected-info.json',
         saveAs: 'no-rvs',
-        fn: body => body.replace(/"rvs":"[^"]+"/, '"rvs":""'),
+        fn: body => body.replace(/"relatedVideoArgs"/, '""'),
       },
       {
-        page: 'watch.html',
+        page: 'expected-info.json',
+        saveAs: 'no-results',
+        fn: body => body.replace(/"secondaryResults"/, '""'),
+      },
+      {
+        page: 'expected-info.json',
         saveAs: 'bad-details',
         fn: body => body.replace(/\\"shortBylineText\\"/g, '\\"___\\"'),
       },
@@ -173,6 +183,7 @@ const videos = [
   {
     id: 'wYgaarivXv4',
     type: 'related2',
+    saveInfo: true,
     skip: ['get_video_info', /player/],
   },
   {
@@ -274,7 +285,7 @@ const refreshVideo = async(video, noRequests) => {
             playerfile.test(url) ? `${playerfile.exec(url)[1]}.js` :
 
             // Save watch and embed pages with .html extension.
-              /^\/watch$/.test(parsed.pathname) ? 'watch.html' :
+              /^\/watch$/.test(parsed.pathname) ? 'watch.json' :
                 /^\/embed\//.test(parsed.pathname) ? 'embed.html' :
 
                 // Otherwise, use url path as filename.
@@ -335,10 +346,14 @@ const refreshVideo = async(video, noRequests) => {
         info = await getInfo.getFullInfo(video.id);
       }
       if (video.saveInfo) {
-        writeFile('expected-info.json', cleanBody(JSON.stringify(info)));
+        let filename = 'expected-info.json';
+        let body = cleanBody(JSON.stringify(info));
+        writeFile(filename, body);
+        writeTransforms(filename, body);
       }
     } catch (err) {
-      console.log('error retreiveing video info:', err.message);
+      console.log('error retrieveing video info:', err.message);
+      console.log(err.stack);
     }
   }
 

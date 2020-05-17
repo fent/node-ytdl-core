@@ -5,7 +5,6 @@ const url = require('url');
 const nock = require('nock');
 
 const YT_HOST = 'https://www.youtube.com';
-const VIDEO_PATH = '/watch?v=';
 const MANIFEST_HOST = 'https://manifest.googlevideo.com';
 const M3U8_HOST = 'https://manifest.googlevideo.com';
 const EMBED_PATH = '/embed/';
@@ -30,9 +29,10 @@ exports = module.exports = (id, opts) => {
   let existingFiles = fs.readdirSync(path.join(__dirname, dirpath));
 
   scopes.push(nock(YT_HOST, { reqheaders: opts.headers })
-    .get(`${VIDEO_PATH + id}&hl=en&bpctr=${Math.ceil(Date.now() / 1000)}`)
+    .filteringPath(/\/watch\?v=.+$/, '/watch?v=XXX')
+    .get('/watch?v=XXX')
     .replyWithFile(opts.statusCode || 200,
-      path.join(__dirname, `${dirpath}/watch${watchType}.html`)));
+      path.join(__dirname, `${dirpath}/watch${watchType}.json`)));
 
   if (opts.dashmpd) {
     let file = buildFile(opts.dashmpd);
@@ -58,8 +58,8 @@ exports = module.exports = (id, opts) => {
       throw Error('html5player file not found');
     }
     scopes.push(nock('https://www.youtube.com', { reqheaders: opts.headers })
-      .filteringPath(/\/yts\/jsbin\/player.+$/g, '/yts/jsbin/player')
-      .get('/yts/jsbin/player')
+      .filteringPath(/\/player.+$/, '/player.js')
+      .get('/s/player.js')
       .replyWithFile(opts.player[1] || 200,
         path.join(__dirname, `${dirpath}/${file}`)));
   }

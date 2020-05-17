@@ -4,34 +4,6 @@ const assert = require('assert-diff');
 const extras = require('../lib/info-extras');
 
 
-describe('extras.getVideoDescription()', () => {
-  it('Retrieves formatted video description', done => {
-    fs.readFile(path.resolve(__dirname,
-      'files/videos/_HSylqgVYQI-regular/watch-multiline-description.html'),
-    'utf8', (err, html) => {
-      assert.ifError(err);
-      const cleanDescription = extras.getVideoDescription(html);
-      assert.equal(cleanDescription, 'Some Title\n' +
-        'Line 1\n' +
-        '"Line 2"\n' +
-        '1  First Song  5:30\n' +
-        '2  Second Song  5:42');
-      done();
-    });
-  });
-
-  it('Fallbacks to empty description if element not found', done => {
-    fs.readFile(path.resolve(__dirname,
-      'files/videos/_HSylqgVYQI-regular/watch-no-extras.html'), 'utf8', (err, html) => {
-      assert.ifError(err);
-      const cleanDescription = extras.getVideoDescription(html);
-      assert.equal(cleanDescription, '');
-      done();
-    });
-  });
-});
-
-
 const assertURL = url => {
   assert.ok(/^https?:\/\//.test(url), `Not a URL: ${url}`);
 };
@@ -53,222 +25,166 @@ const assertUserURL = url => {
 };
 
 describe('extras.getAuthor()', () => {
-  it('Returns video author object', done => {
-    fs.readFile(path.resolve(__dirname, 'files/videos/pJk0p-98Xzc-vevo/watch.html'),
-      'utf8', (err, html) => {
-        assert.ifError(err);
-        const author = extras.getAuthor(html);
-        assert.ok(author);
-        assertURL(author.avatar);
-        assertChannelURL(author.channel_url);
-        assertUserID(author.id);
-        assertUserName(author.user);
-        assert.ok(author.name);
-        assertUserURL(author.user_url);
-        assert.equal(typeof author.verified, 'boolean');
-        done();
-      });
+  it('Returns video author object', () => {
+    const info = require('./files/videos/pJk0p-98Xzc-vevo/expected-info.json');
+    const author = extras.getAuthor(info);
+    assert.ok(author);
+    assertURL(author.avatar);
+    assertChannelURL(author.channel_url);
+    assertUserID(author.id);
+    assertUserName(author.user);
+    assert.ok(author.name);
+    assertUserURL(author.user_url);
+    assert.equal(typeof author.verified, 'boolean');
   });
 
   describe('watch page without author', () => {
-    it('Returns empty object if author not found', done => {
-      fs.readFile(path.resolve(__dirname,
-        'files/videos/_HSylqgVYQI-regular/watch-no-extras.html'), 'utf8', (err, html) => {
-        assert.ifError(err);
-        const author = extras.getAuthor(html);
-        assert.deepEqual(author, {});
-        done();
-      });
+    it('Returns empty object if author not found', () => {
+      const info = require(
+        './files/videos/_HSylqgVYQI-regular/watch-no-extras.json');
+      const author = extras.getAuthor(info);
+      assert.deepEqual(author, {});
     });
   });
 
   describe('from a rental', () => {
-    it('Returns video author object', done => {
-      fs.readFile(path.resolve(__dirname,
-        'files/videos/SyKPsFRP_Oc-rental/watch.html'), 'utf8', (err, html) => {
-        assert.ifError(err);
-        const author = extras.getAuthor(html);
-        assert.ok(author);
-        assertURL(author.avatar);
-        assertChannelURL(author.channel_url);
-        assertUserID(author.id);
-        assertUserName(author.user);
-        assert.ok(author.name);
-        assertUserURL(author.user_url);
-        assert.equal(typeof author.verified, 'boolean');
-        done();
-      });
+    it('Returns video author object', () => {
+      const info = require(
+        './files/videos/SyKPsFRP_Oc-rental/expected-info.json');
+      const author = extras.getAuthor(info);
+      assert.ok(author);
+      assertURL(author.avatar);
+      assertChannelURL(author.channel_url);
+      assertUserID(author.id);
+      assertUserName(author.user);
+      assert.ok(author.name);
+      assertUserURL(author.user_url);
+      assert.equal(typeof author.verified, 'boolean');
     });
   });
 });
 
 
 describe('extras.getMedia()', () => {
-  it('Returns media object', done => {
-    fs.readFile(path.resolve(__dirname, 'files/videos/pJk0p-98Xzc-vevo/watch.html'),
-      'utf8', (err, html) => {
-        assert.ifError(err);
-        const mediaObj = extras.getMedia(html);
-        assert.ok(mediaObj);
-        assert.equal(mediaObj.artist, 'Wu-Tang Clan');
-        assertChannelURL(mediaObj.artist_url);
-        assert.equal(mediaObj.category, 'Music');
-        assertChannelURL(mediaObj.category_url);
-        done();
-      });
+  it('Returns media object', () => {
+    const info = require('./files/videos/pJk0p-98Xzc-vevo/expected-info.json');
+    const media = extras.getMedia(info);
+    assert.ok(media);
+    assert.equal(media.artist, 'Wu-Tang Clan');
+    assertChannelURL(media.artist_url);
+    assert.equal(media.category, 'Music');
+    assertChannelURL(media.category_url);
   });
 
-  describe('On a video with an older game', () => {
-    it('Returns media object', done => {
-      fs.readFile(path.resolve(__dirname, 'files/videos/xRu7qKijBso-game/watch.html'),
-        'utf8', (err, html) => {
-          assert.ifError(err);
-          const mediaObj = extras.getMedia(html);
-          assert.deepEqual(mediaObj, {
-            category: 'Gaming',
-            category_url: 'https://www.youtube.com/gaming',
-            game: 'Pokémon Snap',
-            game_url: 'https://gaming.youtube.com/game/UCWbUPCN6z_KYDS5qx1AeNQg',
-            year: 1999,
-          });
-          done();
-        });
+  describe('On a video associated with a game', () => {
+    it('Returns media object', () => {
+      const info = require('./files/videos/xRu7qKijBso-game/expected-info.json');
+      const media = extras.getMedia(info);
+      assert.ok(media);
+      assert.equal(media.category, 'Gaming');
+      assertURL(media.category_url);
+      assert.equal(media.game, 'Pokémon Snap');
+      assertURL(media.game_url);
+      assert.equal(media.year, '1999');
     });
   });
 
-  describe('On a video with a game with an image', () => {
-    it('Returns media object', done => {
-      fs.readFile(path.resolve(__dirname, 'files/videos/OYXswyLkek4-game-image/watch.html'),
-        'utf8', (err, html) => {
-          assert.ifError(err);
-          const mediaObj = extras.getMedia(html);
-          assert.deepEqual(mediaObj, {
-            image: 'https://yt3.ggpht.com/FaZqW4WE3D4npqAplZsJSzlZfDQ7XJSb-vEoL3rIOHkRfGd2uDK4ldxeCxyvg2CcqFgfCpCgGlzgy1-rtQ=w40-nd', // eslint-disable-line max-len
-            category: 'Gaming',
-            category_url: 'https://www.youtube.com/gaming',
-            game: 'Super Mario 64',
-            game_url: 'https://gaming.youtube.com/game/UCVNUxXs1fnUdcU-xQeNGjmg',
-            year: 1996,
-          });
-          done();
-        });
-    });
-  });
-});
-
-
-describe('extras.getPublished()', () => {
-  it('Retrieves formatted published date', done => {
-    fs.readFile(path.resolve(__dirname,
-      'files/videos/_HSylqgVYQI-regular/watch.html'), 'utf8', (err, html) => {
-      assert.ifError(err);
-      const publishedTimestamp = extras.getPublished(html);
-      assert.equal(publishedTimestamp, 1144108800000);
-      done();
+  describe.skip('On a video with a game with an image', () => {
+    it('Returns media object', () => {
+      const info = require('./files/videos/OYXswyLkek4-game-image/watch.json');
+      const media = extras.getMedia(info);
+      assert.ok(media);
+      assert.equal(media.category, 'Gaming');
+      assertURL(media.category_url);
+      assert.equal(media.game, 'Super Mario 64');
+      assertURL(media.game_url);
+      assert.equal(media.year, '1996');
     });
   });
 });
 
 
 describe('extras.getRelatedVideos()', () => {
-  it('Returns related videos', done => {
-    fs.readFile(path.resolve(__dirname,
-      'files/videos/wYgaarivXv4-related2/watch.html'), 'utf8', (err, html) => {
-      assert.ifError(err);
-      const relatedVideos = extras.getRelatedVideos(html);
-      assert.ok(relatedVideos && relatedVideos.length > 0);
+  it('Returns related videos', () => {
+    const info = require('./files/videos/wYgaarivXv4-related2/expected-info.json');
+    const relatedVideos = extras.getRelatedVideos(info);
+    assert.ok(relatedVideos && relatedVideos.length > 0);
+    for (let video of relatedVideos) {
+      assert.ok(video.id);
+      assert.ok(video.author);
+      assert.ok(video.title);
+      assert.ok(video.length_seconds);
+      assertURL(video.video_thumbnail);
+    }
+  });
+
+  describe('Without `rvs` params', () => {
+    it('Still able to find video params', () => {
+      const info = require(
+        './files/videos/3IqtmUscE_U-related/expected-info-no-rvs.json');
+      const relatedVideos = extras.getRelatedVideos(info);
       for (let video of relatedVideos) {
         assert.ok(video.id);
         assert.ok(video.author);
         assert.ok(video.title);
         assert.ok(video.length_seconds);
-        assert.ok(video.video_thumbnail);
+        assertURL(video.video_thumbnail);
       }
-      done();
     });
   });
 
-  describe('Without `rvs` params', () => {
-    it('Unable to find some view counts', done => {
-      fs.readFile(path.resolve(__dirname,
-        'files/videos/3IqtmUscE_U-related/watch-no-rvs.html'), 'utf8', (err, html) => {
-        assert.ifError(err);
-        const relatedVideos = extras.getRelatedVideos(html);
-        assert.ok(relatedVideos.some(video => video.short_view_count_text === ''));
-        done();
-      });
+  describe('Without `secondaryResults`', () => {
+    it('Unable to find any videos', () => {
+      const info = require(
+        './files/videos/3IqtmUscE_U-related/expected-info-no-results.json');
+      const relatedVideos = extras.getRelatedVideos(info);
+      assert.ok(relatedVideos);
+      assert.deepEqual(relatedVideos, []);
     });
   });
 
   describe('With an unparseable video', () => {
-    it('Cathes errors', done => {
-      fs.readFile(path.resolve(__dirname,
-        'files/videos/3IqtmUscE_U-related/watch-bad-details.html'), 'utf8', (err, html) => {
-        assert.ifError(err);
-        const relatedVideos = extras.getRelatedVideos(html);
-        assert.ok(!relatedVideos.length);
-        done();
-      });
-    });
-  });
-
-  describe('When error parsing', () => {
-    it('Returns empty array', done => {
-      fs.readFile(path.resolve(__dirname,
-        'files/videos/_HSylqgVYQI-regular/watch-no-extras.html'), 'utf8', (err, html) => {
-        assert.ifError(err);
-        const relatedVideos = extras.getRelatedVideos(html);
-        assert.deepEqual(relatedVideos, []);
-        done();
-      });
+    it('Catches errors', () => {
+      const info = require(
+        './files/videos/3IqtmUscE_U-related/watch-bad-details.json');
+      const relatedVideos = extras.getRelatedVideos(info);
+      assert.deepEqual(relatedVideos, []);
     });
   });
 });
 
 describe('extras.getLikes()', () => {
-  it('Returnes like count', done => {
-    fs.readFile(path.resolve(__dirname,
-      'files/videos/_HSylqgVYQI-regular/watch.html'), 'utf8', (err, html) => {
-      assert.ifError(err);
-      const likes = extras.getLikes(html);
-      assert.equal(typeof likes, 'number');
-      done();
-    });
+  it('Returns like count', () => {
+    let html = fs.readFileSync(path.resolve(__dirname,
+      'files/videos/_HSylqgVYQI-regular/watch.json'), 'utf8');
+    const likes = extras.getLikes(html);
+    assert.equal(typeof likes, 'number');
   });
 
   describe('With no likes', () => {
-    it('Does not return likes', done => {
-      fs.readFile(path.resolve(__dirname,
-        'files/videos/KKzOh0MRuZE-no-likes-or-dislikes/watch.html'), 'utf8', (err, html) => {
-        assert.ifError(err);
-        const likes = extras.getLikes(html);
-        assert.equal(likes, null);
-        done();
-      });
+    it('Does not return likes', () => {
+      let html = fs.readFileSync(path.resolve(__dirname,
+        'files/videos/KKzOh0MRuZE-no-likes-or-dislikes/watch.json'), 'utf8');
+      const likes = extras.getLikes(html);
+      assert.equal(likes, null);
     });
   });
 });
 
 describe('extras.getDislikes()', () => {
-  it('Returnes dislike count', done => {
-    fs.readFile(path.resolve(__dirname,
-      'files/videos/_HSylqgVYQI-regular/watch.html'), 'utf8', (err, html) => {
-      assert.ifError(err);
-      const dislikes = extras.getDislikes(html);
-      assert.equal(typeof dislikes, 'number');
-      done();
-    });
+  it('Returns dislike count', () => {
+    let html = fs.readFileSync(path.resolve(__dirname,
+      'files/videos/_HSylqgVYQI-regular/watch.json'), 'utf8');
+    const dislikes = extras.getDislikes(html);
+    assert.equal(typeof dislikes, 'number');
   });
 
   describe('With no dislikes', () => {
-    it('Does not return dislikes', done => {
-      fs.readFile(path.resolve(__dirname,
-        'files/videos/KKzOh0MRuZE-no-likes-or-dislikes/watch.html'), 'utf8', (err, html) => {
-        assert.ifError(err);
-        const dislikes = extras.getDislikes(html);
-        assert.equal(dislikes, null);
-        done();
-      });
+    it('Does not return dislikes', () => {
+      let html = fs.readFileSync(path.resolve(__dirname,
+        'files/videos/KKzOh0MRuZE-no-likes-or-dislikes/watch.json'), 'utf8');
+      const dislikes = extras.getDislikes(html);
+      assert.equal(dislikes, null);
     });
   });
 });
