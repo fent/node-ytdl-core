@@ -434,30 +434,47 @@ describe('Download video', () => {
   });
 
   describe('From a rental', () => {
-    const id = 'SyKPsFRP_Oc';
-    it('Returns an error about it', async() => {
+    it('Stream emits an error', done => {
+      const id = 'SyKPsFRP_Oc';
       const scope = nock(id, {
         type: 'rental',
         get_video_info: true,
       });
-      await assert.rejects(ytdl.getInfo(id), /This video requires payment to watch/);
-      scope.done();
+      let stream = ytdl(id);
+      stream.on('error', err => {
+        scope.done();
+        assert.equal(err.message, 'This video requires payment to watch.');
+        done();
+      });
+      stream.on('data', () => {
+        done(Error('should not emit `data`'));
+      });
+      stream.on('end', () => {
+        done(Error('should not emit `end`'));
+      });
     });
   });
 
   describe('With no formats', () => {
-    it('Fails gracefully', async() => {
+    it('Stream emits an error', done => {
       const id = 'pJk0p-98Xzc';
       const scope = nock(id, {
         type: 'vevo',
         watch: 'no-formats',
         get_video_info: [true, 200, 'no-formats'],
       });
-      await assert.rejects(
-        ytdl.getInfo(id),
-        /This video is unavailable/,
-      );
-      scope.done();
+      let stream = ytdl(id);
+      stream.on('error', err => {
+        scope.done();
+        assert.equal(err.message, 'This video is unavailable');
+        done();
+      });
+      stream.on('data', () => {
+        done(Error('should not emit `data`'));
+      });
+      stream.on('end', () => {
+        done(Error('should not emit `end`'));
+      });
     });
   });
 });
