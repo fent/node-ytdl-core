@@ -9,9 +9,6 @@ const ytdl = require('..');
 
 
 describe('Download video', () => {
-  const id = '_HSylqgVYQI';
-  const video = path.resolve(__dirname,
-    `files/videos/${id}-regular/video.flv`);
   const filter = format => format.container === 'mp4';
   let testInfo;
   before(done => {
@@ -29,12 +26,14 @@ describe('Download video', () => {
   after(() => { clock.restore(); });
 
   it('Should be pipeable and data equal to stored file', done => {
+    const id = '_HSylqgVYQI';
     const scope = nock(id, {
       type: 'regular',
       get_video_info: true,
       player: true,
     });
     const stream = ytdl(id, { filter: filter });
+    const video = path.resolve(__dirname, `files/videos/${id}-regular/video.flv`);
 
     stream.on('info', (info, format) => {
       scope.urlReplyWithFile(format.url, 200, video);
@@ -50,6 +49,7 @@ describe('Download video', () => {
   });
 
   it('Fails gracefully if error getting info', done => {
+    const id = '_HSylqgVYQI';
     const scope = nock(id, {
       type: 'regular',
       statusCode: 500,
@@ -66,6 +66,7 @@ describe('Download video', () => {
   describe('destroy stream', () => {
     describe('immediately', () => {
       it('Doesn\'t start the download', done => {
+        const id = '_HSylqgVYQI';
         const scope = nock(id, {
           type: 'regular',
           get_video_info: true,
@@ -90,6 +91,7 @@ describe('Download video', () => {
     describe('right after request is made', () => {
       after(() => { nock.cleanAll(); });
       it('Doesn\'t start the download', done => {
+        const id = '_HSylqgVYQI';
         const scope = nock(id, {
           type: 'regular',
           get_video_info: true,
@@ -123,12 +125,14 @@ describe('Download video', () => {
 
     describe('after download has started', () => {
       it('Download is incomplete', done => {
+        const id = '_HSylqgVYQI';
         const scope = nock(id, {
           type: 'regular',
           get_video_info: true,
           player: true,
         });
         const stream = ytdl(id, { filter });
+        const video = path.resolve(__dirname, `files/videos/${id}-regular/video.flv`);
 
         stream.on('info', (info, format) => {
           scope.urlReplyWithFile(format.url, 200, video);
@@ -154,6 +158,8 @@ describe('Download video', () => {
   });
 
   describe('stream disconnects before end', () => {
+    const id = '_HSylqgVYQI';
+    const video = path.resolve(__dirname, `files/videos/${id}-regular/video.flv`);
     let filesize;
     before(done => {
       fs.stat(video, (err, stat) => {
@@ -320,7 +326,7 @@ describe('Download video', () => {
 
   describe('that is broadcasted live', () => {
     it('Begins downloading video succesfully', done => {
-      const testId = 'hHW1oY26kxQ';
+      const testId = '5qap5aO4i9A';
       const scope = nock(testId, {
         type: 'live',
         dashmpd: true,
@@ -375,7 +381,7 @@ describe('Download video', () => {
 
     describe('end download early', () => {
       it('Stops downloading video', done => {
-        const testId = 'hHW1oY26kxQ';
+        const testId = '5qap5aO4i9A';
         const scope = nock(testId, {
           type: 'live',
           dashmpd: true,
@@ -398,7 +404,7 @@ describe('Download video', () => {
 
     describe('from a dash-mpd itag', () => {
       it('Begins downloading video succesfully', done => {
-        const testId = 'hHW1oY26kxQ';
+        const testId = '5qap5aO4i9A';
         const scope = nock(testId, {
           type: 'live',
           dashmpd: [true, 200, 'transformed'],
@@ -424,6 +430,34 @@ describe('Download video', () => {
           done();
         });
       });
+    });
+  });
+
+  describe('From a rental', () => {
+    const id = 'SyKPsFRP_Oc';
+    it('Returns an error about it', async() => {
+      const scope = nock(id, {
+        type: 'rental',
+        get_video_info: true,
+      });
+      await assert.rejects(ytdl.getInfo(id), /This video requires payment to watch/);
+      scope.done();
+    });
+  });
+
+  describe('With no formats', () => {
+    it('Fails gracefully', async() => {
+      const id = 'pJk0p-98Xzc';
+      const scope = nock(id, {
+        type: 'vevo',
+        watch: 'no-formats',
+        get_video_info: [true, 200, 'no-formats'],
+      });
+      await assert.rejects(
+        ytdl.getInfo(id),
+        /This video is unavailable/,
+      );
+      scope.done();
     });
   });
 });

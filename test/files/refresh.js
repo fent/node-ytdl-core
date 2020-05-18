@@ -13,7 +13,7 @@
 
 const videos = [
   {
-    id: 'hHW1oY26kxQ',
+    id: '5qap5aO4i9A',
     type: 'live',
     transform: [
       {
@@ -61,7 +61,7 @@ const videos = [
       {
         page: 'watch.json',
         saveAs: 'bad-config',
-        fn: body => body.replace('ytplayer.config = {', 'ytplayer.config = {[}'),
+        fn: body => body.replace('[', '{]'),
       },
       {
         page: 'watch.json',
@@ -136,6 +136,11 @@ const videos = [
         page: 'embed.html',
         saveAs: 'no-config',
         fn: body => body.replace('t.setConfig({\'PLAYER_CONFIG\': ', ''),
+      },
+      {
+        page: 'embed.html',
+        saveAs: 'bad-config',
+        fn: body => body.replace('t.setConfig({\'PLAYER_CONFIG\': ', 't.setConfig({\'PLAYER_CONFIG\': {[}'),
       },
     ],
   },
