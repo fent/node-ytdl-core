@@ -73,8 +73,6 @@ const videos = [
         saveAs: 'no-extras',
         fn: body => {
           body = body.replace('playerMicroformatRenderer', '');
-          // TODO: Remove?
-          body = body.replace('id="eow-description"', '');
           return body;
         },
       },
@@ -147,13 +145,6 @@ const videos = [
   {
     id: '99999999999',
     type: 'nonexistent',
-  },
-  {
-    id: 'OYXswyLkek4',
-    type: 'game-image',
-    basicInfo: true,
-    saveInfo: true,
-    skip: ['watch', 'get_video_info'],
   },
   {
     id: 'xRu7qKijBso',
