@@ -54,11 +54,6 @@ const videos = [
     saveInfo: true,
     transform: [
       {
-        page: 'get_video_info',
-        saveAs: 'unknown-format',
-        fn: body => body.replace(/(%26itag%3D)(?:\d+)(%26)/g, '$1unknown$2'),
-      },
-      {
         page: 'watch.json',
         saveAs: 'bad-config',
         fn: body => body.replace('[', '{]'),
@@ -73,21 +68,6 @@ const videos = [
         saveAs: 'no-extras',
         fn: body => {
           body = body.replace('playerMicroformatRenderer', '');
-          return body;
-        },
-      },
-      {
-        page: 'watch.json',
-        saveAs: 'multiline-description',
-        fn: body => {
-          const regex = /(<p.*?id="eow-description".*?>).+?(<\/p>)/;
-          body = body.replace(regex, '$1Some Title<br>' +
-            'Line 1<br>' +
-            '"Line 2"<br>' +
-            '1  First Song  5:30<br>' +
-            '2  Second Song  5:42' +
-            '$2',
-          );
           return body;
         },
       },
@@ -109,23 +89,23 @@ const videos = [
         fn: body => body.replace(/<Representation>([\S\s]+)<\/Representation>/g, ''),
       },
       {
+        page: 'watch.json',
+        saveAs: 'no-formats',
+        fn: body => body.replace(/\b(formats|adaptiveFormats)\b/g, 'no'),
+      },
+      {
         page: 'get_video_info',
         saveAs: 'no-formats',
         fn: body => body.replace(/\b(formats|adaptiveFormats)\b/g, 'no'),
       },
       {
         page: 'watch.json',
-        saveAs: 'no-formats',
-        fn: body => body.replace(/\b(formats|adaptiveFormats)\b/g, 'no'),
-      },
-      {
-        page: 'watch.json',
-        saveAs: 'no-player_response',
+        saveAs: 'no-player-response',
         fn: body => body.replace(/player_response/g, 'no'),
       },
       {
         page: 'get_video_info',
-        saveAs: 'no-player_response',
+        saveAs: 'no-player-response',
         fn: body => body.replace(/player_response/g, 'no'),
       },
     ],
@@ -135,11 +115,6 @@ const videos = [
     type: 'age-restricted',
     saveInfo: true,
     transform: [
-      {
-        page: 'watch.json',
-        saveAs: 'german',
-        fn: body => body,
-      },
       {
         page: 'embed.html',
         saveAs: 'no-config',

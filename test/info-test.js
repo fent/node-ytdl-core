@@ -273,8 +273,8 @@ describe('ytdl.getInfo()', () => {
         const id = 'pJk0p-98Xzc';
         const scope = nock(id, {
           type: 'vevo',
-          watch: 'no-player_response',
-          get_video_info: [true, 200, 'no-player_response'],
+          watch: 'no-player-response',
+          get_video_info: [true, 200, 'no-player-response'],
         });
         let info = await ytdl.getInfo(id);
         scope.done();
