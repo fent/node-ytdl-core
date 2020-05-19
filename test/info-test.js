@@ -267,7 +267,21 @@ describe('ytdl.getInfo()', () => {
     });
   });
 
-  describe('When there is an error requesting one of the pages', () => {
+  describe('When there is an error', () => {
+    describe('From a video that does not have `player_response` object', () => {
+      it('Uses backup `playerResponse`', async() => {
+        const id = 'pJk0p-98Xzc';
+        const scope = nock(id, {
+          type: 'vevo',
+          watch: 'no-player_response',
+          get_video_info: [true, 200, 'no-player_response'],
+        });
+        let info = await ytdl.getInfo(id);
+        scope.done();
+        assert.ok(info.title);
+      });
+    });
+
     it('Fails gracefully when unable to get watch page', async() => {
       const id = '_HSylqgVYQI';
       const scope = nock(id, {

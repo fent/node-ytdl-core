@@ -111,12 +111,22 @@ const videos = [
       {
         page: 'get_video_info',
         saveAs: 'no-formats',
-        fn: body => body.replace(/streamingData/g, 'no'),
+        fn: body => body.replace(/\b(formats|adaptiveFormats)\b/g, 'no'),
       },
       {
         page: 'watch.json',
         saveAs: 'no-formats',
-        fn: body => body.replace(/streamingData/g, 'no'),
+        fn: body => body.replace(/\b(formats|adaptiveFormats)\b/g, 'no'),
+      },
+      {
+        page: 'watch.json',
+        saveAs: 'no-player_response',
+        fn: body => body.replace(/player_response/g, 'no'),
+      },
+      {
+        page: 'get_video_info',
+        saveAs: 'no-player_response',
+        fn: body => body.replace(/player_response/g, 'no'),
       },
     ],
   },

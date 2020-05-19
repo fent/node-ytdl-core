@@ -53,7 +53,7 @@ exports = module.exports = (id, opts) => {
   }
 
   if (opts.player) {
-    let file = existingFiles.find(f => /(html5)?player/.test(f));
+    let file = existingFiles.find(f => /(html5)?player.+\.js$/.test(f));
     if (!file) {
       throw Error('html5player file not found');
     }

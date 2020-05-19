@@ -90,19 +90,6 @@ describe('extras.getMedia()', () => {
       assert.equal(media.year, '1999');
     });
   });
-
-  describe.skip('On a video with a game with an image', () => {
-    it('Returns media object', () => {
-      const info = require('./files/videos/OYXswyLkek4-game-image/watch.json');
-      const media = extras.getMedia(info);
-      assert.ok(media);
-      assert.equal(media.category, 'Gaming');
-      assertURL(media.category_url);
-      assert.equal(media.game, 'Super Mario 64');
-      assertURL(media.game_url);
-      assert.equal(media.year, '1996');
-    });
-  });
 });
 
 
