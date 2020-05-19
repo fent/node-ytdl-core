@@ -13,7 +13,7 @@
 
 const videos = [
   {
-    id: 'hHW1oY26kxQ',
+    id: '5qap5aO4i9A',
     type: 'live',
     transform: [
       {
@@ -45,49 +45,29 @@ const videos = [
   {
     id: 'SyKPsFRP_Oc',
     type: 'rental',
+    saveInfo: true,
   },
   {
     id: '_HSylqgVYQI',
     type: 'regular',
     keep: ['video.flv'],
+    saveInfo: true,
     transform: [
       {
-        page: 'get_video_info',
-        saveAs: 'unknown-format',
-        fn: body => body.replace(/(%26itag%3D)(?:\d+)(%26)/g, '$1unknown$2'),
-      },
-      {
-        page: 'watch.html',
+        page: 'watch.json',
         saveAs: 'bad-config',
-        fn: body => body.replace('ytplayer.config = {', 'ytplayer.config = {[}'),
+        fn: body => body.replace('[', '{]'),
       },
       {
-        page: 'watch.html',
+        page: 'watch.json',
         saveAs: 'bad-player-response',
         fn: body => body.replace('"player_response":"{', '"player_response":"'),
       },
       {
-        page: 'watch.html',
+        page: 'watch.json',
         saveAs: 'no-extras',
         fn: body => {
-          body = body.replace('id="watch7-user-header"', '');
-          body = body.replace('id="eow-description"', '');
-          body = body.replace('{"rvs":', '{"rvs":}');
-          return body;
-        },
-      },
-      {
-        page: 'watch.html',
-        saveAs: 'multiline-description',
-        fn: body => {
-          const regex = /(<p.*?id="eow-description".*?>).+?(<\/p>)/;
-          body = body.replace(regex, '$1Some Title<br>' +
-            'Line 1<br>' +
-            '"Line 2"<br>' +
-            '1  First Song  5:30<br>' +
-            '2  Second Song  5:42' +
-            '$2',
-          );
+          body = body.replace('playerMicroformatRenderer', '');
           return body;
         },
       },
@@ -109,14 +89,24 @@ const videos = [
         fn: body => body.replace(/<Representation>([\S\s]+)<\/Representation>/g, ''),
       },
       {
-        page: 'get_video_info',
+        page: 'watch.json',
         saveAs: 'no-formats',
-        fn: body => body.replace(/streamingData/g, 'no'),
+        fn: body => body.replace(/\b(formats|adaptiveFormats)\b/g, 'no'),
       },
       {
-        page: 'watch.html',
+        page: 'get_video_info',
         saveAs: 'no-formats',
-        fn: body => body.replace(/streamingData/g, 'no'),
+        fn: body => body.replace(/\b(formats|adaptiveFormats)\b/g, 'no'),
+      },
+      {
+        page: 'watch.json',
+        saveAs: 'no-player-response',
+        fn: body => body.replace(/player_response/g, 'no'),
+      },
+      {
+        page: 'get_video_info',
+        saveAs: 'no-player-response',
+        fn: body => body.replace(/player_response/g, 'no'),
       },
     ],
   },
@@ -126,14 +116,14 @@ const videos = [
     saveInfo: true,
     transform: [
       {
-        page: 'watch.html',
-        saveAs: 'german',
-        fn: body => body,
-      },
-      {
         page: 'embed.html',
         saveAs: 'no-config',
         fn: body => body.replace('t.setConfig({\'PLAYER_CONFIG\': ', ''),
+      },
+      {
+        page: 'embed.html',
+        saveAs: 'bad-config',
+        fn: body => body.replace('t.setConfig({\'PLAYER_CONFIG\': ', 't.setConfig({\'PLAYER_CONFIG\': {[}'),
       },
     ],
   },
@@ -142,29 +132,30 @@ const videos = [
     type: 'nonexistent',
   },
   {
-    id: 'OYXswyLkek4',
-    type: 'game-image',
-    basicInfo: true,
-    skip: ['get_video_info'],
-  },
-  {
     id: 'xRu7qKijBso',
     type: 'game',
     basicInfo: true,
-    skip: ['get_video_info'],
+    saveInfo: true,
+    skip: ['watch', 'get_video_info'],
   },
   {
     id: '3IqtmUscE_U',
     type: 'related',
     skip: ['get_video_info', /player/],
+    saveInfo: true,
     transform: [
       {
-        page: 'watch.html',
+        page: 'expected-info.json',
         saveAs: 'no-rvs',
-        fn: body => body.replace(/"rvs":"[^"]+"/, '"rvs":""'),
+        fn: body => body.replace(/"relatedVideoArgs"/, '""'),
       },
       {
-        page: 'watch.html',
+        page: 'expected-info.json',
+        saveAs: 'no-results',
+        fn: body => body.replace(/"secondaryResults"/, '""'),
+      },
+      {
+        page: 'expected-info.json',
         saveAs: 'bad-details',
         fn: body => body.replace(/\\"shortBylineText\\"/g, '\\"___\\"'),
       },
@@ -173,6 +164,7 @@ const videos = [
   {
     id: 'wYgaarivXv4',
     type: 'related2',
+    saveInfo: true,
     skip: ['get_video_info', /player/],
   },
   {
@@ -199,7 +191,7 @@ const cleanBody = body => body
   .replace(/(ip(?:=|\\?\/|%3D|%253D|%2F))((?:(?:25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(?:25[0-5]|2[0-4]\d|[01]?\d\d?)|[0-9a-f]{1,4}(?:(?::|%3A)[0-9a-f]{1,4}){7})/ig, '$10.0.0.0'); // eslint-disable-line max-len
 
 // Returns true if `filename` is found in `video.skip`.
-// `video.skipcan be a regex.
+// `video.skip` can be a regex.
 const skipFile = (video, filename) => video.skip && video.skip.some(skip =>
   skip instanceof RegExp ? skip.test(filename) : filename.includes(skip),
 );
@@ -274,7 +266,7 @@ const refreshVideo = async(video, noRequests) => {
             playerfile.test(url) ? `${playerfile.exec(url)[1]}.js` :
 
             // Save watch and embed pages with .html extension.
-              /^\/watch$/.test(parsed.pathname) ? 'watch.html' :
+              /^\/watch$/.test(parsed.pathname) ? 'watch.json' :
                 /^\/embed\//.test(parsed.pathname) ? 'embed.html' :
 
                 // Otherwise, use url path as filename.
@@ -335,10 +327,14 @@ const refreshVideo = async(video, noRequests) => {
         info = await getInfo.getFullInfo(video.id);
       }
       if (video.saveInfo) {
-        writeFile('expected-info.json', cleanBody(JSON.stringify(info, null, 2)));
+        let filename = 'expected-info.json';
+        let body = cleanBody(JSON.stringify(info, null, 2));
+        writeFile(filename, body);
+        writeTransforms(filename, body);
       }
     } catch (err) {
-      console.log('error retreiveing video info:', err.message);
+      console.log('error retrieveing video info:', err.message);
+      console.log(err.stack);
     }
   }
 

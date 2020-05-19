@@ -512,6 +512,21 @@ describe('util.addFormatMeta()', () => {
 });
 
 
+describe('util.parseAbbreviatedNumber', () => {
+  it('Parses abbreviated numbers', () => {
+    assert.equal(util.parseAbbreviatedNumber('41K'), 41000);
+    assert.equal(util.parseAbbreviatedNumber('1.5M'), 1500000);
+  });
+  it('Parses non-abbreviated numbers', () => {
+    assert.equal(util.parseAbbreviatedNumber('1234'), 1234);
+    assert.equal(util.parseAbbreviatedNumber('123.456'), 123.456);
+  });
+  it('Returns `null` when given non-number', () => {
+    assert.equal(util.parseAbbreviatedNumber('abc'), null);
+  });
+});
+
+
 describe('util.stripHTML()', () => {
   it('Normal text with some html', () => {
     const html = '<p>This page isn\'t available. Sorry about that.</p><p>Try searching for something else.</p>';
