@@ -131,6 +131,7 @@ declare module 'ytdl-core' {
         verified: boolean;
         user: string;
         channel_url: string;
+        external_channel_url: string;
         user_url: string;
         subscriber_count: number;
       };

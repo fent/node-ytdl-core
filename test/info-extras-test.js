@@ -13,7 +13,7 @@ const assertChannelURL = url => {
 };
 
 const assertUserID = str => {
-  assert.ok(/^[a-zA-Z0-9_-]+$/.test(str), `Not a user id:${str}`);
+  assert.ok(/^[a-zA-Z0-9_-]+$/.test(str), `Not a user id: ${str}`);
 };
 
 const assertUserName = str => {
@@ -31,6 +31,7 @@ describe('extras.getAuthor()', () => {
     assert.ok(author);
     assertURL(author.avatar);
     assertChannelURL(author.channel_url);
+    assertChannelURL(author.external_channel_url);
     assertUserID(author.id);
     assertUserName(author.user);
     assert.ok(author.name);
@@ -56,6 +57,7 @@ describe('extras.getAuthor()', () => {
       assert.ok(author);
       assertURL(author.avatar);
       assertChannelURL(author.channel_url);
+      assertChannelURL(author.external_channel_url);
       assertUserID(author.id);
       assertUserName(author.user);
       assert.ok(author.name);
