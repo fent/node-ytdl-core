@@ -14,8 +14,7 @@ describe('ytdl.getInfo()', () => {
     const id = 'pJk0p-98Xzc';
     let expectedInfo;
     before(() => {
-      expectedInfo = require(path.resolve(__dirname,
-        `files/videos/${id}-vevo/expected-info.json`));
+      expectedInfo = require(path.resolve(__dirname, `files/videos/vevo/expected-info.json`));
     });
 
     it('Retrieves correct metainfo', async() => {
@@ -131,7 +130,7 @@ describe('ytdl.getInfo()', () => {
         const testId = '99999999999';
 
         it('Error is caught', done => {
-          const scope = nock(testId, { type: 'nonexistent' });
+          const scope = nock(testId, { type: 'non-existent' });
           const p = ytdl.getInfo(testId);
           p.catch(err => {
             scope.done();
@@ -164,7 +163,7 @@ describe('ytdl.getInfo()', () => {
         const testId = '99999999999';
 
         it('Error is caught', done => {
-          const scope = nock(testId, { type: 'nonexistent' });
+          const scope = nock(testId, { type: 'non-existent' });
           ytdl.getInfo(testId, err => {
             scope.done();
             assert.ok(err);
@@ -199,7 +198,7 @@ describe('ytdl.getInfo()', () => {
     const id = '99999999999';
 
     it('Should give an error', async() => {
-      const scope = nock(id, { type: 'nonexistent' });
+      const scope = nock(id, { type: 'non-existent' });
       await assert.rejects(ytdl.getInfo(id), /Video unavailable/);
       scope.done();
     });
@@ -207,7 +206,7 @@ describe('ytdl.getInfo()', () => {
 
   describe('From an age restricted video', () => {
     const id = 'rIqCiJKWx9I';
-    const expectedInfo = require(`./files/videos/${id}-age-restricted/expected-info.json`);
+    const expectedInfo = require(`./files/videos/age-restricted/expected-info.json`);
 
     it('Returns correct video metainfo', async() => {
       const scope = nock(id, {
@@ -250,7 +249,7 @@ describe('ytdl.getInfo()', () => {
     it('Returns correct video metainfo', async() => {
       const id = 'GFg8BP01F5Q';
       const scope = nock(id, {
-        type: 'noembed',
+        type: 'no-embed',
         player: true,
         get_video_info: true,
       });

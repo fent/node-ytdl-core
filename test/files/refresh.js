@@ -129,7 +129,7 @@ const videos = [
   },
   {
     id: '99999999999',
-    type: 'nonexistent',
+    type: 'non-existent',
   },
   {
     id: 'xRu7qKijBso',
@@ -169,7 +169,7 @@ const videos = [
   },
   {
     id: 'GFg8BP01F5Q',
-    type: 'noembed',
+    type: 'no-embed',
   },
   {
     id: 'KKzOh0MRuZE',
@@ -203,7 +203,7 @@ const getTransformFilename = transform => {
 
 const refreshVideo = async(video, noRequests) => {
   console.log('refreshing video:', video.id, video.type);
-  const folder = path.join(__dirname, `videos/${video.id}-${video.type}`);
+  const folder = path.join(__dirname, `videos/${video.type}`);
   let existingFiles = {};
   try {
     fs.accessSync(folder);

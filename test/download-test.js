@@ -12,13 +12,12 @@ describe('Download video', () => {
   const filter = format => format.container === 'mp4';
   let testInfo;
   before(done => {
-    fs.readFile(path.resolve(__dirname,
-      'files/videos/pJk0p-98Xzc-vevo/expected-info.json'),
-    'utf8', (err, body) => {
-      assert.ifError(err);
-      testInfo = JSON.parse(body);
-      done();
-    });
+    fs.readFile(path.resolve(__dirname, 'files/videos/vevo/expected-info.json'),
+      'utf8', (err, body) => {
+        assert.ifError(err);
+        testInfo = JSON.parse(body);
+        done();
+      });
   });
 
   let clock;
@@ -33,7 +32,7 @@ describe('Download video', () => {
       player: true,
     });
     const stream = ytdl(id, { filter: filter });
-    const video = path.resolve(__dirname, `files/videos/${id}-regular/video.flv`);
+    const video = path.resolve(__dirname, `files/videos/regular/video.flv`);
 
     stream.on('info', (info, format) => {
       scope.urlReplyWithFile(format.url, 200, video);
@@ -132,7 +131,7 @@ describe('Download video', () => {
           player: true,
         });
         const stream = ytdl(id, { filter });
-        const video = path.resolve(__dirname, `files/videos/${id}-regular/video.flv`);
+        const video = path.resolve(__dirname, `files/videos/regular/video.flv`);
 
         stream.on('info', (info, format) => {
           scope.urlReplyWithFile(format.url, 200, video);
@@ -159,7 +158,7 @@ describe('Download video', () => {
 
   describe('stream disconnects before end', () => {
     const id = '_HSylqgVYQI';
-    const video = path.resolve(__dirname, `files/videos/${id}-regular/video.flv`);
+    const video = path.resolve(__dirname, `files/videos/regular/video.flv`);
     let filesize;
     before(done => {
       fs.stat(video, (err, stat) => {
@@ -415,7 +414,7 @@ describe('Download video', () => {
         const stream = ytdl(testId, { filter: format => format.isDashMPD });
         stream.on('info', (info, format) => {
           scope.urlReplyWithFile(format.url, 200, path.resolve(__dirname,
-            `files/videos/${testId}-live/dash-manifest-transformed.xml`));
+            `files/videos/live/dash-manifest-transformed.xml`));
           scope.urlReply(`https://googlevideo.com/videoplayback/sq/video01.ts`, 200, 'one');
           scope.urlReply(`https://googlevideo.com/videoplayback/sq/video02.ts`, 200, 'two');
           scope.urlReply(`https://googlevideo.com/videoplayback/sq/video03.ts`, 200, 'tres');

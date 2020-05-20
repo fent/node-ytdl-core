@@ -24,15 +24,15 @@ afterEach(() => {
 exports = module.exports = (id, opts) => {
   opts = opts || {};
   let scopes = [];
-  let dirpath = `files/videos/${id}${`-${opts.type}`}`;
+  let folder = `files/videos/${opts.type}`;
   let watchType = opts.watch ? `-${opts.watch}` : '';
-  let existingFiles = fs.readdirSync(path.join(__dirname, dirpath));
+  let existingFiles = fs.readdirSync(path.join(__dirname, folder));
 
   scopes.push(nock(YT_HOST, { reqheaders: opts.headers })
     .filteringPath(/\/watch\?v=.+$/, '/watch?v=XXX')
     .get('/watch?v=XXX')
     .replyWithFile(opts.statusCode || 200,
-      path.join(__dirname, `${dirpath}/watch${watchType}.json`)));
+      path.join(__dirname, `${folder}/watch${watchType}.json`)));
 
   if (opts.dashmpd) {
     let file = buildFile(opts.dashmpd);
@@ -40,7 +40,7 @@ exports = module.exports = (id, opts) => {
       .filteringPath(() => '/api/manifest/dash/')
       .get('/api/manifest/dash/')
       .replyWithFile(opts.dashmpd[1] || 200,
-        path.join(__dirname, `${dirpath}/dash-manifest${file}.xml`)));
+        path.join(__dirname, `${folder}/dash-manifest${file}.xml`)));
   }
 
   if (opts.m3u8) {
@@ -49,7 +49,7 @@ exports = module.exports = (id, opts) => {
       .filteringPath(() => '/api/manifest/hls_variant/')
       .get('/api/manifest/hls_variant/')
       .replyWithFile(opts.m3u8[1] || 200,
-        path.join(__dirname, `${dirpath}/hls-manifest${file}.m3u8`)));
+        path.join(__dirname, `${folder}/hls-manifest${file}.m3u8`)));
   }
 
   if (opts.player) {
@@ -61,7 +61,7 @@ exports = module.exports = (id, opts) => {
       .filteringPath(/\/player.+$/, '/player.js')
       .get('/s/player.js')
       .replyWithFile(opts.player[1] || 200,
-        path.join(__dirname, `${dirpath}/${file}`)));
+        path.join(__dirname, `${folder}/${file}`)));
   }
 
   if (opts.embed) {
@@ -69,7 +69,7 @@ exports = module.exports = (id, opts) => {
     scopes.push(nock(YT_HOST, { reqheaders: opts.headers })
       .get(`${EMBED_PATH + id}?hl=en`)
       .replyWithFile(opts.embed[1] || 200,
-        path.join(__dirname, `${dirpath}/embed${file}.html`)));
+        path.join(__dirname, `${folder}/embed${file}.html`)));
   }
 
   if (opts.get_video_info) {
@@ -81,7 +81,7 @@ exports = module.exports = (id, opts) => {
       })
       .get(`${INFO_PATH}video_id=${id}`)
       .replyWithFile(opts.get_video_info[1] || 200,
-        path.join(__dirname, `${dirpath}/get_video_info${file}`)));
+        path.join(__dirname, `${folder}/get_video_info${file}`)));
   }
 
   return {

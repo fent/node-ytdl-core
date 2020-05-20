@@ -26,7 +26,7 @@ const assertUserURL = url => {
 
 describe('extras.getAuthor()', () => {
   it('Returns video author object', () => {
-    const info = require('./files/videos/pJk0p-98Xzc-vevo/expected-info.json');
+    const info = require('./files/videos/vevo/expected-info.json');
     const author = extras.getAuthor(info);
     assert.ok(author);
     assertURL(author.avatar);
@@ -43,7 +43,7 @@ describe('extras.getAuthor()', () => {
   describe('watch page without author', () => {
     it('Returns empty object if author not found', () => {
       const info = require(
-        './files/videos/_HSylqgVYQI-regular/watch-no-extras.json');
+        './files/videos/regular/watch-no-extras.json');
       const author = extras.getAuthor(info);
       assert.deepEqual(author, {});
     });
@@ -51,8 +51,7 @@ describe('extras.getAuthor()', () => {
 
   describe('from a rental', () => {
     it('Returns video author object', () => {
-      const info = require(
-        './files/videos/SyKPsFRP_Oc-rental/expected-info.json');
+      const info = require('./files/videos/rental/expected-info.json');
       const author = extras.getAuthor(info);
       assert.ok(author);
       assertURL(author.avatar);
@@ -71,7 +70,7 @@ describe('extras.getAuthor()', () => {
 
 describe('extras.getMedia()', () => {
   it('Returns media object', () => {
-    const info = require('./files/videos/pJk0p-98Xzc-vevo/expected-info.json');
+    const info = require('./files/videos/vevo/expected-info.json');
     const media = extras.getMedia(info);
     assert.ok(media);
     assert.equal(media.artist, 'Wu-Tang Clan');
@@ -82,7 +81,7 @@ describe('extras.getMedia()', () => {
 
   describe('On a video associated with a game', () => {
     it('Returns media object', () => {
-      const info = require('./files/videos/xRu7qKijBso-game/expected-info.json');
+      const info = require('./files/videos/game/expected-info.json');
       const media = extras.getMedia(info);
       assert.ok(media);
       assert.equal(media.category, 'Gaming');
@@ -97,7 +96,7 @@ describe('extras.getMedia()', () => {
 
 describe('extras.getRelatedVideos()', () => {
   it('Returns related videos', () => {
-    const info = require('./files/videos/wYgaarivXv4-related2/expected-info.json');
+    const info = require('./files/videos/related2/expected-info.json');
     const relatedVideos = extras.getRelatedVideos(info);
     assert.ok(relatedVideos && relatedVideos.length > 0);
     for (let video of relatedVideos) {
@@ -111,8 +110,7 @@ describe('extras.getRelatedVideos()', () => {
 
   describe('Without `rvs` params', () => {
     it('Still able to find video params', () => {
-      const info = require(
-        './files/videos/3IqtmUscE_U-related/expected-info-no-rvs.json');
+      const info = require('./files/videos/related/expected-info-no-rvs.json');
       const relatedVideos = extras.getRelatedVideos(info);
       for (let video of relatedVideos) {
         assert.ok(video.id);
@@ -126,8 +124,7 @@ describe('extras.getRelatedVideos()', () => {
 
   describe('Without `secondaryResults`', () => {
     it('Unable to find any videos', () => {
-      const info = require(
-        './files/videos/3IqtmUscE_U-related/expected-info-no-results.json');
+      const info = require('./files/videos/related/expected-info-no-results.json');
       const relatedVideos = extras.getRelatedVideos(info);
       assert.ok(relatedVideos);
       assert.deepEqual(relatedVideos, []);
@@ -137,7 +134,7 @@ describe('extras.getRelatedVideos()', () => {
   describe('With an unparseable video', () => {
     it('Catches errors', () => {
       const info = require(
-        './files/videos/3IqtmUscE_U-related/watch-bad-details.json');
+        './files/videos/related/watch-bad-details.json');
       const relatedVideos = extras.getRelatedVideos(info);
       assert.deepEqual(relatedVideos, []);
     });
@@ -147,7 +144,7 @@ describe('extras.getRelatedVideos()', () => {
 describe('extras.getLikes()', () => {
   it('Returns like count', () => {
     let html = fs.readFileSync(path.resolve(__dirname,
-      'files/videos/_HSylqgVYQI-regular/watch.json'), 'utf8');
+      'files/videos/regular/watch.json'), 'utf8');
     const likes = extras.getLikes(html);
     assert.equal(typeof likes, 'number');
   });
@@ -155,7 +152,7 @@ describe('extras.getLikes()', () => {
   describe('With no likes', () => {
     it('Does not return likes', () => {
       let html = fs.readFileSync(path.resolve(__dirname,
-        'files/videos/KKzOh0MRuZE-no-likes-or-dislikes/watch.json'), 'utf8');
+        'files/videos/no-likes-or-dislikes/watch.json'), 'utf8');
       const likes = extras.getLikes(html);
       assert.equal(likes, null);
     });
@@ -165,7 +162,7 @@ describe('extras.getLikes()', () => {
 describe('extras.getDislikes()', () => {
   it('Returns dislike count', () => {
     let html = fs.readFileSync(path.resolve(__dirname,
-      'files/videos/_HSylqgVYQI-regular/watch.json'), 'utf8');
+      'files/videos/regular/watch.json'), 'utf8');
     const dislikes = extras.getDislikes(html);
     assert.equal(typeof dislikes, 'number');
   });
@@ -173,7 +170,7 @@ describe('extras.getDislikes()', () => {
   describe('With no dislikes', () => {
     it('Does not return dislikes', () => {
       let html = fs.readFileSync(path.resolve(__dirname,
-        'files/videos/KKzOh0MRuZE-no-likes-or-dislikes/watch.json'), 'utf8');
+        'files/videos/no-likes-or-dislikes/watch.json'), 'utf8');
       const dislikes = extras.getDislikes(html);
       assert.equal(dislikes, null);
     });
