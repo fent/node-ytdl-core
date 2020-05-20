@@ -176,6 +176,10 @@ const videos = [
     type: 'no-likes-or-dislikes',
     skip: ['get_video_info', /player/],
   },
+  {
+    id: 'z2jeHsa0UG0',
+    type: 'private',
+  },
 ];
 
 
@@ -333,7 +337,7 @@ const refreshVideo = async(video, noRequests) => {
         writeTransforms(filename, body);
       }
     } catch (err) {
-      console.log('error retrieveing video info:', err.message);
+      console.log('error retrieving video info:', err.message);
       console.log(err.stack);
     }
   }

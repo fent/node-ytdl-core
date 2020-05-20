@@ -6,10 +6,6 @@ const sinon = require('sinon');
 
 
 describe('ytdl.getInfo()', () => {
-  let clock;
-  before(() => { clock = sinon.useFakeTimers({ toFake: ['setTimeout'] }); });
-  after(() => { clock.restore(); });
-
   describe('From a regular video', () => {
     const id = 'pJk0p-98Xzc';
     let expectedInfo;
@@ -78,6 +74,9 @@ describe('ytdl.getInfo()', () => {
 
     describe('Use `ytdl.downloadFromInfo()`', () => {
       it('Retrieves video file', done => {
+        let clock = sinon.useFakeTimers({ toFake: ['setTimeout'] });
+        after(() => { clock.restore(); });
+
         const stream = ytdl.downloadFromInfo(expectedInfo);
         let scope;
         stream.on('info', (info, format) => {
@@ -278,6 +277,18 @@ describe('ytdl.getInfo()', () => {
         let info = await ytdl.getInfo(id);
         scope.done();
         assert.ok(info.title);
+      });
+    });
+
+    describe('With a private video', () => {
+      it('Fails gracefully', async() => {
+        const id = 'z2jeHsa0UG0';
+        const scope = nock(id, {
+          type: 'private',
+          embed: true,
+        });
+        await assert.rejects(ytdl.getInfo(id), /private video/);
+        scope.done();
       });
     });
 
