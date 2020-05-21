@@ -74,6 +74,98 @@ declare module 'ytdl-core' {
       isTranslatable: boolean;
     }
 
+    interface VideoDetails {
+      videoId: string;
+      title: string;
+      shortDescription: string;
+      lengthSeconds: string;
+      keywords: string[];
+      channelId: string;
+      isCrawlable: boolean;
+      thumbnail: {
+        thumbnails: thumbnail[];
+      };
+      averageRating: number;
+      allowRatings: boolean;
+      viewCount: string;
+      author: string;
+      isPrivate: boolean;
+      isUnpluggedCorpus: boolean
+      isLiveContent: boolean;
+    }
+
+    interface Media {
+      image?: string;
+      category: string;
+      category_url: string;
+      game?: string;
+      game_url?: string;
+      year?: number;
+      song?: string;
+      artist?: string;
+      artist_url?: string;
+      writers?: string;
+      licensed_by?: string;
+    }
+
+    interface Author {
+      id: string;
+      name: string;
+      avatar: string;
+      verified: boolean;
+      user: string;
+      channel_url: string;
+      external_channel_url: string;
+      user_url: string;
+      subscriber_count: number;
+    }
+
+    interface MicroformatRenderer {
+      thumbnail: {
+        thumbnails: thumbnail[];
+      };
+      embed: {
+        iframeUrl: string;
+        flashUrl: string;
+        width: number;
+        height: number;
+        flashSecureUrl: string;
+      };
+      title: {
+        simpleText: string;
+      };
+      description: {
+        simpleText: string;
+      };
+      lengthSeconds: string;
+      ownerProfileUrl: string;
+      ownerGplusProfileUrl: string;
+      externalChannelId: string;
+      isFamilySafe: boolean;
+      availableCountries: string[];
+      isUnlisted: boolean;
+      hasYpcMetadata: boolean;
+      viewCount: string;
+      category: string;
+      publishDate: string;
+      ownerChannelName: string;
+      liveBroadcastDetails?: {
+        isLiveNow: boolean;
+        startTimestamp: string;
+      }
+      uploadDate: string;
+    }
+
+    interface MoreVideoDetails extends Omit<VideoDetails, 'author'>, Omit<MicroformatRenderer, 'title' | 'description'> {
+      published: number;
+      video_url: string;
+      age_restricted: boolean;
+      likes?: number;
+      dislikes?: number;
+      media: Media;
+      author: Author;
+    }
+
     type videoInfo = {
       iv_load_policy?: string;
       iv_allow_in_place_switch?: string;
@@ -111,30 +203,8 @@ declare module 'ytdl-core' {
       fflags: string;
       ssl: string;
       pltype: string;
-      media: {
-        image?: string;
-        category: string;
-        category_url: string;
-        game?: string;
-        game_url?: string;
-        year?: number;
-        song?: string;
-        artist?: string;
-        artist_url?: string;
-        writers?: string;
-        licensed_by?: string;
-      };
-      author: {
-        id: string;
-        name: string;
-        avatar: string;
-        verified: boolean;
-        user: string;
-        channel_url: string;
-        external_channel_url: string;
-        user_url: string;
-        subscriber_count: number;
-      };
+      media: Media;
+      author: Author;
       enabled_engage_types: string;
       hl: string;
       is_listed: string;
@@ -236,53 +306,11 @@ declare module 'ytdl-core' {
           };
         };
         microformat: {
-          playerMicroformatRenderer: {
-            thumbnail: {
-              thumbnails: thumbnail[];
-            };
-            embed: {
-              iframeUrl: string;
-              flashUrl: string;
-              width: number;
-              height: number;
-              flashSecureUrl: string;
-            };
-            title: {
-              simpleText: string;
-            };
-            description: {
-              simpleText: string;
-            };
-            lengthSeconds: string;
-            ownerProfileUrl: string;
-            ownerGplusProfileUrl: string;
-            externalChannelId: string;
-            isFamilySafe: boolean;
-            availableCountries: string[];
-            isUnlisted: boolean;
-            hasYpcMetadata: boolean;
-            viewCount: string;
-            category: string;
-            publishDate: string;
-            ownerChannelName: string;
-            uploadDate: string;
-          };
+          playerMicroformatRenderer: MicroformatRenderer;
         };
-        videoDetails: {
-          videoId: string;
-          title: string;
-          lengthSeconds: number;
-          keywords: string[];
-          channelId: string;
-          isCrawlable: boolean;
-          thumbnail: {
-            thumbnails: thumbnail[];
-          };
-          viewCount: number;
-          author: string;
-          isLiveContent: boolean;
-        };
+        videoDetails: VideoDetails;
       };
+      videoDetails: MoreVideoDetails;
     }
 
     type relatedVideo = {

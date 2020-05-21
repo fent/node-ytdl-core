@@ -22,7 +22,7 @@ describe('ytdl.getInfo()', () => {
 
       let info = await ytdl.getInfo(id);
       scope.done();
-      assert.ok(info.description.length);
+      assert.ok(info.videoDetails.shortDescription.length);
       assert.equal(info.formats.length, expectedInfo.formats.length);
     });
 
@@ -118,7 +118,7 @@ describe('ytdl.getInfo()', () => {
         ytdl.getInfo(id)
           .then(info => {
             scope.done();
-            assert.ok(info.description.length);
+            assert.ok(info.videoDetails.shortDescription.length);
             assert.equal(info.formats.length, expectedInfo.formats.length);
             done();
           })
@@ -152,7 +152,7 @@ describe('ytdl.getInfo()', () => {
         ytdl.getInfo(id, (err, info) => {
           assert.ifError(err);
           scope.done();
-          assert.ok(info.description.length);
+          assert.ok(info.videoDetails.shortDescription.length);
           assert.equal(info.formats.length, expectedInfo.formats.length);
           done();
         });
@@ -184,7 +184,7 @@ describe('ytdl.getInfo()', () => {
         });
 
         let info1 = await ytdl.getInfo(testId);
-        assert.ok(info1.description.length);
+        assert.ok(info1.videoDetails.shortDescription.length);
         assert.equal(info1.formats.length, expectedInfo.formats.length);
         let info2 = await ytdl.getInfo(testId);
         scope.done();
@@ -217,7 +217,7 @@ describe('ytdl.getInfo()', () => {
       let info = await ytdl.getInfo(id);
       scope.done();
       assert.equal(info.formats.length, expectedInfo.formats.length);
-      assert.ok(info.age_restricted);
+      assert.ok(info.videoDetails.age_restricted);
     });
 
     it('Fails gracefully when unable to find config', async() => {
@@ -276,7 +276,7 @@ describe('ytdl.getInfo()', () => {
         });
         let info = await ytdl.getInfo(id);
         scope.done();
-        assert.ok(info.title);
+        assert.ok(info.videoDetails.title);
       });
     });
 
