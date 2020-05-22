@@ -11,7 +11,8 @@ ytdl.getInfo(id, (err, info) => {
   console.log('rating:', info.player_response.videoDetails.averageRating);
   console.log('uploaded by:', info.videoDetails.author.name);
   const json = JSON.stringify(info, null, 2)
-    .replace(/(ip(?:=|%3D|\/))((?:(?:25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(?:25[0-5]|2[0-4]\d|[01]?\d\d?)|[0-9a-f]{1,4}(?:(?::|%3A)[0-9a-f]{1,4}){7})/ig, '$10.0.0.0'); // eslint-disable-line max-len
+    // eslint-disable-next-line max-len
+    .replace(/(ip(?:=|%3D|\/))((?:(?:25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(?:25[0-5]|2[0-4]\d|[01]?\d\d?)|[0-9a-f]{1,4}(?:(?::|%3A)[0-9a-f]{1,4}){7})/ig, '$10.0.0.0');
   fs.writeFile(filepath, json, err2 => {
     if (err2) throw err2;
   });

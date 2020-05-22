@@ -186,7 +186,8 @@ const miniget = require('miniget');
 
 // Tries to remove instances of your ip from saved test files.
 const cleanBody = body => body
-  .replace(/(ip(?:=|\\?\/|%3D|%253D|%2F))((?:(?:25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(?:25[0-5]|2[0-4]\d|[01]?\d\d?)|[0-9a-f]{1,4}(?:(?::|%3A)[0-9a-f]{1,4}){7})/ig, '$10.0.0.0'); // eslint-disable-line max-len
+  // eslint-disable-next-line max-len
+  .replace(/(ip(?:=|\\?\/|%3D|%253D|%2F))((?:(?:25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(?:25[0-5]|2[0-4]\d|[01]?\d\d?)|[0-9a-f]{1,4}(?:(?::|%3A)[0-9a-f]{1,4}){7})/ig, '$10.0.0.0');
 
 // Returns true if `filename` is found in `video.skip`.
 // `video.skip` can be a regex.
@@ -349,7 +350,8 @@ const refreshVideo = async(video, noRequests) => {
 
 const refreshAll = async noRequests => {
   for (let video of videos) {
-    await refreshVideo(video, noRequests); // eslint-disable-line no-await-in-loop
+    // eslint-disable-next-line no-await-in-loop
+    await refreshVideo(video, noRequests);
   }
 };
 
