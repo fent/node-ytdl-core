@@ -282,19 +282,6 @@ describe('ytdl.getInfo()', () => {
       });
     });
 
-    it('Fails gracefully when unable to get watch page', async() => {
-      const id = '_HSylqgVYQI';
-      const scope = nock(id, {
-        type: 'regular',
-        statusCode: 500,
-      });
-      await assert.rejects(
-        ytdl.getInfo(id, { requestOptions: { maxRetries: 0 } }),
-        /Status code: 500/,
-      );
-      scope.done();
-    });
-
     it('Fails gracefully when unable to parse watch page config', async() => {
       const id = '_HSylqgVYQI';
       const scope = nock(id, {
@@ -305,19 +292,6 @@ describe('ytdl.getInfo()', () => {
       scope.done();
     });
 
-    it('Fails gracefully when unable to get embed page', async() => {
-      const id = 'rIqCiJKWx9I';
-      const scope = nock(id, {
-        type: 'age-restricted',
-        embed: [true, 500],
-      });
-      await assert.rejects(
-        ytdl.getInfo(id, { requestOptions: { maxRetries: 0 } }),
-        /Status code: 500/,
-      );
-      scope.done();
-    });
-
     it('Fails gracefully when unable to parse embed config', async() => {
       const id = 'rIqCiJKWx9I';
       const scope = nock(id, {
@@ -325,48 +299,6 @@ describe('ytdl.getInfo()', () => {
         embed: [true, 200, 'bad-config'],
       });
       await assert.rejects(ytdl.getInfo(id), /Error parsing config:/);
-      scope.done();
-    });
-
-    it('Fails gracefully when unable to get video info page', async() => {
-      const id = 'rIqCiJKWx9I';
-      const scope = nock(id, {
-        type: 'age-restricted',
-        embed: true,
-        get_video_info: [true, 500],
-      });
-      await assert.rejects(
-        ytdl.getInfo(id, { requestOptions: { maxRetries: 0 } }),
-        /Status code: 500/,
-      );
-      scope.done();
-    });
-
-    it('Fails gracefully when unable to get html5player tokens', async() => {
-      const id = '_HSylqgVYQI';
-      const scope = nock(id, {
-        type: 'regular',
-        player: [true, 500],
-      });
-      await assert.rejects(
-        ytdl.getInfo(id, { requestOptions: { maxRetries: 0 } }),
-        /Status code: 500/,
-      );
-      scope.done();
-    });
-
-    it('Fails gracefully when unable to get m3u8 playlist', async() => {
-      const id = '5qap5aO4i9A';
-      const scope = nock(id, {
-        type: 'live',
-        dashmpd: true,
-        m3u8: [true, 500],
-        player: true,
-      });
-      await assert.rejects(
-        ytdl.getInfo(id, { requestOptions: { maxRetries: 0 } }),
-        /Status code: 500/,
-      );
       scope.done();
     });
 
