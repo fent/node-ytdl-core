@@ -81,7 +81,6 @@ const videos = [
     id: 'pJk0p-98Xzc',
     type: 'vevo',
     saveInfo: true,
-    keep: ['get_video_info-error'],
     transform: [
       {
         page: 'dash-manifest.xml',
@@ -90,11 +89,6 @@ const videos = [
       },
       {
         page: 'watch.json',
-        saveAs: 'no-formats',
-        fn: body => body.replace(/\b(formats|adaptiveFormats)\b/g, 'no'),
-      },
-      {
-        page: 'get_video_info',
         saveAs: 'no-formats',
         fn: body => body.replace(/\b(formats|adaptiveFormats)\b/g, 'no'),
       },

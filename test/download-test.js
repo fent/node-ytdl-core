@@ -28,7 +28,6 @@ describe('Download video', () => {
     const id = '_HSylqgVYQI';
     const scope = nock(id, {
       type: 'regular',
-      get_video_info: true,
       player: true,
     });
     const stream = ytdl(id, { filter: filter });
@@ -68,7 +67,6 @@ describe('Download video', () => {
         const id = '_HSylqgVYQI';
         const scope = nock(id, {
           type: 'regular',
-          get_video_info: true,
           player: true,
         });
         const stream = ytdl(id, { filter });
@@ -93,7 +91,6 @@ describe('Download video', () => {
         const id = '_HSylqgVYQI';
         const scope = nock(id, {
           type: 'regular',
-          get_video_info: true,
           player: true,
         });
         const stream = ytdl(id, { filter });
@@ -127,7 +124,6 @@ describe('Download video', () => {
         const id = '_HSylqgVYQI';
         const scope = nock(id, {
           type: 'regular',
-          get_video_info: true,
           player: true,
         });
         const stream = ytdl(id, { filter });
@@ -176,7 +172,6 @@ describe('Download video', () => {
     it('Still downloads the whole video', done => {
       const scope = nock(id, {
         type: 'regular',
-        get_video_info: true,
         player: true,
       });
       const stream = ytdl(id);
@@ -222,7 +217,6 @@ describe('Download video', () => {
       it('Downloads from the given `start` to `end`', done => {
         const scope = nock(id, {
           type: 'regular',
-          get_video_info: true,
           player: true,
         });
 
@@ -330,7 +324,6 @@ describe('Download video', () => {
         type: 'live',
         dashmpd: true,
         m3u8: true,
-        get_video_info: true,
         player: true,
       });
       const stream = ytdl(testId, { filter: format => format.isHLS });
@@ -385,7 +378,6 @@ describe('Download video', () => {
           type: 'live',
           dashmpd: true,
           m3u8: true,
-          get_video_info: true,
           player: true,
         });
         const stream = ytdl(testId);
@@ -408,7 +400,6 @@ describe('Download video', () => {
           type: 'live',
           dashmpd: [true, 200, 'transformed'],
           m3u8: true,
-          get_video_info: true,
           player: true,
         });
         const stream = ytdl(testId, { filter: format => format.isDashMPD });
@@ -437,7 +428,6 @@ describe('Download video', () => {
       const id = 'SyKPsFRP_Oc';
       const scope = nock(id, {
         type: 'rental',
-        get_video_info: true,
       });
       let stream = ytdl(id);
       stream.on('error', err => {
@@ -460,7 +450,6 @@ describe('Download video', () => {
       const scope = nock(id, {
         type: 'vevo',
         watch: 'no-formats',
-        get_video_info: [true, 200, 'no-formats'],
       });
       let stream = ytdl(id);
       stream.on('error', err => {

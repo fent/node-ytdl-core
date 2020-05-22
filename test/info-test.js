@@ -16,7 +16,6 @@ describe('ytdl.getInfo()', () => {
     it('Retrieves correct metainfo', async() => {
       const scope = nock(id, {
         type: 'vevo',
-        get_video_info: true,
         player: true,
       });
 
@@ -30,7 +29,6 @@ describe('ytdl.getInfo()', () => {
       it('Retrieves just enough metainfo', async() => {
         const scope = nock(id, {
           type: 'vevo',
-          get_video_info: true,
         });
 
         let info = await ytdl.getBasicInfo(id);
@@ -43,7 +41,6 @@ describe('ytdl.getInfo()', () => {
         it('Does not make extra requests', async() => {
           const scope = nock(id, {
             type: 'vevo',
-            get_video_info: true,
             player: true,
           });
 
@@ -60,7 +57,6 @@ describe('ytdl.getInfo()', () => {
         it('Throw error', async() => {
           const scope = nock(id, {
             type: 'vevo',
-            get_video_info: true,
           });
 
           let info = await ytdl.getBasicInfo(id);
@@ -95,7 +91,6 @@ describe('ytdl.getInfo()', () => {
       it('Request gets called with more headers', async() => {
         const scope = nock(id, {
           type: 'vevo',
-          get_video_info: true,
           player: true,
           headers: { 'X-Hello': '42' },
         });
@@ -111,7 +106,6 @@ describe('ytdl.getInfo()', () => {
       it('Retrieves correct metainfo', done => {
         const scope = nock(id, {
           type: 'vevo',
-          get_video_info: true,
           player: true,
         });
 
@@ -145,7 +139,6 @@ describe('ytdl.getInfo()', () => {
       it('Retrieves correct metainfo', done => {
         const scope = nock(id, {
           type: 'vevo',
-          get_video_info: true,
           player: true,
         });
 
@@ -179,7 +172,6 @@ describe('ytdl.getInfo()', () => {
       it('Makes requests once', async() => {
         const scope = nock(testId, {
           type: 'vevo',
-          get_video_info: true,
           player: true,
         });
 
@@ -211,8 +203,8 @@ describe('ytdl.getInfo()', () => {
       const scope = nock(id, {
         type: 'age-restricted',
         embed: true,
-        player: true,
         get_video_info: true,
+        player: true,
       });
       let info = await ytdl.getInfo(id);
       scope.done();
@@ -236,7 +228,6 @@ describe('ytdl.getInfo()', () => {
       const scope = nock(id, {
         type: 'streamed',
         player: true,
-        get_video_info: true,
       });
       let info = await ytdl.getInfo(id);
       scope.done();
@@ -250,7 +241,6 @@ describe('ytdl.getInfo()', () => {
       const scope = nock(id, {
         type: 'no-embed',
         player: true,
-        get_video_info: true,
       });
       let info = await ytdl.getInfo(id);
       scope.done();
@@ -339,9 +329,10 @@ describe('ytdl.getInfo()', () => {
     });
 
     it('Fails gracefully when unable to get video info page', async() => {
-      const id = '_HSylqgVYQI';
+      const id = 'rIqCiJKWx9I';
       const scope = nock(id, {
-        type: 'regular',
+        type: 'age-restricted',
+        embed: true,
         get_video_info: [true, 500],
       });
       await assert.rejects(
@@ -351,25 +342,10 @@ describe('ytdl.getInfo()', () => {
       scope.done();
     });
 
-    it('Fails gracefully when get video info page errors', async() => {
-      const id = 'pJk0p-98Xzc';
-      const scope = nock(id, {
-        type: 'vevo',
-        watch: 'no-formats',
-        get_video_info: [true, 200, 'error'],
-      });
-      await assert.rejects(
-        ytdl.getInfo(id),
-        /Playback on other websites has been disabled by the video owner./,
-      );
-      scope.done();
-    });
-
     it('Fails gracefully when unable to get html5player tokens', async() => {
       const id = '_HSylqgVYQI';
       const scope = nock(id, {
         type: 'regular',
-        get_video_info: true,
         player: [true, 500],
       });
       await assert.rejects(
@@ -385,7 +361,6 @@ describe('ytdl.getInfo()', () => {
         type: 'live',
         dashmpd: true,
         m3u8: [true, 500],
-        get_video_info: true,
         player: true,
       });
       await assert.rejects(
@@ -400,7 +375,6 @@ describe('ytdl.getInfo()', () => {
       const scope = nock(id, {
         type: 'regular',
         watch: 'bad-player-response',
-        get_video_info: true,
       });
       await assert.rejects(
         ytdl.getInfo(id),
