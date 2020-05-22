@@ -3,6 +3,8 @@ const path = require('path');
 const assert = require('assert-diff');
 const nock = require('./nock');
 const sinon = require('sinon');
+const spy = require('sinon').spy;
+const muk = require('muk-prop');
 
 
 describe('ytdl.getInfo()', () => {
@@ -102,70 +104,6 @@ describe('ytdl.getInfo()', () => {
       });
     });
 
-    describe('Using the promise API', () => {
-      it('Retrieves correct metainfo', done => {
-        const scope = nock(id, {
-          type: 'vevo',
-          player: true,
-        });
-
-        ytdl.getInfo(id)
-          .then(info => {
-            scope.done();
-            assert.ok(info.videoDetails.shortDescription.length);
-            assert.equal(info.formats.length, expectedInfo.formats.length);
-            done();
-          })
-          .catch(done);
-      });
-
-      describe('On a video that fails', () => {
-        const testId = '99999999999';
-
-        it('Error is caught', done => {
-          const scope = nock(testId, { type: 'non-existent' });
-          const p = ytdl.getInfo(testId);
-          p.catch(err => {
-            scope.done();
-            assert.ok(err);
-            assert.equal(err.message, 'Video unavailable');
-            done();
-          });
-        });
-      });
-    });
-
-    describe('Using the callback API', () => {
-      it('Retrieves correct metainfo', done => {
-        const scope = nock(id, {
-          type: 'vevo',
-          player: true,
-        });
-
-        ytdl.getInfo(id, (err, info) => {
-          assert.ifError(err);
-          scope.done();
-          assert.ok(info.videoDetails.shortDescription.length);
-          assert.equal(info.formats.length, expectedInfo.formats.length);
-          done();
-        });
-      });
-
-      describe('On a video that fails', () => {
-        const testId = '99999999999';
-
-        it('Error is caught', done => {
-          const scope = nock(testId, { type: 'non-existent' });
-          ytdl.getInfo(testId, err => {
-            scope.done();
-            assert.ok(err);
-            assert.equal(err.message, 'Video unavailable');
-            done();
-          });
-        });
-      });
-    });
-
     describe('Called twice', () => {
       const testId = 'pJk0p-98Xzc';
 
@@ -181,6 +119,28 @@ describe('ytdl.getInfo()', () => {
         let info2 = await ytdl.getInfo(testId);
         scope.done();
         assert.equal(info2, info1);
+      });
+    });
+
+    describe('Using the callback API', () => {
+      it('Retrieves correct metainfo, with a warning', done => {
+        const scope = nock(id, {
+          type: 'vevo',
+          player: true,
+        });
+
+        const warn = spy();
+        muk(console, 'warn', warn);
+        after(muk.restore);
+
+        ytdl.getInfo(id, (err, info) => {
+          assert.ifError(err);
+          scope.done();
+          assert.ok(info.videoDetails.shortDescription.length);
+          assert.equal(info.formats.length, expectedInfo.formats.length);
+          assert.ok(warn.called);
+          done();
+        });
       });
     });
   });

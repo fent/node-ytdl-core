@@ -5,8 +5,7 @@ const ytdl = require('..');
 const id = 'https://www.youtube.com/watch?v=QRS8MkLhQmM';
 const lang = 'en';
 
-ytdl.getInfo(id, (err, info) => {
-  if (err) throw err;
+ytdl.getInfo(id).then(info => {
   const tracks = info
     .player_response.captions
     .playerCaptionsTracklistRenderer.captionTracks;

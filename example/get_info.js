@@ -5,8 +5,7 @@ const id = '7wNb0pHyGuI';
 
 const filepath = path.resolve(__dirname, 'info.json');
 
-ytdl.getInfo(id, (err, info) => {
-  if (err) throw err;
+ytdl.getInfo(id).then(info => {
   console.log('title:', info.videoDetails.title);
   console.log('rating:', info.player_response.videoDetails.averageRating);
   console.log('uploaded by:', info.videoDetails.author.name);

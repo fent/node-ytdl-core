@@ -81,13 +81,13 @@ Emitted whenever a new chunk is received. Passes values describing the download 
 
 Call to abort and stop downloading a video.
 
-### ytdl.getBasicInfo(url, [options], [callback(err, info)])
+### async ytdl.getBasicInfo(url, [options])
 
-Use this if you only want to get metainfo from a video. If `callback` isn't given, returns a promise.
+Use this if you only want to get metainfo from a video.
 
-### ytdl.getInfo(url, [options], [callback(err, info)])
+### async ytdl.getInfo(url, [options])
 
-Gets metainfo from a video. Includes additional formats, and ready to download deciphered URL. This is what the `ytdl()` function uses internally. If `callback` isn't given, returns a promise.
+Gets metainfo from a video. Includes additional formats, and ready to download deciphered URL. This is what the `ytdl()` function uses internally.
 
 ### ytdl.downloadFromInfo(info, options)
 
@@ -100,13 +100,9 @@ Throws an Error if it fails to find any matching format.
 
 ```js
 // Example of choosing a video format.
-ytdl.getInfo(videoID, (err, info) => {
-  if (err) throw err;
-  let format = ytdl.chooseFormat(info.formats, { quality: '134' });
-  if (format) {
-    console.log('Format found!');
-  }
-});
+let info = await ytdl.getInfo(videoID);
+let format = ytdl.chooseFormat(info.formats, { quality: '134' });
+console.log('Format found!', format);
 ```
 
 ### ytdl.filterFormats(formats, filter)
@@ -115,11 +111,9 @@ If you'd like to work with only some formats, you can use the [`filter` option a
 
 ```js
 // Example of filtering the formats to audio only.
-ytdl.getInfo(videoID, (err, info) => {
-  if (err) throw err;
-  let audioFormats = ytdl.filterFormats(info.formats, 'audioonly');
-  console.log('Formats with only audio: ' + audioFormats.length);
-});
+let info = await ytdl.getInfo(videoID);
+let audioFormats = ytdl.filterFormats(info.formats, 'audioonly');
+console.log('Formats with only audio: ' + audioFormats.length);
 ```
 
 ### ytdl.validateID(id)
