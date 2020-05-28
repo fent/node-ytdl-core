@@ -3,8 +3,6 @@ const assert = require('assert-diff');
 const fs = require('fs');
 const path = require('path');
 const nock = require('./nock');
-const spy = require('sinon').spy;
-const muk = require('muk-prop');
 
 const html5player = require('./html5player.json');
 
@@ -131,36 +129,13 @@ describe('Set download URL', () => {
       sig.setDownloadURL(format, 'mysiggy', false);
       assert.ok(format.url.indexOf('signature=mysiggy') === -1);
     });
-
-    describe('With debug on', () => {
-      it('Logs to console', () => {
-        const warn = spy();
-        muk(console, 'warn', warn);
-        after(muk.restore);
-        sig.setDownloadURL(format, 'mysiggy', true);
-        assert.ok(warn.called);
-        assert.ok(format.url.indexOf('signature=mysiggy') === -1);
-      });
-    });
   });
 
   describe('Without a URL', () => {
-    const format = { bla: 'blu' };
-
     it('Does not set URL', () => {
+      const format = { bla: 'blu' };
       sig.setDownloadURL(format, 'nothing', false);
       assert.deepEqual(format, { bla: 'blu' });
-    });
-
-    describe('With debug on', () => {
-      it('Logs to console', () => {
-        const warn = spy();
-        muk(console, 'warn', warn);
-        after(muk.restore);
-        sig.setDownloadURL(format, 'nothing', true);
-        assert.ok(warn.called);
-        assert.deepEqual(format, { bla: 'blu' });
-      });
     });
   });
 });
