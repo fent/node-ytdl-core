@@ -153,7 +153,7 @@ Typically 1080p or better video does not have audio encoded with it. The audio m
 
 Youtube updates their website all the time, it's not that rare for this to stop working. If it doesn't work for you and you're using the latest version, feel free to open up an issue. Make sure to check if there isn't one already with the same error.
 
-If you'd like to help fix the issue, look at the type of error first. The most common one is
+If you'd like to help fix the issue, look at the type of error first. If you're getting the following error
 
     Could not extract signature deciphering actions
 
@@ -161,7 +161,7 @@ Run the tests at `test/irl-test.js` just to make sure that this is actually an i
 
     mocha test/irl-test.js
 
-These tests are not mocked, and they actually try to start downloading a few videos. If these fail, then it's time to debug.
+These tests are not mocked, and they try to start downloading a few videos. If these fail, then it's time to debug.
 
 For getting started with that, you can look at the `extractActions()` function in [`/lib/sig.js`](https://github.com/fent/node-ytdl-core/blob/master/lib/sig.js).
 
