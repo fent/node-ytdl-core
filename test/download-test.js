@@ -24,7 +24,7 @@ describe('Download video', () => {
   before(() => { clock = sinon.useFakeTimers({ toFake: ['setTimeout'] }); });
   after(() => { clock.restore(); });
 
-  it('Should be pipeable and data equal to stored file', done => {
+  it('Should be pipeable and data equal to stored file', async() => {
     const id = '_HSylqgVYQI';
     const scope = nock(id, {
       type: 'regular',
@@ -38,12 +38,9 @@ describe('Download video', () => {
     });
 
     const filestream = fs.createReadStream(video);
-    streamEqual(filestream, stream, (err, equal) => {
-      assert.ifError(err);
-      scope.done();
-      assert.ok(equal);
-      done();
-    });
+    let equal = await streamEqual(filestream, stream);
+    scope.done();
+    assert.ok(equal);
   });
 
   it('Fails gracefully if error getting info', done => {
