@@ -52,6 +52,8 @@ declare module 'ytdl-core' {
       hasVideo: boolean;
       hasAudio: boolean;
       codecs: string;
+      videoCodec?: string;
+      audioCodec?: string;
 
       live: boolean;
       isHLS: boolean;
