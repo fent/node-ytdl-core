@@ -49,6 +49,8 @@ declare module 'ytdl-core' {
 
       // Added by ytdl-core
       container: 'flv' | '3gp' | 'mp4' | 'webm' | 'ts';
+      hasVideo: boolean;
+      hasAudio: boolean;
       codecs: string;
 
       live: boolean;
