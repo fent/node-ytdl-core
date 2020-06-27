@@ -11,7 +11,7 @@ client.on('ready', () => {
   console.log('discord.js client ready');
 });
 
-client.on('message', message => {
+client.on('message', async message => {
   if (!message.content.startsWith('++play')) return;
 
   console.log('Got a song request!');
@@ -20,14 +20,12 @@ client.on('message', message => {
     message.reply('Please be in a voice channel first!');
     return;
   }
-  voiceChannel.join()
-    .then(connection => {
-      const stream = ytdl(url, { filter: 'audioonly' });
-      const dispatcher = connection.playStream(stream);
-      dispatcher.on('end', () => {
-        voiceChannel.leave();
-      });
-    });
+  const connection = await voiceChannel.join();
+  const stream = ytdl(url, { filter: 'audioonly' });
+  const dispatcher = connection.play(stream);
+  dispatcher.on('end', () => {
+    voiceChannel.leave();
+  });
 });
 
 client.login(clientToken);
