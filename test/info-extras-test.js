@@ -76,7 +76,7 @@ describe('extras.getMedia()', () => {
     assert.equal(media.artist, 'Wu-Tang Clan');
     assertChannelURL(media.artist_url);
     assert.equal(media.category, 'Music');
-    assertChannelURL(media.category_url);
+    assertURL(media.category_url);
   });
 
   describe('On a video associated with a game', () => {

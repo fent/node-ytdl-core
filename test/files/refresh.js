@@ -81,6 +81,7 @@ const videos = [
     id: 'pJk0p-98Xzc',
     type: 'vevo',
     saveInfo: true,
+    keep: ['get_video_info'],
     transform: [
       {
         page: 'dash-manifest.xml',
@@ -323,7 +324,7 @@ const refreshVideo = async(video, noRequests) => {
       if (video.basicInfo) {
         info = await getInfo.getBasicInfo(video.id);
       } else {
-        info = await getInfo.getFullInfo(video.id);
+        info = await getInfo.getInfo(video.id);
       }
       if (video.saveInfo) {
         let filename = 'expected-info.json';
