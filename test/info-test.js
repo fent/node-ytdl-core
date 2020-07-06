@@ -312,9 +312,11 @@ describe('ytdl.getInfo()', () => {
   });
 
   describe('With a bad video ID', () => {
-    const id = 'bad';
-    it('Returns an error', async() => {
-      await assert.rejects(ytdl.getInfo(id), /No video id found: bad/);
+    it('Returns an error', () => {
+      const id = 'bad';
+      assert.throws(() => {
+        ytdl.getInfo(id);
+      }, /No video id found: bad/);
     });
   });
 
