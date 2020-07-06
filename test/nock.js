@@ -18,6 +18,7 @@ afterEach(() => { nock.cleanAll(); });
 afterEach(() => {
   ytdl.cache.sig.clear();
   ytdl.cache.info.clear();
+  ytdl.cache.cookie.clear();
 });
 
 
@@ -28,11 +29,22 @@ exports = module.exports = (id, opts) => {
   let watchType = opts.watch ? `-${opts.watch}` : '';
   let existingFiles = fs.readdirSync(path.join(__dirname, folder));
 
-  scopes.push(nock(YT_HOST, { reqheaders: opts.headers })
-    .filteringPath(/\/watch\?v=.+$/, '/watch?v=XXX')
-    .get('/watch?v=XXX')
-    .replyWithFile(opts.statusCode || 200,
-      path.join(__dirname, `${folder}/watch${watchType}.json`)));
+  if (!opts.noWatchJson) {
+    scopes.push(nock(YT_HOST, { reqheaders: opts.headers })
+      .filteringPath(/\/watch\?v=.+&pbj=1$/, '/watch?v=XXX&pbj=1')
+      .get('/watch?v=XXX&pbj=1')
+      .replyWithFile(opts.statusCode || 200,
+        path.join(__dirname, `${folder}/watch${watchType}.json`)));
+  }
+
+  if (opts.watchHtml) {
+    let file = buildFile(opts.watchHtml);
+    scopes.push(nock(YT_HOST, { reqheaders: opts.headers })
+      .filteringPath(/\/watch\?v=.+$/, '/watch?v=XXX')
+      .get('/watch?v=XXX')
+      .replyWithFile(opts.statusCode || 200,
+        path.join(__dirname, `${folder}/watch${file}.html`)));
+  }
 
   if (opts.dashmpd) {
     let file = buildFile(opts.dashmpd);

@@ -22,6 +22,7 @@ describe('Try downloading videos without mocking', function test() {
     nock.enableNetConnect();
     ytdl.cache.sig.clear();
     ytdl.cache.info.clear();
+    ytdl.cache.cookie.clear();
   });
 
   Object.keys(videos).forEach(desc => {

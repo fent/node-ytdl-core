@@ -208,6 +208,109 @@ describe('ytdl.getInfo()', () => {
     });
   });
 
+  describe('With cookie headers', () => {
+    describe('`x-youtube-identity-token` given', () => {
+      it('Does not make extra request to watch page', async() => {
+        const id = '99_Y8iEy95c';
+        const scope = nock(id, {
+          type: 'with-cookie',
+          player: true,
+          dashmpd: true,
+        });
+        let info = await ytdl.getInfo(id, {
+          requestOptions: {
+            headers: {
+              cookie: 'abc=1',
+              'x-youtube-identity-token': '1324',
+            },
+          },
+        });
+        scope.done();
+        assert.ok(info.formats.length);
+      });
+    });
+    describe('`x-youtube-identity-token` not given', () => {
+      it('Retrieves identity-token from watch page', async() => {
+        const id = '99_Y8iEy95c';
+        const scope = nock(id, {
+          type: 'with-cookie',
+          watchHtml: true,
+          player: true,
+          dashmpd: true,
+        });
+        let info = await ytdl.getInfo(id, {
+          requestOptions: {
+            headers: { cookie: 'abc=1' },
+          },
+        });
+        scope.done();
+        assert.ok(info.formats.length);
+      });
+
+      describe('Called from a web browser with cookies in requests', () => {
+        it('Tries to get identity-token from watch page', async() => {
+          const id = '99_Y8iEy95c';
+          const scope = nock(id, {
+            type: 'with-cookie',
+            watch: 'reload-now',
+            watchHtml: true,
+            player: true,
+            dashmpd: true,
+          });
+          const scope2 = nock(id, {
+            type: 'with-cookie',
+          });
+          let info = await ytdl.getInfo(id, {
+            requestOptions: {
+              // Assume cookie header is given by the browser.
+              headers: {},
+            },
+          });
+          scope.done();
+          scope2.done();
+          assert.ok(info.formats.length);
+        });
+      });
+
+      describe('Unable to find token', () => {
+        it('Returns an error', async() => {
+          const id = '99_Y8iEy95c';
+          const scope = nock(id, {
+            type: 'with-cookie',
+            noWatchJson: true,
+            watchHtml: [true, 200, 'no-identity-token'],
+          });
+          await assert.rejects(ytdl.getInfo(id, {
+            requestOptions: {
+              headers: { cookie: 'abc=1' },
+            },
+          }), /unable to find YouTube identity token/);
+          scope.done();
+        });
+      });
+    });
+    describe('`x-youtube-identity-token` already in cache', () => {
+      it('Does not make extra request to watch page', async() => {
+        ytdl.cache.cookie.set('abc=1', 'token!');
+        const id = '99_Y8iEy95c';
+        const scope = nock(id, {
+          type: 'with-cookie',
+          player: true,
+          dashmpd: true,
+        });
+        let info = await ytdl.getInfo(id, {
+          requestOptions: {
+            headers: {
+              cookie: 'abc=1',
+            },
+          },
+        });
+        scope.done();
+        assert.ok(info.formats.length);
+      });
+    });
+  });
+
   describe('With a bad video ID', () => {
     const id = 'bad';
     it('Returns an error', async() => {

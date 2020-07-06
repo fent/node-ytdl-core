@@ -175,6 +175,24 @@ const videos = [
     id: 'z2jeHsa0UG0',
     type: 'private',
   },
+  {
+    id: '99_Y8iEy95c',
+    type: 'with-cookie',
+    options: {
+      requestOptions: {
+        // Run this one with `env YT_COOKIE="cookie here"`
+        headers: { cookie: process.env.YT_COOKIE },
+      },
+    },
+    keep: ['watch-reload-now.json'],
+    transform: [
+      {
+        page: 'watch.html',
+        saveAs: 'no-identity-token',
+        fn: body => body.replace(/\bID_TOKEN\b/g, ''),
+      },
+    ],
+  },
 ];
 
 
@@ -266,7 +284,8 @@ const refreshVideo = async(video, noRequests) => {
             playerfile.test(url) ? `${playerfile.exec(url)[1]}.js` :
 
             // Save watch and embed pages with .html extension.
-              /^\/watch$/.test(parsed.pathname) ? 'watch.json' :
+              /^\/watch$/.test(parsed.pathname) ?
+                /pbj=1/.test(parsed.search) ? 'watch.json' : 'watch.html' :
                 /^\/embed\//.test(parsed.pathname) ? 'embed.html' :
 
                 // Otherwise, use url path as filename.
@@ -322,9 +341,9 @@ const refreshVideo = async(video, noRequests) => {
     try {
       let info;
       if (video.basicInfo) {
-        info = await getInfo.getBasicInfo(video.id);
+        info = await getInfo.getBasicInfo(video.id, video.options);
       } else {
-        info = await getInfo.getInfo(video.id);
+        info = await getInfo.getInfo(video.id, video.options);
       }
       if (video.saveInfo) {
         let filename = 'expected-info.json';
