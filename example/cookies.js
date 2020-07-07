@@ -14,6 +14,8 @@ const video = ytdl(id, {
   requestOptions: {
     headers: {
       cookie: COOKIE,
+      // Optional. If not given, ytdl-core will try to find it.
+      // 'x-youtube-identity-token': 1324,
     },
   },
 });
