@@ -138,8 +138,8 @@ Throws an Error if it fails to parse an ID.
 
 ytdl cannot download videos that fall into the following
 * Regionally restricted (requires a [proxy](example/proxy.js))
-* Private (if you have access, requires [cookies](example/cookie.js))
-* Rentals (if you have access, requires [cookies](example/cookie.js))
+* Private (if you have access, requires [cookies](example/cookies.js))
+* Rentals (if you have access, requires [cookies](example/cookies.js))
 
 YouTube intentionally rate limits downloads, particularly audio only formats, likely to prevent bandwidth abuse. The download rate is still faster than a media player can play the video, even on 2x. See [#294](https://github.com/fent/node-ytdl-core/issues/294).
 
