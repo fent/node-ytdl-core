@@ -49,6 +49,7 @@ Attempts to download a video from the given url. Returns a [readable stream](htt
   ```
 * `format` - Primarily used to download specific video or audio streams. This can be a specific `format` object returned from `getInfo`.
   * Supplying this option will ignore the `filter` and `quality` options since the format is explicitly provided.
+* `dlChunkSize` - The size of the download chunk in bytes, this is used when the chosen format is video only or audio only, the download in this case is separated into multiple chunks to avoid throttling. Defaults to `10485760` which is `10 Megabytes`.
 * `range` - A byte range in the form `{start: INT, end: INT}` that specifies part of the file to download, ie {start: 10355705, end: 12452856}.
   * This downloads a portion of the file, and not a separately spliced video.
 * `begin` - What time in the video to begin. Supports formats `00:00:00.000`, `0ms, 0s, 0m, 0h`, or number of milliseconds. Example: `1:30`, `05:10.123`, `10m30s`.
@@ -140,8 +141,6 @@ ytdl cannot download videos that fall into the following
 * Regionally restricted (requires a [proxy](example/proxy.js))
 * Private (if you have access, requires [cookies](example/cookie.js))
 * Rentals (if you have access, requires [cookies](example/cookie.js))
-
-YouTube intentionally rate limits downloads, particularly audio only formats, likely to prevent bandwidth abuse. The download rate is still faster than a media player can play the video, even on 2x. See [#294](https://github.com/fent/node-ytdl-core/issues/294).
 
 Generated download links are valid for 6 hours, for the same IP address.
 

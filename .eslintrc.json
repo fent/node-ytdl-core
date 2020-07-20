@@ -35,7 +35,7 @@
     }],
     "accessor-pairs": "warn",
     "array-callback-return": "error",
-    "complexity": ["warn", { "max": 21 }],
+    "complexity": ["warn", { "max": 25 }],
     "consistent-return": "warn",
     "curly": ["error", "multi-line", "consistent"],
     "dot-location": ["error", "property"],
