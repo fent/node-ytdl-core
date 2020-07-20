@@ -353,7 +353,7 @@ describe('Download video', () => {
     });
 
     describe('that should be chunked', () => {
-      it('Starts downloading video successfully and data equal stored file', done => {
+      it('Starts downloading video successfully and data equal to stored file', done => {
         const scope = nock(id, {
           type: 'regular',
           player: true,
