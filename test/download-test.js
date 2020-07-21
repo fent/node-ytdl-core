@@ -83,7 +83,6 @@ describe('Download video', () => {
     });
 
     describe('right after request is made', () => {
-      after(() => { nock.cleanAll(); });
       it('Doesn\'t start the download', done => {
         const id = '_HSylqgVYQI';
         const scope = nock(id, {
@@ -175,7 +174,6 @@ describe('Download video', () => {
     });
 
     describe('right after request is made', () => {
-      after(() => { nock.cleanAll(); });
       it('Doesn\'t start the download', done => {
         const id = '_HSylqgVYQI';
         const scope = nock(id, {
@@ -397,7 +395,7 @@ describe('Download video', () => {
 
     it('Chunks video only and chunk size matches given size', done => {
       const dlChunkSize = 1024 * 200;
-      const stream = ytdl.downloadFromInfo(testInfo, { filter: format => !format.hasAudio, dlChunkSize });
+      const stream = ytdl.downloadFromInfo(testInfo, { filter: 'videoonly', dlChunkSize });
 
       stream.on('info', (info, format) => {
         nock.url(format.url)
@@ -405,7 +403,7 @@ describe('Download video', () => {
       });
 
       stream.on('request', req => {
-        const reqChunkSize = req.options.headers.range.split('-')[1];
+        const reqChunkSize = parseInt(req.options.headers.range.split('-')[1], 10);
         assert.equal(reqChunkSize, dlChunkSize);
         stream.removeAllListeners('request');
         done();
@@ -414,7 +412,7 @@ describe('Download video', () => {
 
     it('Chunks audio only and chunk size matches given size', done => {
       const dlChunkSize = 1024 * 200;
-      const stream = ytdl.downloadFromInfo(testInfo, { filter: format => !format.hasVideo, dlChunkSize });
+      const stream = ytdl.downloadFromInfo(testInfo, { filter: 'audioonly', dlChunkSize });
 
       stream.on('info', (info, format) => {
         nock.url(format.url)
@@ -422,7 +420,7 @@ describe('Download video', () => {
       });
 
       stream.on('request', req => {
-        const reqChunkSize = req.options.headers.range.split('-')[1];
+        const reqChunkSize = parseInt(req.options.headers.range.split('-')[1], 10);
         assert.equal(reqChunkSize, dlChunkSize);
         stream.removeAllListeners('request');
         done();
