@@ -14,7 +14,7 @@ const process = cp.spawn(ffmpeg, [
   // Remove most logs
   '-loglevel', '0', '-hide_banner',
   // 3 second audio offset
-  '-itsoffset', '3.0', '-i', 'pipe:3', 
+  '-itsoffset', '3.0', '-i', 'pipe:3',
   '-i', 'pipe:4',
   '-vf', 'scale=320:240',
   '-c:v', 'libx265', '-x265-params', 'log-level=0',
@@ -30,7 +30,7 @@ const process = cp.spawn(ffmpeg, [
   ],
 });
 
-// link streams
+// Link streams
 audio.pipe(process.stdio[3]);
 video.pipe(process.stdio[4]);
 process.stdio[5].pipe(fs.createWriteStream('./out.mkv'));
