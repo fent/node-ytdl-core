@@ -228,6 +228,24 @@ describe('ytdl.getInfo()', () => {
         scope.done();
         assert.ok(info.formats.length);
       });
+      describe('With bad credentials', () => {
+        it('Returns an error', async() => {
+          const id = '99_Y8iEy95c';
+          const scope = nock(id, {
+            type: 'with-cookie',
+            watch: 'reload-now',
+          });
+          await assert.rejects(ytdl.getInfo(id, {
+            requestOptions: {
+              headers: {
+                cookie: 'abc=1',
+                'x-youtube-identity-token': '1324',
+              },
+            },
+          }), /but unable to retrieve video metadata/);
+          scope.done();
+        });
+      });
     });
     describe('`x-youtube-identity-token` not given', () => {
       it('Retrieves identity-token from watch page', async() => {
