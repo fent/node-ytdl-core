@@ -23,7 +23,7 @@ client.on('message', async message => {
   const connection = await voiceChannel.join();
   const stream = ytdl(url, { filter: 'audioonly' });
   const dispatcher = connection.play(stream);
-  dispatcher.on('speaking', () => {
+  dispatcher.on('speaking', speaking => {
     if (!speaking) voiceChannel.leave();
   });
 });
