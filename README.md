@@ -66,17 +66,16 @@ Attempts to download a video from the given url. Returns a [readable stream](htt
 
 Emitted when the video's `info` hash is fetched, along with the chosen format metadata to download. `format.url` might be different if `start` was given.
 
-#### Event: response
-* [`http.ServerResponse`](https://nodejs.org/api/http.html#http_class_http_serverresponse) - Response.
-
-Emitted when the video response has been found and has started downloading or after any successful reconnects. Can be used to get the size of the download.
-
 #### Event: progress
 * `number` - Chunk byte length.
 * `number` - Total bytes or segments downloaded.
 * `number` - Total bytes or segments.
 
 Emitted whenever a new chunk is received. Passes values describing the download progress.
+
+#### miniget events
+
+All [miniget events](https://github.com/fent/node-miniget#event-redirect) are forwarded and can be listened to from the stream returned.
 
 ### Stream#destroy()
 
