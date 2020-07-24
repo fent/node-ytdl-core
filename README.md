@@ -49,7 +49,7 @@ Attempts to download a video from the given url. Returns a [readable stream](htt
   ```
 * `format` - Primarily used to download specific video or audio streams. This can be a specific `format` object returned from `getInfo`.
   * Supplying this option will ignore the `filter` and `quality` options since the format is explicitly provided.
-* `range` - A byte range in the form `{start: INT, end: INT}` that specifies part of the file to download, ie {start: 10355705, end: 12452856}.
+* `range` - A byte range in the form `{start: INT, end: INT}` that specifies part of the file to download, ie {start: 10355705, end: 12452856}. Not supported on segmented (DASH MPD, m3u8) formats.
   * This downloads a portion of the file, and not a separately spliced video.
 * `begin` - What time in the video to begin. Supports formats `00:00:00.000`, `0ms, 0s, 0m, 0h`, or number of milliseconds. Example: `1:30`, `05:10.123`, `10m30s`.
   * For live videos, this also accepts a unix timestamp or Date object, and defaults to `Date.now()`.
