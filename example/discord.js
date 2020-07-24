@@ -15,7 +15,7 @@ client.on('message', async message => {
   if (!message.content.startsWith('++play')) return;
 
   console.log('Got a song request!');
-  const voiceChannel = message.member.voiceChannel;
+  const voiceChannel = message.member.voice.channel;
   if (!voiceChannel) {
     message.reply('Please be in a voice channel first!');
     return;
@@ -23,8 +23,8 @@ client.on('message', async message => {
   const connection = await voiceChannel.join();
   const stream = ytdl(url, { filter: 'audioonly' });
   const dispatcher = connection.play(stream);
-  dispatcher.on('end', () => {
-    voiceChannel.leave();
+  dispatcher.on('speaking', () => {
+    if (!speaking) voiceChannel.leave();
   });
 });
 
