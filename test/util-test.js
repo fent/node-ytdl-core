@@ -484,7 +484,7 @@ describe('util.addFormatMeta()', () => {
       qualityLabel: '480p',
       bitrate: 800000,
       audioBitrate: 128,
-      live: false,
+      isLive: false,
       isHLS: false,
       isDashMPD: false,
       hasVideo: true,
@@ -492,7 +492,7 @@ describe('util.addFormatMeta()', () => {
     });
   });
   describe('With an unknown itag', () => {
-    it('Adds does not add extra metadata to a format', () => {
+    it('Does not add extra metadata to a format', () => {
       let format = util.addFormatMeta({
         itag: -1,
         url: 'http://video.com/3/4.ts',
@@ -504,7 +504,7 @@ describe('util.addFormatMeta()', () => {
         codecs: null,
         videoCodec: null,
         audioCodec: null,
-        live: false,
+        isLive: false,
         isHLS: false,
         isDashMPD: false,
         hasVideo: false,

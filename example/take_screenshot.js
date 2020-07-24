@@ -6,7 +6,7 @@ const takeScreenshot = (url, outFile, position) => new Promise((resolve, reject)
   ytdl.getInfo(url).then(info => {
     const format = ytdl.chooseFormat(info.formats, { quality: 'highestvideo' });
     const args = ['-i', format.url, '-frames:v', '1', '-an', '-y', outFile];
-    if (!format.live && position) args.splice(0, 0, '-ss', position);
+    if (!format.isLive && position) args.splice(0, 0, '-ss', position);
     execFile(bin, args, (error, stdout, stderr) => {
       if (error) {
         error.stdout = stdout;
