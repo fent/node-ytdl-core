@@ -83,7 +83,6 @@ describe('Download video', () => {
     });
 
     describe('right after request is made', () => {
-      after(() => { nock.cleanAll(); });
       it('Doesn\'t start the download', done => {
         const id = '_HSylqgVYQI';
         const scope = nock(id, {
@@ -124,6 +123,97 @@ describe('Download video', () => {
           player: true,
         });
         const stream = ytdl(id, { filter });
+        const video = path.resolve(__dirname, `files/videos/regular/video.flv`);
+
+        stream.on('info', (info, format) => {
+          scope.urlReplyWithFile(format.url, 200, video);
+        });
+
+        stream.on('response', res => {
+          stream.destroy();
+          res.on('data', () => {
+            done(Error('Should not emit `data`'));
+          });
+        });
+
+        const abort = sinon.spy();
+        stream.on('abort', abort);
+        stream.on('error', err => {
+          assert.ok(abort.called);
+          assert.equal(err.message, 'socket hang up');
+          scope.done();
+          done();
+        });
+      });
+    });
+  });
+
+  describe('destroy chunked stream', () => {
+    const chunkedFilter = 'videoonly';
+    describe('immediately', () => {
+      it('Doesn\'t start the download', done => {
+        const id = '_HSylqgVYQI';
+        const scope = nock(id, {
+          type: 'regular',
+          player: true,
+        });
+        const stream = ytdl(id, { filter: chunkedFilter });
+        stream.destroy();
+
+        stream.on('request', () => {
+          done(Error('Should not emit `request`'));
+        });
+        stream.on('response', () => {
+          done(Error('Should not emit `response`'));
+        });
+        stream.on('info', () => {
+          scope.done();
+          done();
+        });
+      });
+    });
+
+    describe('right after request is made', () => {
+      it('Doesn\'t start the download', done => {
+        const id = '_HSylqgVYQI';
+        const scope = nock(id, {
+          type: 'regular',
+          player: true,
+        });
+        const stream = ytdl(id, { filter: chunkedFilter });
+
+        stream.on('request', () => {
+          stream.destroy();
+          scope.done();
+        });
+        stream.on('info', (info, format) => {
+          nock.url(format.url).reply(200, 'aaaaaaaaaaaa');
+        });
+        stream.on('response', () => {
+          throw Error('Should not emit `response`');
+        });
+        stream.on('data', () => {
+          throw Error('Should not emit `data`');
+        });
+        const abort = sinon.spy();
+        stream.on('abort', abort);
+        stream.on('error', err => {
+          assert.ok(abort.called);
+          assert.equal(err.message, 'socket hang up');
+          scope.done();
+          done();
+        });
+      });
+    });
+
+    describe('after download has started', () => {
+      it('Download is incomplete', done => {
+        const id = '_HSylqgVYQI';
+        const scope = nock(id, {
+          type: 'regular',
+          player: true,
+        });
+        const stream = ytdl(id, { filter: chunkedFilter });
         const video = path.resolve(__dirname, `files/videos/regular/video.flv`);
 
         stream.on('info', (info, format) => {
@@ -259,35 +349,231 @@ describe('Download video', () => {
         });
       });
     });
+
+    describe('that should be chunked', () => {
+      it('Starts downloading video successfully and data equal to stored file', done => {
+        const scope = nock(id, {
+          type: 'regular',
+          player: true,
+        });
+
+        const dlChunkSize = 1024 * 200;
+        const stream = ytdl(id, { filter: 'videoonly', dlChunkSize });
+
+        stream.on('info', (info, format) => {
+          scope.urlReply(format.url, 206, () => fs.createReadStream(video, { start: 0, end: dlChunkSize - 1 }), {
+            'content-range': `bytes=0-${dlChunkSize - 1}/${filesize}`,
+            'content-length': dlChunkSize,
+            'accept-ranges': 'bytes',
+          });
+
+          stream.on('progress', (chunk, downloaded) => {
+            if (downloaded % dlChunkSize === 0) {
+              scope.urlReply(
+                format.url,
+                206,
+                () => fs.createReadStream(video, { start: dlChunkSize, end: filesize - 1 }),
+                {
+                  'content-range': `bytes=${dlChunkSize}-${filesize - 1}/${filesize}`,
+                  'content-length': filesize - downloaded,
+                  'accept-ranges': 'bytes',
+                });
+              stream.removeAllListeners('progress');
+            }
+          });
+        });
+
+        const filestream = fs.createReadStream(video);
+        streamEqual(filestream, stream, (err, equal) => {
+          assert.ifError(err);
+          scope.done();
+          assert.ok(equal);
+          done();
+        });
+      });
+    });
+
+    describe('chunked with range', () => {
+      it('Downloads from the given `start` to `end`', done => {
+        const scope = nock(id, {
+          type: 'regular',
+          player: true,
+        });
+
+        const start = Math.floor(filesize * 0.1);
+        const end = Math.floor(filesize * 0.15);
+        const rangedSize = end - start + 1;
+        const dlChunkSize = 1024 * 10;
+        const stream = ytdl(id, { filter: 'videoonly', dlChunkSize, range: { start, end } });
+
+        let totalBytes, downloadedBytes, reqStart, reqEnd = 0;
+
+        stream.on('request', req => {
+          const range = req.options.headers.range.replace('bytes=', '').split('-');
+          reqStart = reqStart !== start ? parseInt(range[0], 10) : reqStart;
+          reqEnd = parseInt(range[1], 10);
+        });
+
+        stream.on('info', (info, format) => {
+          let chunkStart = start;
+          let chunkEnd = rangedSize < dlChunkSize ? end : start + dlChunkSize - 1;
+          let contentLength = chunkEnd - chunkStart + 1;
+
+          scope.urlReply(format.url, 206, () => fs.createReadStream(video, { start: chunkStart, end: chunkEnd }), {
+            'content-range': `bytes=${chunkStart}-${chunkEnd}/${rangedSize}`,
+            'content-length': contentLength,
+            'accept-ranges': 'bytes',
+          });
+
+          stream.on('progress', (chunk, downloaded, total) => {
+            if (downloaded % dlChunkSize === 0 && chunkEnd !== end) {
+              chunkStart = chunkEnd + 1;
+              chunkEnd = rangedSize - downloaded < dlChunkSize ? end : chunkEnd + dlChunkSize;
+              contentLength = chunkEnd ? chunkEnd - chunkStart + 1 : end - chunkStart;
+
+              scope.urlReply(
+                format.url,
+                206,
+                () => fs.createReadStream(video, { start: chunkStart, end: chunkEnd }),
+                {
+                  'content-range': `bytes=${chunkStart}-${chunkEnd}/${rangedSize}`,
+                  'content-length': contentLength,
+                  'accept-ranges': 'bytes',
+                });
+            }
+            totalBytes = total;
+            downloadedBytes = downloaded;
+          });
+        });
+
+        const filestream = fs.createReadStream(video, { start, end });
+        streamEqual(filestream, stream, (err, equal) => {
+          assert.ifError(err);
+          scope.done();
+          assert.ok(equal);
+          assert.equal(totalBytes, rangedSize);
+          assert.equal(downloadedBytes, totalBytes);
+          assert.equal(reqStart, start);
+          assert.equal(reqEnd, end);
+          done();
+        });
+      });
+    });
+
+    it('Chunks video only and chunk size matches given size', done => {
+      const dlChunkSize = 1024 * 200;
+      const stream = ytdl.downloadFromInfo(testInfo, { filter: 'videoonly', dlChunkSize });
+
+      stream.on('info', (info, format) => {
+        nock.url(format.url)
+          .reply(206);
+      });
+
+      stream.on('request', req => {
+        const reqChunkSize = parseInt(req.options.headers.range.split('-')[1], 10);
+        assert.equal(reqChunkSize, dlChunkSize);
+        stream.removeAllListeners('request');
+        done();
+      });
+    });
+
+    it('Chunks audio only and chunk size matches given size', done => {
+      const dlChunkSize = 1024 * 200;
+      const stream = ytdl.downloadFromInfo(testInfo, { filter: 'audioonly', dlChunkSize });
+
+      stream.on('info', (info, format) => {
+        nock.url(format.url)
+          .reply(206);
+      });
+
+      stream.on('request', req => {
+        const reqChunkSize = parseInt(req.options.headers.range.split('-')[1], 10);
+        assert.equal(reqChunkSize, dlChunkSize);
+        stream.removeAllListeners('request');
+        done();
+      });
+    });
   });
 
   describe('with start range', () => {
     it('Range added to download headers', done => {
+      const start = 500;
       const stream = ytdl.downloadFromInfo(testInfo, {
-        range: { start: 500 },
+        range: { start },
       });
       stream.on('info', (info, format) => {
         nock.url(format.url)
-          .reply(206, '', { 'content-length': '0' });
+          .reply(206);
       });
       stream.resume();
       stream.on('error', done);
-      stream.on('end', done);
+      stream.on('request', req => {
+        const reqStart = parseInt(req.options.headers.range.replace('bytes=', '').split('-')[0], 10);
+        assert.equal(reqStart, start);
+        done();
+      });
+    });
+  });
+
+  describe('chunked with start range', () => {
+    it('Range added to download headers', done => {
+      const start = 500;
+      const stream = ytdl.downloadFromInfo(testInfo, {
+        filter: 'audioonly',
+        range: { start },
+      });
+      stream.on('info', (info, format) => {
+        nock.url(format.url)
+          .reply(206);
+      });
+      stream.resume();
+      stream.on('error', done);
+      stream.on('request', req => {
+        const reqStart = parseInt(req.options.headers.range.replace('bytes=', '').split('-')[0], 10);
+        assert.equal(reqStart, start);
+        done();
+      });
     });
   });
 
   describe('with end range', () => {
     it('Range added to download headers', done => {
+      const end = 1000;
       const stream = ytdl.downloadFromInfo(testInfo, {
-        range: { end: 1000 },
+        range: { end },
       });
       stream.on('info', (info, format) => {
         nock.url(format.url)
-          .reply(206, '', { 'content-length': '0' });
+          .reply(206);
       });
       stream.resume();
       stream.on('error', done);
-      stream.on('end', done);
+      stream.on('request', req => {
+        const reqEnd = parseInt(req.options.headers.range.replace('bytes=', '').split('-')[1], 10);
+        assert.equal(reqEnd, end);
+        done();
+      });
+    });
+  });
+
+  describe('chunked with end range', () => {
+    it('Range added to download headers', done => {
+      const end = 1000;
+      const stream = ytdl.downloadFromInfo(testInfo, {
+        filter: 'audioonly',
+        range: { end },
+      });
+      stream.on('info', (info, format) => {
+        nock.url(format.url)
+          .reply(206);
+      });
+      stream.resume();
+      stream.on('error', done);
+      stream.on('request', req => {
+        const reqEnd = parseInt(req.options.headers.range.replace('bytes=', '').split('-')[1], 10);
+        assert.equal(reqEnd, end);
+        done();
+      });
     });
   });
 

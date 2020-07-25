@@ -57,6 +57,7 @@ Attempts to download a video from the given url. Returns a [readable stream](htt
 * `liveBuffer` - How much time buffer to use for live videos in milliseconds. Default is `20000`.
 * `requestOptions` - Anything to merge into the request options which [miniget](https://github.com/fent/node-miniget) is called with, such as `headers`.
 * `highWaterMark` - How much of the video download to buffer into memory. See [node's docs](https://nodejs.org/api/stream.html#stream_constructor_new_stream_writable_options) for more. Defaults to 512KB.
+* `dlChunkSize` - The size of the download chunk in bytes. When the chosen format is video only or audio only, the download in this case is separated into multiple chunks to avoid throttling. Defaults to 10MB.
 * `lang` - The 2 character symbol of a language. Default is `en`.
 
 #### Event: info
@@ -140,8 +141,6 @@ ytdl cannot download videos that fall into the following
 * Regionally restricted (requires a [proxy](example/proxy.js))
 * Private (if you have access, requires [cookies](example/cookies.js))
 * Rentals (if you have access, requires [cookies](example/cookies.js))
-
-YouTube intentionally rate limits downloads, particularly audio only formats, likely to prevent bandwidth abuse. The download rate is still faster than a media player can play the video, even on 2x. See [#294](https://github.com/fent/node-ytdl-core/issues/294).
 
 Generated download links are valid for 6 hours, for the same IP address.
 

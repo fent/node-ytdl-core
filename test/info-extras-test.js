@@ -91,6 +91,14 @@ describe('extras.getMedia()', () => {
       assert.equal(media.year, '1999');
     });
   });
+
+  describe('With invalid input', () => {
+    it('Should return an empty object', () => {
+      const media = extras.getMedia({ invalidObject: '' });
+      assert.ok(media);
+      assert.deepEqual(media, {});
+    });
+  });
 });
 
 
