@@ -64,7 +64,7 @@ Attempts to download a video from the given url. Returns a [readable stream](htt
 * [`ytdl.videoInfo`](example/info.json) - Info.
 * [`ytdl.videoFormat`](typings/index.d.ts#L22) - Video Format.
 
-Emitted when the video's `info` hash is fetched, along with the chosen format metadata to download. `format.url` might be different if `start` was given.
+Emitted when the video's `info` is fetched, along with the chosen format to download.
 
 #### Event: progress
 * `number` - Chunk byte length.
@@ -75,7 +75,7 @@ Emitted whenever a new chunk is received. Passes values describing the download 
 
 #### miniget events
 
-All [miniget events](https://github.com/fent/node-miniget#event-redirect) are forwarded and can be listened to from the stream returned.
+All [miniget events](https://github.com/fent/node-miniget#event-redirect) are forwarded and can be listened to from the returned stream.
 
 ### Stream#destroy()
 
