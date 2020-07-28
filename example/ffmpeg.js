@@ -52,6 +52,7 @@ const progressbar = setInterval(() => {
 const ffmpegProcess = cp.spawn(ffmpeg, [
   // Remove ffmpeg's console spamming
   '-loglevel', '0', '-hide_banner',
+  // Redirect/enable progress messages
   '-progress', 'pipe:3',
   // 3 second audio offset
   '-itsoffset', '3.0', '-i', 'pipe:4',
@@ -81,10 +82,10 @@ ffmpegProcess.on('close', () => {
 // Link streams
 // FFmpeg creates the transformer streams and we just have to insert / read data
 ffmpegProcess.stdio[3].on('data', chunk => {
-  // parse the param=value list returned by ffmpeg
+  // Parse the param=value list returned by ffmpeg
   const lines = chunk.toString().trim().split('\n');
   const args = {};
-  for(const l of lines) {
+  for (const l of lines) {
     const parts = l.trim().split('=');
     args[parts[0]] = parts[1];
   }
