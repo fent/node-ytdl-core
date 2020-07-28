@@ -24,7 +24,7 @@ describe('ytdl.getInfo()', () => {
       let info = await ytdl.getInfo(id);
       scope.done();
       assert.ok(info.videoDetails.shortDescription.length);
-      assert.equal(info.formats.length, expectedInfo.formats.length);
+      assert.strictEqual(info.formats.length, expectedInfo.formats.length);
     });
 
     describe('Use ytdl.getBasicInfo()', () => {
@@ -35,7 +35,7 @@ describe('ytdl.getInfo()', () => {
 
         let info = await ytdl.getBasicInfo(id);
         scope.done();
-        assert.equal(info.formats.length, expectedInfo.formats.length);
+        assert.strictEqual(info.formats.length, expectedInfo.formats.length);
         assert.notEqual(info.formats[0].url, expectedInfo.formats[0].url);
       });
 
@@ -47,11 +47,11 @@ describe('ytdl.getInfo()', () => {
           });
 
           let info = await ytdl.getBasicInfo(id);
-          assert.equal(info.formats.length, expectedInfo.formats.length);
+          assert.strictEqual(info.formats.length, expectedInfo.formats.length);
           assert.notEqual(info.formats[0].url, expectedInfo.formats[0].url);
           let info2 = await ytdl.getInfo(id);
           scope.done();
-          assert.equal(info2.formats[0].url, expectedInfo.formats[0].url);
+          assert.strictEqual(info2.formats[0].url, expectedInfo.formats[0].url);
         });
       });
 
@@ -115,10 +115,10 @@ describe('ytdl.getInfo()', () => {
 
         let info1 = await ytdl.getInfo(testId);
         assert.ok(info1.videoDetails.shortDescription.length);
-        assert.equal(info1.formats.length, expectedInfo.formats.length);
+        assert.strictEqual(info1.formats.length, expectedInfo.formats.length);
         let info2 = await ytdl.getInfo(testId);
         scope.done();
-        assert.equal(info2, info1);
+        assert.strictEqual(info2, info1);
       });
     });
 
@@ -137,7 +137,7 @@ describe('ytdl.getInfo()', () => {
           assert.ifError(err);
           scope.done();
           assert.ok(info.videoDetails.shortDescription.length);
-          assert.equal(info.formats.length, expectedInfo.formats.length);
+          assert.strictEqual(info.formats.length, expectedInfo.formats.length);
           assert.ok(warn.called);
           done();
         });
@@ -168,7 +168,7 @@ describe('ytdl.getInfo()', () => {
       });
       let info = await ytdl.getInfo(id);
       scope.done();
-      assert.equal(info.formats.length, expectedInfo.formats.length);
+      assert.strictEqual(info.formats.length, expectedInfo.formats.length);
       assert.ok(info.videoDetails.age_restricted);
     });
 
@@ -191,7 +191,7 @@ describe('ytdl.getInfo()', () => {
       });
       let info = await ytdl.getInfo(id);
       scope.done();
-      assert.equal(info.formats.length, 10);
+      assert.strictEqual(info.formats.length, 10);
     });
   });
 
@@ -204,7 +204,7 @@ describe('ytdl.getInfo()', () => {
       });
       let info = await ytdl.getInfo(id);
       scope.done();
-      assert.equal(info.formats.length, 15);
+      assert.strictEqual(info.formats.length, 15);
     });
   });
 

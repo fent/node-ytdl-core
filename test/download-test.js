@@ -52,7 +52,7 @@ describe('Download video', () => {
     const stream = ytdl(id, { filter: filter });
     stream.on('error', err => {
       assert.ok(err);
-      assert.equal(err.message, 'Status code: 500');
+      assert.strictEqual(err.message, 'Status code: 500');
       scope.done();
       done();
     });
@@ -108,7 +108,7 @@ describe('Download video', () => {
         stream.on('abort', abort);
         stream.on('error', err => {
           assert.ok(abort.called);
-          assert.equal(err.message, 'socket hang up');
+          assert.strictEqual(err.message, 'socket hang up');
           scope.done();
           done();
         });
@@ -140,7 +140,7 @@ describe('Download video', () => {
         stream.on('abort', abort);
         stream.on('error', err => {
           assert.ok(abort.called);
-          assert.equal(err.message, 'socket hang up');
+          assert.strictEqual(err.message, 'socket hang up');
           scope.done();
           done();
         });
@@ -199,7 +199,7 @@ describe('Download video', () => {
         stream.on('abort', abort);
         stream.on('error', err => {
           assert.ok(abort.called);
-          assert.equal(err.message, 'socket hang up');
+          assert.strictEqual(err.message, 'socket hang up');
           scope.done();
           done();
         });
@@ -231,7 +231,7 @@ describe('Download video', () => {
         stream.on('abort', abort);
         stream.on('error', err => {
           assert.ok(abort.called);
-          assert.equal(err.message, 'socket hang up');
+          assert.strictEqual(err.message, 'socket hang up');
           scope.done();
           done();
         });
@@ -294,7 +294,7 @@ describe('Download video', () => {
       streamEqual(filestream, stream, (err, equal) => {
         assert.ifError(err);
         scope.done();
-        assert.equal(destroyedTimes, 1);
+        assert.strictEqual(destroyedTimes, 1);
         assert.ok(equal);
         done();
       });
@@ -343,7 +343,7 @@ describe('Download video', () => {
         streamEqual(filestream, stream, (err, equal) => {
           assert.ifError(err);
           scope.done();
-          assert.equal(destroyedTimes, 1);
+          assert.strictEqual(destroyedTimes, 1);
           assert.ok(equal);
           done();
         });
@@ -451,10 +451,10 @@ describe('Download video', () => {
           assert.ifError(err);
           scope.done();
           assert.ok(equal);
-          assert.equal(totalBytes, rangedSize);
-          assert.equal(downloadedBytes, totalBytes);
-          assert.equal(reqStart, start);
-          assert.equal(reqEnd, end);
+          assert.strictEqual(totalBytes, rangedSize);
+          assert.strictEqual(downloadedBytes, totalBytes);
+          assert.strictEqual(reqStart, start);
+          assert.strictEqual(reqEnd, end);
           done();
         });
       });
@@ -471,7 +471,7 @@ describe('Download video', () => {
 
       stream.on('request', req => {
         const reqChunkSize = parseInt(req.options.headers.range.split('-')[1], 10);
-        assert.equal(reqChunkSize, dlChunkSize);
+        assert.strictEqual(reqChunkSize, dlChunkSize);
         stream.removeAllListeners('request');
         done();
       });
@@ -488,7 +488,7 @@ describe('Download video', () => {
 
       stream.on('request', req => {
         const reqChunkSize = parseInt(req.options.headers.range.split('-')[1], 10);
-        assert.equal(reqChunkSize, dlChunkSize);
+        assert.strictEqual(reqChunkSize, dlChunkSize);
         stream.removeAllListeners('request');
         done();
       });
@@ -509,7 +509,7 @@ describe('Download video', () => {
       stream.on('error', done);
       stream.on('request', req => {
         const reqStart = parseInt(req.options.headers.range.replace('bytes=', '').split('-')[0], 10);
-        assert.equal(reqStart, start);
+        assert.strictEqual(reqStart, start);
         done();
       });
     });
@@ -530,7 +530,7 @@ describe('Download video', () => {
       stream.on('error', done);
       stream.on('request', req => {
         const reqStart = parseInt(req.options.headers.range.replace('bytes=', '').split('-')[0], 10);
-        assert.equal(reqStart, start);
+        assert.strictEqual(reqStart, start);
         done();
       });
     });
@@ -550,7 +550,7 @@ describe('Download video', () => {
       stream.on('error', done);
       stream.on('request', req => {
         const reqEnd = parseInt(req.options.headers.range.replace('bytes=', '').split('-')[1], 10);
-        assert.equal(reqEnd, end);
+        assert.strictEqual(reqEnd, end);
         done();
       });
     });
@@ -571,7 +571,7 @@ describe('Download video', () => {
       stream.on('error', done);
       stream.on('request', req => {
         const reqEnd = parseInt(req.options.headers.range.replace('bytes=', '').split('-')[1], 10);
-        assert.equal(reqEnd, end);
+        assert.strictEqual(reqEnd, end);
         done();
       });
     });
@@ -643,7 +643,7 @@ describe('Download video', () => {
       let progress = sinon.spy();
       stream.on('progress', progress);
       stream.on('end', () => {
-        assert.equal(body, 'onetwotres');
+        assert.strictEqual(body, 'onetwotres');
         assert.ok(progress.called);
         assert.deepEqual(progress.args, [
           [3, 1, 3],
@@ -699,7 +699,7 @@ describe('Download video', () => {
         stream.on('data', chunk => { body += chunk; });
         stream.on('end', () => {
           scope.done();
-          assert.equal(body, 'onetwotres');
+          assert.strictEqual(body, 'onetwotres');
           done();
         });
       });
@@ -715,7 +715,7 @@ describe('Download video', () => {
       let stream = ytdl(id);
       stream.on('error', err => {
         scope.done();
-        assert.equal(err.message, 'This video requires payment to watch.');
+        assert.strictEqual(err.message, 'This video requires payment to watch.');
         done();
       });
       stream.on('data', () => {
@@ -737,7 +737,7 @@ describe('Download video', () => {
       let stream = ytdl(id);
       stream.on('error', err => {
         scope.done();
-        assert.equal(err.message, 'This video is unavailable');
+        assert.strictEqual(err.message, 'This video is unavailable');
         done();
       });
       stream.on('data', () => {
