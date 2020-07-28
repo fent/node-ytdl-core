@@ -36,7 +36,7 @@ describe('extras.getAuthor()', () => {
     assertUserName(author.user);
     assert.ok(author.name);
     assertUserURL(author.user_url);
-    assert.equal(typeof author.verified, 'boolean');
+    assert.strictEqual(typeof author.verified, 'boolean');
     assert.number(author.subscriber_count);
   });
 
@@ -61,7 +61,7 @@ describe('extras.getAuthor()', () => {
       assertUserName(author.user);
       assert.ok(author.name);
       assertUserURL(author.user_url);
-      assert.equal(typeof author.verified, 'boolean');
+      assert.strictEqual(typeof author.verified, 'boolean');
       assert.number(author.subscriber_count);
     });
   });
@@ -73,9 +73,9 @@ describe('extras.getMedia()', () => {
     const info = require('./files/videos/vevo/expected-info.json');
     const media = extras.getMedia(info);
     assert.ok(media);
-    assert.equal(media.artist, 'Wu-Tang Clan');
+    assert.strictEqual(media.artist, 'Wu-Tang Clan');
     assertChannelURL(media.artist_url);
-    assert.equal(media.category, 'Music');
+    assert.strictEqual(media.category, 'Music');
     assertURL(media.category_url);
   });
 
@@ -84,11 +84,11 @@ describe('extras.getMedia()', () => {
       const info = require('./files/videos/game/expected-info.json');
       const media = extras.getMedia(info);
       assert.ok(media);
-      assert.equal(media.category, 'Gaming');
+      assert.strictEqual(media.category, 'Gaming');
       assertURL(media.category_url);
-      assert.equal(media.game, 'Pokémon Snap');
+      assert.strictEqual(media.game, 'Pokémon Snap');
       assertURL(media.game_url);
-      assert.equal(media.year, '1999');
+      assert.strictEqual(media.year, '1999');
     });
   });
 
@@ -154,7 +154,7 @@ describe('extras.getLikes()', () => {
     let html = fs.readFileSync(path.resolve(__dirname,
       'files/videos/regular/watch.json'), 'utf8');
     const likes = extras.getLikes(html);
-    assert.equal(typeof likes, 'number');
+    assert.strictEqual(typeof likes, 'number');
   });
 
   describe('With no likes', () => {
@@ -162,7 +162,7 @@ describe('extras.getLikes()', () => {
       let html = fs.readFileSync(path.resolve(__dirname,
         'files/videos/no-likes-or-dislikes/watch.json'), 'utf8');
       const likes = extras.getLikes(html);
-      assert.equal(likes, null);
+      assert.strictEqual(likes, null);
     });
   });
 });
@@ -172,7 +172,7 @@ describe('extras.getDislikes()', () => {
     let html = fs.readFileSync(path.resolve(__dirname,
       'files/videos/regular/watch.json'), 'utf8');
     const dislikes = extras.getDislikes(html);
-    assert.equal(typeof dislikes, 'number');
+    assert.strictEqual(typeof dislikes, 'number');
   });
 
   describe('With no dislikes', () => {
@@ -180,7 +180,7 @@ describe('extras.getDislikes()', () => {
       let html = fs.readFileSync(path.resolve(__dirname,
         'files/videos/no-likes-or-dislikes/watch.json'), 'utf8');
       const dislikes = extras.getDislikes(html);
-      assert.equal(dislikes, null);
+      assert.strictEqual(dislikes, null);
     });
   });
 });

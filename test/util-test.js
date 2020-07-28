@@ -169,55 +169,55 @@ describe('util.chooseFormat', () => {
   sortedFormats.sort(util.sortFormats);
 
   it('Is exposed in module', () => {
-    assert.equal(ytdl.chooseFormat, util.chooseFormat);
+    assert.strictEqual(ytdl.chooseFormat, util.chooseFormat);
   });
 
   describe('with no options', () => {
     it('Chooses highest quality', () => {
       const format = util.chooseFormat(sortedFormats, {});
-      assert.equal(format.itag, '43');
+      assert.strictEqual(format.itag, '43');
     });
   });
 
   describe('With lowest quality wanted', () => {
     it('Chooses lowest itag', () => {
       const format = util.chooseFormat(sortedFormats, { quality: 'lowest' });
-      assert.equal(format.itag, '138');
+      assert.strictEqual(format.itag, '138');
     });
   });
 
   describe('With highest audio quality wanted', () => {
     it('Chooses highest audio itag', () => {
       const format = util.chooseFormat(formats, { quality: 'highestaudio' });
-      assert.equal(format.itag, '43');
+      assert.strictEqual(format.itag, '43');
     });
   });
 
   describe('With lowest audio quality wanted', () => {
     it('Chooses lowest audio itag', () => {
       const format = util.chooseFormat(formats, { quality: 'lowestaudio' });
-      assert.equal(format.itag, '17');
+      assert.strictEqual(format.itag, '17');
     });
   });
 
   describe('With highest video quality wanted', () => {
     it('Chooses highest video itag', () => {
       const format = util.chooseFormat(formats, { quality: 'highestvideo' });
-      assert.equal(format.itag, '18');
+      assert.strictEqual(format.itag, '18');
     });
   });
 
   describe('With lowest video quality wanted', () => {
     it('Chooses lowest video itag', () => {
       const format = util.chooseFormat(formats, { quality: 'lowestvideo' });
-      assert.equal(format.itag, '17');
+      assert.strictEqual(format.itag, '17');
     });
   });
 
   describe('With itag given', () => {
     it('Chooses matching format', () => {
       const format = util.chooseFormat(sortedFormats, { quality: 5 });
-      assert.equal(format.itag, '5');
+      assert.strictEqual(format.itag, '5');
     });
 
     describe('that is not in the format list', () => {
@@ -232,14 +232,14 @@ describe('util.chooseFormat', () => {
   describe('With list of itags given', () => {
     it('Chooses matching format', () => {
       const format = util.chooseFormat(sortedFormats, { quality: [99, 160, 18] });
-      assert.equal(format.itag, '160');
+      assert.strictEqual(format.itag, '160');
     });
   });
 
   describe('With format object given', () => {
     it('Chooses given format without searching', () => {
       const format = util.chooseFormat(sortedFormats, { format: formats[0] });
-      assert.equal(format, formats[0]);
+      assert.strictEqual(format, formats[0]);
     });
   });
 
@@ -249,7 +249,7 @@ describe('util.chooseFormat', () => {
         const choosenFormat = util.chooseFormat(sortedFormats, {
           filter: format => format.container === 'mp4',
         });
-        assert.equal(choosenFormat.itag, '18');
+        assert.strictEqual(choosenFormat.itag, '18');
       });
     });
 
@@ -277,13 +277,13 @@ describe('util.filterFormats', () => {
   });
 
   it('Is exposed in module', () => {
-    assert.equal(ytdl.filterFormats, util.filterFormats);
+    assert.strictEqual(ytdl.filterFormats, util.filterFormats);
   });
 
   describe('that doesn\'t match any format', () => {
     it('Returns an empty list', () => {
       const list = util.filterFormats(formats, () => false);
-      assert.equal(list.length, 0);
+      assert.strictEqual(list.length, 0);
     });
   });
 
@@ -335,50 +335,50 @@ describe('util.filterFormats', () => {
 describe('util.between()', () => {
   it('`left` positioned at the start', () => {
     const rs = util.between('<b>hello there friend</b>', '<b>', '</b>');
-    assert.equal(rs, 'hello there friend');
+    assert.strictEqual(rs, 'hello there friend');
   });
 
   it('somewhere in the middle', () => {
     const rs = util.between('something everything nothing', ' ', ' ');
-    assert.equal(rs, 'everything');
+    assert.strictEqual(rs, 'everything');
   });
 
   it('not found', () => {
     const rs = util.between('oh oh _where_ is it', '<b>', '</b>');
-    assert.equal(rs, '');
+    assert.strictEqual(rs, '');
   });
 
   it('`right` before `left`', () => {
     const rs = util.between('>>> a <this> and that', '<', '>');
-    assert.equal(rs, 'this');
+    assert.strictEqual(rs, 'this');
   });
 
   it('`right` not found', () => {
     const rs = util.between('something [around[ somewhere', '[', ']');
-    assert.equal(rs, '');
+    assert.strictEqual(rs, '');
   });
 });
 
 
 describe('util.getURLVideoID()', () => {
   it('Is exposed in module', () => {
-    assert.equal(ytdl.getURLVideoID, util.getURLVideoID);
+    assert.strictEqual(ytdl.getURLVideoID, util.getURLVideoID);
   });
 
   it('Retrives the video ID from the url', () => {
     let id;
     id = util.getVideoID('http://www.youtube.com/watch?v=RAW_VIDEOID');
-    assert.equal(id, 'RAW_VIDEOID');
+    assert.strictEqual(id, 'RAW_VIDEOID');
     id = util.getVideoID('http://youtu.be/RAW_VIDEOID');
-    assert.equal(id, 'RAW_VIDEOID');
+    assert.strictEqual(id, 'RAW_VIDEOID');
     id = util.getVideoID('http://youtube.com/v/RAW_VIDEOID');
-    assert.equal(id, 'RAW_VIDEOID');
+    assert.strictEqual(id, 'RAW_VIDEOID');
     id = util.getVideoID('http://youtube.com/embed/RAW_VIDEOID');
-    assert.equal(id, 'RAW_VIDEOID');
+    assert.strictEqual(id, 'RAW_VIDEOID');
     id = util.getVideoID('https://music.youtube.com/watch?v=RAW_VIDEOID&list=RDAMVMmtLgabce8KQ');
-    assert.equal(id, 'RAW_VIDEOID');
+    assert.strictEqual(id, 'RAW_VIDEOID');
     id = util.getVideoID('https://gaming.youtube.com/watch?v=RAW_VIDEOID');
-    assert.equal(id, 'RAW_VIDEOID');
+    assert.strictEqual(id, 'RAW_VIDEOID');
     assert.throws(() => {
       util.getVideoID('https://any.youtube.com/watch?v=RAW_VIDEOID');
     }, /Not a YouTube domain/);
@@ -400,21 +400,21 @@ describe('util.getURLVideoID()', () => {
 
 describe('util.getVideoID()', () => {
   it('Is exposed in module', () => {
-    assert.equal(ytdl.getVideoID, util.getVideoID);
+    assert.strictEqual(ytdl.getVideoID, util.getVideoID);
   });
 
   it('Retrives the video ID from the url', () => {
     let id;
     id = util.getVideoID('http://www.youtube.com/watch?v=RAW_VIDEOID');
-    assert.equal(id, 'RAW_VIDEOID');
+    assert.strictEqual(id, 'RAW_VIDEOID');
     id = util.getVideoID('http://youtu.be/RAW_VIDEOID');
-    assert.equal(id, 'RAW_VIDEOID');
+    assert.strictEqual(id, 'RAW_VIDEOID');
     id = util.getVideoID('http://youtube.com/v/RAW_VIDEOID');
-    assert.equal(id, 'RAW_VIDEOID');
+    assert.strictEqual(id, 'RAW_VIDEOID');
     id = util.getVideoID('http://youtube.com/embed/RAW_VIDEOID');
-    assert.equal(id, 'RAW_VIDEOID');
+    assert.strictEqual(id, 'RAW_VIDEOID');
     id = util.getVideoID('_LENGTH_11_');
-    assert.equal(id, '_LENGTH_11_');
+    assert.strictEqual(id, '_LENGTH_11_');
     assert.throws(() => {
       util.getVideoID('http://youtube.com/RAW_VIDEOID');
     }, /No video id found: \S+/);
@@ -433,36 +433,36 @@ describe('util.getVideoID()', () => {
 
 describe('util.validateID()', () => {
   it('Is exposed in module', () => {
-    assert.equal(ytdl.validateID, util.validateID);
+    assert.strictEqual(ytdl.validateID, util.validateID);
   });
 
   it('Retrieves whether a string includes a video ID', () => {
     let rs;
     rs = util.validateID('RAW_VIDEOID');
-    assert.equal(rs, true);
+    assert.strictEqual(rs, true);
     rs = util.validateID('http://www.youtube.com/watch?v=RAW_VIDEOID');
-    assert.equal(rs, false);
+    assert.strictEqual(rs, false);
     rs = util.validateID('https://www.twitch.tv/user/v/1234');
-    assert.equal(rs, false);
+    assert.strictEqual(rs, false);
   });
 });
 
 
 describe('util.validateURL()', () => {
   it('Is exposed in module', () => {
-    assert.equal(ytdl.validateURL, util.validateURL);
+    assert.strictEqual(ytdl.validateURL, util.validateURL);
   });
 
   it('Retrieves whether a string includes a parsable video ID', () => {
     let rs;
     rs = util.validateURL('http://www.youtube.com/watch?v=RAW_VIDEOID');
-    assert.equal(rs, true);
+    assert.strictEqual(rs, true);
     rs = util.validateURL('RAW_VIDEOID');
-    assert.equal(rs, false);
+    assert.strictEqual(rs, false);
     rs = util.validateURL('https://www.twitch.tv/user/v/1234');
-    assert.equal(rs, false);
+    assert.strictEqual(rs, false);
     rs = util.validateURL('https://www.youtube.com/wartwzwerwer');
-    assert.equal(rs, false);
+    assert.strictEqual(rs, false);
   });
 });
 
@@ -514,37 +514,37 @@ describe('util.addFormatMeta()', () => {
   });
   describe('util.cutAfterJSON()', () => {
     it('Works with simple JSON', () => {
-      assert.equal(util.cutAfterJSON('{"a": 1, "b": 1}'), '{"a": 1, "b": 1}');
+      assert.strictEqual(util.cutAfterJSON('{"a": 1, "b": 1}'), '{"a": 1, "b": 1}');
     });
     it('Cut extra characters after JSON', () => {
-      assert.equal(util.cutAfterJSON('{"a": 1, "b": 1}abcd'), '{"a": 1, "b": 1}');
+      assert.strictEqual(util.cutAfterJSON('{"a": 1, "b": 1}abcd'), '{"a": 1, "b": 1}');
     });
     it('Tolerant to string constants', () => {
-      assert.equal(util.cutAfterJSON('{"a": "}1", "b": 1}abcd'), '{"a": "}1", "b": 1}');
+      assert.strictEqual(util.cutAfterJSON('{"a": "}1", "b": 1}abcd'), '{"a": "}1", "b": 1}');
     });
     it('Tolerant to string with escaped quoting', () => {
-      assert.equal(util.cutAfterJSON('{"a": "\\"}1", "b": 1}abcd'), '{"a": "\\"}1", "b": 1}');
+      assert.strictEqual(util.cutAfterJSON('{"a": "\\"}1", "b": 1}abcd'), '{"a": "\\"}1", "b": 1}');
     });
     it('works with nested', () => {
-      assert.equal(
+      assert.strictEqual(
         util.cutAfterJSON('{"a": "\\"1", "b": 1, "c": {"test": 1}}abcd'),
         '{"a": "\\"1", "b": 1, "c": {"test": 1}}',
       );
     });
     it('Works with utf', () => {
-      assert.equal(
+      assert.strictEqual(
         util.cutAfterJSON('{"a": "\\"фыва", "b": 1, "c": {"test": 1}}abcd'),
         '{"a": "\\"фыва", "b": 1, "c": {"test": 1}}',
       );
     });
     it('Works with \\\\ in string', () => {
-      assert.equal(
+      assert.strictEqual(
         util.cutAfterJSON('{"a": "\\\\фыва", "b": 1, "c": {"test": 1}}abcd'),
         '{"a": "\\\\фыва", "b": 1, "c": {"test": 1}}',
       );
     });
     it('Works with [ as start', () => {
-      assert.equal(
+      assert.strictEqual(
         util.cutAfterJSON('[{"a": 1}, {"b": 2}]abcd'),
         '[{"a": 1}, {"b": 2}]',
       );
@@ -565,15 +565,15 @@ describe('util.addFormatMeta()', () => {
 
 describe('util.parseAbbreviatedNumber', () => {
   it('Parses abbreviated numbers', () => {
-    assert.equal(util.parseAbbreviatedNumber('41K'), 41000);
-    assert.equal(util.parseAbbreviatedNumber('1.5M'), 1500000);
+    assert.strictEqual(util.parseAbbreviatedNumber('41K'), 41000);
+    assert.strictEqual(util.parseAbbreviatedNumber('1.5M'), 1500000);
   });
   it('Parses non-abbreviated numbers', () => {
-    assert.equal(util.parseAbbreviatedNumber('1234'), 1234);
-    assert.equal(util.parseAbbreviatedNumber('123.456'), 123.456);
+    assert.strictEqual(util.parseAbbreviatedNumber('1234'), 1234);
+    assert.strictEqual(util.parseAbbreviatedNumber('123.456'), 123.456);
   });
   it('Returns `null` when given non-number', () => {
-    assert.equal(util.parseAbbreviatedNumber('abc'), null);
+    assert.strictEqual(util.parseAbbreviatedNumber('abc'), null);
   });
 });
 

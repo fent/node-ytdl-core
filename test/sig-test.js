@@ -73,7 +73,7 @@ describe('Signature decipher', () => {
 
   const testDecipher = (tokens, input, expected) => {
     const result = sig.decipher(tokens, input);
-    assert.equal(result, expected);
+    assert.strictEqual(result, expected);
   };
 
   describe('properly apply actions based on tokens', () => {
