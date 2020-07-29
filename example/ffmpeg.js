@@ -86,8 +86,8 @@ ffmpegProcess.stdio[3].on('data', chunk => {
   const lines = chunk.toString().trim().split('\n');
   const args = {};
   for (const l of lines) {
-    const parts = l.trim().split('=');
-    args[parts[0]] = parts[1];
+    const [key, value] = l.trim().split('=');
+    args[key] = value;
   }
   tracker.merged = args;
 });
