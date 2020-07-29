@@ -42,7 +42,7 @@ const progressbar = setInterval(() => {
   process.stdout.write(`(${toMB(tracker.video.downloaded)}MB of ${toMB(tracker.video.total)}MB).${' '.repeat(10)}\n`);
 
   process.stdout.write(`Merged | processing frame ${tracker.merged.frame} `);
-  process.stdout.write(`(at ${tracker.merged.fps} fps => ${tracker.merged.speed})\n`);
+  process.stdout.write(`(at ${tracker.merged.fps} fps => ${tracker.merged.speed}).${' '.repeat(10)}\n`);
 
   process.stdout.write(`running for: ${((Date.now() - tracker.start) / 1000 / 60).toFixed(2)} Minutes.`);
   readline.moveCursor(process.stdout, 0, -3);
