@@ -30,7 +30,9 @@
     "test:unit": "mocha --ignore test/irl-test.js test/*-test.js --timeout 4000",
     "test:irl": "mocha --timeout 16000 test/irl-test.js",
     "lint": "eslint ./",
-    "lint:fix": "eslint --fix ./"
+    "lint:fix": "eslint --fix ./",
+    "lint:typings": "tslint typings/index.d.ts",
+    "lint:typings:fix": "tslint --fix typings/index.d.ts"
   },
   "dependencies": {
     "html-entities": "^1.3.1",
@@ -41,6 +43,7 @@
   "devDependencies": {
     "@types/node": "^13.1.0",
     "assert-diff": "^3.0.1",
+    "dtslint": "^3.6.14",
     "eslint": "^6.8.0",
     "mocha": "^7.0.0",
     "muk-prop": "^2.0.0",
@@ -48,7 +51,8 @@
     "nock": "^12.0.0",
     "nyc": "^15.0.0",
     "sinon": "^9.0.0",
-    "stream-equal": "~1.1.0"
+    "stream-equal": "~1.1.0",
+    "typescript": "^3.9.7"
   },
   "engines": {
     "node": ">=10"
