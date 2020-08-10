@@ -134,7 +134,7 @@ const videos = [
     skip: ['watch', 'get_video_info'],
   },
   {
-    id: '3IqtmUscE_U',
+    id: 'B3eAMGXFw1o',
     type: 'related',
     skip: ['get_video_info', /player/],
     saveInfo: true,
@@ -150,7 +150,7 @@ const videos = [
         fn: body => body.replace(/"secondaryResults"/, '""'),
       },
       {
-        page: 'expected-info.json',
+        page: 'watch.json',
         saveAs: 'bad-details',
         fn: body => body.replace(/\\"shortBylineText\\"/g, '\\"___\\"'),
       },
@@ -230,7 +230,7 @@ const refreshVideo = async(video, noRequests) => {
       existingFiles[filename] = false;
     }
     if (video.keep) {
-      for (let filename of video.keep) {
+      for (let filename of video.keep || []) {
         existingFiles[filename] = true;
       }
     }
