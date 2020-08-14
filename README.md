@@ -141,7 +141,7 @@ ytdl cannot download videos that fall into the following
 * Private (if you have access, requires [cookies](example/cookies.js))
 * Rentals (if you have access, requires [cookies](example/cookies.js))
 
-Generated download links are valid for 6 hours.
+Generated download links are valid for 6 hours, and may only be downloadable from the same IP address.
 
 ## Handling Separate Streams
 
