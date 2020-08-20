@@ -61,7 +61,7 @@ Attempts to download a video from the given url. Returns a [readable stream](htt
 * `lang` - The 2 character symbol of a language. Default is `en`.
 
 #### Event: info
-* [`ytdl.videoInfo`](example/info.json) - Info.
+* [`ytdl.videoInfo`](typings/index.d.ts#L194) - Info.
 * [`ytdl.videoFormat`](typings/index.d.ts#L22) - Video Format.
 
 Emitted when the video's `info` is fetched, along with the chosen format to download.
