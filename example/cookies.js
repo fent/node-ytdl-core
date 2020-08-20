@@ -3,8 +3,13 @@ const path = require('path');
 const fs = require('fs');
 
 
-// You can get your YouTube cookie by navigating to YouTube in a web browser,
-// opening up dev tools (opt+cmd+j on mac), and typing "document.cookie" in the console
+// To get your YouTube cookie
+// - navigate to YouTube in a web browser
+// - open up dev tools (opt+cmd+j on mac)
+// - go to the network tab
+// - click on a request on the left
+// - scroll down to "Request Headers"
+// - find the "cookie" header and copy its entire contents
 const COOKIE = 'key1=value1; key2=value2; key3=value3';
 const id = 'B3eAMGXFw1o';
 
