@@ -67,7 +67,7 @@ Attempts to download a video from the given url. Returns a [readable stream](htt
 Emitted when the video's `info` is fetched, along with the chosen format to download.
 
 #### Event: progress
-* `number` - Chunk byte length.
+* `number` - Chunk length in bytes or segment number.
 * `number` - Total bytes or segments downloaded.
 * `number` - Total bytes or segments.
 
