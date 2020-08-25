@@ -42,7 +42,7 @@ Attempts to download a video from the given url. Returns a [readable stream](htt
   140  mp4               mp4a.40.2                       128KB
   ```
   format 18 at 360p will be chosen first since it's the highest quality format with both video and audio.
-* `filter` - Used to filter the list of formats to choose from. Can be `audioandvideo` to filter formats that contain both video and audio, `video` to filter for formats that contain video, or `videoonly` for formats that contain video and no additional audio track. Can also be `audio` or `audioonly`. You can give a filtering function that gets called with each format available. This function is given the `format` object as its first argument, and should return true if the format is preferable.
+* `filter` - Used to filter the list of formats to choose from. Can be `audioandvideo` or `videoandaudio` to filter formats that contain both video and audio, `video` to filter for formats that contain video, or `videoonly` for formats that contain video and no additional audio track. Can also be `audio` or `audioonly`. You can give a filtering function that gets called with each format available. This function is given the `format` object as its first argument, and should return true if the format is preferable.
   ```js
   // Example with custom function.
   ytdl(url, { filter: format => format.container === 'mp4' })
