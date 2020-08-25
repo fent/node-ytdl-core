@@ -5,7 +5,7 @@ const ytdl = require('..');
 const id = 'https://www.youtube.com/watch?v=QRS8MkLhQmM';
 const lang = 'en';
 
-// Can be xml, ttml, vtt
+// Can be xml, ttml, vtt, srv1, srv2, srv3
 const format = 'xml';
 
 ytdl.getInfo(id).then(info => {
