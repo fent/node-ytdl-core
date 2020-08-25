@@ -3,7 +3,7 @@ declare module 'ytdl-core' {
   import { Readable } from 'stream';
 
   namespace ytdl {
-    type Filter = 'audioandvideo' | 'video' | 'videoonly' | 'audio' | 'audioonly' | ((format: videoFormat) => boolean);
+    type Filter = 'audioandvideo' | 'videoandaudio' | 'video' | 'videoonly' | 'audio' | 'audioonly' | ((format: videoFormat) => boolean);
     interface downloadOptions {
       quality?: 'lowest' | 'highest' | 'highestaudio' | 'lowestaudio' | 'highestvideo' | 'lowestvideo' | string | number | string[] | number[];
       filter?: Filter;
