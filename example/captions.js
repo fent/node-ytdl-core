@@ -5,6 +5,9 @@ const ytdl = require('..');
 const id = 'https://www.youtube.com/watch?v=QRS8MkLhQmM';
 const lang = 'en';
 
+// Can be xml, ttml, vtt
+const format = 'xml';
+
 ytdl.getInfo(id).then(info => {
   const tracks = info
     .player_response.captions
@@ -16,9 +19,9 @@ ytdl.getInfo(id).then(info => {
     if (track) {
       console.log('Retrieving captions:', track.name.simpleText);
       console.log('URL', track.baseUrl);
-      const output = `${info.videoDetails.title}.${track.languageCode}.xml`;
+      const output = `${info.videoDetails.title}.${track.languageCode}.${format}`;
       console.log('Saving to', output);
-      https.get(track.baseUrl, res => {
+      https.get(`${track.baseUrl}&fmt=${format !== 'xml' ? format : ''}`, res => {
         res.pipe(fs.createWriteStream(path.resolve(__dirname, output)));
       });
     } else {
