@@ -241,6 +241,14 @@ describe('util.chooseFormat', () => {
       const format = util.chooseFormat(sortedFormats, { format: formats[0] });
       assert.strictEqual(format, formats[0]);
     });
+
+    describe('from `getBasicInfo()`', () => {
+      it('Throws error', () => {
+        assert.throws(() => {
+          util.chooseFormat(sortedFormats, { format: formats.filter(format => !format.url)[0] });
+        }, /Invalid format given/);
+      });
+    });
   });
 
   describe('With filter given', () => {
