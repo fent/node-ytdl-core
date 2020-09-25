@@ -410,8 +410,8 @@ describe('Download video', () => {
 
         stream.on('request', req => {
           const range = req.options.headers.range.replace('bytes=', '').split('-');
-          reqStart = reqStart !== start ? parseInt(range[0], 10) : reqStart;
-          reqEnd = parseInt(range[1], 10);
+          reqStart = reqStart !== start ? parseInt(range[0]) : reqStart;
+          reqEnd = parseInt(range[1]);
         });
 
         stream.on('info', (info, format) => {
@@ -470,7 +470,7 @@ describe('Download video', () => {
       });
 
       stream.on('request', req => {
-        const reqChunkSize = parseInt(req.options.headers.range.split('-')[1], 10);
+        const reqChunkSize = parseInt(req.options.headers.range.split('-')[1]);
         assert.strictEqual(reqChunkSize, dlChunkSize);
         stream.removeAllListeners('request');
         done();
@@ -487,7 +487,7 @@ describe('Download video', () => {
       });
 
       stream.on('request', req => {
-        const reqChunkSize = parseInt(req.options.headers.range.split('-')[1], 10);
+        const reqChunkSize = parseInt(req.options.headers.range.split('-')[1]);
         assert.strictEqual(reqChunkSize, dlChunkSize);
         stream.removeAllListeners('request');
         done();
@@ -508,7 +508,7 @@ describe('Download video', () => {
       stream.resume();
       stream.on('error', done);
       stream.on('request', req => {
-        const reqStart = parseInt(req.options.headers.range.replace('bytes=', '').split('-')[0], 10);
+        const reqStart = parseInt(req.options.headers.range.replace('bytes=', '').split('-')[0]);
         assert.strictEqual(reqStart, start);
         done();
       });
@@ -529,7 +529,7 @@ describe('Download video', () => {
       stream.resume();
       stream.on('error', done);
       stream.on('request', req => {
-        const reqStart = parseInt(req.options.headers.range.replace('bytes=', '').split('-')[0], 10);
+        const reqStart = parseInt(req.options.headers.range.replace('bytes=', '').split('-')[0]);
         assert.strictEqual(reqStart, start);
         done();
       });
@@ -549,7 +549,7 @@ describe('Download video', () => {
       stream.resume();
       stream.on('error', done);
       stream.on('request', req => {
-        const reqEnd = parseInt(req.options.headers.range.replace('bytes=', '').split('-')[1], 10);
+        const reqEnd = parseInt(req.options.headers.range.replace('bytes=', '').split('-')[1]);
         assert.strictEqual(reqEnd, end);
         done();
       });
@@ -570,7 +570,7 @@ describe('Download video', () => {
       stream.resume();
       stream.on('error', done);
       stream.on('request', req => {
-        const reqEnd = parseInt(req.options.headers.range.replace('bytes=', '').split('-')[1], 10);
+        const reqEnd = parseInt(req.options.headers.range.replace('bytes=', '').split('-')[1]);
         assert.strictEqual(reqEnd, end);
         done();
       });
