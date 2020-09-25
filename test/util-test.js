@@ -575,10 +575,11 @@ describe('util.parseAbbreviatedNumber', () => {
   it('Parses abbreviated numbers', () => {
     assert.strictEqual(util.parseAbbreviatedNumber('41K'), 41000);
     assert.strictEqual(util.parseAbbreviatedNumber('1.5M'), 1500000);
+    assert.strictEqual(util.parseAbbreviatedNumber('8.19K '), 8190);
   });
   it('Parses non-abbreviated numbers', () => {
     assert.strictEqual(util.parseAbbreviatedNumber('1234'), 1234);
-    assert.strictEqual(util.parseAbbreviatedNumber('123.456'), 123.456);
+    assert.strictEqual(util.parseAbbreviatedNumber('123.456'), 123);
   });
   it('Returns `null` when given non-number', () => {
     assert.strictEqual(util.parseAbbreviatedNumber('abc'), null);
