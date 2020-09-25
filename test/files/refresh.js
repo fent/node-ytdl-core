@@ -180,7 +180,7 @@ const videos = [
     type: 'with-cookie',
     options: {
       requestOptions: {
-        // Run this one with `env YT_COOKIE="cookie here"`
+        // Run this one with `env YT_COOKIE="your cookie here"`
         headers: { cookie: process.env.YT_COOKIE },
       },
     },
