@@ -24,7 +24,7 @@ describe('Download video', () => {
   before(() => { clock = sinon.useFakeTimers({ toFake: ['setTimeout'] }); });
   after(() => { clock.restore(); });
 
-  it('Should be pipeable and data equal to stored file', async() => {
+  it('Should be pipeable and data equal to stored file', async () => {
     const id = '_HSylqgVYQI';
     const scope = nock(id, {
       type: 'regular',
@@ -586,6 +586,17 @@ describe('Download video', () => {
       stream.resume();
       stream.on('error', done);
       stream.on('end', done);
+    });
+  });
+
+  describe('with Ipv6 Block', () => {
+    it('Sent req with ipv6 address', done => {
+      const stream = ytdl.downloadFromInfo(testInfo, { IPv6Block: '2001:2::/48' });
+      stream.on('info', (info, format) => {
+        nock.url(`${format.url}`).reply(function (uri, reqBody) {
+          if (this.req.options.localAddress.includes(':')) done();
+        });
+      });
     });
   });
 
