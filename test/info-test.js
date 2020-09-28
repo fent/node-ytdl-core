@@ -5,6 +5,7 @@ const nock = require('./nock');
 const sinon = require('sinon');
 const spy = require('sinon').spy;
 const muk = require('muk-prop');
+const net = require('net');
 
 
 describe('ytdl.getInfo()', () => {
@@ -112,7 +113,7 @@ describe('ytdl.getInfo()', () => {
         });
         let info = await ytdl.getInfo(id, { IPv6Block: '2001:2::/48' });
         await nock.url(info.formats[0].url).reply(function checkAddr() {
-          if (this.req.options.localAddress.includes(':')) scope.done();
+          if (net.isIPv6(this.req.options.localAddress)) scope.done();
         });
       });
     });

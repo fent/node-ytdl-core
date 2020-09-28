@@ -6,6 +6,7 @@ const streamEqual = require('stream-equal');
 const sinon = require('sinon');
 const nock = require('./nock');
 const ytdl = require('..');
+const net = require('net');
 
 
 describe('Download video', () => {
@@ -594,7 +595,7 @@ describe('Download video', () => {
       const stream = ytdl.downloadFromInfo(testInfo, { IPv6Block: '2001:2::/48' });
       stream.on('info', (info, format) => {
         nock.url(format.url).reply(function checkAddr() {
-          if (this.req.options.localAddress.includes(':')) done();
+          if (net.isIPv6(this.req.options.localAddress)) done();
         });
       });
     });
