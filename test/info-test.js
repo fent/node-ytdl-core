@@ -104,6 +104,19 @@ describe('ytdl.getInfo()', () => {
       });
     });
 
+    describe('With IPv6 Block', () => {
+      it('Sends request with IPv6 address', async() => {
+        const scope = nock(id, {
+          type: 'vevo',
+          player: true,
+        });
+        let info = await ytdl.getInfo(id, { IPv6Block: '2001:2::/48' });
+        await nock.url(info.formats[0].url).reply(function checkAddr() {
+          if (this.req.options.localAddress.includes(':')) scope.done();
+        });
+      });
+    });
+
     describe('Called twice', () => {
       const testId = 'pJk0p-98Xzc';
 

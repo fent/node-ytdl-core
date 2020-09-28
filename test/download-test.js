@@ -589,11 +589,11 @@ describe('Download video', () => {
     });
   });
 
-  describe('with Ipv6 Block', () => {
-    it('Sent req with ipv6 address', done => {
+  describe('With IPv6 Block', () => {
+    it('Sends request with IPv6 address', done => {
       const stream = ytdl.downloadFromInfo(testInfo, { IPv6Block: '2001:2::/48' });
       stream.on('info', (info, format) => {
-        nock.url(`${format.url}`).reply(function checkAddr() {
+        nock.url(format.url).reply(function checkAddr() {
           if (this.req.options.localAddress.includes(':')) done();
         });
       });
