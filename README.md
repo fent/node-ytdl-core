@@ -59,6 +59,8 @@ Attempts to download a video from the given url. Returns a [readable stream](htt
 * `highWaterMark` - How much of the video download to buffer into memory. See [node's docs](https://nodejs.org/api/stream.html#stream_constructor_new_stream_writable_options) for more. Defaults to 512KB.
 * `dlChunkSize` - The size of the download chunk in bytes. When the chosen format is video only or audio only, the download in this case is separated into multiple chunks to avoid throttling. Defaults to 10MB.
 * `lang` - The 2 character symbol of a language. Default is `en`.
+* `chunking` - If chunking should be used - it improves the download speeds on dash formats. Defaults to `true`.
+* `IPv6Block` - IPv6 block to rotate through (to lower/remove the chance of getting IP Banned) [Read more](#How-does-using-an-IPv6-block-help-with-IP-Bans?). Defaults to `undefined`.
 
 #### Event: info
 * [`ytdl.videoInfo`](typings/index.d.ts#L194) - Info.
@@ -142,10 +144,17 @@ ytdl cannot download videos that fall into the following
 * Rentals (if you have access, requires [cookies](example/cookies.js))
 
 Generated download links are valid for 6 hours, and may only be downloadable from the same IP address.
+Using IPv6 should not cause same IP address limitation.
 
 ## Handling Separate Streams
 
 Typically 1080p or better video does not have audio encoded with it. The audio must be downloaded separately and merged via an appropriate encoding library. `ffmpeg` is the most widely used tool, with many [Node.js modules available](https://www.npmjs.com/search?q=ffmpeg). Use the `format` objects returned from `ytdl.getInfo` to download specific streams to combine to fit your needs. Look at [example/ffmpeg.js](example/ffmpeg.js) for an example on doing this.
+
+## How does using an IPv6 block help with IP bans?
+
+When using a single IPv4 address, youtube notices the large amount of trafic and ratelimits the IP.
+With use of IPv6 block we are using millions of IPv6 addresses, therefore lowering the change that YouTube will notice. However, YouTube sometimes bans full /64 blocks (explained below), so using /58 or larger is recommended to better avoid getting IP Bans.
+Sometimes when YouTube bans a single IPv6 in a /64 block and we make another more request with the banned IP, it can trigger the full /64 block ban. It's very unlikely to happen but using /58 or larger block is still recommended.
 
 ## What if it stops working?
 

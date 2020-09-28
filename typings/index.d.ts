@@ -17,6 +17,8 @@ declare module 'ytdl-core' {
       requestOptions?: {};
       highWaterMark?: number;
       lang?: string;
+      IPv6Block?: string;
+      chunking?: boolean;
     }
 
     interface videoFormat {
