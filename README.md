@@ -57,7 +57,7 @@ Attempts to download a video from the given url. Returns a [readable stream](htt
 * `liveBuffer` - How much time buffer to use for live videos in milliseconds. Default is `20000`.
 * `requestOptions` - Anything to merge into the request options which [miniget](https://github.com/fent/node-miniget) is called with, such as `headers`.
 * `highWaterMark` - How much of the video download to buffer into memory. See [node's docs](https://nodejs.org/api/stream.html#stream_constructor_new_stream_writable_options) for more. Defaults to 512KB.
-* `dlChunkSize` - The size of the download chunk in bytes. When the chosen format is video only or audio only, the download in this case is separated into multiple chunks to avoid throttling. Defaults to 10MB.
+* `dlChunkSize` - The size of the download chunk in bytes. When the chosen format is video only or audio only, the download in this case is separated into multiple chunks to avoid throttling. Setting it to 0 disables chunking. Defaults to 10MB.
 * `lang` - The 2 character symbol of a language. Default is `en`.
 
 #### Event: info

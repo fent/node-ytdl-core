@@ -21,7 +21,8 @@ client.on('message', async message => {
     return;
   }
   const connection = await voiceChannel.join();
-  const stream = ytdl(url, { filter: 'audioonly' });
+  // Disabling chunking is recommended in Discord bots
+  const stream = ytdl(url, { filter: 'audioonly', dlChunkSize: 0 });
   const dispatcher = connection.play(stream);
   dispatcher.on('speaking', speaking => {
     if (!speaking) voiceChannel.leave();
