@@ -595,7 +595,7 @@ describe('Download video', () => {
       const stream = ytdl.downloadFromInfo(testInfo, { IPv6Block: '2001:2::/48' });
       stream.on('info', (info, format) => {
         nock.url(format.url).reply(function checkAddr() {
-          if (net.isIPv6(this.req.options.localAddress)) done();
+          assert.ok(net.isIPv6(this.req.options.localAddress)); done();
         });
       });
     });
