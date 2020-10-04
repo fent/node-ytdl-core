@@ -118,6 +118,12 @@ describe('ytdl.getInfo()', () => {
       });
     });
 
+    describe('With invalid IPv6 Block', () => {
+      it('Should give an error', async() => {
+        await assert.rejects(ytdl.getInfo(id, { IPv6Block: '2001:2::/200' }), /Invalid IPv6 subnet/);
+      });
+    });
+
     describe('Called twice', () => {
       const testId = 'pJk0p-98Xzc';
 
