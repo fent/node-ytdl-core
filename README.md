@@ -152,7 +152,7 @@ Typically 1080p or better video does not have audio encoded with it. The audio m
 ## How does using an IPv6 block help with IP bans?
 
 When using a single IPv4 address, youtube notices the large amount of trafic and ratelimits the IP.
-With use of IPv6 block we are using millions of IPv6 addresses, therefore lowering the change that YouTube will notice. However, YouTube sometimes bans full /64 blocks (explained below), so using /58 or larger is recommended to better avoid getting IP Bans.
+With use of IPv6 block we are using millions of IPv6 addresses, therefore lowering the chance that YouTube will notice. However, YouTube sometimes bans full /64 blocks (explained below), so using /58 or larger is recommended to better avoid getting IP Bans.
 Sometimes when YouTube bans a single IPv6 in a /64 block and we make another more request with the banned IP, it can trigger the full /64 block ban. It's very unlikely to happen but using /58 or larger block is still recommended.
 
 ## What if it stops working?
