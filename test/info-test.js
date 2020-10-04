@@ -111,9 +111,11 @@ describe('ytdl.getInfo()', () => {
           type: 'vevo',
           player: true,
         });
-        let info = await ytdl.getInfo(id, { IPv6Block: '2001:2::/48' }); scope.done();
+        let info = await ytdl.getInfo(id, { IPv6Block: '2001:2::/48' });
+        scope.done();
         await nock.url(info.formats[0].url).reply(function checkAddr() {
-          assert.ok(net.isIPv6(this.req.options.localAddress)); scope.done();
+          assert.ok(net.isIPv6(this.req.options.localAddress));
+          scope.done();
         });
       });
     });
