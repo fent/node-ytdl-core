@@ -22,7 +22,7 @@ declare module 'ytdl-core' {
 
     interface videoFormat {
       itag: number;
-      url: string;
+      url?: string;
       mimeType?: string;
       bitrate?: number | string;
       audioBitrate?: number;
