@@ -17,6 +17,7 @@ declare module 'ytdl-core' {
       requestOptions?: {};
       highWaterMark?: number;
       lang?: string;
+      dlChunkSize?: number;
     }
 
     interface videoFormat {
