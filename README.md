@@ -59,7 +59,7 @@ Attempts to download a video from the given url. Returns a [readable stream](htt
 * `highWaterMark` - How much of the video download to buffer into memory. See [node's docs](https://nodejs.org/api/stream.html#stream_constructor_new_stream_writable_options) for more. Defaults to 512KB.
 * `dlChunkSize` - The size of the download chunk in bytes. When the chosen format is video only or audio only, the download in this case is separated into multiple chunks to avoid throttling. Defaults to 10MB.
 * `lang` - The 2 character symbol of a language. Default is `en`.
-* `IPv6Block` - IPv6 block to rotate through (to lower/remove the chance of getting IP Banned) [Read more](#How-does-using-an-IPv6-block-help?). Defaults to `undefined`.
+* `IPv6Block` - IPv6 block to rotate through, an alternative to proxying. [Read more](#How-does-using-an-IPv6-block-help?). Defaults to `undefined`.
 
 #### Event: info
 * [`ytdl.videoInfo`](typings/index.d.ts#L194) - Info.
