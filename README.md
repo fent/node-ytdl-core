@@ -149,11 +149,9 @@ Using IPv6 should not cause same IP address limitation.
 
 Typically 1080p or better video does not have audio encoded with it. The audio must be downloaded separately and merged via an appropriate encoding library. `ffmpeg` is the most widely used tool, with many [Node.js modules available](https://www.npmjs.com/search?q=ffmpeg). Use the `format` objects returned from `ytdl.getInfo` to download specific streams to combine to fit your needs. Look at [example/ffmpeg.js](example/ffmpeg.js) for an example on doing this.
 
-## How does using an IPv6 block help with IP bans?
+## How does using an IPv6 block help?
 
-When using a single IPv4 address, youtube notices the large amount of trafic and ratelimits the IP.
-With use of IPv6 block we are using millions of IPv6 addresses, therefore lowering the chance that YouTube will notice. However, YouTube sometimes bans full /64 blocks (explained below), so using /58 or larger is recommended to better avoid getting IP Bans.
-Sometimes when YouTube bans a single IPv6 in a /64 block and we make another more request with the banned IP, it can trigger the full /64 block ban. It's very unlikely to happen but using /58 or larger block is still recommended.
+Using an IPv6 block is essentially using millions of different IPv6 addresses. Changing the external IP that you use is similar to proxying except without bypassing any restrictions such as a region lock. In a /64 IPv6 block, there are 18,446,744,073,709,551,616 single IPv6 addresses. This would allow you to have many requests without using the same IPv6 address more than once.
 
 ## What if it stops working?
 
