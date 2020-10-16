@@ -270,7 +270,7 @@ describe('ytdl.getInfo()', () => {
           const id = '99_Y8iEy95c';
           const scope = nock(id, {
             type: 'with-cookie',
-            watch: 'reload-now',
+            watch: 'reload-now-2',
             watchHtml: true,
             player: true,
             dashmpd: true,
