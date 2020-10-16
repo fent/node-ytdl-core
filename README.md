@@ -151,7 +151,7 @@ Typically 1080p or better video does not have audio encoded with it. The audio m
 
 ## How does using an IPv6 block help?
 
-Using an IPv6 block is essentially using millions of different IPv6 addresses. Changing the external IP that you use is similar to proxying except without bypassing any restrictions such as a region lock. In a /64 IPv6 block, there are 18,446,744,073,709,551,616 single IPv6 addresses. This would allow you to have many requests without using the same IPv6 address more than once.
+Using an IPv6 block is essentially having millions of IPv6 addresses at your request. Changing the external IP that you use is similar to using a proxy, except without bypassing restrictions such as a region lock. In a /64 IPv6 block, there are 18,446,744,073,709,551,616 unique IPv6 addresses. This would allow you to make each request with a different IPv6 address.
 
 ## What if it stops working?
 
