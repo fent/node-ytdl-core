@@ -508,6 +508,7 @@ describe('util.addFormatMeta()', () => {
       assert.deepEqual(format, {
         itag: -1,
         url: 'http://video.com/3/4.ts',
+        qualityLabel: null,
         container: null,
         codecs: null,
         videoCodec: null,
