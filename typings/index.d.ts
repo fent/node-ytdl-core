@@ -24,7 +24,7 @@ declare module 'ytdl-core' {
       itag: number;
       url: string;
       mimeType?: string;
-      bitrate?: number | string;
+      bitrate?: number;
       audioBitrate?: number;
       width?: number;
       height?: number;
@@ -36,9 +36,9 @@ declare module 'ytdl-core' {
       qualityLabel: '144p' | '144p 15fps' | '144p60 HDR' | '240p' | '240p60 HDR' | '270p' | '360p' | '360p60 HDR'
         | '480p' | '480p60 HDR' | '720p' | '720p60' | '720p60 HDR' | '1080p' | '1080p60' | '1080p60 HDR' | '1440p'
         | '1440p60' | '1440p60 HDR' | '2160p' | '2160p60' | '2160p60 HDR' | '4320p' | '4320p60';
-      projectionType: 'RECTANGULAR';
+      projectionType?: 'RECTANGULAR';
       fps?: number;
-      averageBitrate: number;
+      averageBitrate?: number;
       audioQuality?: 'AUDIO_QUALITY_LOW' | 'AUDIO_QUALITY_MEDIUM';
       colorInfo?: {
         primaries: string;
@@ -46,7 +46,7 @@ declare module 'ytdl-core' {
         matrixCoefficients: string;
       };
       highReplication?: boolean;
-      approxDurationMs: string;
+      approxDurationMs?: string;
       audioSampleRate?: string;
       audioChannels?: number;
 
@@ -59,7 +59,6 @@ declare module 'ytdl-core' {
       audioCodec?: string;
 
       isLive: boolean;
-      live: boolean;
       isHLS: boolean;
       isDashMPD: boolean;
     }
