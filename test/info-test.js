@@ -180,6 +180,20 @@ describe('ytdl.getInfo()', () => {
       await assert.rejects(ytdl.getInfo(id), /Could not find player config/);
       scope.done();
     });
+
+    describe('When embed page returns limited `player_response`', () => {
+      it('Uses get_vide_info as backup', async() => {
+        const scope = nock(id, {
+          type: 'age-restricted',
+          embed: [true, 200, 'player-vars'],
+          get_video_info: true,
+          player: true,
+        });
+        let info = await ytdl.getInfo(id);
+        scope.done();
+        assert.strictEqual(info.formats.length, expectedInfo.formats.length);
+      });
+    });
   });
 
   describe('From a video that was live streamed but not currently live', () => {
