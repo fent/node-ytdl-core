@@ -172,17 +172,19 @@ describe('ytdl.getInfo()', () => {
       assert.ok(info.videoDetails.age_restricted);
     });
 
-    it('Fails gracefully when unable to find config', async() => {
-      const scope = nock(id, {
-        type: 'age-restricted',
-        embed: [true, 200, 'no-config'],
+    describe('Unable to find config', () => {
+      it('Fails gracefully', async() => {
+        const scope = nock(id, {
+          type: 'age-restricted',
+          embed: [true, 200, 'no-config'],
+        });
+        await assert.rejects(ytdl.getInfo(id), /Could not find player config/);
+        scope.done();
       });
-      await assert.rejects(ytdl.getInfo(id), /Could not find player config/);
-      scope.done();
     });
 
     describe('When embed page returns limited `player_response`', () => {
-      it('Uses get_vide_info as backup', async() => {
+      it('Uses backup `get_vide_info`', async() => {
         const scope = nock(id, {
           type: 'age-restricted',
           embed: [true, 200, 'player-vars'],
@@ -361,37 +363,40 @@ describe('ytdl.getInfo()', () => {
       });
     });
 
-    it('Fails gracefully when unable to parse watch page config', async() => {
-      const id = '_HSylqgVYQI';
-      const scope = nock(id, {
-        type: 'regular',
-        watch: 'bad-config',
+    describe('Unable to parse watch page config', () => {
+      it('Fails gracefully', async() => {
+        const id = '_HSylqgVYQI';
+        const scope = nock(id, {
+          type: 'regular',
+          watch: 'bad-config',
+        });
+        await assert.rejects(ytdl.getInfo(id), /Error parsing info:/);
+        scope.done();
       });
-      await assert.rejects(ytdl.getInfo(id), /Error parsing info:/);
-      scope.done();
     });
 
-    it('Fails gracefully when unable to parse embed config', async() => {
-      const id = 'rIqCiJKWx9I';
-      const scope = nock(id, {
-        type: 'age-restricted',
-        embed: [true, 200, 'bad-config'],
+    describe('Unable to parse embed config', () => {
+      it('Fails gracefully', async() => {
+        const id = 'rIqCiJKWx9I';
+        const scope = nock(id, {
+          type: 'age-restricted',
+          embed: [true, 200, 'bad-config'],
+        });
+        await assert.rejects(ytdl.getInfo(id), /Error parsing config:/);
+        scope.done();
       });
-      await assert.rejects(ytdl.getInfo(id), /Error parsing config:/);
-      scope.done();
     });
 
-    it('Fails gracefully when unable to parse `player_response`', async() => {
-      const id = '_HSylqgVYQI';
-      const scope = nock(id, {
-        type: 'regular',
-        watch: 'bad-player-response',
+    describe('Unable to parse `player_response`', () => {
+      it('Fails gracefully when unable to parse `player_response`', async() => {
+        const id = '_HSylqgVYQI';
+        const scope = nock(id, {
+          type: 'regular',
+          watch: 'bad-player-response',
+        });
+        await assert.rejects(ytdl.getInfo(id), /Error parsing `player_response`:/);
+        scope.done();
       });
-      await assert.rejects(
-        ytdl.getInfo(id),
-        /Error parsing `player_response`:/,
-      );
-      scope.done();
     });
 
     describe('When watch page gives back `{"reload":"now"}`', () => {
