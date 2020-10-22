@@ -242,24 +242,6 @@ describe('ytdl.getInfo()', () => {
         scope.done();
         assert.ok(info.formats.length);
       });
-      describe('With bad credentials', () => {
-        it('Returns an error', async() => {
-          const id = '99_Y8iEy95c';
-          const scope = nock(id, {
-            type: 'with-cookie',
-            watch: 'reload-now',
-          });
-          await assert.rejects(ytdl.getInfo(id, {
-            requestOptions: {
-              headers: {
-                cookie: 'abc=1',
-                'x-youtube-identity-token': '1324',
-              },
-            },
-          }), /but unable to retrieve video metadata/);
-          scope.done();
-        });
-      });
     });
     describe('`x-youtube-identity-token` not given', () => {
       it('Retrieves identity-token from watch page', async() => {
@@ -277,6 +259,23 @@ describe('ytdl.getInfo()', () => {
         });
         scope.done();
         assert.ok(info.formats.length);
+      });
+
+      describe('Unable to find token', () => {
+        it('Returns an error', async() => {
+          const id = '99_Y8iEy95c';
+          const scope = nock(id, {
+            type: 'with-cookie',
+            noWatchJson: true,
+            watchHtml: [true, 200, 'no-identity-token'],
+          });
+          await assert.rejects(ytdl.getInfo(id, {
+            requestOptions: {
+              headers: { cookie: 'abc=1' },
+            },
+          }), /unable to find YouTube identity token/);
+          scope.done();
+        });
       });
 
       describe('Called from a web browser with cookies in requests', () => {
@@ -301,23 +300,6 @@ describe('ytdl.getInfo()', () => {
           scope.done();
           scope2.done();
           assert.ok(info.formats.length);
-        });
-      });
-
-      describe('Unable to find token', () => {
-        it('Returns an error', async() => {
-          const id = '99_Y8iEy95c';
-          const scope = nock(id, {
-            type: 'with-cookie',
-            noWatchJson: true,
-            watchHtml: [true, 200, 'no-identity-token'],
-          });
-          await assert.rejects(ytdl.getInfo(id, {
-            requestOptions: {
-              headers: { cookie: 'abc=1' },
-            },
-          }), /unable to find YouTube identity token/);
-          scope.done();
         });
       });
     });
@@ -410,6 +392,24 @@ describe('ytdl.getInfo()', () => {
         /Error parsing `player_response`:/,
       );
       scope.done();
+    });
+
+    describe('When watch page gives back `{"reload":"now"}`', () => {
+      it('Retries the request before error', async() => {
+        const id = '99_Y8iEy95c';
+        const scope = nock(id, {
+          type: 'with-cookie',
+          watch: 'reload-now',
+          watchHtml: [true, 200, 'no-identity-token'],
+        });
+        const scope2 = nock(id, {
+          type: 'with-cookie',
+          watch: 'reload-now',
+        });
+        await assert.rejects(ytdl.getInfo(id), /Unable to retrieve video metadata/);
+        scope.done();
+        scope2.done();
+      });
     });
   });
 });
