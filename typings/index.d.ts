@@ -122,7 +122,6 @@ declare module 'ytdl-core' {
     }
 
     interface Media {
-      image?: string;
       category: string;
       category_url: string;
       game?: string;
@@ -133,6 +132,7 @@ declare module 'ytdl-core' {
       artist_url?: string;
       writers?: string;
       licensed_by?: string;
+      thumbnails: thumbnail[];
     }
 
     interface Author {
@@ -220,7 +220,6 @@ declare module 'ytdl-core' {
       eventid: string;
       token: string;
       atc: string;
-      title: string;
       cr: string;
       apply_fade_on_midrolls: string;
       cl: string;
@@ -230,8 +229,6 @@ declare module 'ytdl-core' {
       fflags: string;
       ssl: string;
       pltype: string;
-      media: Media;
-      author: Author;
       enabled_engage_types: string;
       hl: string;
       is_listed: string;
@@ -280,7 +277,6 @@ declare module 'ytdl-core' {
       as_launched_in_country: string;
       avg_rating: string;
       fade_out_start_milliseconds: string;
-      length_seconds: string;
       midroll_prefetch_size: string;
       allow_ratings: string;
       thumbnail_url: string;
@@ -305,19 +301,12 @@ declare module 'ytdl-core' {
       ptk: string;
       vmap: string;
       watermark: string[];
-      video_id: string;
       dbp: string;
       ad_flags: string;
       html5player: string;
       formats: videoFormat[];
-      published: number;
-      description: string;
       related_videos: relatedVideo[];
-      video_url: string;
       no_embed_allowed?: boolean;
-      age_restricted: boolean;
-      likes?: number;
-      dislikes?: number;
       player_response: {
         playabilityStatus: {
           status: string;
