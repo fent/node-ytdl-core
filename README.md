@@ -41,7 +41,7 @@ Attempts to download a video from the given url. Returns a [readable stream](htt
   134  mp4       360p    avc1.4d401e            593.26KB
   140  mp4               mp4a.40.2                       128KB
   ```
-  format 18 at 360p will be chosen first since it's the highest quality format with both video and audio.
+  format 18 at 360p will be chosen first since it's the highest quality format with both video and audio. If you'd like a higher quality format with both video and audio, see the section on [handling separate streams](#handling-separate-streams).
 * `filter` - Used to filter the list of formats to choose from. Can be `audioandvideo` or `videoandaudio` to filter formats that contain both video and audio, `video` to filter for formats that contain video, or `videoonly` for formats that contain video and no additional audio track. Can also be `audio` or `audioonly`. You can give a filtering function that gets called with each format available. This function is given the `format` object as its first argument, and should return true if the format is preferable.
   ```js
   // Example with custom function.
@@ -145,7 +145,7 @@ Generated download links are valid for 6 hours, and may only be downloadable fro
 
 ## Handling Separate Streams
 
-Typically 1080p or better video does not have audio encoded with it. The audio must be downloaded separately and merged via an appropriate encoding library. `ffmpeg` is the most widely used tool, with many [Node.js modules available](https://www.npmjs.com/search?q=ffmpeg). Use the `format` objects returned from `ytdl.getInfo` to download specific streams to combine to fit your needs. Look at [example/ffmpeg.js](example/ffmpeg.js) for an example on doing this.
+Typically 1080p or better videos do not have audio encoded with it. The audio must be downloaded separately and merged via an encoding library. `ffmpeg` is the most widely used tool, with many [Node.js modules available](https://www.npmjs.com/search?q=ffmpeg). Use the `format` objects returned from `ytdl.getInfo` to download specific streams to combine to fit your needs. Look at [example/ffmpeg.js](example/ffmpeg.js) for an example on doing this.
 
 ## What if it stops working?
 
