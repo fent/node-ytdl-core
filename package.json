@@ -36,7 +36,7 @@
   },
   "dependencies": {
     "html-entities": "^1.3.1",
-    "m3u8stream": "^0.7.1",
+    "m3u8stream": "^0.8.0",
     "miniget": "^2.0.1",
     "sax": "^1.1.3"
   },
