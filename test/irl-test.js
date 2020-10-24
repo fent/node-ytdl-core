@@ -30,6 +30,7 @@ describe('Try downloading videos without mocking', function test() {
     describe(desc, () => {
       it('Request status code is 2xx', done => {
         const stream = ytdl(video);
+        stream.on('error', done);
         stream.once('response', res => {
           stream.destroy();
           assert.ok(res.statusCode >= 200 && res.statusCode < 300);
