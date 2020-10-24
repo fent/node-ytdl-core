@@ -47,6 +47,8 @@ declare module 'ytdl-core' {
       };
       highReplication?: boolean;
       approxDurationMs?: string;
+      targetDurationSec?: number;
+      maxDvrDurationSec?: number;
       audioSampleRate?: string;
       audioChannels?: number;
 
