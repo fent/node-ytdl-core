@@ -24,7 +24,7 @@ const formats = [
     codecs: 'mp4a.40.2',
     videoCodec: null,
     audioCodec: 'avc1.42001E, mp4a.40.2',
-    bitrate: 500000,
+    bitrate: null,
     audioBitrate: 96,
     url: 'https://googlevideo.com/',
     hasVideo: false,
@@ -157,7 +157,17 @@ describe('util.sortFormats()', () => {
       sortedFormats.sort(util.sortFormats);
       const itags = sortedFormats.map(getItags);
       assert.deepEqual(itags, [
-        '43', '18', '5', '36', '17', '133', '160', '19', '140', '139', '138',
+        '43',
+        '18',
+        '5',
+        '36',
+        '17',
+        '133',
+        '160',
+        '140',
+        '19',
+        '139',
+        '138',
       ]);
     });
   });
