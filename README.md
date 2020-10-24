@@ -25,7 +25,7 @@ ytdl('http://www.youtube.com/watch?v=aqz-KE-bpKQ')
 # API
 ### ytdl(url, [options])
 
-Attempts to download a video from the given url. Returns a [readable stream](https://nodejs.org/api/stream.html#stream_class_stream_readable). `options` can have the following keys
+Attempts to download a video from the given url. Returns a [readable stream](https://nodejs.org/api/stream.html#stream_class_stream_readable). `options` can have the following
 
 * `quality` - Video quality to download. Can be an [itag value](http://en.wikipedia.org/wiki/YouTube#Quality_and_formats), a list of itag values, or `highest`/`lowest`/`highestaudio`/`lowestaudio`/`highestvideo`/`lowestvideo`. `highestaudio`/`lowestaudio`/`highestvideo`/`lowestvideo` all prefer audio/video only respectively. Defaults to `highest`, which prefers formats with both video and audio.
 
@@ -55,10 +55,10 @@ Attempts to download a video from the given url. Returns a [readable stream](htt
   * For live videos, this also accepts a unix timestamp or Date object, and defaults to `Date.now()`.
   * This option is not very reliable for non-live videos, see [#129](https://github.com/fent/node-ytdl-core/issues/129), [#219](https://github.com/fent/node-ytdl-core/issues/219).
 * `liveBuffer` - How much time buffer to use for live videos in milliseconds. Default is `20000`.
-* `requestOptions` - Anything to merge into the request options which [miniget](https://github.com/fent/node-miniget) is called with, such as `headers`.
 * `highWaterMark` - How much of the video download to buffer into memory. See [node's docs](https://nodejs.org/api/stream.html#stream_constructor_new_stream_writable_options) for more. Defaults to 512KB.
 * `dlChunkSize` - The size of the download chunk in bytes. When the chosen format is video only or audio only, the download in this case is separated into multiple chunks to avoid throttling. Setting it to 0 disables chunking. Defaults to 10MB.
-* `lang` - The 2 character symbol of a language. Default is `en`.
+
+In addition, any [`getInfo()` option](#async-ytdl.getinfo(url%2C-%5Boptions%5D)) can be given.
 
 #### Event: info
 * [`ytdl.videoInfo`](typings/index.d.ts#L194) - Info.
@@ -88,6 +88,11 @@ Use this if you only want to get metainfo from a video.
 ### async ytdl.getInfo(url, [options])
 
 Gets metainfo from a video. Includes additional formats, and ready to download deciphered URL. This is what the `ytdl()` function uses internally.
+
+`options` can have the following
+
+* `requestOptions` - Anything to merge into the request options which [miniget](https://github.com/fent/node-miniget) is called with, such as `headers`.
+* `lang` - The 2 character symbol of a language. Default is `en`.
 
 ### ytdl.downloadFromInfo(info, options)
 
