@@ -3,7 +3,7 @@ const path = require('path');
 const fs = require('fs');
 const ytdl = require('..');
 
-const url = 'https://www.youtube.com/watch?v=WhXefyLs-uw';
+const url = 'https://www.youtube.com/watch?v=aqz-KE-bpKQ';
 const output = path.resolve(__dirname, 'video.mp4');
 
 const video = ytdl(url);

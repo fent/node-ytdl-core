@@ -5,7 +5,7 @@ const HttpsProxyAgent = require('https-proxy-agent');
 const proxy = 'http://user:pass@111.111.111.111:8080';
 const agent = HttpsProxyAgent(proxy);
 
-const stream = ytdl('https://www.youtube.com/watch?v=2UBFIhS1YBk', {
+const stream = ytdl('https://www.youtube.com/watch?v=aqz-KE-bpKQ', {
   requestOptions: { agent },
 });
 
