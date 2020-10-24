@@ -706,6 +706,23 @@ describe('Download video', () => {
     });
   });
 
+  describe('that has not yet started broadcasting', () => {
+    it('Fails gracefully', done => {
+      const id = 'GgPfoDM4HN0';
+      const scope = nock(id, {
+        type: 'future-live',
+        embed: true,
+        get_video_info: true,
+      });
+      let stream = ytdl(id);
+      stream.on('error', err => {
+        scope.done();
+        assert.strictEqual(err.message, 'This live event will begin in 22 hours.');
+        done();
+      });
+    });
+  });
+
   describe('From a rental', () => {
     it('Stream emits an error', done => {
       const id = 'SyKPsFRP_Oc';

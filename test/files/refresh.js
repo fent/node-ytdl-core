@@ -43,6 +43,10 @@ const videos = [
     ],
   },
   {
+    id: 'GgPfoDM4HN0',
+    type: 'future-live',
+  },
+  {
     id: 'SyKPsFRP_Oc',
     type: 'rental',
     saveInfo: true,
