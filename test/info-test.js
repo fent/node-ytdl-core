@@ -3,8 +3,6 @@ const path = require('path');
 const assert = require('assert-diff');
 const nock = require('./nock');
 const sinon = require('sinon');
-const spy = require('sinon').spy;
-const muk = require('muk-prop');
 
 
 describe('ytdl.getInfo()', () => {
@@ -119,28 +117,6 @@ describe('ytdl.getInfo()', () => {
         let info2 = await ytdl.getInfo(testId);
         scope.done();
         assert.strictEqual(info2, info1);
-      });
-    });
-
-    describe('Using the callback API', () => {
-      it('Retrieves correct metainfo, with a warning', done => {
-        const scope = nock(id, {
-          type: 'vevo',
-          player: true,
-        });
-
-        const warn = spy();
-        muk(console, 'warn', warn);
-        after(muk.restore);
-
-        ytdl.getInfo(id, (err, info) => {
-          assert.ifError(err);
-          scope.done();
-          assert.ok(info.videoDetails.shortDescription.length);
-          assert.strictEqual(info.formats.length, expectedInfo.formats.length);
-          assert.ok(warn.called);
-          done();
-        });
       });
     });
   });
