@@ -12,7 +12,7 @@ const readline = require('readline');
 const ytdl = require('../');
 const ffmpeg = require('ffmpeg-static');
 // Global constants
-const ref = 'https://www.youtube.com/watch?v=aR-KAldshAE';
+const ref = 'https://www.youtube.com/watch?v=aqz-KE-bpKQ';
 const tracker = {
   start: Date.now(),
   audio: { downloaded: 0, total: Infinity },

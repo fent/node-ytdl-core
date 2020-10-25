@@ -18,6 +18,6 @@ const takeScreenshot = (url, outFile, position) => new Promise((resolve, reject)
   }).catch(reject);
 });
 
-takeScreenshot('https://www.youtube.com/watch?v=aQCRzMx7T3M', 'video.png', '4:20')
+takeScreenshot('https://www.youtube.com/watch?v=aqz-KE-bpKQ', 'video.png', '4:20')
   .then(() => console.log('finished screenshot video'))
   .catch(console.error);

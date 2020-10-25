@@ -2,7 +2,7 @@ const readline = require('readline');
 const ytdl = require('..');
 const ffmpeg = require('fluent-ffmpeg');
 
-let id = 'sDLsSQf3Hc0';
+let id = '7wNb0pHyGuI';
 
 let stream = ytdl(id, {
   quality: 'highestaudio',
