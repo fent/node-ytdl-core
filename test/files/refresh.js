@@ -43,6 +43,10 @@ const videos = [
     ],
   },
   {
+    id: '21X5lGlDOfg',
+    type: 'live-with-cc',
+  },
+  {
     id: 'GgPfoDM4HN0',
     type: 'future-live',
   },

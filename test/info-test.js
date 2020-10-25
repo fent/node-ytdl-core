@@ -200,6 +200,25 @@ describe('ytdl.getInfo()', () => {
     });
   });
 
+  describe('From a video that includes subtitles in DASH playlist', () => {
+    it('Does not include subtitle formats in formats list', async() => {
+      const id = '21X5lGlDOfg';
+      const scope = nock(id, {
+        type: 'live-with-cc',
+        player: true,
+        embed: true,
+        m3u8: true,
+        dashmpd: true,
+        get_video_info: true,
+      });
+      let info = await ytdl.getInfo(id);
+      scope.done();
+      for (let format of info.formats) {
+        assert.strictEqual(typeof format.itag, 'number');
+      }
+    });
+  });
+
   describe('With cookie headers', () => {
     describe('`x-youtube-identity-token` given', () => {
       it('Does not make extra request to watch page', async() => {

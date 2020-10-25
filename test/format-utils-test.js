@@ -330,6 +330,13 @@ describe('filterFormats', () => {
     });
   });
 
+  describe('With `videoandaudio` given', () => {
+    it('Returns only matching formats', () => {
+      const itags = filterFormats(formats, 'videoandaudio').map(getItags);
+      assert.deepEqual(itags, ['18', '43', '36', '5', '17']);
+    });
+  });
+
   describe('With unsupported filter given', () => {
     it('Returns only matching formats', () => {
       assert.throws(() => {
@@ -373,7 +380,6 @@ describe('addFormatMeta()', () => {
       assert.deepEqual(format, {
         itag: -1,
         url: 'http://video.com/3/4.ts',
-        qualityLabel: null,
         container: null,
         codecs: null,
         videoCodec: null,
