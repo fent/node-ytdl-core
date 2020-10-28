@@ -11,15 +11,16 @@ const EMBED_PATH = '/embed/';
 const INFO_PATH = '/get_video_info?';
 
 
-before(() => { nock.disableNetConnect(); });
-after(() => { nock.enableNetConnect(); });
-afterEach(() => { nock.cleanAll(); });
-
-afterEach(() => {
-  ytdl.cache.sig.clear();
-  ytdl.cache.info.clear();
-  ytdl.cache.cookie.clear();
-});
+if (global.it) {
+  before(() => { nock.disableNetConnect(); });
+  after(() => { nock.enableNetConnect(); });
+  afterEach(() => { nock.cleanAll(); });
+  afterEach(() => {
+    ytdl.cache.sig.clear();
+    ytdl.cache.info.clear();
+    ytdl.cache.cookie.clear();
+  });
+}
 
 
 exports = module.exports = (id, opts) => {

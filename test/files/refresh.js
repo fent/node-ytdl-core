@@ -227,6 +227,8 @@ const getTransformFilename = transform => {
   return `${basename}-${transform.saveAs}${ext ? `.${ext}` : ''}`;
 };
 
+const playerfile = /((?:html5)?player[-_][a-zA-Z0-9\-_.]+)(?:\.js|\/)/;
+
 const refreshVideo = async(video, noRequests) => {
   console.log('refreshing video:', video.id, video.type);
   const folder = path.join(__dirname, `videos/${video.type}`);
@@ -273,16 +275,11 @@ const refreshVideo = async(video, noRequests) => {
     }
   };
 
-  const minigetMock = (url, options, callback) => {
-    if (typeof options === 'function') {
-      callback = options;
-    }
-
+  const minigetMock = (url, options) => {
     // Save contents to file.
     const saveContents = body => {
       let parsed = urlParse(url);
       let s = parsed.pathname.split('/');
-      let playerfile = /((?:html5)?player[-_][a-zA-Z0-9\-_.]+)(?:\.js|\/)/;
       let filename =
         // Special case for livestream manifest files.
         /\/manifest\/dash\//.test(url) ? 'dash-manifest.xml' :
@@ -307,62 +304,44 @@ const refreshVideo = async(video, noRequests) => {
       }
     };
 
-    if (callback) {
-      return miniget(url, options, (err, res, body) => {
-        if (err) return callback(err);
-        saveContents(body);
-        return callback(err, res, body);
-      });
-    } else {
-      let body = [];
-      let stream = miniget(url, options);
-      stream.on('data', chunk => { body.push(chunk); });
-      stream.on('end', () => { saveContents(body.join('')); });
-      return stream;
-    }
+    let body = [];
+    let stream = miniget(url, options);
+    stream.on('data', chunk => { body.push(chunk); });
+    stream.on('end', () => { saveContents(body.join('')); });
+    return stream;
   };
-  minigetMock.promise = (url, options) => new Promise((resolve, reject) => {
-    minigetMock(url, options, (err, res, body) => {
-      if (err) return reject(err);
-      return resolve([res, body]);
-    });
-  });
 
   const getInfo = mukRequire('../../lib/info', { miniget: minigetMock });
 
   if (noRequests) {
-    for (let filename in existingFiles) {
-      // Ignore existing transformed files.
-      if (
-        (video.transform && video.transform.some(t => filename === getTransformFilename(t))) ||
-        skipFile(video, filename)
-      ) {
-        continue;
-      }
-      console.log('using local copy:', filename);
-      let body = fs.readFileSync(path.join(folder, filename), 'utf8');
-      existingFiles[filename] = true;
+    const nock = require('../nock');
+    nock(video.id, {
+      type: video.type,
+      dashmpd: 'dash-manifest.xml' in existingFiles,
+      m3u8: 'hls-manifest.m3u8' in existingFiles,
+      player: Object.keys(existingFiles).filter(key => playerfile.test(key)).length > 0,
+      embed: 'embed.html' in existingFiles,
+      get_video_info: 'get_video_info' in existingFiles,
+    });
+  }
+
+  // Make the call to ytdl.
+  try {
+    let info;
+    if (video.basicInfo) {
+      info = await getInfo.getBasicInfo(video.id, video.options);
+    } else {
+      info = await getInfo.getInfo(video.id, video.options);
+    }
+    if (video.saveInfo) {
+      let filename = 'expected-info.json';
+      let body = cleanBody(JSON.stringify(info, null, 2));
+      writeFile(filename, body);
       writeTransforms(filename, body);
     }
-  } else {
-  // Make the call to ytdl.
-    try {
-      let info;
-      if (video.basicInfo) {
-        info = await getInfo.getBasicInfo(video.id, video.options);
-      } else {
-        info = await getInfo.getInfo(video.id, video.options);
-      }
-      if (video.saveInfo) {
-        let filename = 'expected-info.json';
-        let body = cleanBody(JSON.stringify(info, null, 2));
-        writeFile(filename, body);
-        writeTransforms(filename, body);
-      }
-    } catch (err) {
-      console.log('error retrieving video info:', err.message);
-      console.log(err.stack);
-    }
+  } catch (err) {
+    console.log('error retrieving video info:', err.message);
+    console.log(err.stack);
   }
 
   // Delete any files no longer used from the `getInfo()` call.
