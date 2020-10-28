@@ -406,7 +406,7 @@ describe('ytdl.getInfo()', () => {
           type: 'with-cookie',
           watch: 'reload-now',
         });
-        await assert.rejects(ytdl.getInfo(id), /Unable to retrieve video metadata/);
+        await assert.rejects(ytdl.getInfo(id), /Error: Unable to retrieve video metadata/);
         scope.done();
         scope2.done();
       });
