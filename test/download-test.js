@@ -711,8 +711,6 @@ describe('Download video', () => {
       const id = 'GgPfoDM4HN0';
       const scope = nock(id, {
         type: 'future-live',
-        embed: true,
-        get_video_info: true,
       });
       let stream = ytdl(id);
       stream.on('error', err => {
