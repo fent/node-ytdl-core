@@ -235,10 +235,9 @@ describe('Download video', () => {
       res.unpipe();
     };
 
-    it('Still downloads the whole video', done => {
+    it('Still downloads the whole video', async() => {
       const scope = nock(id, 'regular');
       const stream = ytdl(id);
-      stream.on('error', done);
 
       let destroyedTimes = 0;
       stream.on('info', (info, format) => {
@@ -267,17 +266,14 @@ describe('Download video', () => {
       });
 
       const filestream = fs.createReadStream(video);
-      streamEqual(filestream, stream, (err, equal) => {
-        assert.ifError(err);
-        scope.done();
-        assert.strictEqual(destroyedTimes, 1);
-        assert.ok(equal);
-        done();
-      });
+      let equal = await streamEqual(filestream, stream);
+      scope.done();
+      assert.strictEqual(destroyedTimes, 1);
+      assert.ok(equal);
     });
 
     describe('with range', () => {
-      it('Downloads from the given `start` to `end`', done => {
+      it('Downloads from the given `start` to `end`', async() => {
         const scope = nock(id, 'regular');
         const start = Math.floor(filesize * 0.1);
         const end = Math.floor(filesize * 0.45);
@@ -312,18 +308,15 @@ describe('Download video', () => {
         });
 
         const filestream = fs.createReadStream(video, { start, end });
-        streamEqual(filestream, stream, (err, equal) => {
-          assert.ifError(err);
-          scope.done();
-          assert.strictEqual(destroyedTimes, 1);
-          assert.ok(equal);
-          done();
-        });
+        let equal = await streamEqual(filestream, stream);
+        scope.done();
+        assert.strictEqual(destroyedTimes, 1);
+        assert.ok(equal);
       });
     });
 
     describe('that should be chunked', () => {
-      it('Starts downloading video successfully and data equal to stored file', done => {
+      it('Starts downloading video successfully and data equal to stored file', async() => {
         const scope = nock(id, 'regular');
         const dlChunkSize = 1024 * 200;
         const stream = ytdl(id, { filter: 'videoonly', dlChunkSize });
@@ -352,17 +345,14 @@ describe('Download video', () => {
         });
 
         const filestream = fs.createReadStream(video);
-        streamEqual(filestream, stream, (err, equal) => {
-          assert.ifError(err);
-          scope.done();
-          assert.ok(equal);
-          done();
-        });
+        let equal = await streamEqual(filestream, stream);
+        scope.done();
+        assert.ok(equal);
       });
     });
 
     describe('chunked with range', () => {
-      it('Downloads from the given `start` to `end`', done => {
+      it('Downloads from the given `start` to `end`', async() => {
         const scope = nock(id, 'regular');
         const start = Math.floor(filesize * 0.1);
         const end = Math.floor(filesize * 0.15);
@@ -411,16 +401,13 @@ describe('Download video', () => {
         });
 
         const filestream = fs.createReadStream(video, { start, end });
-        streamEqual(filestream, stream, (err, equal) => {
-          assert.ifError(err);
-          scope.done();
-          assert.ok(equal);
-          assert.strictEqual(totalBytes, rangedSize);
-          assert.strictEqual(downloadedBytes, totalBytes);
-          assert.strictEqual(reqStart, start);
-          assert.strictEqual(reqEnd, end);
-          done();
-        });
+        let equal = await streamEqual(filestream, stream);
+        scope.done();
+        assert.ok(equal);
+        assert.strictEqual(totalBytes, rangedSize);
+        assert.strictEqual(downloadedBytes, totalBytes);
+        assert.strictEqual(reqStart, start);
+        assert.strictEqual(reqEnd, end);
       });
     });
 

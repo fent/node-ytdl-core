@@ -19,6 +19,7 @@ if (global.it) {
     ytdl.cache.sig.clear();
     ytdl.cache.info.clear();
     ytdl.cache.cookie.clear();
+    ytdl.cache.watch.clear();
   });
 }
 

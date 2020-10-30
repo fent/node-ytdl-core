@@ -58,7 +58,7 @@ const videos = [
   {
     id: '_HSylqgVYQI',
     type: 'regular',
-    keep: ['video.flv'],
+    keep: ['video.flv', 'watch-reload-now.json', 'watch-reload-now-2.json'],
     saveInfo: true,
     transform: [
       {
@@ -69,7 +69,7 @@ const videos = [
       {
         page: 'watch.json',
         saveAs: 'bad-player-response',
-        fn: body => body.replace('"player_response":"{', '"player_response":"'),
+        fn: body => body.replace('"(player(?:_r|R)esponse)":"{', '"$1":"'),
       },
       {
         page: 'watch.json',
@@ -78,6 +78,11 @@ const videos = [
           body = body.replace('playerMicroformatRenderer', '');
           return body;
         },
+      },
+      {
+        page: 'watch.html',
+        saveAs: 'with-cookie',
+        fn: body => `${body}\n{"ID_TOKEN":"abcd"}`,
       },
     ],
   },
@@ -101,22 +106,13 @@ const videos = [
         saveAs: 'no-formats',
         fn: body => body.replace(/\b(formats|adaptiveFormats)\b/g, 'no'),
       },
-      {
-        page: 'watch.json',
-        saveAs: 'no-player-response',
-        fn: body => body.replace(/player_response/g, 'no'),
-      },
-      {
-        page: 'get_video_info',
-        saveAs: 'no-player-response',
-        fn: body => body.replace(/player_response/g, 'no'),
-      },
     ],
   },
   {
     id: 'rIqCiJKWx9I',
     type: 'age-restricted',
     saveInfo: true,
+    keep: ['embed-player-vars.html'],
     transform: [
       {
         page: 'embed.html',
@@ -127,6 +123,16 @@ const videos = [
         page: 'embed.html',
         saveAs: 'bad-config',
         fn: body => body.replace('t.setConfig({\'PLAYER_CONFIG\': ', 't.setConfig({\'PLAYER_CONFIG\': {[}'),
+      },
+      {
+        page: 'watch.json',
+        saveAs: 'no-player-response',
+        fn: body => body.replace(/player_response/g, 'no'),
+      },
+      {
+        page: 'get_video_info',
+        saveAs: 'no-player-response',
+        fn: body => body.replace(/player_response/g, 'no'),
       },
     ],
   },
@@ -183,24 +189,6 @@ const videos = [
     id: 'z2jeHsa0UG0',
     type: 'private',
   },
-  {
-    id: '99_Y8iEy95c',
-    type: 'with-cookie',
-    options: {
-      requestOptions: {
-        // Run this one with `env YT_COOKIE="your cookie here"`
-        headers: { cookie: process.env.YT_COOKIE },
-      },
-    },
-    keep: ['watch-reload-now.json'],
-    transform: [
-      {
-        page: 'watch.html',
-        saveAs: 'no-identity-token',
-        fn: body => body.replace(/\bID_TOKEN\b/g, ''),
-      },
-    ],
-  },
 ];
 
 
@@ -242,6 +230,9 @@ const refreshVideo = async(video, noRequests) => {
     if (video.keep) {
       for (let filename of video.keep || []) {
         existingFiles[filename] = true;
+        for (let transform of video.transform.filter(t => t.page === filename) || []) {
+          existingFiles[getTransformFilename(transform)] = true;
+        }
       }
     }
   } catch (err) {
@@ -315,14 +306,7 @@ const refreshVideo = async(video, noRequests) => {
 
   if (noRequests) {
     const nock = require('../nock');
-    nock(video.id, {
-      type: video.type,
-      dashmpd: 'dash-manifest.xml' in existingFiles,
-      m3u8: 'hls-manifest.m3u8' in existingFiles,
-      player: Object.keys(existingFiles).filter(key => playerfile.test(key)).length > 0,
-      embed: 'embed.html' in existingFiles,
-      get_video_info: 'get_video_info' in existingFiles,
-    });
+    nock(video.id, video.type);
   }
 
   // Make the call to ytdl.
