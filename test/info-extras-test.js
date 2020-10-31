@@ -21,7 +21,7 @@ const assertUserName = str => {
 };
 
 const assertUserURL = url => {
-  assert.ok(/^https?:\/\/www\.youtube\.com\/user\/[a-zA-Z0-9_-]+$/.test(url), `Not a user URL: ${url}`);
+  assert.ok(/^https?:\/\/www\.youtube\.com\/(user|channel)\/[a-zA-Z0-9_-]+$/.test(url), `Not a user URL: ${url}`);
 };
 
 describe('extras.getAuthor()', () => {
@@ -62,7 +62,7 @@ describe('extras.getAuthor()', () => {
       assert.ok(author.name);
       assertUserURL(author.user_url);
       assert.strictEqual(typeof author.verified, 'boolean');
-      assert.number(author.subscriber_count);
+      assert.ok(!author.subscriber_count);
     });
   });
 });

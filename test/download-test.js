@@ -26,10 +26,7 @@ describe('Download video', () => {
 
   it('Should be pipeable and data equal to stored file', async() => {
     const id = '_HSylqgVYQI';
-    const scope = nock(id, {
-      type: 'regular',
-      player: true,
-    });
+    const scope = nock(id, 'regular');
     const stream = ytdl(id, { filter: filter });
     const video = path.resolve(__dirname, `files/videos/regular/video.flv`);
 
@@ -45,9 +42,9 @@ describe('Download video', () => {
 
   it('Fails gracefully if error getting info', done => {
     const id = '_HSylqgVYQI';
-    const scope = nock(id, {
-      type: 'regular',
-      statusCode: 500,
+    const scope = nock(id, 'regular', {
+      watchHtml: [false, 500],
+      player: false,
     });
     const stream = ytdl(id, { filter: filter });
     stream.on('error', err => {
@@ -62,10 +59,7 @@ describe('Download video', () => {
     describe('immediately', () => {
       it('Doesn\'t start the download', done => {
         const id = '_HSylqgVYQI';
-        const scope = nock(id, {
-          type: 'regular',
-          player: true,
-        });
+        const scope = nock(id, 'regular');
         const stream = ytdl(id, { filter });
         stream.destroy();
 
@@ -85,10 +79,7 @@ describe('Download video', () => {
     describe('right after request is made', () => {
       it('Doesn\'t start the download', done => {
         const id = '_HSylqgVYQI';
-        const scope = nock(id, {
-          type: 'regular',
-          player: true,
-        });
+        const scope = nock(id, 'regular');
         const stream = ytdl(id, { filter });
 
         stream.on('request', () => {
@@ -118,10 +109,7 @@ describe('Download video', () => {
     describe('after download has started', () => {
       it('Download is incomplete', done => {
         const id = '_HSylqgVYQI';
-        const scope = nock(id, {
-          type: 'regular',
-          player: true,
-        });
+        const scope = nock(id, 'regular');
         const stream = ytdl(id, { filter });
         const video = path.resolve(__dirname, `files/videos/regular/video.flv`);
 
@@ -153,10 +141,7 @@ describe('Download video', () => {
     describe('immediately', () => {
       it('Doesn\'t start the download', done => {
         const id = '_HSylqgVYQI';
-        const scope = nock(id, {
-          type: 'regular',
-          player: true,
-        });
+        const scope = nock(id, 'regular');
         const stream = ytdl(id, { filter: chunkedFilter });
         stream.destroy();
 
@@ -176,10 +161,7 @@ describe('Download video', () => {
     describe('right after request is made', () => {
       it('Doesn\'t start the download', done => {
         const id = '_HSylqgVYQI';
-        const scope = nock(id, {
-          type: 'regular',
-          player: true,
-        });
+        const scope = nock(id, 'regular');
         const stream = ytdl(id, { filter: chunkedFilter });
 
         stream.on('request', () => {
@@ -209,10 +191,7 @@ describe('Download video', () => {
     describe('after download has started', () => {
       it('Download is incomplete', done => {
         const id = '_HSylqgVYQI';
-        const scope = nock(id, {
-          type: 'regular',
-          player: true,
-        });
+        const scope = nock(id, 'regular');
         const stream = ytdl(id, { filter: chunkedFilter });
         const video = path.resolve(__dirname, `files/videos/regular/video.flv`);
 
@@ -257,10 +236,7 @@ describe('Download video', () => {
     };
 
     it('Still downloads the whole video', done => {
-      const scope = nock(id, {
-        type: 'regular',
-        player: true,
-      });
+      const scope = nock(id, 'regular');
       const stream = ytdl(id);
       stream.on('error', done);
 
@@ -302,11 +278,7 @@ describe('Download video', () => {
 
     describe('with range', () => {
       it('Downloads from the given `start` to `end`', done => {
-        const scope = nock(id, {
-          type: 'regular',
-          player: true,
-        });
-
+        const scope = nock(id, 'regular');
         const start = Math.floor(filesize * 0.1);
         const end = Math.floor(filesize * 0.45);
         const rangedSize = end - start + 1;
@@ -352,11 +324,7 @@ describe('Download video', () => {
 
     describe('that should be chunked', () => {
       it('Starts downloading video successfully and data equal to stored file', done => {
-        const scope = nock(id, {
-          type: 'regular',
-          player: true,
-        });
-
+        const scope = nock(id, 'regular');
         const dlChunkSize = 1024 * 200;
         const stream = ytdl(id, { filter: 'videoonly', dlChunkSize });
 
@@ -395,11 +363,7 @@ describe('Download video', () => {
 
     describe('chunked with range', () => {
       it('Downloads from the given `start` to `end`', done => {
-        const scope = nock(id, {
-          type: 'regular',
-          player: true,
-        });
-
+        const scope = nock(id, 'regular');
         const start = Math.floor(filesize * 0.1);
         const end = Math.floor(filesize * 0.15);
         const rangedSize = end - start + 1;
@@ -603,12 +567,7 @@ describe('Download video', () => {
   describe('that is broadcasted live', () => {
     it('Begins downloading video succesfully', done => {
       const testId = '5qap5aO4i9A';
-      const scope = nock(testId, {
-        type: 'live',
-        dashmpd: true,
-        m3u8: true,
-        player: true,
-      });
+      const scope = nock(testId, 'live');
       const stream = ytdl(testId, { filter: format => format.isHLS });
       stream.on('info', (info, format) => {
         scope.urlReply(format.url, 200, [
@@ -657,12 +616,7 @@ describe('Download video', () => {
     describe('end download early', () => {
       it('Stops downloading video', done => {
         const testId = '5qap5aO4i9A';
-        const scope = nock(testId, {
-          type: 'live',
-          dashmpd: true,
-          m3u8: true,
-          player: true,
-        });
+        const scope = nock(testId, 'live');
         const stream = ytdl(testId);
         stream.on('info', () => {
           process.nextTick(() => {
@@ -679,11 +633,8 @@ describe('Download video', () => {
     describe('from a dash-mpd itag', () => {
       it('Begins downloading video succesfully', done => {
         const testId = '5qap5aO4i9A';
-        const scope = nock(testId, {
-          type: 'live',
+        const scope = nock(testId, 'live', {
           dashmpd: [true, 200, 'transformed'],
-          m3u8: true,
-          player: true,
         });
         const stream = ytdl(testId, { filter: format => format.isDashMPD });
         stream.on('info', (info, format) => {
@@ -709,9 +660,7 @@ describe('Download video', () => {
   describe('that has not yet started broadcasting', () => {
     it('Fails gracefully', done => {
       const id = 'GgPfoDM4HN0';
-      const scope = nock(id, {
-        type: 'future-live',
-      });
+      const scope = nock(id, 'future-live');
       let stream = ytdl(id);
       stream.on('error', err => {
         scope.done();
@@ -724,9 +673,7 @@ describe('Download video', () => {
   describe('From a rental', () => {
     it('Stream emits an error', done => {
       const id = 'SyKPsFRP_Oc';
-      const scope = nock(id, {
-        type: 'rental',
-      });
+      const scope = nock(id, 'rental');
       let stream = ytdl(id);
       stream.on('error', err => {
         scope.done();
@@ -745,9 +692,11 @@ describe('Download video', () => {
   describe('With no formats', () => {
     it('Stream emits an error', done => {
       const id = 'pJk0p-98Xzc';
-      const scope = nock(id, {
-        type: 'vevo',
-        watch: 'no-formats',
+      const scope = nock(id, 'vevo', {
+        watchJson: [true, 200, 'no-formats'],
+        watchHtml: false,
+        get_video_info: false,
+        player: false,
       });
       let stream = ytdl(id);
       stream.on('error', err => {

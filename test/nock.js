@@ -23,19 +23,30 @@ if (global.it) {
 }
 
 
-exports = module.exports = (id, opts) => {
-  opts = opts || {};
+exports = module.exports = (id, type, opts = {}) => {
   let scopes = [];
-  let folder = `files/videos/${opts.type}`;
-  let watchType = opts.watch ? `-${opts.watch}` : '';
+  let folder = `files/videos/${type}`;
   let existingFiles = fs.readdirSync(path.join(__dirname, folder));
+  let existingFilesSet = new Set(existingFiles);
+  const playerfile = /((?:html5)?player[-_][a-zA-Z0-9\-_.]+)(?:\.js|\/)/;
 
-  if (!opts.noWatchJson) {
+  opts = Object.assign({
+    watchJson: existingFilesSet.has('watch.json'),
+    watchHtml: existingFilesSet.has('watch.html'),
+    dashmpd: existingFilesSet.has('dash-manifest.xml'),
+    m3u8: existingFilesSet.has('hls-manifest.m3u8'),
+    player: existingFiles.filter(key => playerfile.test(key)).length > 0,
+    embed: existingFilesSet.has('embed.html'),
+    get_video_info: existingFilesSet.has('get_video_info'),
+  }, opts);
+
+  if (opts.watchJson) {
+    let file = buildFile(opts.watchJson);
     scopes.push(nock(YT_HOST, { reqheaders: opts.headers })
       .filteringPath(/\/watch\?v=.+&pbj=1$/, '/watch?v=XXX&pbj=1')
       .get('/watch?v=XXX&pbj=1')
-      .replyWithFile(opts.statusCode || 200,
-        path.join(__dirname, `${folder}/watch${watchType}.json`)));
+      .replyWithFile(opts.watchJson[1] || 200,
+        path.join(__dirname, `${folder}/watch${file}.json`)));
   }
 
   if (opts.watchHtml) {
@@ -43,7 +54,7 @@ exports = module.exports = (id, opts) => {
     scopes.push(nock(YT_HOST, { reqheaders: opts.headers })
       .filteringPath(/\/watch\?v=.+$/, '/watch?v=XXX')
       .get('/watch?v=XXX')
-      .replyWithFile(opts.statusCode || 200,
+      .replyWithFile(opts.watchHtml[1] || 200,
         path.join(__dirname, `${folder}/watch${file}.html`)));
   }
 
