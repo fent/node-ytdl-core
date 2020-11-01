@@ -151,17 +151,15 @@ describe('extras.getRelatedVideos()', () => {
 
 describe('extras.getLikes()', () => {
   it('Returns like count', () => {
-    let html = fs.readFileSync(path.resolve(__dirname,
-      'files/videos/regular/watch.json'), 'utf8');
-    const likes = extras.getLikes(html);
+    const info = require('./files/videos/regular/watch.json')[3];
+    const likes = extras.getLikes(info);
     assert.strictEqual(typeof likes, 'number');
   });
 
   describe('With no likes', () => {
     it('Does not return likes', () => {
-      let html = fs.readFileSync(path.resolve(__dirname,
-        'files/videos/no-likes-or-dislikes/watch.json'), 'utf8');
-      const likes = extras.getLikes(html);
+      const info = require('./files/videos/no-likes-or-dislikes/watch.json')[3];
+      const likes = extras.getLikes(info);
       assert.strictEqual(likes, null);
     });
   });
@@ -169,17 +167,15 @@ describe('extras.getLikes()', () => {
 
 describe('extras.getDislikes()', () => {
   it('Returns dislike count', () => {
-    let html = fs.readFileSync(path.resolve(__dirname,
-      'files/videos/regular/watch.json'), 'utf8');
-    const dislikes = extras.getDislikes(html);
+    const info = require('./files/videos/regular/watch.json')[3];
+    const dislikes = extras.getDislikes(info);
     assert.strictEqual(typeof dislikes, 'number');
   });
 
   describe('With no dislikes', () => {
     it('Does not return dislikes', () => {
-      let html = fs.readFileSync(path.resolve(__dirname,
-        'files/videos/no-likes-or-dislikes/watch.json'), 'utf8');
-      const dislikes = extras.getDislikes(html);
+      const info = require('./files/videos/no-likes-or-dislikes/watch.json')[3];
+      const dislikes = extras.getDislikes(info);
       assert.strictEqual(dislikes, null);
     });
   });
