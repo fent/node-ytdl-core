@@ -4,19 +4,26 @@ declare module 'ytdl-core' {
 
   namespace ytdl {
     type Filter = 'audioandvideo' | 'videoandaudio' | 'video' | 'videoonly' | 'audio' | 'audioonly' | ((format: videoFormat) => boolean);
-    interface downloadOptions {
+
+    interface getInfoOptions {
+      lang?: string;
+      requestOptions?: {};
+    }
+
+    interface chooseFormatOptions {
       quality?: 'lowest' | 'highest' | 'highestaudio' | 'lowestaudio' | 'highestvideo' | 'lowestvideo' | string | number | string[] | number[];
       filter?: Filter;
       format?: videoFormat;
+    }
+
+    interface downloadOptions extends getInfoOptions, chooseFormatOptions {
       range?: {
         start?: number;
         end?: number;
       };
       begin?: string | number | Date;
       liveBuffer?: number;
-      requestOptions?: {};
       highWaterMark?: number;
-      lang?: string;
       dlChunkSize?: number;
     }
 
@@ -348,10 +355,10 @@ declare module 'ytdl-core' {
       thumbnail_ids?: string;
     }
 
-    function getBasicInfo(url: string, options?: downloadOptions): Promise<videoInfo>;
-    function getInfo(url: string, options?: downloadOptions): Promise<videoInfo>;
+    function getBasicInfo(url: string, options?: getInfoOptions): Promise<videoInfo>;
+    function getInfo(url: string, options?: getInfoOptions): Promise<videoInfo>;
     function downloadFromInfo(info: videoInfo, options?: downloadOptions): Readable;
-    function chooseFormat(format: videoFormat | videoFormat[], options?: downloadOptions): videoFormat | never;
+    function chooseFormat(format: videoFormat | videoFormat[], options?: chooseFormatOptions): videoFormat | never;
     function filterFormats(formats: videoFormat | videoFormat[], filter?: Filter): videoFormat[];
     function validateID(string: string): boolean;
     function validateURL(string: string): boolean;
