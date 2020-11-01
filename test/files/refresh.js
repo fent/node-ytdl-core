@@ -84,6 +84,12 @@ const videos = [
         saveAs: 'with-cookie',
         fn: body => `${body}\n{"ID_TOKEN":"abcd"}`,
       },
+      {
+        page: 'watch.html',
+        saveAs: 'no-html5player',
+        fn: body =>
+          body.replace(/<script\s+src="([^"]+)"(\s+type="text\/javascript")?\s+name="player_ias\/base"\s*>/g, ''),
+      },
     ],
   },
   {

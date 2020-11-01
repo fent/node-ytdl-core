@@ -279,7 +279,7 @@ describe('ytdl.getInfo()', () => {
     });
   });
 
-  describe('When there is an error', () => {
+  describe('When there is a recoverable error', () => {
     describe('From a video that does not have `player_response` object', () => {
       it('Uses backup `playerResponse`', async() => {
         const id = 'rIqCiJKWx9I';
@@ -294,6 +294,23 @@ describe('ytdl.getInfo()', () => {
       });
     });
 
+    describe('When unable to find html5player', () => {
+      it('Uses backup html5player', async() => {
+        const id = '_HSylqgVYQI';
+        const scope = nock(id, 'regular', {
+          watchHtml: [true, 200, 'no-html5player'],
+          player: true,
+        });
+        let info = await ytdl.getInfo(id);
+        scope.done();
+        assert.ok(info.html5player);
+        assert.ok(info.formats.length);
+        assert.ok(info.formats[0].url);
+      });
+    });
+  });
+
+  describe('When there is an error', () => {
     describe('With a private video', () => {
       it('Fails gracefully', async() => {
         const id = 'z2jeHsa0UG0';
