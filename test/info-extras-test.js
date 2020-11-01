@@ -1,5 +1,3 @@
-const fs = require('fs');
-const path = require('path');
 const assert = require('assert-diff');
 const extras = require('../lib/info-extras');
 
