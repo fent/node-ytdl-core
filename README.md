@@ -34,7 +34,7 @@ Attempts to download a video from the given url. Returns a [readable stream](htt
   * This option is not very reliable for non-live videos, see [#129](https://github.com/fent/node-ytdl-core/issues/129), [#219](https://github.com/fent/node-ytdl-core/issues/219).
 * `liveBuffer` - How much time buffer to use for live videos in milliseconds. Default is `20000`.
 * `highWaterMark` - How much of the video download to buffer into memory. See [node's docs](https://nodejs.org/api/stream.html#stream_constructor_new_stream_writable_options) for more. Defaults to 512KB.
-* `dlChunkSize` - The size of the download chunk in bytes. When the chosen format is video only or audio only, the download in this case is separated into multiple chunks to avoid throttling. Setting it to 0 disables chunking. Defaults to 10MB.
+* `dlChunkSize` - When the chosen format is video only or audio only, the download is separated into multiple chunks to avoid throttling. This option specifies the size of each chunk in bytes. Setting it to 0 disables chunking. Defaults to 10MB.
 
 #### Event: info
 * [`ytdl.videoInfo`](typings/index.d.ts#L194) - Info.
