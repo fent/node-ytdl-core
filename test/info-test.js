@@ -2,11 +2,15 @@ const ytdl = require('..');
 const assert = require('assert-diff');
 const nock = require('./nock');
 const sinon = require('sinon');
+const miniget = require('miniget');
 
 
 describe('ytdl.getInfo()', () => {
   let expectedInfo;
   before(() => expectedInfo = require('./files/videos/regular/expected-info.json'));
+  let minigetDefaults = miniget.Defaults;
+  before(() => miniget.Defaults = Object.assign({}, minigetDefaults, { maxRetries: 0 }));
+  after(() => miniget.Defaults = minigetDefaults);
 
   describe('From a regular video', () => {
     it('Retrieves correct metainfo', async() => {
@@ -60,7 +64,7 @@ describe('ytdl.getInfo()', () => {
     describe('Use `ytdl.downloadFromInfo()`', () => {
       it('Retrieves video file', done => {
         let clock = sinon.useFakeTimers({ toFake: ['setTimeout'] });
-        after(() => { clock.restore(); });
+        afterEach(() => { clock.restore(); });
 
         const stream = ytdl.downloadFromInfo(expectedInfo);
         let scope;
@@ -242,6 +246,8 @@ describe('ytdl.getInfo()', () => {
             requestOptions: {
               // Assume cookie header is given by the browser.
               headers: {},
+              maxRetries: 1,
+              backoff: { inc: 0 },
             },
           });
           scope.done();
@@ -358,7 +364,12 @@ describe('ytdl.getInfo()', () => {
           watchJson: [true, 200, 'reload-now'],
           player: false,
         });
-        await assert.rejects(ytdl.getInfo(id), /Error: Unable to retrieve video metadata/);
+        await assert.rejects(ytdl.getInfo(id, {
+          requestOptions: {
+            maxRetries: 1,
+            backoff: { inc: 0 },
+          },
+        }), /Error: Unable to retrieve video metadata/);
         scope.done();
         scope2.done();
       });

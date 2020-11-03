@@ -9,7 +9,7 @@
     "mocha": false
   },
   "rules": {
-    "no-await-in-loop": "warn",
+    "no-await-in-loop": "off",
     "no-compare-neg-zero": "error",
     "no-extra-parens": ["warn", "all", {
       "nestedBinaryExpressions": false
