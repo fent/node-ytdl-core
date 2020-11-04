@@ -121,7 +121,7 @@ describe('ytdl.getInfo()', () => {
   });
 
   describe('From an age restricted video', () => {
-    const id = 'rIqCiJKWx9I';
+    const id = 'LuZu9N53Vd0';
     let expected;
     before(() => expected = require('./files/videos/age-restricted/expected-info.json'));
 
@@ -278,6 +278,21 @@ describe('ytdl.getInfo()', () => {
     });
   });
 
+  describe('From a video with a cipher', () => {
+    it('Retrieves deciphered video formats', async() => {
+      const id = 'B3eAMGXFw1o';
+      const scope = nock(id, 'cipher');
+      let info = await ytdl.getBasicInfo(id);
+      assert.ok(info);
+      assert.ok(info.formats && info.formats.length);
+      assert.ok(info.formats.some(format => format.signatureCipher));
+      info = await ytdl.getInfo(id);
+      assert.ok(info.formats.every(format => !format.signatureCipher));
+      assert.ok(info.formats.every(format => format.url));
+      scope.done();
+    });
+  });
+
   describe('With a bad video ID', () => {
     it('Returns an error', () => {
       const id = 'bad';
@@ -290,7 +305,7 @@ describe('ytdl.getInfo()', () => {
   describe('When there is a recoverable error', () => {
     describe('From a video that does not have `player_response` object', () => {
       it('Uses backup `playerResponse`', async() => {
-        const id = 'rIqCiJKWx9I';
+        const id = 'LuZu9N53Vd0';
         const scope = nock(id, 'age-restricted', {
           watchJson: [true, 200, 'no-player-response'],
           get_video_info: [true, 200, 'no-player-response'],
@@ -343,7 +358,7 @@ describe('ytdl.getInfo()', () => {
 
     describe('Unable to parse embed config', () => {
       it('Fails gracefully', async() => {
-        const id = 'rIqCiJKWx9I';
+        const id = 'LuZu9N53Vd0';
         const scope = nock(id, 'age-restricted', {
           embed: [true, 200, 'bad-config'],
           get_video_info: false,

@@ -48,7 +48,7 @@ const videos = [
     type: 'live-with-cc',
   },
   {
-    id: 'GgPfoDM4HN0',
+    id: 'VIBFo3Ti5vQ',
     type: 'live-future',
   },
   {
@@ -100,10 +100,25 @@ const videos = [
         saveAs: 'no-formats',
         fn: body => body.replace(/\b(formats|adaptiveFormats)\b/g, 'no'),
       },
+      {
+        page: 'expected-info.json',
+        saveAs: 'no-rvs',
+        fn: body => body.replace(/"relatedVideoArgs"/, '""'),
+      },
+      {
+        page: 'expected-info.json',
+        saveAs: 'no-results',
+        fn: body => body.replace(/"secondaryResults"/, '""'),
+      },
+      {
+        page: 'watch.json',
+        saveAs: 'bad-details',
+        fn: body => body.replace(/\\"shortBylineText\\"/g, '\\"___\\"'),
+      },
     ],
   },
   {
-    id: 'rIqCiJKWx9I',
+    id: 'LuZu9N53Vd0',
     type: 'age-restricted',
     saveInfo: true,
     keep: ['embed-player-vars.html'],
@@ -111,12 +126,12 @@ const videos = [
       {
         page: 'embed.html',
         saveAs: 'no-config',
-        fn: body => body.replace('t.setConfig({\'PLAYER_CONFIG\': ', ''),
+        fn: body => body.replace('PLAYER_CONFIG', ''),
       },
       {
         page: 'embed.html',
         saveAs: 'bad-config',
-        fn: body => body.replace('t.setConfig({\'PLAYER_CONFIG\': ', 't.setConfig({\'PLAYER_CONFIG\': {[}'),
+        fn: body => body.replace(/((["'])PLAYER_CONFIG\2:\s*){/, '$1{[}'),
       },
       {
         page: 'watch.json',
@@ -150,32 +165,7 @@ const videos = [
   },
   {
     id: 'B3eAMGXFw1o',
-    type: 'related',
-    skip: ['get_video_info', /player/],
-    saveInfo: true,
-    transform: [
-      {
-        page: 'expected-info.json',
-        saveAs: 'no-rvs',
-        fn: body => body.replace(/"relatedVideoArgs"/, '""'),
-      },
-      {
-        page: 'expected-info.json',
-        saveAs: 'no-results',
-        fn: body => body.replace(/"secondaryResults"/, '""'),
-      },
-      {
-        page: 'watch.json',
-        saveAs: 'bad-details',
-        fn: body => body.replace(/\\"shortBylineText\\"/g, '\\"___\\"'),
-      },
-    ],
-  },
-  {
-    id: 'wYgaarivXv4',
-    type: 'related2',
-    saveInfo: true,
-    skip: ['get_video_info', /player/],
+    type: 'cipher',
   },
   {
     id: 'GFg8BP01F5Q',

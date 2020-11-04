@@ -102,7 +102,7 @@ describe('extras.getMedia()', () => {
 
 describe('extras.getRelatedVideos()', () => {
   it('Returns related videos', () => {
-    const info = require('./files/videos/related2/expected-info.json');
+    const info = require('./files/videos/regular/expected-info.json');
     const relatedVideos = extras.getRelatedVideos(info);
     assert.ok(relatedVideos && relatedVideos.length > 0);
     for (let video of relatedVideos) {
@@ -116,7 +116,7 @@ describe('extras.getRelatedVideos()', () => {
 
   describe('Without `rvs` params', () => {
     it('Still able to find video params', () => {
-      const info = require('./files/videos/related/expected-info-no-rvs.json');
+      const info = require('./files/videos/regular/expected-info-no-rvs.json');
       const relatedVideos = extras.getRelatedVideos(info);
       for (let video of relatedVideos) {
         assert.ok(video.id);
@@ -130,7 +130,7 @@ describe('extras.getRelatedVideos()', () => {
 
   describe('Without `secondaryResults`', () => {
     it('Unable to find any videos', () => {
-      const info = require('./files/videos/related/expected-info-no-results.json');
+      const info = require('./files/videos/regular/expected-info-no-results.json');
       const relatedVideos = extras.getRelatedVideos(info);
       assert.ok(relatedVideos);
       assert.deepEqual(relatedVideos, []);
@@ -140,7 +140,7 @@ describe('extras.getRelatedVideos()', () => {
   describe('With an unparseable video', () => {
     it('Catches errors', () => {
       const info = require(
-        './files/videos/related/watch-bad-details.json');
+        './files/videos/regular/watch-bad-details.json');
       const relatedVideos = extras.getRelatedVideos(info);
       assert.deepEqual(relatedVideos, []);
     });

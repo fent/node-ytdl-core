@@ -644,7 +644,7 @@ describe('Download video', () => {
       let stream = ytdl(id);
       stream.on('error', err => {
         scope.done();
-        assert.strictEqual(err.message, 'This live event will begin in 22 hours.');
+        assert.ok(/This live event will begin in/.test(err.message), `Error did not match: ${err.message}`);
         done();
       });
     });
