@@ -90,12 +90,6 @@ const videos = [
         fn: body => `${body}\n{"ID_TOKEN":"abcd"}`,
       },
       {
-        page: 'watch.html',
-        saveAs: 'no-html5player',
-        fn: body =>
-          body.replace(/<script\s+src="([^"]+)"(\s+type="text\/javascript")?\s+name="player_ias\/base"\s*>/g, ''),
-      },
-      {
         page: 'watch.json',
         saveAs: 'no-formats',
         fn: body => body.replace(/\b(formats|adaptiveFormats)\b/g, 'no'),
@@ -114,6 +108,16 @@ const videos = [
         page: 'watch.json',
         saveAs: 'bad-details',
         fn: body => body.replace(/\\"shortBylineText\\"/g, '\\"___\\"'),
+      },
+      {
+        page: 'watch.html',
+        saveAs: 'no-html5player',
+        fn: body => body.replace(/"player_ias\/base"/g, '""'),
+      },
+      {
+        page: 'watch.html',
+        saveAs: 'no-html5player-2',
+        fn: body => body.replace(/"(player_ias\/base|jsUrl)"/g, '""'),
       },
     ],
   },

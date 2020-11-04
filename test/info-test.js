@@ -391,5 +391,17 @@ describe('ytdl.getInfo()', () => {
         scope2.done();
       });
     });
+
+    describe('Unable to find html5player anywhere', () => {
+      it('Fails gracefully', async() => {
+        const id = '_HSylqgVYQI';
+        const scope = nock(id, 'regular', {
+          watchHtml: [true, 200, 'no-html5player-2'],
+          player: false,
+        });
+        await assert.rejects(ytdl.getInfo(id), /Unable to find html5player file/);
+        scope.done();
+      });
+    });
   });
 });
