@@ -25,8 +25,8 @@ describe('ytdl.getInfo()', () => {
     describe('Use ytdl.getBasicInfo()', () => {
       const id = '5qap5aO4i9A';
       it('Retrieves just enough metainfo', async() => {
-        const expectedInfo2 = require('./files/videos/live/expected-info.json');
-        const scope = nock(id, 'live', {
+        const expectedInfo2 = require('./files/videos/live-now/expected-info.json');
+        const scope = nock(id, 'live-now', {
           watchHtml: false,
           player: false,
           dashmpd: false,
@@ -39,7 +39,7 @@ describe('ytdl.getInfo()', () => {
 
       describe('Followed by ytdl.getInfo()', () => {
         it('Does not make extra requests', async() => {
-          const scope = nock(id, 'live');
+          const scope = nock(id, 'live-now');
           let info = Object.assign({}, await ytdl.getBasicInfo(id));
           let info2 = await ytdl.getInfo(id);
           scope.done();
@@ -160,7 +160,7 @@ describe('ytdl.getInfo()', () => {
   describe('From a video that was live streamed but not currently live', () => {
     it('Returns correct video metainfo', async() => {
       const id = 'nu5uzMXfuLc';
-      const scope = nock(id, 'streamed');
+      const scope = nock(id, 'live-past');
       let info = await ytdl.getInfo(id);
       scope.done();
       assert.strictEqual(info.formats.length, 10);

@@ -547,7 +547,7 @@ describe('Download video', () => {
   describe('that is broadcasted live', () => {
     it('Begins downloading video succesfully', done => {
       const testId = '5qap5aO4i9A';
-      const scope = nock(testId, 'live');
+      const scope = nock(testId, 'live-now');
       const stream = ytdl(testId, { filter: format => format.isHLS });
       stream.on('info', (info, format) => {
         scope.urlReply(format.url, 200, [
@@ -596,7 +596,7 @@ describe('Download video', () => {
     describe('end download early', () => {
       it('Stops downloading video', done => {
         const testId = '5qap5aO4i9A';
-        const scope = nock(testId, 'live');
+        const scope = nock(testId, 'live-now');
         const stream = ytdl(testId);
         stream.on('info', () => {
           process.nextTick(() => {
@@ -613,13 +613,13 @@ describe('Download video', () => {
     describe('from a dash-mpd itag', () => {
       it('Begins downloading video succesfully', done => {
         const testId = '5qap5aO4i9A';
-        const scope = nock(testId, 'live', {
+        const scope = nock(testId, 'live-now', {
           dashmpd: [true, 200, 'transformed'],
         });
         const stream = ytdl(testId, { filter: format => format.isDashMPD });
         stream.on('info', (info, format) => {
           scope.urlReplyWithFile(format.url, 200, path.resolve(__dirname,
-            `files/videos/live/dash-manifest-transformed.xml`));
+            `files/videos/live-now/dash-manifest-transformed.xml`));
           scope.urlReply(`https://googlevideo.com/videoplayback/sq/video01.ts`, 200, 'one');
           scope.urlReply(`https://googlevideo.com/videoplayback/sq/video02.ts`, 200, 'two');
           scope.urlReply(`https://googlevideo.com/videoplayback/sq/video03.ts`, 200, 'tres');
@@ -640,7 +640,7 @@ describe('Download video', () => {
   describe('that has not yet started broadcasting', () => {
     it('Fails gracefully', done => {
       const id = 'GgPfoDM4HN0';
-      const scope = nock(id, 'future-live');
+      const scope = nock(id, 'live-future');
       let stream = ytdl(id);
       stream.on('error', err => {
         scope.done();

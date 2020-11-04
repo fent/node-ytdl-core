@@ -14,7 +14,7 @@
 const videos = [
   {
     id: '5qap5aO4i9A',
-    type: 'live',
+    type: 'live-now',
     saveInfo: true,
     transform: [
       {
@@ -49,7 +49,11 @@ const videos = [
   },
   {
     id: 'GgPfoDM4HN0',
-    type: 'future-live',
+    type: 'live-future',
+  },
+  {
+    id: 'nu5uzMXfuLc',
+    type: 'live-past',
   },
   {
     id: 'SyKPsFRP_Oc',
@@ -97,10 +101,6 @@ const videos = [
         fn: body => body.replace(/\b(formats|adaptiveFormats)\b/g, 'no'),
       },
     ],
-  },
-  {
-    id: 'nu5uzMXfuLc',
-    type: 'streamed',
   },
   {
     id: 'rIqCiJKWx9I',
