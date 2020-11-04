@@ -235,14 +235,12 @@ const refreshVideo = async(video, noRequests) => {
     fs.mkdirSync(folder);
   }
 
-  const writeFile = (filename, body, compare) => {
+  const writeFile = (filename, body) => {
     if (filename in existingFiles) {
-      if (compare) {
-        let oldBody = fs.readFileSync(path.join(folder, filename), 'utf8');
-        if (oldBody === body) {
-          existingFiles[filename] = true;
-          return;
-        }
+      let oldBody = fs.readFileSync(path.join(folder, filename), 'utf8');
+      if (oldBody === body) {
+        existingFiles[filename] = true;
+        return;
       }
       console.log('update file:', filename);
     } else {
@@ -285,7 +283,7 @@ const refreshVideo = async(video, noRequests) => {
       if ((!video.keep || video.keep.indexOf(filename) === -1) &&
           !skipFile(video, filename)) {
         body = cleanBody(body);
-        writeFile(filename, body, playerfile.test(url));
+        writeFile(filename, body);
         writeTransforms(filename, body);
       }
     };
