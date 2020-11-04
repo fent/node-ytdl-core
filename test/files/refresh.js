@@ -58,6 +58,7 @@ const videos = [
   {
     id: 'SyKPsFRP_Oc',
     type: 'rental',
+    basicInfo: true,
     saveInfo: true,
   },
   {

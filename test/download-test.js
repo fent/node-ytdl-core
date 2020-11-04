@@ -639,7 +639,7 @@ describe('Download video', () => {
 
   describe('that has not yet started broadcasting', () => {
     it('Fails gracefully', done => {
-      const id = 'GgPfoDM4HN0';
+      const id = 'VIBFo3Ti5vQ';
       const scope = nock(id, 'live-future');
       let stream = ytdl(id);
       stream.on('error', err => {

@@ -189,6 +189,31 @@ describe('ytdl.getInfo()', () => {
     });
   });
 
+  describe('From videos without formats', () => {
+    describe('Rental video', () => {
+      it('Gets video details', async() => {
+        const id = 'SyKPsFRP_Oc';
+        const scope = nock(id, 'rental');
+        let info = await ytdl.getInfo(id);
+        scope.done();
+        assert.ok(info);
+        assert.ok(info.videoDetails);
+        assert.ok(info.videoDetails.title);
+      });
+    });
+    describe('Not yet broadcasted', () => {
+      it('Gets video details', async() => {
+        const id = 'VIBFo3Ti5vQ';
+        const scope = nock(id, 'live-future');
+        let info = await ytdl.getInfo(id);
+        scope.done();
+        assert.ok(info);
+        assert.ok(info.videoDetails);
+        assert.ok(info.videoDetails.title);
+      });
+    });
+  });
+
   describe('With cookie headers', () => {
     const id = '_HSylqgVYQI';
     describe('`x-youtube-identity-token` given', () => {
