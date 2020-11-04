@@ -10,15 +10,8 @@ const ytdl = require('..');
 
 describe('Download video', () => {
   const filter = format => format.container === 'mp4';
-  let testInfo;
-  before(done => {
-    fs.readFile(path.resolve(__dirname, 'files/videos/vevo/expected-info.json'),
-      'utf8', (err, body) => {
-        assert.ifError(err);
-        testInfo = JSON.parse(body);
-        done();
-      });
-  });
+  let expectedInfo;
+  before(() => expectedInfo = require('./files/videos/regular/expected-info.json'));
 
   let clock;
   before(() => { clock = sinon.useFakeTimers({ toFake: ['setTimeout'] }); });
@@ -413,7 +406,7 @@ describe('Download video', () => {
 
     it('Chunks video only and chunk size matches given size', done => {
       const dlChunkSize = 1024 * 200;
-      const stream = ytdl.downloadFromInfo(testInfo, { filter: 'videoonly', dlChunkSize });
+      const stream = ytdl.downloadFromInfo(expectedInfo, { filter: 'videoonly', dlChunkSize });
 
       stream.on('info', (info, format) => {
         nock.url(format.url)
@@ -428,9 +421,9 @@ describe('Download video', () => {
       });
     });
 
-    it('Chunks audio only and chunk size matches given size', done => {
+    it('Chunks audio/video only and chunk size matches given size', done => {
       const dlChunkSize = 1024 * 200;
-      const stream = ytdl.downloadFromInfo(testInfo, { filter: 'audioonly', dlChunkSize });
+      const stream = ytdl.downloadFromInfo(expectedInfo, { filter: 'videoonly', dlChunkSize });
 
       stream.on('info', (info, format) => {
         nock.url(format.url)
@@ -449,7 +442,7 @@ describe('Download video', () => {
   describe('with start range', () => {
     it('Range added to download headers', done => {
       const start = 500;
-      const stream = ytdl.downloadFromInfo(testInfo, {
+      const stream = ytdl.downloadFromInfo(expectedInfo, {
         range: { start },
       });
       stream.on('info', (info, format) => {
@@ -469,7 +462,7 @@ describe('Download video', () => {
   describe('chunked with start range', () => {
     it('Range added to download headers', done => {
       const start = 500;
-      const stream = ytdl.downloadFromInfo(testInfo, {
+      const stream = ytdl.downloadFromInfo(expectedInfo, {
         filter: 'audioonly',
         range: { start },
       });
@@ -490,7 +483,7 @@ describe('Download video', () => {
   describe('with end range', () => {
     it('Range added to download headers', done => {
       const end = 1000;
-      const stream = ytdl.downloadFromInfo(testInfo, {
+      const stream = ytdl.downloadFromInfo(expectedInfo, {
         range: { end },
       });
       stream.on('info', (info, format) => {
@@ -510,7 +503,7 @@ describe('Download video', () => {
   describe('chunked with end range', () => {
     it('Range added to download headers', done => {
       const end = 1000;
-      const stream = ytdl.downloadFromInfo(testInfo, {
+      const stream = ytdl.downloadFromInfo(expectedInfo, {
         filter: 'audioonly',
         range: { end },
       });
@@ -530,7 +523,7 @@ describe('Download video', () => {
 
   describe('with begin', () => {
     it('Begin added to download URL', done => {
-      const stream = ytdl.downloadFromInfo(testInfo, { begin: '1m' });
+      const stream = ytdl.downloadFromInfo(expectedInfo, { begin: '1m' });
       stream.on('info', (info, format) => {
         nock.url(`${format.url}&begin=60000`).reply(200, '');
       });
@@ -542,7 +535,7 @@ describe('Download video', () => {
 
   describe('with a bad filter', () => {
     it('Emits error', done => {
-      const stream = ytdl.downloadFromInfo(testInfo, { filter: () => false });
+      const stream = ytdl.downloadFromInfo(expectedInfo, { filter: () => false });
       stream.on('error', err => {
         assert.ok(err);
         assert.ok(/No such format found/.test(err.message));
@@ -678,8 +671,8 @@ describe('Download video', () => {
 
   describe('With no formats', () => {
     it('Stream emits an error', done => {
-      const id = 'pJk0p-98Xzc';
-      const scope = nock(id, 'vevo', {
+      const id = '_HSylqgVYQI';
+      const scope = nock(id, 'regular', {
         watchJson: [true, 200, 'no-formats'],
         watchHtml: false,
         get_video_info: false,

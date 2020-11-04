@@ -23,26 +23,28 @@ describe('ytdl.getInfo()', () => {
     });
 
     describe('Use ytdl.getBasicInfo()', () => {
+      const id = '5qap5aO4i9A';
       it('Retrieves just enough metainfo', async() => {
-        const id = '_HSylqgVYQI';
-        const scope = nock(id, 'regular', {
+        const expectedInfo2 = require('./files/videos/live/expected-info.json');
+        const scope = nock(id, 'live', {
           watchHtml: false,
           player: false,
+          dashmpd: false,
+          m3u8: false,
         });
         let info = await ytdl.getBasicInfo(id);
         scope.done();
-        assert.strictEqual(info.formats.length, expectedInfo.formats.length);
+        assert.notStrictEqual(info.formats.length, expectedInfo2.formats.length);
       });
 
-      const id = '_HSylqgVYQI';
       describe('Followed by ytdl.getInfo()', () => {
         it('Does not make extra requests', async() => {
-          const scope = nock(id, 'regular');
-          let info = await ytdl.getBasicInfo(id);
-          assert.strictEqual(info.formats.length, expectedInfo.formats.length);
+          const scope = nock(id, 'live');
+          let info = Object.assign({}, await ytdl.getBasicInfo(id));
           let info2 = await ytdl.getInfo(id);
           scope.done();
-          assert.strictEqual(info2.formats[0].url, expectedInfo.formats[0].url);
+          assert.notStrictEqual(info.formats.length, info2.formats.length);
+          assert.notStrictEqual(info.formats[0].url, info2.formats[0].url);
         });
       });
 

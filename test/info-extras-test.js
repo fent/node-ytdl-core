@@ -24,7 +24,7 @@ const assertUserURL = url => {
 
 describe('extras.getAuthor()', () => {
   it('Returns video author object', () => {
-    const info = require('./files/videos/vevo/expected-info.json');
+    const info = require('./files/videos/regular/expected-info.json');
     const author = extras.getAuthor(info);
     assert.ok(author);
     assertURL(author.avatar);
@@ -68,10 +68,10 @@ describe('extras.getAuthor()', () => {
 
 describe('extras.getMedia()', () => {
   it('Returns media object', () => {
-    const info = require('./files/videos/vevo/expected-info.json');
+    const info = require('./files/videos/music/expected-info.json');
     const media = extras.getMedia(info);
     assert.ok(media);
-    assert.strictEqual(media.artist, 'Wu-Tang Clan');
+    assert.strictEqual(media.artist, 'Syn Cole');
     assertChannelURL(media.artist_url);
     assert.strictEqual(media.category, 'Music');
     assertURL(media.category_url);

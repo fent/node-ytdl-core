@@ -15,6 +15,7 @@ const videos = [
   {
     id: '5qap5aO4i9A',
     type: 'live',
+    saveInfo: true,
     transform: [
       {
         page: 'dash-manifest.xml',
@@ -90,29 +91,16 @@ const videos = [
         fn: body =>
           body.replace(/<script\s+src="([^"]+)"(\s+type="text\/javascript")?\s+name="player_ias\/base"\s*>/g, ''),
       },
-    ],
-  },
-  {
-    id: 'nu5uzMXfuLc',
-    type: 'streamed',
-  },
-  {
-    id: 'pJk0p-98Xzc',
-    type: 'vevo',
-    saveInfo: true,
-    keep: ['get_video_info'],
-    transform: [
-      {
-        page: 'dash-manifest.xml',
-        saveAs: 'no-formats',
-        fn: body => body.replace(/<Representation>([\S\s]+)<\/Representation>/g, ''),
-      },
       {
         page: 'watch.json',
         saveAs: 'no-formats',
         fn: body => body.replace(/\b(formats|adaptiveFormats)\b/g, 'no'),
       },
     ],
+  },
+  {
+    id: 'nu5uzMXfuLc',
+    type: 'streamed',
   },
   {
     id: 'rIqCiJKWx9I',
@@ -147,11 +135,18 @@ const videos = [
     type: 'non-existent',
   },
   {
+    id: 'XDNFAujgJb0',
+    type: 'music',
+    basicInfo: true,
+    saveInfo: true,
+    skip: ['watch.json', 'get_video_info'],
+  },
+  {
     id: 'xRu7qKijBso',
     type: 'game',
     basicInfo: true,
     saveInfo: true,
-    skip: ['watch', 'get_video_info'],
+    skip: ['watch.json', 'get_video_info'],
   },
   {
     id: 'B3eAMGXFw1o',
@@ -307,6 +302,7 @@ const refreshVideo = async(video, noRequests) => {
     stream.on('end', () => { saveContents(body.join('')); });
     return stream;
   };
+  Object.assign(minigetMock, miniget);
 
   const getInfo = mukRequire('../../lib/info', { miniget: minigetMock });
 
