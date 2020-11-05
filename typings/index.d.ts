@@ -340,19 +340,12 @@ declare module 'ytdl-core' {
       id?: string;
       title?: string;
       author?: string;
-      length_seconds?: string;
-      iurlmq?: string;
+      ucid?: string;
+      author_thumbnail?: string;
       short_view_count_text?: string;
-      session_data: string;
-      endscreen_autoplay_session_data?: string;
-      iurlhq?: string;
-      playlist_iurlhq?: string;
-      playlist_title?: string;
-      playlist_length?: string;
-      playlist_iurlmq?: string;
-      video_id?: string;
-      list?: string;
-      thumbnail_ids?: string;
+      view_count?: string;
+      length_seconds?: number;
+      video_thumbnail?: string;
     }
 
     function getBasicInfo(url: string, options?: getInfoOptions): Promise<videoInfo>;
