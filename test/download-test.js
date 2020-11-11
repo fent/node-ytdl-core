@@ -91,7 +91,7 @@ describe('Download video', () => {
         const abort = sinon.spy();
         stream.on('abort', abort);
         stream.on('error', err => {
-          assert.ok(abort.called);
+          assert.ok(!abort.called);
           assert.strictEqual(err.message, 'socket hang up');
           scope.done();
           done();
@@ -119,9 +119,8 @@ describe('Download video', () => {
 
         const abort = sinon.spy();
         stream.on('abort', abort);
-        stream.on('error', err => {
-          assert.ok(abort.called);
-          assert.strictEqual(err.message, 'socket hang up');
+        stream.on('close', () => {
+          assert.ok(!abort.called);
           scope.done();
           done();
         });
@@ -173,7 +172,7 @@ describe('Download video', () => {
         const abort = sinon.spy();
         stream.on('abort', abort);
         stream.on('error', err => {
-          assert.ok(abort.called);
+          assert.ok(!abort.called);
           assert.strictEqual(err.message, 'socket hang up');
           scope.done();
           done();
@@ -201,9 +200,8 @@ describe('Download video', () => {
 
         const abort = sinon.spy();
         stream.on('abort', abort);
-        stream.on('error', err => {
-          assert.ok(abort.called);
-          assert.strictEqual(err.message, 'socket hang up');
+        stream.on('close', () => {
+          assert.ok(!abort.called);
           scope.done();
           done();
         });

@@ -8,9 +8,9 @@ const miniget = require('miniget');
 describe('ytdl.getInfo()', () => {
   let expectedInfo;
   before(() => expectedInfo = require('./files/videos/regular/expected-info.json'));
-  let minigetDefaults = miniget.Defaults;
-  before(() => miniget.Defaults = Object.assign({}, minigetDefaults, { maxRetries: 0 }));
-  after(() => miniget.Defaults = minigetDefaults);
+  let minigetDefaults = miniget.defaultOptions;
+  before(() => miniget.defaultOptions = Object.assign({}, minigetDefaults, { maxRetries: 0 }));
+  after(() => miniget.defaultOptions = minigetDefaults);
 
   describe('From a regular video', () => {
     it('Retrieves correct metainfo', async() => {
