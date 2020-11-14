@@ -78,6 +78,7 @@ describe('Download video', () => {
         stream.on('request', () => {
           stream.destroy();
           scope.done();
+          done();
         });
         stream.on('info', (info, format) => {
           nock.url(format.url).reply(200, 'aaaaaaaaaaaa');
@@ -88,13 +89,9 @@ describe('Download video', () => {
         stream.on('data', () => {
           throw Error('Should not emit `data`');
         });
-        const abort = sinon.spy();
-        stream.on('abort', abort);
         stream.on('error', err => {
-          assert.ok(!abort.called);
+          // Swallow possible error, only occurs in node v10, v12.
           assert.strictEqual(err.message, 'socket hang up');
-          scope.done();
-          done();
         });
       });
     });
@@ -159,6 +156,7 @@ describe('Download video', () => {
         stream.on('request', () => {
           stream.destroy();
           scope.done();
+          done();
         });
         stream.on('info', (info, format) => {
           nock.url(format.url).reply(200, 'aaaaaaaaaaaa');
@@ -172,10 +170,8 @@ describe('Download video', () => {
         const abort = sinon.spy();
         stream.on('abort', abort);
         stream.on('error', err => {
-          assert.ok(!abort.called);
+          // Swallow possible error, only occurs in node v10, v12.
           assert.strictEqual(err.message, 'socket hang up');
-          scope.done();
-          done();
         });
       });
     });
