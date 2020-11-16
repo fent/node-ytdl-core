@@ -64,19 +64,9 @@ const videos = [
   {
     id: '_HSylqgVYQI',
     type: 'regular',
-    keep: ['video.flv', 'watch-reload-now.json', 'watch-reload-now-2.json'],
+    keep: ['video.flv', 'watch-reload-now-2.json'],
     saveInfo: true,
     transform: [
-      {
-        page: 'watch.json',
-        saveAs: 'bad-config',
-        fn: body => body.replace('[', '{]'),
-      },
-      {
-        page: 'watch.json',
-        saveAs: 'bad-player-response',
-        fn: body => body.replace('"(player(?:_r|R)esponse)":"{', '"$1":"'),
-      },
       {
         page: 'watch.json',
         saveAs: 'no-extras',
@@ -126,7 +116,7 @@ const videos = [
     id: 'LuZu9N53Vd0',
     type: 'age-restricted',
     saveInfo: true,
-    keep: ['embed-player-vars.html'],
+    keep: ['embed-player-vars.html', 'watch-backup.html', 'watch-reload-now.json'],
     transform: [
       {
         page: 'embed.html',
@@ -147,6 +137,11 @@ const videos = [
         page: 'get_video_info',
         saveAs: 'no-player-response',
         fn: body => body.replace(/player_response/g, 'no'),
+      },
+      {
+        page: 'watch.json',
+        saveAs: 'bad-config',
+        fn: body => body.replace('[', '{]'),
       },
     ],
   },

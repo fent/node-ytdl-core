@@ -110,16 +110,6 @@ describe('ytdl.getInfo()', () => {
     });
   });
 
-  describe('From a non-existant video', () => {
-    const id = '99999999999';
-
-    it('Should give an error', async() => {
-      const scope = nock(id, 'non-existent');
-      await assert.rejects(ytdl.getInfo(id), /Video unavailable/);
-      scope.done();
-    });
-  });
-
   describe('From an age restricted video', () => {
     const id = 'LuZu9N53Vd0';
     let expected;
@@ -134,19 +124,19 @@ describe('ytdl.getInfo()', () => {
     });
 
     describe('Unable to find config', () => {
-      it('Fails gracefully', async() => {
+      it('Uses backup get_video_info and watch.html page', async() => {
         const scope = nock(id, 'age-restricted', {
           embed: [true, 200, 'no-config'],
-          player: false,
-          get_video_info: false,
+          watchHtml: [true, 200, 'backup'],
         });
-        await assert.rejects(ytdl.getInfo(id), /Could not find player config/);
+        let info = await ytdl.getInfo(id);
         scope.done();
+        assert.strictEqual(info.formats.length, expected.formats.length);
       });
     });
 
     describe('When embed page returns limited `player_response`', () => {
-      it('Uses backup `get_vide_info`', async() => {
+      it('Uses backup get_video_info page', async() => {
         const scope = nock(id, 'age-restricted', {
           embed: [true, 200, 'player-vars'],
         });
@@ -217,7 +207,7 @@ describe('ytdl.getInfo()', () => {
   describe('With cookie headers', () => {
     const id = '_HSylqgVYQI';
     describe('`x-youtube-identity-token` given', () => {
-      it('Does not make extra request to watch page', async() => {
+      it('Does not make extra request to watch.html page', async() => {
         const scope = nock(id, 'regular');
         let info = await ytdl.getInfo(id, {
           requestOptions: {
@@ -232,7 +222,7 @@ describe('ytdl.getInfo()', () => {
       });
     });
     describe('`x-youtube-identity-token` not given', () => {
-      it('Retrieves identity-token from watch page', async() => {
+      it('Retrieves identity-token from watch.html page', async() => {
         const scope = nock(id, 'regular', {
           watchHtml: [true, 200, 'with-cookie'],
         });
@@ -261,7 +251,7 @@ describe('ytdl.getInfo()', () => {
       });
 
       describe('Called from a web browser with cookies in requests', () => {
-        it('Tries to get identity-token from watch page', async() => {
+        it('Tries to get identity-token from watch.html page', async() => {
           const scope = nock(id, 'regular', {
             watchJson: [true, 200, 'reload-now-2'],
             player: false,
@@ -284,7 +274,7 @@ describe('ytdl.getInfo()', () => {
       });
     });
     describe('`x-youtube-identity-token` already in cache', () => {
-      it('Does not make extra request to watch page', async() => {
+      it('Does not make extra request to watch.html page', async() => {
         ytdl.cache.cookie.set('abc=1', 'token!');
         const scope = nock(id, 'regular', {
           watchHtml: false,
@@ -318,18 +308,9 @@ describe('ytdl.getInfo()', () => {
     });
   });
 
-  describe('With a bad video ID', () => {
-    it('Returns an error', () => {
-      const id = 'bad';
-      assert.throws(() => {
-        ytdl.getInfo(id);
-      }, /No video id found: bad/);
-    });
-  });
-
   describe('When there is a recoverable error', () => {
     describe('From a video that does not have `player_response` object', () => {
-      it('Uses backup `playerResponse`', async() => {
+      it('Uses backup `playerResponse` from watch.json page', async() => {
         const id = 'LuZu9N53Vd0';
         const scope = nock(id, 'age-restricted', {
           watchJson: [true, 200, 'no-player-response'],
@@ -356,9 +337,65 @@ describe('ytdl.getInfo()', () => {
         assert.ok(info.formats[0].url);
       });
     });
+
+    describe('Unable to parse watch page config', () => {
+      it('Uses backup watch.html page', async() => {
+        const id = 'LuZu9N53Vd0';
+        const scope = nock(id, 'age-restricted', {
+          watchJson: [true, 200, 'bad-config'],
+          watchHtml: false,
+        });
+        let info = await ytdl.getInfo(id);
+        scope.done();
+        assert.ok(info.html5player);
+        assert.ok(info.formats.length);
+        assert.ok(info.formats[0].url);
+      });
+    });
+
+    describe('Unable to parse embed config', () => {
+      it('Uses backup get_video_info page', async() => {
+        const id = 'LuZu9N53Vd0';
+        const scope = nock(id, 'age-restricted', {
+          embed: [true, 200, 'bad-config'],
+          watchHtml: [true, 200, 'backup'],
+        });
+        let info = await ytdl.getInfo(id);
+        scope.done();
+        assert.ok(info.html5player);
+        assert.ok(info.formats.length);
+        assert.ok(info.formats[0].url);
+      });
+    });
+
+    describe('When watch page gives back `{"reload":"now"}`', () => {
+      it('Uses backup embed.html page', async() => {
+        const id = 'LuZu9N53Vd0';
+        const scope = nock(id, 'age-restricted', {
+          watchJson: [true, 200, 'reload-now'],
+        });
+        const scope2 = nock(id, 'age-restricted', {
+          watchJson: [true, 200, 'reload-now'],
+          embed: false,
+          get_video_info: false,
+          player: false,
+        });
+        let info = await ytdl.getInfo(id, {
+          requestOptions: {
+            maxRetries: 1,
+            backoff: { inc: 0 },
+          },
+        });
+        scope.done();
+        scope2.done();
+        assert.ok(info.html5player);
+        assert.ok(info.formats.length);
+        assert.ok(info.formats[0].url);
+      });
+    });
   });
 
-  describe('When there is an error', () => {
+  describe('When there is an unrecoverable error', () => {
     describe('With a private video', () => {
       it('Fails gracefully', async() => {
         const id = 'z2jeHsa0UG0';
@@ -368,52 +405,21 @@ describe('ytdl.getInfo()', () => {
       });
     });
 
-    describe('Unable to parse watch page config', () => {
-      it('Fails gracefully', async() => {
-        const id = '_HSylqgVYQI';
-        const scope = nock(id, 'regular', {
-          watchJson: [true, 200, 'bad-config'],
-          watchHtml: false,
-          player: false,
-        });
-        await assert.rejects(ytdl.getInfo(id), /Error parsing watch\.json:/);
+    describe('From a non-existant video', () => {
+      const id = '99999999999';
+      it('Should give an error', async() => {
+        const scope = nock(id, 'non-existent');
+        await assert.rejects(ytdl.getInfo(id), /Video unavailable/);
         scope.done();
       });
     });
 
-    describe('Unable to parse embed config', () => {
-      it('Fails gracefully', async() => {
-        const id = 'LuZu9N53Vd0';
-        const scope = nock(id, 'age-restricted', {
-          embed: [true, 200, 'bad-config'],
-          get_video_info: false,
-          player: false,
-        });
-        await assert.rejects(ytdl.getInfo(id), /Error parsing embed config:/);
-        scope.done();
-      });
-    });
-
-    describe('When watch page gives back `{"reload":"now"}`', () => {
-      it('Retries the request before error', async() => {
-        const id = '_HSylqgVYQI';
-        const scope = nock(id, 'regular', {
-          watchJson: [true, 200, 'reload-now'],
-          watchHtml: false,
-          player: false,
-        });
-        const scope2 = nock(id, 'regular', {
-          watchJson: [true, 200, 'reload-now'],
-          player: false,
-        });
-        await assert.rejects(ytdl.getInfo(id, {
-          requestOptions: {
-            maxRetries: 1,
-            backoff: { inc: 0 },
-          },
-        }), /Error: Unable to retrieve video metadata/);
-        scope.done();
-        scope2.done();
+    describe('With a bad video ID', () => {
+      it('Returns an error', () => {
+        const id = 'bad';
+        assert.throws(() => {
+          ytdl.getInfo(id);
+        }, /No video id found: bad/);
       });
     });
 
