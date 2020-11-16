@@ -64,16 +64,13 @@ const videos = [
   {
     id: '_HSylqgVYQI',
     type: 'regular',
-    keep: ['video.flv', 'watch-reload-now-2.json'],
+    keep: ['video.flv', 'watch-reload-now.json', 'watch-reload-now-2.json'],
     saveInfo: true,
     transform: [
       {
         page: 'watch.json',
         saveAs: 'no-extras',
-        fn: body => {
-          body = body.replace('playerMicroformatRenderer', '');
-          return body;
-        },
+        fn: body => body.replace('playerMicroformatRenderer', ''),
       },
       {
         page: 'watch.html',

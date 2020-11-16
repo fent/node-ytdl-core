@@ -345,7 +345,6 @@ describe('ytdl.getInfo()', () => {
         const id = 'LuZu9N53Vd0';
         const scope = nock(id, 'age-restricted', {
           watchJson: [true, 200, 'bad-config'],
-          watchHtml: false,
         });
         let info = await ytdl.getInfo(id);
         scope.done();
@@ -371,28 +370,78 @@ describe('ytdl.getInfo()', () => {
     });
 
     describe('When watch page gives back `{"reload":"now"}`', () => {
-      it('Uses backup embed.html page', async() => {
-        const id = 'LuZu9N53Vd0';
-        const scope = nock(id, 'age-restricted', {
+      it('Retries the request', async() => {
+        const id = '_HSylqgVYQI';
+        const scope1 = nock(id, 'regular', {
           watchJson: [true, 200, 'reload-now'],
         });
-        const scope2 = nock(id, 'age-restricted', {
-          watchJson: [true, 200, 'reload-now'],
-          embed: false,
-          get_video_info: false,
+        const scope2 = nock(id, 'regular', {
+          watchHtml: false,
           player: false,
         });
-        let info = await ytdl.getInfo(id, {
-          requestOptions: {
-            maxRetries: 1,
-            backoff: { inc: 0 },
-          },
-        });
-        scope.done();
+        let info = await ytdl.getInfo(id, { requestOptions: { maxRetries: 1 } });
+        scope1.done();
         scope2.done();
-        assert.ok(info.html5player);
         assert.ok(info.formats.length);
         assert.ok(info.formats[0].url);
+      });
+
+      describe('Too many times', () => {
+        it('Uses backup embed.html page', async() => {
+          const id = 'LuZu9N53Vd0';
+          const scope = nock(id, 'age-restricted', {
+            watchJson: [true, 200, 'reload-now'],
+          });
+          const scope2 = nock(id, 'age-restricted', {
+            watchJson: [true, 200, 'reload-now'],
+            embed: false,
+            get_video_info: false,
+            player: false,
+          });
+          let info = await ytdl.getInfo(id, {
+            requestOptions: {
+              maxRetries: 1,
+              backoff: { inc: 0 },
+            },
+          });
+          scope.done();
+          scope2.done();
+          assert.ok(info.html5player);
+          assert.ok(info.formats.length);
+          assert.ok(info.formats[0].url);
+        });
+      });
+    });
+
+    describe('When an endpoint gives back a 500 server error', () => {
+      it('Retries the request', async() => {
+        const id = '_HSylqgVYQI';
+        const scope1 = nock(id, 'regular', {
+          watchJson: [true, 502],
+        });
+        const scope2 = nock(id, 'regular', {
+          watchHtml: false,
+          player: false,
+        });
+        let info = await ytdl.getInfo(id, { requestOptions: { maxRetries: 1 } });
+        scope1.done();
+        scope2.done();
+        assert.ok(info.formats.length);
+        assert.ok(info.formats[0].url);
+      });
+
+      describe('Too many times', () => {
+        it('Uses the next endpoint as backup', async() => {
+          const id = 'LuZu9N53Vd0';
+          const scope = nock(id, 'age-restricted', {
+            watchJson: [true, 502],
+          });
+          let info = await ytdl.getInfo(id);
+          scope.done();
+          assert.ok(info.html5player);
+          assert.ok(info.formats.length);
+          assert.ok(info.formats[0].url);
+        });
       });
     });
   });
