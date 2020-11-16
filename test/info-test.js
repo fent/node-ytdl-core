@@ -6,26 +6,25 @@ const miniget = require('miniget');
 
 
 describe('ytdl.getInfo()', () => {
-  let expectedInfo;
-  before(() => expectedInfo = require('./files/videos/regular/expected-info.json'));
   let minigetDefaults = miniget.defaultOptions;
   before(() => miniget.defaultOptions = Object.assign({}, minigetDefaults, { maxRetries: 0 }));
   after(() => miniget.defaultOptions = minigetDefaults);
 
   describe('From a regular video', () => {
     it('Retrieves correct metainfo', async() => {
+      const expected = require('./files/videos/regular/expected-info.json');
       const id = '_HSylqgVYQI';
       const scope = nock(id, 'regular');
       let info = await ytdl.getInfo(id);
       scope.done();
       assert.ok(info.videoDetails.shortDescription.length);
-      assert.strictEqual(info.formats.length, expectedInfo.formats.length);
+      assert.strictEqual(info.formats.length, expected.formats.length);
     });
 
     describe('Use ytdl.getBasicInfo()', () => {
       const id = '5qap5aO4i9A';
       it('Retrieves just enough metainfo', async() => {
-        const expectedInfo2 = require('./files/videos/live-now/expected-info.json');
+        const expected = require('./files/videos/live-now/expected-info.json');
         const scope = nock(id, 'live-now', {
           watchHtml: false,
           player: false,
@@ -34,7 +33,7 @@ describe('ytdl.getInfo()', () => {
         });
         let info = await ytdl.getBasicInfo(id);
         scope.done();
-        assert.notStrictEqual(info.formats.length, expectedInfo2.formats.length);
+        assert.notStrictEqual(info.formats.length, expected.formats.length);
       });
 
       describe('Followed by ytdl.getInfo()', () => {
@@ -68,7 +67,8 @@ describe('ytdl.getInfo()', () => {
         let clock = sinon.useFakeTimers({ toFake: ['setTimeout'] });
         afterEach(() => { clock.restore(); });
 
-        const stream = ytdl.downloadFromInfo(expectedInfo);
+        const expected = require('./files/videos/regular/expected-info.json');
+        const stream = ytdl.downloadFromInfo(expected);
         let scope;
         stream.on('info', (info, format) => {
           scope = nock.url(format.url).reply(200);
@@ -98,11 +98,12 @@ describe('ytdl.getInfo()', () => {
 
     describe('Called twice', () => {
       it('Makes requests once', async() => {
+        const expected = require('./files/videos/regular/expected-info.json');
         const id = '_HSylqgVYQI';
         const scope = nock(id, 'regular');
         let info1 = await ytdl.getInfo(id);
         assert.ok(info1.videoDetails.shortDescription.length);
-        assert.strictEqual(info1.formats.length, expectedInfo.formats.length);
+        assert.strictEqual(info1.formats.length, expected.formats.length);
         let info2 = await ytdl.getInfo(id);
         scope.done();
         assert.strictEqual(info2, info1);
@@ -111,39 +112,14 @@ describe('ytdl.getInfo()', () => {
   });
 
   describe('From an age restricted video', () => {
-    const id = 'LuZu9N53Vd0';
-    let expected;
-    before(() => expected = require('./files/videos/age-restricted/expected-info.json'));
-
     it('Returns correct video metainfo', async() => {
+      const expected = require('./files/videos/age-restricted/expected-info.json');
+      const id = 'LuZu9N53Vd0';
       const scope = nock(id, 'age-restricted');
       let info = await ytdl.getInfo(id);
       scope.done();
       assert.strictEqual(info.formats.length, expected.formats.length);
       assert.ok(info.videoDetails.age_restricted);
-    });
-
-    describe('Unable to find config', () => {
-      it('Uses backup get_video_info and watch.html page', async() => {
-        const scope = nock(id, 'age-restricted', {
-          embed: [true, 200, 'no-config'],
-          watchHtml: [true, 200, 'backup'],
-        });
-        let info = await ytdl.getInfo(id);
-        scope.done();
-        assert.strictEqual(info.formats.length, expected.formats.length);
-      });
-    });
-
-    describe('When embed page returns limited `player_response`', () => {
-      it('Uses backup get_video_info page', async() => {
-        const scope = nock(id, 'age-restricted', {
-          embed: [true, 200, 'player-vars'],
-        });
-        let info = await ytdl.getInfo(id);
-        scope.done();
-        assert.strictEqual(info.formats.length, expected.formats.length);
-      });
     });
   });
 
@@ -309,6 +285,32 @@ describe('ytdl.getInfo()', () => {
   });
 
   describe('When there is a recoverable error', () => {
+    describe('Unable to find config', () => {
+      it('Uses backup get_video_info and watch.html page', async() => {
+        const expected = require('./files/videos/age-restricted/expected-info.json');
+        const id = 'LuZu9N53Vd0';
+        const scope = nock(id, 'age-restricted', {
+          embed: [true, 200, 'no-config'],
+          watchHtml: [true, 200, 'backup'],
+        });
+        let info = await ytdl.getInfo(id);
+        scope.done();
+        assert.strictEqual(info.formats.length, expected.formats.length);
+      });
+    });
+
+    describe('When embed page returns limited `player_response`', () => {
+      it('Uses backup get_video_info page', async() => {
+        const expected = require('./files/videos/age-restricted/expected-info.json');
+        const id = 'LuZu9N53Vd0';
+        const scope = nock(id, 'age-restricted', {
+          embed: [true, 200, 'player-vars'],
+        });
+        let info = await ytdl.getInfo(id);
+        scope.done();
+        assert.strictEqual(info.formats.length, expected.formats.length);
+      });
+    });
     describe('From a video that does not have `player_response` object', () => {
       it('Uses backup `playerResponse` from watch.json page', async() => {
         const id = 'LuZu9N53Vd0';
