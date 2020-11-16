@@ -53,7 +53,7 @@ exports = module.exports = (id, type, opts = {}) => {
   if (opts.watchHtml) {
     let file = buildFile(opts.watchHtml);
     scopes.push(nock(YT_HOST, { reqheaders: opts.headers })
-      .filteringPath(/\/watch\?v=.+$/, '/watch?v=XXX')
+      .filteringPath(/\/watch\?v=.+&hl=en$/, '/watch?v=XXX')
       .get('/watch?v=XXX')
       .replyWithFile(opts.watchHtml[1] || 200,
         path.join(__dirname, `${folder}/watch${file}.html`)));
