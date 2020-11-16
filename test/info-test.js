@@ -409,6 +409,7 @@ describe('ytdl.getInfo()', () => {
           assert.ok(info.html5player);
           assert.ok(info.formats.length);
           assert.ok(info.formats[0].url);
+          assert.ok(!info.videoDetails.age_restricted);
         });
       });
     });
@@ -441,6 +442,7 @@ describe('ytdl.getInfo()', () => {
           assert.ok(info.html5player);
           assert.ok(info.formats.length);
           assert.ok(info.formats[0].url);
+          assert.ok(!info.videoDetails.age_restricted);
         });
       });
     });
