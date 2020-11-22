@@ -84,10 +84,10 @@ describe('Download video', () => {
           nock.url(format.url).reply(200, 'aaaaaaaaaaaa');
         });
         stream.on('response', () => {
-          throw Error('Should not emit `response`');
+          done(Error('Should not emit `response`'));
         });
         stream.on('data', () => {
-          throw Error('Should not emit `data`');
+          done(Error('Should not emit `data`'));
         });
         stream.on('error', err => {
           // Swallow possible error, only occurs in node v10, v12.
@@ -160,10 +160,10 @@ describe('Download video', () => {
           nock.url(format.url).reply(200, 'aaaaaaaaaaaa');
         });
         stream.on('response', () => {
-          throw Error('Should not emit `response`');
+          done(Error('Should not emit `response`'));
         });
         stream.on('data', () => {
-          throw Error('Should not emit `data`');
+          done(Error('Should not emit `data`'));
         });
         const abort = sinon.spy();
         stream.on('abort', abort);
@@ -596,7 +596,7 @@ describe('Download video', () => {
           });
         });
 
-        stream.on('data', () => { throw Error('should not emit `data`'); });
+        stream.on('data', () => { done(Error('should not emit `data`')); });
       });
     });
 
