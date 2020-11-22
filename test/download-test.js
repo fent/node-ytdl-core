@@ -108,18 +108,16 @@ describe('Download video', () => {
         });
 
         stream.on('response', res => {
-          stream.destroy();
           res.on('data', () => {
             done(Error('Should not emit `data`'));
           });
-        });
-
-        const abort = sinon.spy();
-        stream.on('abort', abort);
-        stream.on('close', () => {
-          assert.ok(!abort.called);
+          stream.destroy();
           scope.done();
           done();
+        });
+
+        stream.on('abort', () => {
+          done(Error('Should not emit `abort`'));
         });
       });
     });
@@ -188,18 +186,16 @@ describe('Download video', () => {
         });
 
         stream.on('response', res => {
-          stream.destroy();
           res.on('data', () => {
             done(Error('Should not emit `data`'));
           });
-        });
-
-        const abort = sinon.spy();
-        stream.on('abort', abort);
-        stream.on('close', () => {
-          assert.ok(!abort.called);
+          stream.destroy();
           scope.done();
           done();
+        });
+
+        stream.on('abort', () => {
+          done(Error('Should not emit `abort`'));
         });
       });
     });
