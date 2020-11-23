@@ -55,6 +55,7 @@ describe('extras.getAuthor()', () => {
     const author = extras.getAuthor(info);
     assert.ok(author);
     assertURL(author.avatar);
+    assertThumbnails(author.thumbnails);
     assertChannelURL(author.channel_url);
     assertChannelURL(author.external_channel_url);
     assertUserID(author.id);
@@ -80,6 +81,7 @@ describe('extras.getAuthor()', () => {
       const author = extras.getAuthor(info);
       assert.ok(author);
       assertURL(author.avatar);
+      assertThumbnails(author.thumbnails);
       assertChannelURL(author.channel_url);
       assertChannelURL(author.external_channel_url);
       assertUserID(author.id);

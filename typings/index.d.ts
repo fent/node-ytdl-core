@@ -146,6 +146,7 @@ declare module 'ytdl-core' {
       id: string;
       name: string;
       avatar: string; // to remove later
+      thumbnails: thumbnail[];
       verified: boolean;
       user?: string;
       channel_url: string;
