@@ -145,12 +145,12 @@ declare module 'ytdl-core' {
     interface Author {
       id: string;
       name: string;
-      avatar: string;
+      avatar: string; // to remove later
       verified: boolean;
-      user: string;
+      user?: string;
       channel_url: string;
-      external_channel_url: string;
-      user_url: string;
+      external_channel_url?: string;
+      user_url?: string;
       subscriber_count: number;
     }
 
@@ -339,13 +339,16 @@ declare module 'ytdl-core' {
     interface relatedVideo {
       id?: string;
       title?: string;
-      author?: string;
-      ucid?: string;
-      author_thumbnail?: string;
+      published?: string;
+      author: Author | 'string'; // to remove the `string` part later
+      ucid?: string; // to remove later
+      author_thumbnail?: string; // to remove later
       short_view_count_text?: string;
       view_count?: string;
       length_seconds?: number;
-      video_thumbnail?: string;
+      video_thumbnail?: string; // to remove later
+      thumbnails: thumbnail[];
+      isLive: boolean;
     }
 
     function getBasicInfo(url: string, options?: getInfoOptions): Promise<videoInfo>;

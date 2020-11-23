@@ -22,6 +22,33 @@ const assertUserURL = url => {
   assert.ok(/^https?:\/\/www\.youtube\.com\/(user|channel)\/[a-zA-Z0-9_-]+$/.test(url), `Not a user URL: ${url}`);
 };
 
+const assertThumbnails = thumbnails => {
+  assert.ok(Array.isArray(thumbnails));
+  for (let thumbnail of thumbnails) {
+    assertURL(thumbnail.url);
+    assert.equal(typeof thumbnail.width, 'number');
+    assert.equal(typeof thumbnail.height, 'number');
+  }
+};
+
+const assertRelatedVideos = relatedVideos => {
+  assert.ok(Array.isArray(relatedVideos));
+  assert.ok(relatedVideos.length > 0);
+  for (let video of relatedVideos) {
+    assert.ok(video.id);
+    assert.ok(video.title);
+    assert.ok(video.length_seconds);
+    assertThumbnails(video.thumbnails);
+    assert.equal(typeof video.isLive, 'boolean');
+    assert.ok(/[a-z]+/.test(video.author));
+    assert.ok(video.author.id);
+    assert.ok(video.author.name);
+    assert.ok(video.author.channel_url);
+    assertThumbnails(video.author.thumbnails);
+    assert.equal(typeof video.author.verified, 'boolean');
+  }
+};
+
 describe('extras.getAuthor()', () => {
   it('Returns video author object', () => {
     const info = require('./files/videos/regular/expected-info.json');
@@ -103,28 +130,13 @@ describe('extras.getMedia()', () => {
 describe('extras.getRelatedVideos()', () => {
   it('Returns related videos', () => {
     const info = require('./files/videos/regular/expected-info.json');
-    const relatedVideos = extras.getRelatedVideos(info);
-    assert.ok(relatedVideos && relatedVideos.length > 0);
-    for (let video of relatedVideos) {
-      assert.ok(video.id);
-      assert.ok(video.author);
-      assert.ok(video.title);
-      assert.ok(video.length_seconds);
-      assertURL(video.video_thumbnail);
-    }
+    assertRelatedVideos(extras.getRelatedVideos(info));
   });
 
   describe('Without `rvs` params', () => {
     it('Still able to find video params', () => {
       const info = require('./files/videos/regular/expected-info-no-rvs.json');
-      const relatedVideos = extras.getRelatedVideos(info);
-      for (let video of relatedVideos) {
-        assert.ok(video.id);
-        assert.ok(video.author);
-        assert.ok(video.title);
-        assert.ok(video.length_seconds);
-        assertURL(video.video_thumbnail);
-      }
+      assertRelatedVideos(extras.getRelatedVideos(info));
     });
   });
 
