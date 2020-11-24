@@ -9,6 +9,7 @@ const MANIFEST_HOST = 'https://manifest.googlevideo.com';
 const M3U8_HOST = 'https://manifest.googlevideo.com';
 const EMBED_PATH = '/embed/';
 const INFO_PATH = '/get_video_info?';
+process.env.YTDL_NO_UPDATE = true;
 
 
 if (global.it) {
