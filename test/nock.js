@@ -9,13 +9,13 @@ const MANIFEST_HOST = 'https://manifest.googlevideo.com';
 const M3U8_HOST = 'https://manifest.googlevideo.com';
 const EMBED_PATH = '/embed/';
 const INFO_PATH = '/get_video_info?';
-process.env.YTDL_NO_UPDATE = true;
+process.env.YTDL_NO_UPDATE = 'true';
 
 
 if (global.it) {
-  before(() => { nock.disableNetConnect(); });
-  after(() => { nock.enableNetConnect(); });
-  afterEach(() => { nock.cleanAll(); });
+  before(() => nock.disableNetConnect());
+  after(() => nock.enableNetConnect());
+  afterEach(() => nock.cleanAll());
   afterEach(() => {
     ytdl.cache.sig.clear();
     ytdl.cache.info.clear();

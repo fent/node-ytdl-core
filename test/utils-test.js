@@ -1,5 +1,7 @@
 const utils = require('../lib/utils');
 const assert = require('assert-diff');
+const sinon = require('sinon');
+const nock = require('nock');
 
 
 describe('utils.between()', () => {
@@ -92,5 +94,62 @@ describe('utils.parseAbbreviatedNumber', () => {
   });
   it('Returns `null` when given non-number', () => {
     assert.strictEqual(utils.parseAbbreviatedNumber('abc'), null);
+  });
+});
+
+
+describe('utils.checkForUpdates', () => {
+  before(() => delete process.env.YTDL_NO_UPDATE);
+  after(() => process.env.YTDL_NO_UPDATE = 'true');
+  beforeEach(() => utils.lastUpdateCheck = Date.now());
+  afterEach(() => sinon.restore());
+
+  describe('Already on latest', () => {
+    it('Does not warn the console', async() => {
+      const { version } = require('../package.json');
+      const scope = nock('https://api.github.com')
+        .get('/repos/fent/node-ytdl-core/releases/latest')
+        .reply(200, { tag_name: `v${version}` });
+      const warnSpy = sinon.spy();
+      sinon.replace(console, 'warn', warnSpy);
+      sinon.replace(Date, 'now', sinon.stub().returns(Infinity));
+      await utils.checkForUpdates();
+      scope.done();
+      assert.ok(warnSpy.notCalled);
+    });
+  });
+
+  describe('When there is a new update', () => {
+    it('Warns the console about the update', async() => {
+      const scope = nock('https://api.github.com')
+        .get('/repos/fent/node-ytdl-core/releases/latest')
+        .reply(200, { tag_name: 'vInfinity.0.0' });
+      const warnSpy = sinon.spy();
+      sinon.replace(console, 'warn', warnSpy);
+      sinon.replace(Date, 'now', sinon.stub().returns(Infinity));
+      await utils.checkForUpdates();
+      scope.done();
+      assert.ok(warnSpy.called);
+      assert.ok(/is out of date!/.test(warnSpy.firstCall.args[0]));
+    });
+  });
+
+  describe('Already checked recently', () => {
+    it('Does not make request to check', async() => {
+      const warnSpy = sinon.spy();
+      sinon.replace(console, 'warn', warnSpy);
+      await utils.checkForUpdates();
+      assert.ok(warnSpy.notCalled);
+    });
+  });
+
+  describe('With `YTDL_NO_UPDATE` env variable set', () => {
+    it('Does not make request to check', async() => {
+      process.env.YTDL_NO_UPDATE = 'true';
+      const warnSpy = sinon.spy();
+      sinon.replace(console, 'warn', warnSpy);
+      await utils.checkForUpdates();
+      assert.ok(warnSpy.notCalled);
+    });
   });
 });
