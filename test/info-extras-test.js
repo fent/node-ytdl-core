@@ -1,4 +1,5 @@
 const assert = require('assert-diff');
+const sinon = require('sinon');
 const extras = require('../lib/info-extras');
 
 
@@ -50,6 +51,10 @@ const assertRelatedVideos = relatedVideos => {
 };
 
 describe('extras.getAuthor()', () => {
+  // To remove later.
+  before(() => sinon.replace(console, 'warn', sinon.stub()));
+  after(() => sinon.restore());
+
   it('Returns video author object', () => {
     const info = require('./files/videos/regular/expected-info.json');
     const author = extras.getAuthor(info);
@@ -130,6 +135,10 @@ describe('extras.getMedia()', () => {
 
 
 describe('extras.getRelatedVideos()', () => {
+  // To remove later.
+  before(() => sinon.replace(console, 'warn', sinon.stub()));
+  after(() => sinon.restore());
+
   it('Returns related videos', () => {
     const info = require('./files/videos/regular/expected-info.json');
     assertRelatedVideos(extras.getRelatedVideos(info));
