@@ -64,7 +64,7 @@ const videos = [
   {
     id: '_HSylqgVYQI',
     type: 'regular',
-    keep: ['video.flv', 'watch-reload-now.json', 'watch-reload-now-2.json'],
+    keep: ['video.flv', 'watch-reload-now.json', 'watch-reload-now-2.json', 'watch-empty.json'],
     saveInfo: true,
     transform: [
       {

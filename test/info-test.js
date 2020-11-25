@@ -340,7 +340,7 @@ describe('ytdl.getInfo()', () => {
       });
     });
 
-    describe('Unable to parse watch page config', () => {
+    describe('Unable to parse watch.json page config', () => {
       it('Uses backup watch.html page', async() => {
         const id = 'LuZu9N53Vd0';
         const scope = nock(id, 'age-restricted', {
@@ -369,7 +369,7 @@ describe('ytdl.getInfo()', () => {
       });
     });
 
-    describe('When watch page gives back `{"reload":"now"}`', () => {
+    describe('When watch.json page gives back `{"reload":"now"}`', () => {
       it('Retries the request', async() => {
         const id = '_HSylqgVYQI';
         const scope1 = nock(id, 'regular', {
@@ -411,6 +411,24 @@ describe('ytdl.getInfo()', () => {
           assert.ok(info.formats[0].url);
           assert.ok(!info.videoDetails.age_restricted);
         });
+      });
+    });
+
+    describe('When watch.json page gives back an empty response', () => {
+      it('Retries the request', async() => {
+        const id = '_HSylqgVYQI';
+        const scope1 = nock(id, 'regular', {
+          watchJson: [true, 200, 'empty'],
+        });
+        const scope2 = nock(id, 'regular', {
+          watchHtml: false,
+          player: false,
+        });
+        let info = await ytdl.getInfo(id, { requestOptions: { maxRetries: 1 } });
+        scope1.done();
+        scope2.done();
+        assert.ok(info.formats.length);
+        assert.ok(info.formats[0].url);
       });
     });
 
