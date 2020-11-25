@@ -453,7 +453,7 @@ describe('ytdl.getInfo()', () => {
       it('Fails gracefully', async() => {
         const id = 'z2jeHsa0UG0';
         const scope = nock(id, 'private');
-        await assert.rejects(ytdl.getInfo(id), /private video/);
+        await assert.rejects(ytdl.getInfo(id, { requestOptions: { maxRetries: 1 } }), /private video/);
         scope.done();
       });
     });
@@ -484,6 +484,22 @@ describe('ytdl.getInfo()', () => {
           player: false,
         });
         await assert.rejects(ytdl.getInfo(id), /Unable to find html5player file/);
+        scope.done();
+      });
+    });
+
+    describe('No endpoint works', () => {
+      it('Fails gracefully', async() => {
+        const id = 'LuZu9N53Vd0';
+        const scope = nock(id, 'age-restricted', {
+          watchJson: [true, 500],
+          embed: [true, 500],
+          get_video_info: [true, 500],
+          player: false,
+        });
+        await assert.rejects(ytdl.getInfo(id, {
+          requestOptions: { maxRetries: 0 },
+        }), /Status code: 500/);
         scope.done();
       });
     });
