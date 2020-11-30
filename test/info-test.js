@@ -287,9 +287,9 @@ describe('ytdl.getInfo()', () => {
   describe('When there is a recoverable error', () => {
     describe('Unable to find config', () => {
       it('Uses backup get_video_info and watch.html page', async() => {
-        const expected = require('./files/videos/age-restricted/expected-info.json');
+        const expected = require('./files/videos/embed-backup/expected-info.json');
         const id = 'LuZu9N53Vd0';
-        const scope = nock(id, 'age-restricted', {
+        const scope = nock(id, 'embed-backup', {
           embed: [true, 200, 'no-config'],
           watchHtml: [true, 200, 'backup'],
         });
@@ -301,27 +301,14 @@ describe('ytdl.getInfo()', () => {
 
     describe('When embed page returns limited `player_response`', () => {
       it('Uses backup get_video_info page', async() => {
-        const expected = require('./files/videos/age-restricted/expected-info.json');
+        const expected = require('./files/videos/embed-backup/expected-info.json');
         const id = 'LuZu9N53Vd0';
-        const scope = nock(id, 'age-restricted', {
+        const scope = nock(id, 'embed-backup', {
           embed: [true, 200, 'player-vars'],
         });
         let info = await ytdl.getInfo(id);
         scope.done();
         assert.strictEqual(info.formats.length, expected.formats.length);
-      });
-    });
-    describe('From a video that does not have `player_response` object', () => {
-      it('Uses backup `playerResponse` from watch.json page', async() => {
-        const id = 'LuZu9N53Vd0';
-        const scope = nock(id, 'age-restricted', {
-          watchJson: [true, 200, 'no-player-response'],
-          get_video_info: [true, 200, 'no-player-response'],
-          player: false,
-        });
-        let info = await ytdl.getInfo(id);
-        scope.done();
-        assert.ok(info.videoDetails.title);
       });
     });
 
@@ -343,7 +330,7 @@ describe('ytdl.getInfo()', () => {
     describe('Unable to parse watch.json page config', () => {
       it('Uses backup watch.html page', async() => {
         const id = 'LuZu9N53Vd0';
-        const scope = nock(id, 'age-restricted', {
+        const scope = nock(id, 'embed-backup', {
           watchJson: [true, 200, 'bad-config'],
         });
         let info = await ytdl.getInfo(id);
@@ -357,7 +344,7 @@ describe('ytdl.getInfo()', () => {
     describe('Unable to parse embed config', () => {
       it('Uses backup get_video_info page', async() => {
         const id = 'LuZu9N53Vd0';
-        const scope = nock(id, 'age-restricted', {
+        const scope = nock(id, 'embed-backup', {
           embed: [true, 200, 'bad-config'],
           watchHtml: [true, 200, 'backup'],
         });
@@ -389,10 +376,10 @@ describe('ytdl.getInfo()', () => {
       describe('Too many times', () => {
         it('Uses backup embed.html page', async() => {
           const id = 'LuZu9N53Vd0';
-          const scope = nock(id, 'age-restricted', {
+          const scope = nock(id, 'embed-backup', {
             watchJson: [true, 200, 'reload-now'],
           });
-          const scope2 = nock(id, 'age-restricted', {
+          const scope2 = nock(id, 'embed-backup', {
             watchJson: [true, 200, 'reload-now'],
             embed: false,
             get_video_info: false,
@@ -452,7 +439,7 @@ describe('ytdl.getInfo()', () => {
       describe('Too many times', () => {
         it('Uses the next endpoint as backup', async() => {
           const id = 'LuZu9N53Vd0';
-          const scope = nock(id, 'age-restricted', {
+          const scope = nock(id, 'embed-backup', {
             watchJson: [true, 502],
           });
           let info = await ytdl.getInfo(id);
@@ -509,7 +496,7 @@ describe('ytdl.getInfo()', () => {
     describe('No endpoint works', () => {
       it('Fails gracefully', async() => {
         const id = 'LuZu9N53Vd0';
-        const scope = nock(id, 'age-restricted', {
+        const scope = nock(id, 'embed-backup', {
           watchJson: [true, 500],
           embed: [true, 500],
           get_video_info: [true, 500],

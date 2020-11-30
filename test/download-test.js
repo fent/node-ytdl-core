@@ -33,18 +33,20 @@ describe('Download video', () => {
     assert.ok(equal);
   });
 
-  it('Fails gracefully if error getting info', done => {
-    const id = '_HSylqgVYQI';
-    const scope = nock(id, 'regular', {
-      watchHtml: [false, 500],
-      player: false,
-    });
-    const stream = ytdl(id, { filter: filter });
-    stream.on('error', err => {
-      assert.ok(err);
-      assert.strictEqual(err.message, 'Status code: 500');
-      scope.done();
-      done();
+  describe('When there is an error', () => {
+    it('Stream emits an error', done => {
+      const id = '_HSylqgVYQI';
+      const scope = nock(id, 'regular', {
+        watchHtml: [false, 500],
+        player: false,
+      });
+      const stream = ytdl(id, { filter: filter });
+      stream.on('error', err => {
+        assert.ok(err);
+        assert.strictEqual(err.message, 'Status code: 500');
+        scope.done();
+        done();
+      });
     });
   });
 
@@ -628,7 +630,7 @@ describe('Download video', () => {
   });
 
   describe('that has not yet started broadcasting', () => {
-    it('Fails gracefully', done => {
+    it('Stream emits an error', done => {
       const id = 'VIBFo3Ti5vQ';
       const scope = nock(id, 'live-future');
       let stream = ytdl(id);
@@ -648,6 +650,25 @@ describe('Download video', () => {
       stream.on('error', err => {
         scope.done();
         assert.strictEqual(err.message, 'This video requires payment to watch.');
+        done();
+      });
+      stream.on('data', () => {
+        done(Error('should not emit `data`'));
+      });
+      stream.on('end', () => {
+        done(Error('should not emit `end`'));
+      });
+    });
+  });
+
+  describe('From an age restricted video', () => {
+    it('Stream emits an error', done => {
+      const id = 'LuZu9N53Vd0';
+      const scope = nock(id, 'age-restricted');
+      let stream = ytdl(id);
+      stream.on('error', err => {
+        scope.done();
+        assert.strictEqual(err.message, 'Sign in to confirm your age');
         done();
       });
       stream.on('data', () => {

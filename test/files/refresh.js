@@ -113,27 +113,29 @@ const videos = [
     id: 'LuZu9N53Vd0',
     type: 'age-restricted',
     saveInfo: true,
+  },
+  {
+    id: 'aqz-KE-bpKQ',
+    type: 'embed-backup',
+    saveInfo: true,
+    options: { requestOptions: {
+      maxRetries: 0,
+      headers: {
+        // Will make the watch.json request fail, falling back to embed.html
+        'x-youtube-client-version': '0',
+      },
+    } },
     keep: ['embed-player-vars.html', 'watch-backup.html', 'watch-reload-now.json'],
     transform: [
       {
         page: 'embed.html',
         saveAs: 'no-config',
-        fn: body => body.replace('PLAYER_CONFIG', ''),
+        fn: body => body.replace(/PLAYER_(CONFIG|VARS)/g, ''),
       },
       {
         page: 'embed.html',
         saveAs: 'bad-config',
-        fn: body => body.replace(/((["'])PLAYER_CONFIG\2:\s*){/, '$1{[}'),
-      },
-      {
-        page: 'watch.json',
-        saveAs: 'no-player-response',
-        fn: body => body.replace(/player_response/g, 'no'),
-      },
-      {
-        page: 'get_video_info',
-        saveAs: 'no-player-response',
-        fn: body => body.replace(/player_response/g, 'no'),
+        fn: body => body.replace(/((["'])PLAYER_(?:CONFIG|VARS)\2:\s*){/, '$1{[}'),
       },
       {
         page: 'watch.json',
@@ -161,7 +163,7 @@ const videos = [
     skip: ['watch.json', 'get_video_info'],
   },
   {
-    id: 'B3eAMGXFw1o',
+    id: 'YQHsXMglC9A',
     type: 'cipher',
   },
   {
@@ -185,6 +187,10 @@ const path = require('path');
 const urlParse = require('url').parse;
 const mukRequire = require('muk-require');
 const miniget = require('miniget');
+
+
+// Don't check for update, otherwise, it'll get saved as part of a video request.
+process.env.YTDL_NO_UPDATE = 'true';
 
 
 // Tries to remove instances of your ip from saved test files.
