@@ -112,7 +112,7 @@ describe('ytdl.getInfo()', () => {
   });
 
   describe('From an age restricted video', () => {
-    it('Returns correct video metainfo', async() => {
+    it('Returns correct video metainfo with formats', async() => {
       const expected = require('./files/videos/age-restricted/expected-info.json');
       const id = 'LuZu9N53Vd0';
       const scope = nock(id, 'age-restricted');
@@ -120,6 +120,7 @@ describe('ytdl.getInfo()', () => {
       scope.done();
       assert.strictEqual(info.formats.length, expected.formats.length);
       assert.ok(info.videoDetails.age_restricted);
+      assert.ok(info.formats.length);
     });
   });
 

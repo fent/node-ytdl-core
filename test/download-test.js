@@ -661,25 +661,6 @@ describe('Download video', () => {
     });
   });
 
-  describe('From an age restricted video', () => {
-    it('Stream emits an error', done => {
-      const id = 'LuZu9N53Vd0';
-      const scope = nock(id, 'age-restricted');
-      let stream = ytdl(id);
-      stream.on('error', err => {
-        scope.done();
-        assert.strictEqual(err.message, 'Sign in to confirm your age');
-        done();
-      });
-      stream.on('data', () => {
-        done(Error('should not emit `data`'));
-      });
-      stream.on('end', () => {
-        done(Error('should not emit `end`'));
-      });
-    });
-  });
-
   describe('With no formats', () => {
     it('Stream emits an error', done => {
       const id = '_HSylqgVYQI';
