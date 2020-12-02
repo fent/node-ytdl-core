@@ -13264,200 +13264,650 @@
     {
       "id": "Yie9Bgo69m8",
       "title": "Yelling Cat",
-      "author": "BrooklynStray",
-      "ucid": "UCsXK3befQPTeHG4O49_sgkw",
-      "author_thumbnail": "https://yt3.ggpht.com/a/AATXAJynjxxjv-loscV3SitXx-fTIwGaInt1ONOabg=s68-c-k-c0xffffffff-no-rj-mo",
+      "published": "9 years ago",
+      "author": {
+        "id": "UCsXK3befQPTeHG4O49_sgkw",
+        "name": "BrooklynStray",
+        "user": "BrooklynStray",
+        "channel_url": "https://www.youtube.com/channel/UCsXK3befQPTeHG4O49_sgkw",
+        "user_url": "https://www.youtube.com/user/BrooklynStray",
+        "thumbnails": [
+          {
+            "url": "https://yt3.ggpht.com/a/AATXAJynjxxjv-loscV3SitXx-fTIwGaInt1ONOabg=s68-c-k-c0xffffffff-no-rj-mo",
+            "width": 68,
+            "height": 68
+          }
+        ],
+        "verified": false
+      },
       "short_view_count_text": "9.6M",
-      "view_count": "9693,187",
+      "view_count": "9693187",
       "length_seconds": 41,
-      "video_thumbnail": "https://i.ytimg.com/vi/Yie9Bgo69m8/hqdefault.jpg?sqp=-oaymwEiCKgBEF5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLAw0b3AVF0ks7z0OgGxptNn_x1RNw"
+      "thumbnails": [
+        {
+          "url": "https://i.ytimg.com/vi/Yie9Bgo69m8/hqdefault.jpg?sqp=-oaymwEiCKgBEF5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLAw0b3AVF0ks7z0OgGxptNn_x1RNw",
+          "width": 168,
+          "height": 94
+        },
+        {
+          "url": "https://i.ytimg.com/vi/Yie9Bgo69m8/hqdefault.jpg?sqp=-oaymwEjCNACELwBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLDGv6V05kHr3sZB5hB7xNcxSdXT9g",
+          "width": 336,
+          "height": 188
+        }
+      ],
+      "isLive": false
     },
     {
       "id": "AqjB8DGt85U",
       "title": "Friend's Cat Meows Aggressively, then Attacks",
-      "author": "Drew Alexander",
-      "ucid": "UCAby23LC9oj9PaCPdbJdF0w",
-      "author_thumbnail": "https://yt3.ggpht.com/a/AATXAJzQednL4r0ktGUqz51E8EGG7i2sLmD_n7o-xkkG=s68-c-k-c0xffffffff-no-rj-mo",
+      "published": "6 years ago",
+      "author": {
+        "id": "UCAby23LC9oj9PaCPdbJdF0w",
+        "name": "Drew Alexander",
+        "user": "",
+        "channel_url": "https://www.youtube.com/channel/UCAby23LC9oj9PaCPdbJdF0w",
+        "user_url": "https://www.youtube.com/user/",
+        "thumbnails": [
+          {
+            "url": "https://yt3.ggpht.com/a/AATXAJzQednL4r0ktGUqz51E8EGG7i2sLmD_n7o-xkkG=s68-c-k-c0xffffffff-no-rj-mo",
+            "width": 68,
+            "height": 68
+          }
+        ],
+        "verified": false
+      },
       "short_view_count_text": "12M",
-      "view_count": "12858,832",
+      "view_count": "12858832",
       "length_seconds": 97,
-      "video_thumbnail": "https://i.ytimg.com/vi/AqjB8DGt85U/hqdefault.jpg?sqp=-oaymwEiCKgBEF5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLCxeDoJfhJTm2l2bZa4pFKaySJAvQ"
+      "thumbnails": [
+        {
+          "url": "https://i.ytimg.com/vi/AqjB8DGt85U/hqdefault.jpg?sqp=-oaymwEiCKgBEF5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLCxeDoJfhJTm2l2bZa4pFKaySJAvQ",
+          "width": 168,
+          "height": 94
+        },
+        {
+          "url": "https://i.ytimg.com/vi/AqjB8DGt85U/hqdefault.jpg?sqp=-oaymwEjCNACELwBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLBAAXT6L1CctpEqAIUND-KrA8RDKw",
+          "width": 336,
+          "height": 188
+        }
+      ],
+      "isLive": false
     },
     {
       "id": "pjRs_WT8VzM",
       "title": "7 Sounds Cats Make and What They Mean",
-      "author": "Cole and Marmalade",
-      "ucid": "UCvmijL-eepDVHYSJHDY3d6w",
-      "author_thumbnail": "https://yt3.ggpht.com/a/AATXAJyyUmwJdiDIwaC8dfn3g0zIFRm08ovNRNbWMAQb5Q=s68-c-k-c0xffffffff-no-rj-mo",
+      "published": "1 year ago",
+      "author": {
+        "id": "UCvmijL-eepDVHYSJHDY3d6w",
+        "name": "Cole and Marmalade",
+        "user": "chrispoole20",
+        "channel_url": "https://www.youtube.com/channel/UCvmijL-eepDVHYSJHDY3d6w",
+        "user_url": "https://www.youtube.com/user/chrispoole20",
+        "thumbnails": [
+          {
+            "url": "https://yt3.ggpht.com/a/AATXAJyyUmwJdiDIwaC8dfn3g0zIFRm08ovNRNbWMAQb5Q=s68-c-k-c0xffffffff-no-rj-mo",
+            "width": 68,
+            "height": 68
+          }
+        ],
+        "verified": false
+      },
       "short_view_count_text": "17M",
-      "view_count": "17220,678",
+      "view_count": "17220678",
       "length_seconds": 263,
-      "video_thumbnail": "https://i.ytimg.com/vi/pjRs_WT8VzM/hqdefault.jpg?sqp=-oaymwEiCKgBEF5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLBYmZLcRNIJJqk1DRQV0e4mBVsDIg"
+      "thumbnails": [
+        {
+          "url": "https://i.ytimg.com/vi/pjRs_WT8VzM/hqdefault.jpg?sqp=-oaymwEiCKgBEF5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLBYmZLcRNIJJqk1DRQV0e4mBVsDIg",
+          "width": 168,
+          "height": 94
+        },
+        {
+          "url": "https://i.ytimg.com/vi/pjRs_WT8VzM/hqdefault.jpg?sqp=-oaymwEjCNACELwBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLCHr3u6vyYTcHgBB4OHLvDGWvEkdw",
+          "width": 336,
+          "height": 188
+        }
+      ],
+      "isLive": false
     },
     {
       "id": "9u3yJeXJ20o",
       "title": "Why Is A Woman Screaming At A Cat?",
-      "author": "Lessons in Meme Culture",
-      "ucid": "UCaHT88aobpcvRFEuy4v5Clg",
-      "author_thumbnail": "https://yt3.ggpht.com/a/AATXAJxkojAQMG0MfaNFcKJe_5Kg50vEyS3Br7ITHpjO=s68-c-k-c0xffffffff-no-rj-mo",
+      "published": "1 year ago",
+      "author": {
+        "id": "UCaHT88aobpcvRFEuy4v5Clg",
+        "name": "Lessons in Meme Culture",
+        "user": "",
+        "channel_url": "https://www.youtube.com/channel/UCaHT88aobpcvRFEuy4v5Clg",
+        "user_url": "https://www.youtube.com/user/",
+        "thumbnails": [
+          {
+            "url": "https://yt3.ggpht.com/a/AATXAJxkojAQMG0MfaNFcKJe_5Kg50vEyS3Br7ITHpjO=s68-c-k-c0xffffffff-no-rj-mo",
+            "width": 68,
+            "height": 68
+          }
+        ],
+        "verified": true
+      },
       "short_view_count_text": "278K",
       "view_count": "278507",
       "length_seconds": 135,
-      "video_thumbnail": "https://i.ytimg.com/vi/9u3yJeXJ20o/hqdefault.jpg?sqp=-oaymwEiCKgBEF5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLBUsdaL30AGbwDEKIrgtC2NLLwLGQ"
+      "thumbnails": [
+        {
+          "url": "https://i.ytimg.com/vi/9u3yJeXJ20o/hqdefault.jpg?sqp=-oaymwEiCKgBEF5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLBUsdaL30AGbwDEKIrgtC2NLLwLGQ",
+          "width": 168,
+          "height": 94
+        },
+        {
+          "url": "https://i.ytimg.com/vi/9u3yJeXJ20o/hqdefault.jpg?sqp=-oaymwEjCNACELwBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLAiaygiMFc4mBvtS9H46_TpZJhTvA",
+          "width": 336,
+          "height": 188
+        }
+      ],
+      "isLive": false
     },
     {
       "id": "C-hgCVxKOGE",
       "title": "Funniest Animals 🐧 - Best Of The 2020 Funny Animal Videos 😁 - Cutest Animals Ever",
-      "author": "Funniest Animals Ever",
-      "ucid": "UCP83iCyLq0Q5VdaQKp0r7kg",
-      "author_thumbnail": "https://yt3.ggpht.com/a/AATXAJzlviehlT3aoh1yR6pmhTUw9ozYPjD13MTm7U6r=s68-c-k-c0xffffffff-no-rj-mo",
+      "published": "1 month ago",
+      "author": {
+        "id": "UCP83iCyLq0Q5VdaQKp0r7kg",
+        "name": "Funniest Animals Ever",
+        "user": "jiatheripper",
+        "channel_url": "https://www.youtube.com/channel/UCP83iCyLq0Q5VdaQKp0r7kg",
+        "user_url": "https://www.youtube.com/user/jiatheripper",
+        "thumbnails": [
+          {
+            "url": "https://yt3.ggpht.com/a/AATXAJzlviehlT3aoh1yR6pmhTUw9ozYPjD13MTm7U6r=s68-c-k-c0xffffffff-no-rj-mo",
+            "width": 68,
+            "height": 68
+          }
+        ],
+        "verified": false
+      },
       "short_view_count_text": "14M",
-      "view_count": "14086,737",
+      "view_count": "14086737",
       "length_seconds": 548,
-      "video_thumbnail": "https://i.ytimg.com/vi/C-hgCVxKOGE/hqdefault.jpg?sqp=-oaymwEiCKgBEF5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLDgqB6Ybwcl_aiCwquR7vWaHzyV3g"
+      "thumbnails": [
+        {
+          "url": "https://i.ytimg.com/vi/C-hgCVxKOGE/hqdefault.jpg?sqp=-oaymwEiCKgBEF5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLDgqB6Ybwcl_aiCwquR7vWaHzyV3g",
+          "width": 168,
+          "height": 94
+        },
+        {
+          "url": "https://i.ytimg.com/vi/C-hgCVxKOGE/hqdefault.jpg?sqp=-oaymwEjCNACELwBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLAoSWvza2cQT1avnwdvTu8MMsTdzA",
+          "width": 336,
+          "height": 188
+        }
+      ],
+      "isLive": false
     },
     {
       "id": "vjYim18mpuI",
       "title": "CAT MEMES COMPILATION 2020 (FUNNY CATS)",
-      "author": "Pet Ninja",
-      "ucid": "UC1hwJQTym0InfsE2VZ5jPAA",
-      "author_thumbnail": "https://yt3.ggpht.com/a/AATXAJyCT0ij4nKnHwobd6VjqtqgEaR2oxpAGi0PG35vfA=s68-c-k-c0xffffffff-no-rj-mo",
+      "published": "1 month ago",
+      "author": {
+        "id": "UC1hwJQTym0InfsE2VZ5jPAA",
+        "name": "Pet Ninja",
+        "user": "TypicalDouchebag",
+        "channel_url": "https://www.youtube.com/channel/UC1hwJQTym0InfsE2VZ5jPAA",
+        "user_url": "https://www.youtube.com/user/TypicalDouchebag",
+        "thumbnails": [
+          {
+            "url": "https://yt3.ggpht.com/a/AATXAJyCT0ij4nKnHwobd6VjqtqgEaR2oxpAGi0PG35vfA=s68-c-k-c0xffffffff-no-rj-mo",
+            "width": 68,
+            "height": 68
+          }
+        ],
+        "verified": false
+      },
       "short_view_count_text": "3.3M",
-      "view_count": "3381,793",
+      "view_count": "3381793",
       "length_seconds": 496,
-      "video_thumbnail": "https://i.ytimg.com/vi/vjYim18mpuI/hqdefault.jpg?sqp=-oaymwEiCKgBEF5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLC_CgW9Z3f_q38KU8-_Yg44wtmcWA"
+      "thumbnails": [
+        {
+          "url": "https://i.ytimg.com/vi/vjYim18mpuI/hqdefault.jpg?sqp=-oaymwEiCKgBEF5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLC_CgW9Z3f_q38KU8-_Yg44wtmcWA",
+          "width": 168,
+          "height": 94
+        },
+        {
+          "url": "https://i.ytimg.com/vi/vjYim18mpuI/hqdefault.jpg?sqp=-oaymwEjCNACELwBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLCLzj7s7p1GbwmPCT194lDXorUorg",
+          "width": 336,
+          "height": 188
+        }
+      ],
+      "isLive": false
     },
     {
       "id": "RRNanbmD1xk",
       "title": "Thurston the Cat (Full video)",
-      "author": "Cookie Cookies",
-      "ucid": "UCFfYV_R9nS8LFbnxOn01rQw",
-      "author_thumbnail": "https://yt3.ggpht.com/a/AATXAJwBIO28s9fym6AbX_bSOmKUbwHn0DlVNK7d532K=s68-c-k-c0xffffffff-no-rj-mo",
+      "published": "1 year ago",
+      "author": {
+        "id": "UCFfYV_R9nS8LFbnxOn01rQw",
+        "name": "Cookie Cookies",
+        "user": "",
+        "channel_url": "https://www.youtube.com/channel/UCFfYV_R9nS8LFbnxOn01rQw",
+        "user_url": "https://www.youtube.com/user/",
+        "thumbnails": [
+          {
+            "url": "https://yt3.ggpht.com/a/AATXAJwBIO28s9fym6AbX_bSOmKUbwHn0DlVNK7d532K=s68-c-k-c0xffffffff-no-rj-mo",
+            "width": 68,
+            "height": 68
+          }
+        ],
+        "verified": false
+      },
       "short_view_count_text": "1M",
-      "view_count": "1028,760",
+      "view_count": "1028760",
       "length_seconds": 30,
-      "video_thumbnail": "https://i.ytimg.com/vi/RRNanbmD1xk/hqdefault.jpg?sqp=-oaymwEiCKgBEF5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLBYqZD2WPSdaTY03Q16cIxabI6H_w"
+      "thumbnails": [
+        {
+          "url": "https://i.ytimg.com/vi/RRNanbmD1xk/hqdefault.jpg?sqp=-oaymwEiCKgBEF5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLBYqZD2WPSdaTY03Q16cIxabI6H_w",
+          "width": 168,
+          "height": 94
+        },
+        {
+          "url": "https://i.ytimg.com/vi/RRNanbmD1xk/hqdefault.jpg?sqp=-oaymwEjCNACELwBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLB1ODmp9Rwv4DfvRAjHeD-AYUMZsw",
+          "width": 336,
+          "height": 188
+        }
+      ],
+      "isLive": false
     },
     {
       "id": "hkxlU-Kbt0A",
       "title": "Beau Nugget The Cat Starts His Difficult Weight Loss Journey | My Big Fat Pet Makeover",
-      "author": "Animal Planet",
-      "ucid": "UCkEBDbzLyH-LbB2FgMoSMaQ",
-      "author_thumbnail": "https://yt3.ggpht.com/a/AATXAJxJq4h8fzevclOrsdXPEZNZGhBjS_J8CYprfvInmw=s68-c-k-c0xffffffff-no-rj-mo",
+      "published": "2 years ago",
+      "author": {
+        "id": "UCkEBDbzLyH-LbB2FgMoSMaQ",
+        "name": "Animal Planet",
+        "user": "AnimalPlanetTV",
+        "channel_url": "https://www.youtube.com/channel/UCkEBDbzLyH-LbB2FgMoSMaQ",
+        "user_url": "https://www.youtube.com/user/AnimalPlanetTV",
+        "thumbnails": [
+          {
+            "url": "https://yt3.ggpht.com/a/AATXAJxJq4h8fzevclOrsdXPEZNZGhBjS_J8CYprfvInmw=s68-c-k-c0xffffffff-no-rj-mo",
+            "width": 68,
+            "height": 68
+          }
+        ],
+        "verified": true
+      },
       "short_view_count_text": "8.9M",
-      "view_count": "8981,507",
+      "view_count": "8981507",
       "length_seconds": 474,
-      "video_thumbnail": "https://i.ytimg.com/vi/hkxlU-Kbt0A/hqdefault.jpg?sqp=-oaymwEiCKgBEF5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLD7ftSovvJpO4lhuxoe-9y0xXvcCA"
+      "thumbnails": [
+        {
+          "url": "https://i.ytimg.com/vi/hkxlU-Kbt0A/hqdefault.jpg?sqp=-oaymwEiCKgBEF5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLD7ftSovvJpO4lhuxoe-9y0xXvcCA",
+          "width": 168,
+          "height": 94
+        },
+        {
+          "url": "https://i.ytimg.com/vi/hkxlU-Kbt0A/hqdefault.jpg?sqp=-oaymwEjCNACELwBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLDmwOOv336wA-6-RKQwfS_GzxaOMQ",
+          "width": 336,
+          "height": 188
+        }
+      ],
+      "isLive": false
     },
     {
       "id": "LdCvPBmeKRQ",
       "title": "Craziest Cat Scream",
-      "author": "jennifer johnson",
-      "ucid": "UCl9CVMLDzb1X8EKDyTA0Inw",
-      "author_thumbnail": "https://yt3.ggpht.com/a/AATXAJzVU0y5hiv877GATkAA9OSjFawWOXCD5ZFWCw=s68-c-k-c0xffffffff-no-rj-mo",
+      "published": "6 years ago",
+      "author": {
+        "id": "UCl9CVMLDzb1X8EKDyTA0Inw",
+        "name": "jennifer johnson",
+        "user": "",
+        "channel_url": "https://www.youtube.com/channel/UCl9CVMLDzb1X8EKDyTA0Inw",
+        "user_url": "https://www.youtube.com/user/",
+        "thumbnails": [
+          {
+            "url": "https://yt3.ggpht.com/a/AATXAJzVU0y5hiv877GATkAA9OSjFawWOXCD5ZFWCw=s68-c-k-c0xffffffff-no-rj-mo",
+            "width": 68,
+            "height": 68
+          }
+        ],
+        "verified": false
+      },
       "short_view_count_text": "8.2K",
       "view_count": "8221",
       "length_seconds": 214,
-      "video_thumbnail": "https://i.ytimg.com/vi/LdCvPBmeKRQ/hqdefault.jpg?sqp=-oaymwEiCKgBEF5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLAEkRY59YY8Gy-ByiW4gZ5b8u9k1g"
+      "thumbnails": [
+        {
+          "url": "https://i.ytimg.com/vi/LdCvPBmeKRQ/hqdefault.jpg?sqp=-oaymwEiCKgBEF5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLAEkRY59YY8Gy-ByiW4gZ5b8u9k1g",
+          "width": 168,
+          "height": 94
+        },
+        {
+          "url": "https://i.ytimg.com/vi/LdCvPBmeKRQ/hqdefault.jpg?sqp=-oaymwEjCNACELwBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLCL4cRxMzGV2zXuEbfSxL_XIvhENA",
+          "width": 336,
+          "height": 188
+        }
+      ],
+      "isLive": false
     },
     {
       "id": "gcvYdxKt3fw",
       "title": "Overweight Shelter Cat Slims Down - BRONSON | The Dodo",
-      "author": "The Dodo",
-      "ucid": "UCINb0wqPz-A0dV9nARjJlOQ",
-      "author_thumbnail": "https://yt3.ggpht.com/a/AATXAJxC_OldHk2geGwo1RLgjrfF-nd2KFxu1L9ELQdVBQ=s68-c-k-c0xffffffff-no-rj-mo",
+      "published": "2 years ago",
+      "author": {
+        "id": "UCINb0wqPz-A0dV9nARjJlOQ",
+        "name": "The Dodo",
+        "user": "TheDodoSite",
+        "channel_url": "https://www.youtube.com/channel/UCINb0wqPz-A0dV9nARjJlOQ",
+        "user_url": "https://www.youtube.com/user/TheDodoSite",
+        "thumbnails": [
+          {
+            "url": "https://yt3.ggpht.com/a/AATXAJxC_OldHk2geGwo1RLgjrfF-nd2KFxu1L9ELQdVBQ=s68-c-k-c0xffffffff-no-rj-mo",
+            "width": 68,
+            "height": 68
+          }
+        ],
+        "verified": true
+      },
       "short_view_count_text": "1.1M",
-      "view_count": "1104,086",
+      "view_count": "1104086",
       "length_seconds": 201,
-      "video_thumbnail": "https://i.ytimg.com/vi/gcvYdxKt3fw/hqdefault.jpg?sqp=-oaymwEiCKgBEF5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLARvbVBP7H7HFVTzb0epHzCUYF7_Q"
+      "thumbnails": [
+        {
+          "url": "https://i.ytimg.com/vi/gcvYdxKt3fw/hqdefault.jpg?sqp=-oaymwEiCKgBEF5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLARvbVBP7H7HFVTzb0epHzCUYF7_Q",
+          "width": 168,
+          "height": 94
+        },
+        {
+          "url": "https://i.ytimg.com/vi/gcvYdxKt3fw/hqdefault.jpg?sqp=-oaymwEjCNACELwBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLBCnKNumPkd1pM4VdabABOppfUNdA",
+          "width": 336,
+          "height": 188
+        }
+      ],
+      "isLive": false
     },
     {
       "id": "NGelhzl4l84",
       "title": "Psycho Cat Beats Up On Vet",
-      "author": "Jennie Day-Burget",
-      "ucid": "UCKjzgtdLsjtOLrdzsogL3mA",
-      "author_thumbnail": "https://yt3.ggpht.com/a/AATXAJzZydsMg1SWCy_UGjd3CIS_w2EpsJgHdtD3OH-F=s68-c-k-c0xffffffff-no-rj-mo",
+      "published": "12 years ago",
+      "author": {
+        "id": "UCKjzgtdLsjtOLrdzsogL3mA",
+        "name": "Jennie Day-Burget",
+        "user": "jennieburget",
+        "channel_url": "https://www.youtube.com/channel/UCKjzgtdLsjtOLrdzsogL3mA",
+        "user_url": "https://www.youtube.com/user/jennieburget",
+        "thumbnails": [
+          {
+            "url": "https://yt3.ggpht.com/a/AATXAJzZydsMg1SWCy_UGjd3CIS_w2EpsJgHdtD3OH-F=s68-c-k-c0xffffffff-no-rj-mo",
+            "width": 68,
+            "height": 68
+          }
+        ],
+        "verified": false
+      },
       "short_view_count_text": "16M",
-      "view_count": "16827,193",
+      "view_count": "16827193",
       "length_seconds": 124,
-      "video_thumbnail": "https://i.ytimg.com/vi/NGelhzl4l84/hqdefault.jpg?sqp=-oaymwEiCKgBEF5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLDYjHh1CkkI8sW0D_yfsxafWaPl_g"
+      "thumbnails": [
+        {
+          "url": "https://i.ytimg.com/vi/NGelhzl4l84/hqdefault.jpg?sqp=-oaymwEiCKgBEF5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLDYjHh1CkkI8sW0D_yfsxafWaPl_g",
+          "width": 168,
+          "height": 94
+        },
+        {
+          "url": "https://i.ytimg.com/vi/NGelhzl4l84/hqdefault.jpg?sqp=-oaymwEjCNACELwBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLD85bKIpCbAmYSIQqxZY94JZoZ9rg",
+          "width": 336,
+          "height": 188
+        }
+      ],
+      "isLive": false
     },
     {
       "id": "8LWLof0Crhg",
       "title": "Female foxes screaming!",
-      "author": "SaveAFox",
-      "ucid": "UCb3KY97ICfIkDJY_p6d7yig",
-      "author_thumbnail": "https://yt3.ggpht.com/a/AATXAJwyounoEy7s1E3nQhZLECHwlIcV04jTF9TcYMyeV_Y=s68-c-k-c0xffffffff-no-rj-mo",
+      "published": "5 months ago",
+      "author": {
+        "id": "UCb3KY97ICfIkDJY_p6d7yig",
+        "name": "SaveAFox",
+        "user": "spookelliot",
+        "channel_url": "https://www.youtube.com/channel/UCb3KY97ICfIkDJY_p6d7yig",
+        "user_url": "https://www.youtube.com/user/spookelliot",
+        "thumbnails": [
+          {
+            "url": "https://yt3.ggpht.com/a/AATXAJwyounoEy7s1E3nQhZLECHwlIcV04jTF9TcYMyeV_Y=s68-c-k-c0xffffffff-no-rj-mo",
+            "width": 68,
+            "height": 68
+          }
+        ],
+        "verified": false
+      },
       "short_view_count_text": "4M",
-      "view_count": "4024,954",
+      "view_count": "4024954",
       "length_seconds": 148,
-      "video_thumbnail": "https://i.ytimg.com/vi/8LWLof0Crhg/hqdefault.jpg?sqp=-oaymwEiCKgBEF5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLDUyJtAfK68sGKogryLbkX5npc4uw"
+      "thumbnails": [
+        {
+          "url": "https://i.ytimg.com/vi/8LWLof0Crhg/hqdefault.jpg?sqp=-oaymwEiCKgBEF5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLDUyJtAfK68sGKogryLbkX5npc4uw",
+          "width": 168,
+          "height": 94
+        },
+        {
+          "url": "https://i.ytimg.com/vi/8LWLof0Crhg/hqdefault.jpg?sqp=-oaymwEjCNACELwBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLCZyu5C8-2gTXUskIUFPmFhJpX3-g",
+          "width": 336,
+          "height": 188
+        }
+      ],
+      "isLive": false
     },
     {
       "id": "1gQ3MWBxFUM",
       "title": "Yelling cat meme compilation",
-      "author": "TheChaman",
-      "ucid": "UC-3LftiG0JWQfD-r5BIFLHQ",
-      "author_thumbnail": "https://yt3.ggpht.com/a/AATXAJyUNfJrtg9GsayKqdPhH3yY-wLWmIPnwiFeF_TkhA=s68-c-k-c0xffffffff-no-rj-mo",
+      "published": "11 months ago",
+      "author": {
+        "id": "UC-3LftiG0JWQfD-r5BIFLHQ",
+        "name": "TheChaman",
+        "user": "",
+        "channel_url": "https://www.youtube.com/channel/UC-3LftiG0JWQfD-r5BIFLHQ",
+        "user_url": "https://www.youtube.com/user/",
+        "thumbnails": [
+          {
+            "url": "https://yt3.ggpht.com/a/AATXAJyUNfJrtg9GsayKqdPhH3yY-wLWmIPnwiFeF_TkhA=s68-c-k-c0xffffffff-no-rj-mo",
+            "width": 68,
+            "height": 68
+          }
+        ],
+        "verified": false
+      },
       "short_view_count_text": "52K",
       "view_count": "52236",
       "length_seconds": 134,
-      "video_thumbnail": "https://i.ytimg.com/vi/1gQ3MWBxFUM/hqdefault.jpg?sqp=-oaymwEiCKgBEF5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLB6qZeS1nMbCEzYmYYd53QMik0Xnw"
+      "thumbnails": [
+        {
+          "url": "https://i.ytimg.com/vi/1gQ3MWBxFUM/hqdefault.jpg?sqp=-oaymwEiCKgBEF5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLB6qZeS1nMbCEzYmYYd53QMik0Xnw",
+          "width": 168,
+          "height": 94
+        },
+        {
+          "url": "https://i.ytimg.com/vi/1gQ3MWBxFUM/hqdefault.jpg?sqp=-oaymwEjCNACELwBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLAswhWFsGXijdQ0Y16zGlQZOWhdhA",
+          "width": 336,
+          "height": 188
+        }
+      ],
+      "isLive": false
     },
     {
       "id": "2qBYFa7N0qA",
       "title": "Among Us VRChat",
-      "author": "Team Bangkit Malaysia",
-      "ucid": "UCzlGT7VVKhtXzpKfAuYcGGA",
-      "author_thumbnail": "https://yt3.ggpht.com/a/AATXAJzMTf0JLDkNDeDO_9krwrWSSKZWcFkvcFfYtXPI=s68-c-k-c0xffffffff-no-rj-mo",
-      "short_view_count_text": "",
-      "view_count": "",
+      "published": null,
+      "author": {
+        "id": "UCzlGT7VVKhtXzpKfAuYcGGA",
+        "name": "Team Bangkit Malaysia",
+        "user": "",
+        "channel_url": "https://www.youtube.com/channel/UCzlGT7VVKhtXzpKfAuYcGGA",
+        "user_url": "https://www.youtube.com/user/",
+        "thumbnails": [
+          {
+            "url": "https://yt3.ggpht.com/a/AATXAJzMTf0JLDkNDeDO_9krwrWSSKZWcFkvcFfYtXPI=s68-c-k-c0xffffffff-no-rj-mo",
+            "width": 68,
+            "height": 68
+          }
+        ],
+        "verified": true
+      },
+      "short_view_count_text": "1.3K",
+      "view_count": "1375",
       "length_seconds": "undefined",
-      "video_thumbnail": "https://i.ytimg.com/vi/2qBYFa7N0qA/hqdefault_live.jpg?sqp=CJzX8PwF-oaymwEiCKgBEF5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLAtAkg7fycTaMzn35Un-Sya8bwPig"
+      "thumbnails": [
+        {
+          "url": "https://i.ytimg.com/vi/2qBYFa7N0qA/hqdefault_live.jpg?sqp=CJzX8PwF-oaymwEiCKgBEF5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLAtAkg7fycTaMzn35Un-Sya8bwPig",
+          "width": 168,
+          "height": 94
+        },
+        {
+          "url": "https://i.ytimg.com/vi/2qBYFa7N0qA/hqdefault_live.jpg?sqp=CJzX8PwF-oaymwEjCNACELwBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLDh5J2L7Np33I1fq03mU3CzpGMDuA",
+          "width": 336,
+          "height": 188
+        }
+      ],
+      "isLive": true
     },
     {
       "id": "IvmwP66LUSo",
       "title": "Frosty Flippy Cat Watches The Snow Falling",
-      "author": "FlippyCat",
-      "ucid": "UCuO06egvl5yE__rR_02WUZw",
-      "author_thumbnail": "https://yt3.ggpht.com/a/AATXAJyw7ggPeJgTj1fYygoP4ueBAKvcCw0MHzI_FQlR-w=s68-c-k-c0xffffffff-no-rj-mo",
+      "published": "11 years ago",
+      "author": {
+        "id": "UCuO06egvl5yE__rR_02WUZw",
+        "name": "FlippyCat",
+        "user": "FlippyCat",
+        "channel_url": "https://www.youtube.com/channel/UCuO06egvl5yE__rR_02WUZw",
+        "user_url": "https://www.youtube.com/user/FlippyCat",
+        "thumbnails": [
+          {
+            "url": "https://yt3.ggpht.com/a/AATXAJyw7ggPeJgTj1fYygoP4ueBAKvcCw0MHzI_FQlR-w=s68-c-k-c0xffffffff-no-rj-mo",
+            "width": 68,
+            "height": 68
+          }
+        ],
+        "verified": true
+      },
       "short_view_count_text": "254K",
       "view_count": "254623",
       "length_seconds": 73,
-      "video_thumbnail": "https://i.ytimg.com/vi/IvmwP66LUSo/hqdefault.jpg?sqp=-oaymwEiCKgBEF5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLC4CbqNxym4ZAGOxIkGo8GYMMf2Jg"
+      "thumbnails": [
+        {
+          "url": "https://i.ytimg.com/vi/IvmwP66LUSo/hqdefault.jpg?sqp=-oaymwEiCKgBEF5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLC4CbqNxym4ZAGOxIkGo8GYMMf2Jg",
+          "width": 168,
+          "height": 94
+        },
+        {
+          "url": "https://i.ytimg.com/vi/IvmwP66LUSo/hqdefault.jpg?sqp=-oaymwEjCNACELwBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLCVCyfCvj2CjHPaY3ck6jEYjuHMsQ",
+          "width": 336,
+          "height": 188
+        }
+      ],
+      "isLive": false
     },
     {
       "id": "nV0PAyP0laA",
       "title": "I Built an Airport of Suffering Where Nobody Is Safe - SimAirport",
-      "author": "Let's Game It Out",
-      "ucid": "UCto7D1L-MiRoOziCXK9uT5Q",
-      "author_thumbnail": "https://yt3.ggpht.com/a/AATXAJyr8SnOWlq1pmsHCpohi5YOFcq3DLB79Z_G3ULBUw=s68-c-k-c0xffffffff-no-rj-mo",
+      "published": "6 months ago",
+      "author": {
+        "id": "UCto7D1L-MiRoOziCXK9uT5Q",
+        "name": "Let's Game It Out",
+        "user": "",
+        "channel_url": "https://www.youtube.com/channel/UCto7D1L-MiRoOziCXK9uT5Q",
+        "user_url": "https://www.youtube.com/user/",
+        "thumbnails": [
+          {
+            "url": "https://yt3.ggpht.com/a/AATXAJyr8SnOWlq1pmsHCpohi5YOFcq3DLB79Z_G3ULBUw=s68-c-k-c0xffffffff-no-rj-mo",
+            "width": 68,
+            "height": 68
+          }
+        ],
+        "verified": true
+      },
       "short_view_count_text": "4.8M",
-      "view_count": "4833,370",
+      "view_count": "4833370",
       "length_seconds": 1436,
-      "video_thumbnail": "https://i.ytimg.com/vi/nV0PAyP0laA/hqdefault.jpg?sqp=-oaymwEiCKgBEF5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLC26gnog37Z65gaqHRGuBP3CKhoXA"
+      "thumbnails": [
+        {
+          "url": "https://i.ytimg.com/vi/nV0PAyP0laA/hqdefault.jpg?sqp=-oaymwEiCKgBEF5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLC26gnog37Z65gaqHRGuBP3CKhoXA",
+          "width": 168,
+          "height": 94
+        },
+        {
+          "url": "https://i.ytimg.com/vi/nV0PAyP0laA/hqdefault.jpg?sqp=-oaymwEjCNACELwBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLBgXmQU-RuzOTXSc7Ivlv1b-THPwQ",
+          "width": 336,
+          "height": 188
+        }
+      ],
+      "isLive": false
     },
     {
       "id": "ob4q0ODu7Jc",
       "title": "Ways To Show Your Cats Love That They Can Understand",
-      "author": "Talltanic",
-      "ucid": "UCTTQAOiR_0DuyQPZ6Dg-LHA",
-      "author_thumbnail": "https://yt3.ggpht.com/a/AATXAJyXRWxbREPt6lucOkskq5-mmrc-h5gdbMOtFFPZ4Q=s68-c-k-c0xffffffff-no-rj-mo",
+      "published": "1 year ago",
+      "author": {
+        "id": "UCTTQAOiR_0DuyQPZ6Dg-LHA",
+        "name": "Talltanic",
+        "user": "",
+        "channel_url": "https://www.youtube.com/channel/UCTTQAOiR_0DuyQPZ6Dg-LHA",
+        "user_url": "https://www.youtube.com/user/",
+        "thumbnails": [
+          {
+            "url": "https://yt3.ggpht.com/a/AATXAJyXRWxbREPt6lucOkskq5-mmrc-h5gdbMOtFFPZ4Q=s68-c-k-c0xffffffff-no-rj-mo",
+            "width": 68,
+            "height": 68
+          }
+        ],
+        "verified": false
+      },
       "short_view_count_text": "2.6M",
-      "view_count": "2695,005",
+      "view_count": "2695005",
       "length_seconds": 619,
-      "video_thumbnail": "https://i.ytimg.com/vi/ob4q0ODu7Jc/hqdefault.jpg?sqp=-oaymwEiCKgBEF5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLCqvknTFWW_V6uBwdDX5WkBEGomdQ"
+      "thumbnails": [
+        {
+          "url": "https://i.ytimg.com/vi/ob4q0ODu7Jc/hqdefault.jpg?sqp=-oaymwEiCKgBEF5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLCqvknTFWW_V6uBwdDX5WkBEGomdQ",
+          "width": 168,
+          "height": 94
+        },
+        {
+          "url": "https://i.ytimg.com/vi/ob4q0ODu7Jc/hqdefault.jpg?sqp=-oaymwEjCNACELwBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLAWTFIblbfnMW-L7AI5oWcmi9v4pw",
+          "width": 336,
+          "height": 188
+        }
+      ],
+      "isLive": false
     },
     {
       "id": "DRdnbF6qDIY",
       "title": "Why Cats Lick Humans: Is it Obsession or Affection?",
-      "author": "Jackson Galaxy",
-      "ucid": "UCheL-cUqfzUB8dfM_rFOfDQ",
-      "author_thumbnail": "https://yt3.ggpht.com/a/AATXAJyRg0zlwinPl7E-tr-YO5FoqeHfBajhtYft6lucUg=s68-c-k-c0xffffffff-no-rj-mo",
+      "published": "Streamed 6 months ago",
+      "author": {
+        "id": "UCheL-cUqfzUB8dfM_rFOfDQ",
+        "name": "Jackson Galaxy",
+        "user": "TheCatDaddy66",
+        "channel_url": "https://www.youtube.com/channel/UCheL-cUqfzUB8dfM_rFOfDQ",
+        "user_url": "https://www.youtube.com/user/TheCatDaddy66",
+        "thumbnails": [
+          {
+            "url": "https://yt3.ggpht.com/a/AATXAJyRg0zlwinPl7E-tr-YO5FoqeHfBajhtYft6lucUg=s68-c-k-c0xffffffff-no-rj-mo",
+            "width": 68,
+            "height": 68
+          }
+        ],
+        "verified": true
+      },
       "short_view_count_text": "214K",
       "view_count": "214111",
       "length_seconds": 227,
-      "video_thumbnail": "https://i.ytimg.com/vi/DRdnbF6qDIY/hqdefault.jpg?sqp=-oaymwEiCKgBEF5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLA7LrhqK4YL9pO9UT3-rmmJanBX0A"
+      "thumbnails": [
+        {
+          "url": "https://i.ytimg.com/vi/DRdnbF6qDIY/hqdefault.jpg?sqp=-oaymwEiCKgBEF5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLA7LrhqK4YL9pO9UT3-rmmJanBX0A",
+          "width": 168,
+          "height": 94
+        },
+        {
+          "url": "https://i.ytimg.com/vi/DRdnbF6qDIY/hqdefault.jpg?sqp=-oaymwEjCNACELwBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLB9X7P1M3aunZwcTclzCYB1hUjNyA",
+          "width": 336,
+          "height": 188
+        }
+      ],
+      "isLive": false
     }
   ],
   "videoDetails": {
@@ -13777,13 +14227,28 @@
     "averageRating": 4.8665566,
     "allowRatings": true,
     "author": {
-      "id": "UCuO06egvl5yE__rR_02WUZw",
       "name": "FlippyCat",
       "user": "FlippyCat",
-      "channel_url": "https://www.youtube.com/channel/UCuO06egvl5yE__rR_02WUZw",
+      "channel_url": "https://www.youtube.com/channel/undefined",
       "external_channel_url": "https://www.youtube.com/channel/UCuO06egvl5yE__rR_02WUZw",
       "user_url": "http://www.youtube.com/user/FlippyCat",
-      "avatar": "https://yt3.ggpht.com/a/AATXAJyw7ggPeJgTj1fYygoP4ueBAKvcCw0MHzI_FQlR-w=s48-c-k-c0xffffffff-no-rj-mo",
+      "thumbnails": [
+        {
+          "url": "https://yt3.ggpht.com/a/AATXAJyw7ggPeJgTj1fYygoP4ueBAKvcCw0MHzI_FQlR-w=s48-c-k-c0xffffffff-no-rj-mo",
+          "width": 48,
+          "height": 48
+        },
+        {
+          "url": "https://yt3.ggpht.com/a/AATXAJyw7ggPeJgTj1fYygoP4ueBAKvcCw0MHzI_FQlR-w=s88-c-k-c0xffffffff-no-rj-mo",
+          "width": 88,
+          "height": 88
+        },
+        {
+          "url": "https://yt3.ggpht.com/a/AATXAJyw7ggPeJgTj1fYygoP4ueBAKvcCw0MHzI_FQlR-w=s176-c-k-c0xffffffff-no-rj-mo",
+          "width": 176,
+          "height": 176
+        }
+      ],
       "verified": true,
       "subscriber_count": 366000
     },
@@ -13793,7 +14258,6 @@
     "media": {},
     "likes": 2347,
     "dislikes": 81,
-    "age_restricted": false,
     "video_url": "https://www.youtube.com/watch?v=_HSylqgVYQI"
   },
   "full": true

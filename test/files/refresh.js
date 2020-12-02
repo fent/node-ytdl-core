@@ -69,8 +69,15 @@ const videos = [
     transform: [
       {
         page: 'watch.json',
-        saveAs: 'no-extras',
+        saveAs: 'no-pmr',
         fn: body => body.replace('playerMicroformatRenderer', ''),
+      },
+      {
+        page: 'watch.json',
+        saveAs: 'no-extras',
+        fn: body => body
+          .replace('playerMicroformatRenderer', '')
+          .replace('videoDetails', ''),
       },
       {
         page: 'watch.html',

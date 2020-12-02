@@ -71,10 +71,28 @@ describe('extras.getAuthor()', () => {
     assert.number(author.subscriber_count);
   });
 
-  describe('watch page without author', () => {
-    it('Returns empty object if author not found', () => {
-      const info = require(
+  describe('watch page without `playerMicroformatRenderer`', () => {
+    it('Uses backup author from `videoDetails`', () => {
+      const response = require(
+        './files/videos/regular/watch-no-pmr.json');
+      const info = Object.assign({}, response[2], response[3]);
+      info.player_response = info.player_response || info.playerResponse;
+      const author = extras.getAuthor(info);
+      assert.ok(author);
+      assert.ok(author.name);
+      assertChannelURL(author.channel_url);
+      assertThumbnails(author.thumbnails);
+      assert.ok(author.verified);
+      assert.ok(author.subscriber_count);
+    });
+  });
+
+  describe('watch page without `playerMicroformatRenderer` or `videoDetails`', () => {
+    it('Returns empty author object', () => {
+      const response = require(
         './files/videos/regular/watch-no-extras.json');
+      const info = Object.assign({}, response[2], response[3]);
+      info.player_response = info.player_response || info.playerResponse;
       const author = extras.getAuthor(info);
       assert.deepEqual(author, {});
     });
