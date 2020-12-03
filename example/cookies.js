@@ -31,8 +31,8 @@ video.on('info', info => {
   console.log('title:', info.videoDetails.title);
   console.log('rating:', info.player_response.videoDetails.averageRating);
   console.log('uploaded by:', info.videoDetails.author.name);
-  //if info.videoDetails.author.name returns undefined, use the example below: 
-  //console.log('uploaded by:', info.videoDetails.ownerChannelName);
+// if info.videoDetails.author.name returns undefined, use the example below: 
+// console.log('uploaded by:', info.videoDetails.ownerChannelName);
 });
 
 video.on('progress', (chunkLength, downloaded, total) => {
