@@ -64,7 +64,7 @@ const videos = [
   {
     id: '_HSylqgVYQI',
     type: 'regular',
-    keep: ['video.flv', 'watch-reload-now.json', 'watch-reload-now-2.json', 'watch-empty.json'],
+    keep: ['video.flv', 'watch-reload-now.json', 'watch-reload-now-2.json'],
     saveInfo: true,
     transform: [
       {
@@ -132,7 +132,7 @@ const videos = [
         'x-youtube-client-version': '0',
       },
     } },
-    keep: ['embed-player-vars.html', 'watch-backup.html', 'watch-reload-now.json'],
+    keep: ['embed-player-vars.html', 'watch-backup.html', 'watch-reload-now.json', 'watch-empty.json'],
     transform: [
       {
         page: 'embed.html',

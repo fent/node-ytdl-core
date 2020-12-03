@@ -307,7 +307,7 @@ describe('ytdl.getInfo()', () => {
         const scope = nock(id, 'embed-backup', {
           embed: [true, 200, 'player-vars'],
         });
-        let info = await ytdl.getInfo(id);
+        let info = await ytdl.getInfo(id, { requestOptions: { maxRetries: 0 } });
         scope.done();
         assert.strictEqual(info.formats.length, expected.formats.length);
       });
@@ -403,18 +403,13 @@ describe('ytdl.getInfo()', () => {
     });
 
     describe('When watch.json page gives back an empty response', () => {
-      it('Retries the request', async() => {
-        const id = '_HSylqgVYQI';
-        const scope1 = nock(id, 'regular', {
+      it('Uses next endpoint as backup', async() => {
+        const id = 'LuZu9N53Vd0';
+        const scope1 = nock(id, 'embed-backup', {
           watchJson: [true, 200, 'empty'],
         });
-        const scope2 = nock(id, 'regular', {
-          watchHtml: false,
-          player: false,
-        });
-        let info = await ytdl.getInfo(id, { requestOptions: { maxRetries: 1 } });
+        let info = await ytdl.getInfo(id, { requestOptions: { maxRetries: 0 } });
         scope1.done();
-        scope2.done();
         assert.ok(info.formats.length);
         assert.ok(info.formats[0].url);
       });
