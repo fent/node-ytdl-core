@@ -13,8 +13,7 @@ const videos = {
 };
 
 
-describe('Try using ytdl-core without mocking', function test() {
-  this.retries(1);
+describe('Try using ytdl-core without mocking', () => {
   afterEach(() => {
     nock.cleanAll();
     nock.enableNetConnect();
