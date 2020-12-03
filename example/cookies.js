@@ -30,7 +30,7 @@ const video = ytdl(videoID, {
 video.on('info', info => {
   console.log('title:', info.videoDetails.title);
   console.log('rating:', info.player_response.videoDetails.averageRating);
-  console.log('uploaded by:', info.videoDetails.author.name);
+  console.log('uploaded by:', info.videoDetails.ownerChannelName);
 });
 
 video.on('progress', (chunkLength, downloaded, total) => {
