@@ -13,10 +13,13 @@ const videos = {
 };
 
 
+process.env.YTDL_NO_UPDATE = 'true';
 describe('Try using ytdl-core without mocking', () => {
-  afterEach(() => {
+  before(() => {
     nock.cleanAll();
     nock.enableNetConnect();
+  });
+  afterEach(() => {
     ytdl.cache.sig.clear();
     ytdl.cache.info.clear();
     ytdl.cache.cookie.clear();
