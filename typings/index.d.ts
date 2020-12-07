@@ -146,13 +146,13 @@ declare module 'ytdl-core' {
       id: string;
       name: string;
       avatar: string; // to remove later
-      thumbnails: thumbnail[];
+      thumbnails?: thumbnail[];
       verified: boolean;
       user?: string;
       channel_url: string;
       external_channel_url?: string;
       user_url?: string;
-      subscriber_count: number;
+      subscriber_count?: number;
     }
 
     interface MicroformatRenderer {
