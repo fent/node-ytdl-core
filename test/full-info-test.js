@@ -69,7 +69,7 @@ describe('ytdl.getInfo()', () => {
     it('Uses backup endpoint', async() => {
       const id = '_HSylqgVYQI';
       const scope = nock(id, 'regular', {
-        watchHtml: [true, 200, 'no-html5player'],
+        watchHtml: [true, 200, body => body.replace(/"player_ias\/base"/g, '""')],
         player: true,
       });
       let info = await ytdl.getInfo(id);
@@ -84,7 +84,7 @@ describe('ytdl.getInfo()', () => {
     it('Fails gracefully', async() => {
       const id = '_HSylqgVYQI';
       const scope = nock(id, 'regular', {
-        watchHtml: [true, 200, 'no-html5player-2'],
+        watchHtml: [true, 200, body => body.replace(/"(player_ias\/base|jsUrl)"/g, '""')],
         player: false,
       });
       await assert.rejects(ytdl.getInfo(id), /Unable to find html5player file/);

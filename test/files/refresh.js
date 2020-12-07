@@ -5,7 +5,7 @@
  *
  * Provide a `type` to only update the one video.
  *
- * Give `no-request` if you want to update `transform`'d files without making requests.
+ * Give `no-request` if you want to run with mocked requests using nock.
  *
  * If there are ever issues with a specific type of video, we can use this script
  * to update that type, investigate what changed, and run tests.
@@ -16,32 +16,6 @@ const videos = [
     id: '5qap5aO4i9A',
     type: 'live-now',
     saveInfo: true,
-    transform: [
-      {
-        page: 'dash-manifest.xml',
-        saveAs: 'transformed',
-        fn: body => {
-          const replaceBetweenTags = (tagName, content) => {
-            const regex = new RegExp(`<${tagName}>(.+?)</${tagName}`, 'g');
-            body = body.replace(regex, `<${tagName}>${content}</${tagName}`);
-          };
-
-          // Create a playlist file that has only 3 short segments
-          // so we can easily mock these in tests.
-          replaceBetweenTags('SegmentTimeline', `
-            <S d="5000" /><S d="5000" /><S d="5000">
-            `);
-          replaceBetweenTags('BaseURL', 'https://googlevideo.com/videoplayback/');
-          replaceBetweenTags('SegmentList', `
-            <SegmentURL media="sq/video01.ts" />
-            <SegmentURL media="sq/video02.ts" />
-            <SegmentURL media="sq/video03.ts" />
-            `);
-          body = body.replace('type="dynamic"', '');
-          return body;
-        },
-      },
-    ],
   },
   {
     id: '21X5lGlDOfg',
@@ -67,55 +41,6 @@ const videos = [
     type: 'regular',
     keep: ['video.flv'],
     saveInfo: true,
-    transform: [
-      {
-        page: 'watch.json',
-        saveAs: 'no-pmr',
-        fn: body => body.replace('playerMicroformatRenderer', ''),
-      },
-      {
-        page: 'watch.json',
-        saveAs: 'no-extras',
-        fn: body => body
-          .replace('playerMicroformatRenderer', '')
-          .replace('videoDetails', ''),
-      },
-      {
-        page: 'watch.html',
-        saveAs: 'with-cookie',
-        fn: body => `${body}\n{"ID_TOKEN":"abcd"}`,
-      },
-      {
-        page: 'watch.json',
-        saveAs: 'no-formats',
-        fn: body => body.replace(/\b(formats|adaptiveFormats)\b/g, 'no'),
-      },
-      {
-        page: 'expected-info.json',
-        saveAs: 'no-rvs',
-        fn: body => body.replace(/"relatedVideoArgs"/, '""'),
-      },
-      {
-        page: 'expected-info.json',
-        saveAs: 'no-results',
-        fn: body => body.replace(/"secondaryResults"/, '""'),
-      },
-      {
-        page: 'watch.json',
-        saveAs: 'bad-details',
-        fn: body => body.replace(/\\"shortBylineText\\"/g, '\\"___\\"'),
-      },
-      {
-        page: 'watch.html',
-        saveAs: 'no-html5player',
-        fn: body => body.replace(/"player_ias\/base"/g, '""'),
-      },
-      {
-        page: 'watch.html',
-        saveAs: 'no-html5player-2',
-        fn: body => body.replace(/"(player_ias\/base|jsUrl)"/g, '""'),
-      },
-    ],
   },
   {
     id: 'LuZu9N53Vd0',
@@ -195,11 +120,6 @@ const skipFile = (video, filename) => video.skip && video.skip.some(skip =>
   skip instanceof RegExp ? skip.test(filename) : filename.includes(skip),
 );
 
-const getTransformFilename = transform => {
-  let [basename, ext] = transform.page.split('.');
-  return `${basename}-${transform.saveAs}${ext ? `.${ext}` : ''}`;
-};
-
 const playerfile = /((?:html5)?player[-_][a-zA-Z0-9\-_.]+)(?:\.js|\/)/;
 
 const refreshVideo = async(video, noRequests) => {
@@ -215,9 +135,6 @@ const refreshVideo = async(video, noRequests) => {
     if (video.keep) {
       for (let filename of video.keep || []) {
         existingFiles[filename] = true;
-        for (let transform of video.transform.filter(t => t.page === filename) || []) {
-          existingFiles[getTransformFilename(transform)] = true;
-        }
       }
     }
   } catch (err) {
@@ -238,15 +155,6 @@ const refreshVideo = async(video, noRequests) => {
     }
     fs.writeFileSync(path.join(folder, filename), body);
     existingFiles[filename] = true;
-  };
-
-  const writeTransforms = (filename, body) => {
-    for (let transform of video.transform || []) {
-      if (transform.page === filename) {
-        let tfilename = getTransformFilename(transform);
-        writeFile(tfilename, transform.fn(body));
-      }
-    }
   };
 
   const getFilenameFromURL = url => {
@@ -280,7 +188,6 @@ const refreshVideo = async(video, noRequests) => {
           !skipFile(video, filename)) {
         body = cleanBody(body);
         writeFile(filename, body);
-        writeTransforms(filename, body);
       }
     };
 
@@ -326,7 +233,6 @@ const refreshVideo = async(video, noRequests) => {
       let filename = 'expected-info.json';
       let body = cleanBody(JSON.stringify(info, null, 2));
       writeFile(filename, body);
-      writeTransforms(filename, body);
     }
   } catch (err) {
     console.log('error retrieving video info:', err.message);

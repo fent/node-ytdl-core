@@ -49,13 +49,19 @@ exports = module.exports = (id, type, opts = {}) => {
     }
     scope = scope.get(nockOptions.get);
     let statusCode = (Array.isArray(testOptions) && testOptions[1]) || 200;
-    let ext = path.extname(nockOptions.file);
-    let base = path.basename(nockOptions.file, ext);
-    if ((Array.isArray(testOptions) && (testOptions[2] || !testOptions[3])) || testOptions === true) {
-      let filepart = Array.isArray(testOptions) && testOptions[2] ? `-${testOptions[2]}` : '';
-      scope = scope.replyWithFile(statusCode, path.join(__dirname, `${folder}/${base}${filepart}${ext}`));
-    } else {
-      scope = scope.reply(200, testOptions[3]);
+    let filepath = path.join(__dirname, `${folder}/${nockOptions.file}`);
+    let reply = testOptions[2];
+    if (!reply || testOptions === true) {
+      scope = scope.replyWithFile(statusCode, filepath);
+    } else if (typeof reply === 'string') {
+      scope = scope.reply(200, reply);
+    } else if (typeof reply === 'function') {
+      scope = scope.reply(200, (uri, requestBody, callback) => {
+        fs.readFile(filepath, 'utf8', (err, body) => {
+          if (err) return callback(err);
+          callback(null, testOptions[2](body));
+        });
+      });
     }
     scopes.push(scope);
   };

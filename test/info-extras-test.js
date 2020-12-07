@@ -1,4 +1,6 @@
 const assert = require('assert-diff');
+const fs = require('fs');
+const path = require('path');
 const sinon = require('sinon');
 const extras = require('../lib/info-extras');
 
@@ -50,6 +52,20 @@ const assertRelatedVideos = relatedVideos => {
   }
 };
 
+const infoFromWatchJSON = (type, transformBody) => {
+  let watchObj;
+  if (transformBody) {
+    let watchJSON = fs.readFileSync(path.join(__dirname, `files/videos/${type}/watch.json`), 'utf8');
+    watchJSON = transformBody(watchJSON);
+    watchObj = JSON.parse(watchJSON);
+  } else {
+    watchObj = require(`./files/videos/${type}/watch.json`);
+  }
+  let info = watchObj.reduce((part, curr) => Object.assign(curr, part), {});
+  info.player_response = info.player_response || info.playerResponse;
+  return info;
+};
+
 describe('extras.getAuthor()', () => {
   // To remove later.
   before(() => sinon.replace(console, 'warn', sinon.stub()));
@@ -73,10 +89,7 @@ describe('extras.getAuthor()', () => {
 
   describe('watch page without `playerMicroformatRenderer`', () => {
     it('Uses backup author from `videoDetails`', () => {
-      const response = require(
-        './files/videos/regular/watch-no-pmr.json');
-      const info = Object.assign({}, response[2], response[3]);
-      info.player_response = info.player_response || info.playerResponse;
+      const info = infoFromWatchJSON('regular', body => body.replace('playerMicroformatRenderer', ''));
       const author = extras.getAuthor(info);
       assert.ok(author);
       assert.ok(author.name);
@@ -89,9 +102,9 @@ describe('extras.getAuthor()', () => {
 
   describe('watch page without `playerMicroformatRenderer` or `videoDetails`', () => {
     it('Returns empty author object', () => {
-      const response = require(
-        './files/videos/regular/watch-no-extras.json');
-      const info = Object.assign({}, response[2], response[3]);
+      const info = infoFromWatchJSON('regular', body => body
+        .replace('playerMicroformatRenderer', '')
+        .replace('videoDetails', ''));
       info.player_response = info.player_response || info.playerResponse;
       const author = extras.getAuthor(info);
       assert.deepEqual(author, {});
@@ -164,14 +177,16 @@ describe('extras.getRelatedVideos()', () => {
 
   describe('Without `rvs` params', () => {
     it('Still able to find video params', () => {
-      const info = require('./files/videos/regular/expected-info-no-rvs.json');
+      const info = require('./files/videos/regular/expected-info.json');
+      delete info.response.webWatchNextResponseExtensionData.relatedVideoArgs;
       assertRelatedVideos(extras.getRelatedVideos(info));
     });
   });
 
   describe('Without `secondaryResults`', () => {
     it('Unable to find any videos', () => {
-      const info = require('./files/videos/regular/expected-info-no-results.json');
+      const info = require('./files/videos/regular/expected-info.json');
+      delete info.response.contents.twoColumnWatchNextResults.secondaryResults.secondaryResults.results;
       const relatedVideos = extras.getRelatedVideos(info);
       assert.ok(relatedVideos);
       assert.deepEqual(relatedVideos, []);
@@ -180,8 +195,7 @@ describe('extras.getRelatedVideos()', () => {
 
   describe('With an unparseable video', () => {
     it('Catches errors', () => {
-      const info = require(
-        './files/videos/regular/watch-bad-details.json');
+      const info = infoFromWatchJSON('regular', body => body.replace(/\bshortBylineText\b/g, '___'));
       const relatedVideos = extras.getRelatedVideos(info);
       assert.deepEqual(relatedVideos, []);
     });
@@ -190,14 +204,14 @@ describe('extras.getRelatedVideos()', () => {
 
 describe('extras.getLikes()', () => {
   it('Returns like count', () => {
-    const info = require('./files/videos/regular/watch.json')[3];
+    const info = infoFromWatchJSON('regular');
     const likes = extras.getLikes(info);
     assert.strictEqual(typeof likes, 'number');
   });
 
   describe('With no likes', () => {
     it('Does not return likes', () => {
-      const info = require('./files/videos/no-likes-or-dislikes/watch.json')[3];
+      const info = infoFromWatchJSON('no-likes-or-dislikes');
       const likes = extras.getLikes(info);
       assert.strictEqual(likes, null);
     });
@@ -206,14 +220,14 @@ describe('extras.getLikes()', () => {
 
 describe('extras.getDislikes()', () => {
   it('Returns dislike count', () => {
-    const info = require('./files/videos/regular/watch.json')[3];
+    const info = infoFromWatchJSON('regular');
     const dislikes = extras.getDislikes(info);
     assert.strictEqual(typeof dislikes, 'number');
   });
 
   describe('With no dislikes', () => {
     it('Does not return dislikes', () => {
-      const info = require('./files/videos/no-likes-or-dislikes/watch.json')[3];
+      const info = infoFromWatchJSON('no-likes-or-dislikes');
       const dislikes = extras.getDislikes(info);
       assert.strictEqual(dislikes, null);
     });

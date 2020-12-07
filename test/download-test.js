@@ -605,13 +605,31 @@ describe('Download video', () => {
     describe('from a dash-mpd itag', () => {
       it('Begins downloading video succesfully', done => {
         const testId = '5qap5aO4i9A';
+        let dashResponse = fs.readFileSync(path.resolve(__dirname, `files/videos/live-now/dash-manifest.xml`), 'utf8');
+        const replaceBetweenTags = (tagName, content) => {
+          const regex = new RegExp(`<${tagName}>(.+?)</${tagName}`, 'g');
+          dashResponse = dashResponse.replace(regex, `<${tagName}>${content}</${tagName}`);
+        };
+
+        // Create a playlist file that has only 3 short segments
+        // so we can easily mock these in tests.
+        replaceBetweenTags('SegmentTimeline', `
+            <S d="5000" /><S d="5000" /><S d="5000">
+            `);
+        replaceBetweenTags('BaseURL', 'https://googlevideo.com/videoplayback/');
+        replaceBetweenTags('SegmentList', `
+            <SegmentURL media="sq/video01.ts" />
+            <SegmentURL media="sq/video02.ts" />
+            <SegmentURL media="sq/video03.ts" />
+            `);
+        dashResponse = dashResponse.replace('type="dynamic"', '');
+
         const scope = nock(testId, 'live-now', {
-          dashmpd: [true, 200, 'transformed'],
+          dashmpd: [true, 200, dashResponse],
         });
         const stream = ytdl(testId, { filter: format => format.isDashMPD });
         stream.on('info', (info, format) => {
-          scope.urlReplyWithFile(format.url, 200, path.resolve(__dirname,
-            `files/videos/live-now/dash-manifest-transformed.xml`));
+          scope.urlReply(format.url, 200, dashResponse);
           scope.urlReply(`https://googlevideo.com/videoplayback/sq/video01.ts`, 200, 'one');
           scope.urlReply(`https://googlevideo.com/videoplayback/sq/video02.ts`, 200, 'two');
           scope.urlReply(`https://googlevideo.com/videoplayback/sq/video03.ts`, 200, 'tres');
@@ -665,7 +683,7 @@ describe('Download video', () => {
     it('Stream emits an error', done => {
       const id = '_HSylqgVYQI';
       const scope = nock(id, 'regular', {
-        watchJson: [true, 200, 'no-formats'],
+        watchJson: [true, 200, body => body.replace(/\b(formats|adaptiveFormats)\b/g, 'no')],
         watchHtml: false,
         get_video_info: false,
         player: false,
