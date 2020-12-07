@@ -123,27 +123,15 @@ const videos = [
   },
   {
     id: 'aqz-KE-bpKQ',
-    type: 'embed-backup',
+    type: 'use-backups',
+    basicInfo: true,
     saveInfo: true,
-    options: { requestOptions: {
-      maxRetries: 0,
-      headers: {
-        // Will make the watch.json request fail, falling back to embed.html
-        'x-youtube-client-version': '0',
-      },
-    } },
-    keep: ['embed-player-vars.html', 'watch-backup.html', 'watch-reload-now.json', 'watch-empty.json'],
+    mock: {
+      'watch.html': '<html></html>',
+      'watch.json': '[]',
+    },
+    keep: ['watch-backup.html', 'watch-reload-now.json', 'watch-empty.json'],
     transform: [
-      {
-        page: 'embed.html',
-        saveAs: 'no-config',
-        fn: body => body.replace(/PLAYER_(CONFIG|VARS)/g, ''),
-      },
-      {
-        page: 'embed.html',
-        saveAs: 'bad-config',
-        fn: body => body.replace(/((["'])PLAYER_(?:CONFIG|VARS)\2:\s*){/, '$1{[}'),
-      },
       {
         page: 'watch.json',
         saveAs: 'bad-config',
@@ -192,6 +180,7 @@ const videos = [
 const fs = require('fs');
 const path = require('path');
 const urlParse = require('url').parse;
+const { PassThrough } = require('stream');
 const mukRequire = require('muk-require');
 const miniget = require('miniget');
 
@@ -265,27 +254,33 @@ const refreshVideo = async(video, noRequests) => {
     }
   };
 
-  const minigetMock = (url, options) => {
-    // Save contents to file.
-    const saveContents = body => {
-      let parsed = urlParse(url);
-      let s = parsed.pathname.split('/');
-      let filename =
-        // Special case for livestream manifest files.
-        /\/manifest\/dash\//.test(url) ? 'dash-manifest.xml' :
-          /\/manifest\/hls_(variant|playlist)\//.test(url) ? 'hls-manifest.m3u8' :
+  const getFilenameFromURL = url => {
+    let parsed = urlParse(url);
+    let s = parsed.pathname.split('/');
+    let filename =
+      // Special case for livestream manifest files.
+      /\/manifest\/dash\//.test(url) ? 'dash-manifest.xml' :
+        /\/manifest\/hls_(variant|playlist)\//.test(url) ? 'hls-manifest.m3u8' :
 
-          // Save the key of html5player file so we know if they've changed.
-            playerfile.test(url) ? `${playerfile.exec(url)[1]}.js` :
+        // Save the key of html5player file so we know if they've changed.
+          playerfile.test(url) ? `${playerfile.exec(url)[1]}.js` :
 
             // Save watch and embed pages with .html extension.
-              /^\/watch$/.test(parsed.pathname) ?
-                /pbj=1/.test(parsed.search) ? 'watch.json' : 'watch.html' :
-                /^\/embed\//.test(parsed.pathname) ? 'embed.html' :
+            /^\/watch$/.test(parsed.pathname) ?
+              /pbj=1/.test(parsed.search) ? 'watch.json' : 'watch.html' :
+              /^\/embed\//.test(parsed.pathname) ? 'embed.html' :
 
                 // Otherwise, use url path as filename.
-                  s[s.length - 1];
-      console.log('request:', url.length > 100 ? `${url.slice(0, 97)}...` : url);
+                s[s.length - 1];
+    return filename;
+  };
+
+  const minigetMock = (url, options) => {
+    let filename = getFilenameFromURL(url);
+    console.log('request:', url.length > 100 ? `${url.slice(0, 97)}...` : url);
+
+    // Save contents to file.
+    const saveContents = body => {
       if ((!video.keep || video.keep.indexOf(filename) === -1) &&
           !skipFile(video, filename)) {
         body = cleanBody(body);
@@ -294,10 +289,24 @@ const refreshVideo = async(video, noRequests) => {
       }
     };
 
-    let body = [];
     let stream = miniget(url, options);
+    let body = [];
+    let resolveEnd;
+    let streamEnd = new Promise(resolve => resolveEnd = resolve);
     stream.on('data', chunk => { body.push(chunk); });
-    stream.on('end', () => { saveContents(body.join('')); });
+    stream.on('end', () => {
+      resolveEnd(true);
+      saveContents(body.join(''));
+    });
+    if (video.mock && video.mock[filename] !== undefined) {
+      const text = video.mock[filename];
+      stream.resume();
+      stream = new PassThrough();
+      stream.text = () => streamEnd.then(() => text);
+      setImmediate(() => {
+        streamEnd.then(() => stream.end(text));
+      });
+    }
     return stream;
   };
   Object.assign(minigetMock, miniget);
@@ -312,10 +321,11 @@ const refreshVideo = async(video, noRequests) => {
   // Make the call to ytdl.
   try {
     let info;
+    let options = { requestOptions: { maxRetries: 0 } };
     if (video.basicInfo) {
-      info = await getInfo.getBasicInfo(video.id, video.options);
+      info = await getInfo.getBasicInfo(video.id, options);
     } else {
-      info = await getInfo.getInfo(video.id, video.options);
+      info = await getInfo.getInfo(video.id, options);
     }
     if (video.saveInfo) {
       let filename = 'expected-info.json';

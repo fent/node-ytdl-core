@@ -42,72 +42,80 @@ exports = module.exports = (id, type, opts = {}) => {
     get_video_info: existingFilesSet.has('get_video_info'),
   }, opts);
 
+  const addScope = (host, testOptions, nockOptions) => {
+    let scope = nock(host, { reqheaders: opts.headers });
+    if (nockOptions.filteringPath) {
+      scope = scope.filteringPath(...nockOptions.filteringPath);
+    }
+    scope = scope.get(nockOptions.get);
+    let statusCode = (Array.isArray(testOptions) && testOptions[1]) || 200;
+    let ext = path.extname(nockOptions.file);
+    let base = path.basename(nockOptions.file, ext);
+    if ((Array.isArray(testOptions) && (testOptions[2] || !testOptions[3])) || testOptions === true) {
+      let filepart = Array.isArray(testOptions) && testOptions[2] ? `-${testOptions[2]}` : '';
+      scope = scope.replyWithFile(statusCode, path.join(__dirname, `${folder}/${base}${filepart}${ext}`));
+    } else {
+      scope = scope.reply(200, testOptions[3]);
+    }
+    scopes.push(scope);
+  };
+
   if (opts.watchJson) {
-    let file = buildFile(opts.watchJson);
-    scopes.push(nock(YT_HOST, { reqheaders: opts.headers })
-      .filteringPath(/\/watch\?v=.+&pbj=1$/, '/watch?v=XXX&pbj=1')
-      .get('/watch?v=XXX&pbj=1')
-      .replyWithFile(opts.watchJson[1] || 200,
-        path.join(__dirname, `${folder}/watch${file}.json`)));
+    addScope(YT_HOST, opts.watchJson, {
+      filteringPath: [/\/watch\?v=.+&pbj=1$/, '/watch?v=XXX&pbj=1'],
+      get: '/watch?v=XXX&pbj=1',
+      file: 'watch.json',
+    });
   }
 
   if (opts.watchHtml) {
-    let file = buildFile(opts.watchHtml);
-    scopes.push(nock(YT_HOST, { reqheaders: opts.headers })
-      .filteringPath(/\/watch\?v=.+&hl=en$/, '/watch?v=XXX')
-      .get('/watch?v=XXX')
-      .replyWithFile(opts.watchHtml[1] || 200,
-        path.join(__dirname, `${folder}/watch${file}.html`)));
+    addScope(YT_HOST, opts.watchHtml, {
+      filteringPath: [/\/watch\?v=.+&hl=en$/, '/watch?v=XXX'],
+      get: '/watch?v=XXX',
+      file: 'watch.html',
+    });
   }
 
   if (opts.dashmpd) {
-    let file = buildFile(opts.dashmpd);
-    scopes.push(nock(MANIFEST_HOST, { reqheaders: opts.headers })
-      .filteringPath(() => '/api/manifest/dash/')
-      .get('/api/manifest/dash/')
-      .replyWithFile(opts.dashmpd[1] || 200,
-        path.join(__dirname, `${folder}/dash-manifest${file}.xml`)));
+    addScope(MANIFEST_HOST, opts.dashmpd, {
+      filteringPath: [() => '/api/manifest/dash/'],
+      get: '/api/manifest/dash/',
+      file: 'dash-manifest.xml',
+    });
   }
 
   if (opts.m3u8) {
-    let file = buildFile(opts.m3u8);
-    scopes.push(nock(M3U8_HOST, { reqheaders: opts.headers })
-      .filteringPath(() => '/api/manifest/hls_variant/')
-      .get('/api/manifest/hls_variant/')
-      .replyWithFile(opts.m3u8[1] || 200,
-        path.join(__dirname, `${folder}/hls-manifest${file}.m3u8`)));
+    addScope(M3U8_HOST, opts.m3u8, {
+      filteringPath: [() => '/api/manifest/hls_variant/'],
+      get: '/api/manifest/hls_variant/',
+      file: 'hls-manifest.m3u8',
+    });
   }
 
   if (opts.player) {
-    let file = existingFiles.find(f => /(html5)?player.+\.js$/.test(f));
-    if (!file) {
-      throw Error('html5player file not found');
-    }
-    scopes.push(nock('https://www.youtube.com', { reqheaders: opts.headers })
-      .filteringPath(/\/player.+$/, '/player.js')
-      .get('/s/player.js')
-      .replyWithFile(opts.player[1] || 200,
-        path.join(__dirname, `${folder}/${file}`)));
+    addScope(YT_HOST, opts.player, {
+      filteringPath: [/\/player.+$/, '/player.js'],
+      get: '/s/player.js',
+      file: existingFiles.find(f => /(html5)?player.+\.js$/.test(f)),
+    });
   }
 
   if (opts.embed) {
-    let file = buildFile(opts.embed);
-    scopes.push(nock(YT_HOST, { reqheaders: opts.headers })
-      .get(`${EMBED_PATH + id}?hl=en`)
-      .replyWithFile(opts.embed[1] || 200,
-        path.join(__dirname, `${folder}/embed${file}.html`)));
+    addScope(YT_HOST, opts.embed, {
+      get: `${EMBED_PATH + id}?hl=en`,
+      file: 'embed.html',
+    });
   }
 
   if (opts.get_video_info) {
-    let file = buildFile(opts.get_video_info);
-    scopes.push(nock(YT_HOST, { reqheaders: opts.headers })
-      .filteringPath(p => {
+    addScope(YT_HOST, opts.get_video_info, {
+      filteringPath: [p => {
         let regexp = /\?video_id=([a-zA-Z0-9_-]+)&(.+)$/;
         return p.replace(regexp, (_, r) => `?video_id=${r}`);
-      })
-      .get(`${INFO_PATH}video_id=${id}`)
-      .replyWithFile(opts.get_video_info[1] || 200,
-        path.join(__dirname, `${folder}/get_video_info${file}`)));
+      }],
+      get: `${INFO_PATH}video_id=${id}`,
+      file: 'get_video_info',
+    });
   }
 
   return {
@@ -124,8 +132,6 @@ exports = module.exports = (id, type, opts = {}) => {
     },
   };
 };
-
-const buildFile = a => Array.isArray(a) && a[2] ? `-${a[2]}` : '';
 
 exports.filteringPath = (uri, filter1, filter2) => {
   let parsed = url.parse(uri);
