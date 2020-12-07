@@ -65,7 +65,7 @@ const videos = [
   {
     id: '_HSylqgVYQI',
     type: 'regular',
-    keep: ['video.flv', 'watch-reload-now.json', 'watch-reload-now-2.json'],
+    keep: ['video.flv'],
     saveInfo: true,
     transform: [
       {
@@ -132,14 +132,6 @@ const videos = [
       'watch.html': '<html></html>',
       'watch.json': '[]',
     },
-    keep: ['watch-backup.html', 'watch-reload-now.json', 'watch-empty.json'],
-    transform: [
-      {
-        page: 'watch.json',
-        saveAs: 'bad-config',
-        fn: () => '{]',
-      },
-    ],
   },
   {
     id: '99999999999',
