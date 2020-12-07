@@ -135,7 +135,7 @@ const videos = [
       {
         page: 'watch.json',
         saveAs: 'bad-config',
-        fn: body => body.replace('[', '{]'),
+        fn: () => '{]',
       },
     ],
   },
