@@ -54,6 +54,7 @@ const videos = [
   {
     id: 'nu5uzMXfuLc',
     type: 'live-past',
+    basicInfo: true,
   },
   {
     id: 'SyKPsFRP_Oc',
@@ -119,6 +120,7 @@ const videos = [
   {
     id: 'LuZu9N53Vd0',
     type: 'age-restricted',
+    basicInfo: true,
     saveInfo: true,
   },
   {
@@ -164,6 +166,7 @@ const videos = [
   {
     id: 'GFg8BP01F5Q',
     type: 'no-embed',
+    basicInfo: true,
   },
   {
     id: 'KKzOh0MRuZE',
