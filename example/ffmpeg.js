@@ -82,8 +82,6 @@ ffmpegProcess.on('close', () => {
   // Cleanup
   process.stdout.write('\n\n\n\n');
   clearInterval(progressbarHandle);
-  // Close the programm
-  process.exit(0);
 });
 
 // Link streams
