@@ -16,6 +16,7 @@ describe('ytdl.getInfo()', () => {
       let info = Object.assign({}, await ytdl.getBasicInfo(id));
       let info2 = await ytdl.getInfo(id);
       scope.done();
+      assert.ok(info.html5player);
       assert.notStrictEqual(info.formats.length, info2.formats.length);
       assert.notStrictEqual(info.formats[0].url, info2.formats[0].url);
     });
@@ -67,9 +68,11 @@ describe('ytdl.getInfo()', () => {
 
   describe('When unable to find html5player', () => {
     it('Uses backup endpoint', async() => {
-      const id = '_HSylqgVYQI';
-      const scope = nock(id, 'regular', {
-        watchHtml: [true, 200, body => body.replace(/"player_ias\/base"/g, '""')],
+      const id = 'LuZu9N53Vd0';
+      const scope = nock(id, 'use-backups', {
+        watchHtml: [true, 200, body => body.replace(/"(player_ias\/base|jsUrl)"/g, '""')],
+        watchJson: false,
+        get_video_info: false,
         player: true,
       });
       let info = await ytdl.getInfo(id);
@@ -82,9 +85,12 @@ describe('ytdl.getInfo()', () => {
 
   describe('Unable to find html5player anywhere', () => {
     it('Fails gracefully', async() => {
-      const id = '_HSylqgVYQI';
-      const scope = nock(id, 'regular', {
+      const id = 'LuZu9N53Vd0';
+      const scope = nock(id, 'use-backups', {
         watchHtml: [true, 200, body => body.replace(/"(player_ias\/base|jsUrl)"/g, '""')],
+        embed: [true, 200, body => body.replace(/"(player_ias\/base|jsUrl)"/g, '""')],
+        watchJson: false,
+        get_video_info: false,
         player: false,
       });
       await assert.rejects(ytdl.getInfo(id), /Unable to find html5player file/);

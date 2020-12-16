@@ -19,7 +19,9 @@ describe('Download video', () => {
 
   it('Should be pipeable and data equal to stored file', async() => {
     const id = '_HSylqgVYQI';
-    const scope = nock(id, 'regular');
+    const scope = nock(id, 'regular', {
+      watchJson: false,
+    });
     const stream = ytdl(id, { filter: filter });
     const video = path.resolve(__dirname, `files/videos/regular/video.flv`);
 
@@ -35,15 +37,12 @@ describe('Download video', () => {
 
   describe('When there is an error', () => {
     it('Stream emits an error', done => {
-      const id = '_HSylqgVYQI';
-      const scope = nock(id, 'regular', {
-        watchHtml: [false, 500],
-        player: false,
-      });
-      const stream = ytdl(id, { filter: filter });
+      const id = '99999999999';
+      const scope = nock(id, 'non-existent');
+      const stream = ytdl(id, { filter, requestOptions: { maxRetries: 0 } });
       stream.on('error', err => {
         assert.ok(err);
-        assert.strictEqual(err.message, 'Status code: 500');
+        assert.strictEqual(err.message, 'Video unavailable');
         scope.done();
         done();
       });
@@ -54,7 +53,9 @@ describe('Download video', () => {
     describe('immediately', () => {
       it('Doesn\'t start the download', done => {
         const id = '_HSylqgVYQI';
-        const scope = nock(id, 'regular');
+        const scope = nock(id, 'regular', {
+          watchJson: false,
+        });
         const stream = ytdl(id, { filter });
         stream.destroy();
 
@@ -74,7 +75,9 @@ describe('Download video', () => {
     describe('right after request is made', () => {
       it('Doesn\'t start the download', done => {
         const id = '_HSylqgVYQI';
-        const scope = nock(id, 'regular');
+        const scope = nock(id, 'regular', {
+          watchJson: false,
+        });
         const stream = ytdl(id, { filter });
 
         stream.on('request', () => {
@@ -101,7 +104,9 @@ describe('Download video', () => {
     describe('after download has started', () => {
       it('Download is incomplete', done => {
         const id = '_HSylqgVYQI';
-        const scope = nock(id, 'regular');
+        const scope = nock(id, 'regular', {
+          watchJson: false,
+        });
         const stream = ytdl(id, { filter });
         const video = path.resolve(__dirname, `files/videos/regular/video.flv`);
 
@@ -130,7 +135,9 @@ describe('Download video', () => {
     describe('immediately', () => {
       it('Doesn\'t start the download', done => {
         const id = '_HSylqgVYQI';
-        const scope = nock(id, 'regular');
+        const scope = nock(id, 'regular', {
+          watchJson: false,
+        });
         const stream = ytdl(id, { filter: chunkedFilter });
         stream.destroy();
 
@@ -150,7 +157,9 @@ describe('Download video', () => {
     describe('right after request is made', () => {
       it('Doesn\'t start the download', done => {
         const id = '_HSylqgVYQI';
-        const scope = nock(id, 'regular');
+        const scope = nock(id, 'regular', {
+          watchJson: false,
+        });
         const stream = ytdl(id, { filter: chunkedFilter });
 
         stream.on('request', () => {
@@ -179,7 +188,9 @@ describe('Download video', () => {
     describe('after download has started', () => {
       it('Download is incomplete', done => {
         const id = '_HSylqgVYQI';
-        const scope = nock(id, 'regular');
+        const scope = nock(id, 'regular', {
+          watchJson: false,
+        });
         const stream = ytdl(id, { filter: chunkedFilter });
         const video = path.resolve(__dirname, `files/videos/regular/video.flv`);
 
@@ -221,7 +232,9 @@ describe('Download video', () => {
     };
 
     it('Still downloads the whole video', async() => {
-      const scope = nock(id, 'regular');
+      const scope = nock(id, 'regular', {
+        watchJson: false,
+      });
       const stream = ytdl(id);
 
       let destroyedTimes = 0;
@@ -259,7 +272,9 @@ describe('Download video', () => {
 
     describe('with range', () => {
       it('Downloads from the given `start` to `end`', async() => {
-        const scope = nock(id, 'regular');
+        const scope = nock(id, 'regular', {
+          watchJson: false,
+        });
         const start = Math.floor(filesize * 0.1);
         const end = Math.floor(filesize * 0.45);
         const rangedSize = end - start + 1;
@@ -302,7 +317,9 @@ describe('Download video', () => {
 
     describe('that should be chunked', () => {
       it('Starts downloading video successfully and data equal to stored file', async() => {
-        const scope = nock(id, 'regular');
+        const scope = nock(id, 'regular', {
+          watchJson: false,
+        });
         const dlChunkSize = 1024 * 200;
         const stream = ytdl(id, { filter: 'videoonly', dlChunkSize });
 
@@ -338,7 +355,9 @@ describe('Download video', () => {
 
     describe('chunked with range', () => {
       it('Downloads from the given `start` to `end`', async() => {
-        const scope = nock(id, 'regular');
+        const scope = nock(id, 'regular', {
+          watchJson: false,
+        });
         const start = Math.floor(filesize * 0.1);
         const end = Math.floor(filesize * 0.15);
         const rangedSize = end - start + 1;
@@ -625,6 +644,7 @@ describe('Download video', () => {
         dashResponse = dashResponse.replace('type="dynamic"', '');
 
         const scope = nock(testId, 'live-now', {
+          watchJson: false,
           dashmpd: [true, 200, dashResponse],
         });
         const stream = ytdl(testId, { filter: format => format.isDashMPD });
@@ -651,7 +671,7 @@ describe('Download video', () => {
     it('Stream emits an error', done => {
       const id = 'VIBFo3Ti5vQ';
       const scope = nock(id, 'live-future');
-      let stream = ytdl(id);
+      let stream = ytdl(id, { requestOptions: { maxRetries: 0 } });
       stream.on('error', err => {
         scope.done();
         assert.ok(/This live event will begin in/.test(err.message), `Error did not match: ${err.message}`);
@@ -683,8 +703,8 @@ describe('Download video', () => {
     it('Stream emits an error', done => {
       const id = '_HSylqgVYQI';
       const scope = nock(id, 'regular', {
-        watchJson: [true, 200, body => body.replace(/\b(formats|adaptiveFormats)\b/g, 'no')],
-        watchHtml: false,
+        watchHtml: [true, 200, body => body.replace(/\b(formats|adaptiveFormats)\b/g, 'no')],
+        watchJson: false,
         get_video_info: false,
         player: false,
       });

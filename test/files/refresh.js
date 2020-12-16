@@ -51,7 +51,6 @@ const videos = [
   {
     id: 'aqz-KE-bpKQ',
     type: 'use-backups',
-    basicInfo: true,
     saveInfo: true,
     mock: {
       'watch.html': '<html></html>',

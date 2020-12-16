@@ -43,6 +43,10 @@ exports = module.exports = (id, type, opts = {}) => {
   }, opts);
 
   const addScope = (host, testOptions, nockOptions) => {
+    if (Array.isArray(testOptions) && Array.isArray(testOptions[0])) {
+      testOptions.forEach(testOption => addScope(host, testOption, nockOptions));
+      return;
+    }
     let scope = nock(host, { reqheaders: opts.headers });
     if (nockOptions.filteringPath) {
       scope = scope.filteringPath(...nockOptions.filteringPath);

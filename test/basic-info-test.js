@@ -23,11 +23,10 @@ describe('ytdl.getBasicInfo()', () => {
       assert.strictEqual(info.formats.length, expected.formats.length);
     });
 
-    it('Retrieves just enough metainfo', async() => {
+    it('Retrieves just enough metainfo without all formats', async() => {
       const id = '5qap5aO4i9A';
       const expected = require('./files/videos/live-now/expected-info.json');
       const scope = nock(id, 'live-now', {
-        watchHtml: false,
         player: false,
         dashmpd: false,
         m3u8: false,
@@ -86,8 +85,24 @@ describe('ytdl.getBasicInfo()', () => {
     });
   });
 
+  describe('From a live video', () => {
+    it('Returns correct video metainfo', async() => {
+      const id = '5qap5aO4i9A';
+      const scope = nock(id, 'live-now', {
+        player: false,
+        dashmpd: false,
+        m3u8: false,
+      });
+      let info = await ytdl.getBasicInfo(id);
+      scope.done();
+      assert.ok(info.formats.length);
+      assert.ok(info.videoDetails);
+      assert.ok(info.videoDetails.title);
+    });
+  });
+
   describe('From an age restricted video', () => {
-    it('Returns correct video metainfo with formats', async() => {
+    it('Returns correct video metainfo', async() => {
       const expected = require('./files/videos/age-restricted/expected-info.json');
       const id = 'LuZu9N53Vd0';
       const scope = nock(id, 'age-restricted');
@@ -149,7 +164,7 @@ describe('ytdl.getBasicInfo()', () => {
     describe('`x-youtube-identity-token` given', () => {
       it('Does not make extra request to watch.html page', async() => {
         const scope = nock(id, 'regular', {
-          watchHtml: false,
+          watchHtml: [true, 500],
           player: false,
         });
         let info = await ytdl.getBasicInfo(id, {
@@ -168,6 +183,8 @@ describe('ytdl.getBasicInfo()', () => {
       it('Retrieves identity-token from watch.html page', async() => {
         const scope = nock(id, 'regular', {
           watchHtml: [true, 200, body => `${body}\n{"ID_TOKEN":"abcd"}`],
+          watchJson: false,
+          get_video_info: false,
           player: false,
         });
         let info = await ytdl.getBasicInfo(id, {
@@ -182,7 +199,12 @@ describe('ytdl.getBasicInfo()', () => {
       describe('Unable to find token', () => {
         it('Returns an error', async() => {
           const scope = nock(id, 'regular', {
+            watchHtml: [
+              [true, 500],
+              [true, 200],
+            ],
             watchJson: false,
+            get_video_info: false,
             player: false,
           });
           await assert.rejects(ytdl.getBasicInfo(id, {
@@ -197,11 +219,16 @@ describe('ytdl.getBasicInfo()', () => {
       describe('Called from a web browser with cookies in requests', () => {
         it('Tries to get identity-token from watch.html page', async() => {
           const scope = nock(id, 'regular', {
-            watchJson: [true, 200, '}]{"reload":"now"}'],
-            player: false,
-          });
-          const scope2 = nock(id, 'regular', {
-            watchHtml: false,
+            watchHtml: [
+              [true, 500],
+              [true, 500],
+              [true, 200],
+            ],
+            watchJson: [
+              [true, 200, '}]{"reload":"now"}'],
+              [true, 200],
+            ],
+            get_video_info: false,
             player: false,
           });
           let info = await ytdl.getBasicInfo(id, {
@@ -213,7 +240,6 @@ describe('ytdl.getBasicInfo()', () => {
             },
           });
           scope.done();
-          scope2.done();
           assert.ok(info.formats.length);
         });
       });
@@ -222,7 +248,7 @@ describe('ytdl.getBasicInfo()', () => {
       it('Does not make extra request to watch.html page', async() => {
         ytdl.cache.cookie.set('abc=1', 'token!');
         const scope = nock(id, 'regular', {
-          watchHtml: false,
+          watchHtml: [true, 500],
           player: false,
         });
         let info = await ytdl.getBasicInfo(id, {
@@ -246,6 +272,8 @@ describe('ytdl.getBasicInfo()', () => {
         const scope = nock(id, 'use-backups', {
           watchJson: [true, 200, '{"reload":"now"}'],
           watchHtml: [true, 200, '<html></html>'],
+          embed: false,
+          player: false,
         });
         let info = await ytdl.getBasicInfo(id);
         scope.done();
@@ -254,15 +282,16 @@ describe('ytdl.getBasicInfo()', () => {
     });
 
     describe('Unable to parse watch.json page config', () => {
-      it('Uses backup watch.html page', async() => {
+      it('Uses backup', async() => {
         const id = 'LuZu9N53Vd0';
         const scope = nock(id, 'use-backups', {
+          watchHtml: [true, 500],
           watchJson: [true, 200, '{]}'],
-          get_video_info: false,
+          embed: false,
+          player: false,
         });
         let info = await ytdl.getBasicInfo(id);
         scope.done();
-        assert.ok(info.html5player);
         assert.ok(info.formats.length);
         assert.ok(info.formats[0].url);
       });
@@ -272,17 +301,19 @@ describe('ytdl.getBasicInfo()', () => {
       it('Retries the request', async() => {
         const id = '_HSylqgVYQI';
         const scope1 = nock(id, 'regular', {
-          watchJson: [true, 200, '{"reload":"now"}'],
+          watchHtml: [
+            [true, 500],
+            [true, 500],
+          ],
+          watchJson: [
+            [true, 200, '{"reload":"now"}'],
+            [true, 200],
+          ],
           get_video_info: false,
-          player: false,
-        });
-        const scope2 = nock(id, 'regular', {
-          watchHtml: false,
           player: false,
         });
         let info = await ytdl.getBasicInfo(id, { requestOptions: { maxRetries: 1 } });
         scope1.done();
-        scope2.done();
         assert.ok(info.formats.length);
         assert.ok(info.formats[0].url);
       });
@@ -291,13 +322,16 @@ describe('ytdl.getBasicInfo()', () => {
         it('Uses backup endpoint', async() => {
           const id = 'LuZu9N53Vd0';
           const scope = nock(id, 'use-backups', {
-            watchJson: [true, 200, '{"reload":"now"}'],
-            get_video_info: false,
-          });
-          const scope2 = nock(id, 'use-backups', {
-            watchJson: [true, 200, '{"reload":"now"}'],
-            watchHtml: false,
-            get_video_info: false,
+            watchHtml: [
+              [true, 500],
+              [true, 500],
+            ],
+            watchJson: [
+              [true, 200, '{"reload":"now"}'],
+              [true, 200, '{"reload":"now"}'],
+            ],
+            embed: false,
+            player: false,
           });
           let info = await ytdl.getBasicInfo(id, {
             requestOptions: {
@@ -306,8 +340,6 @@ describe('ytdl.getBasicInfo()', () => {
             },
           });
           scope.done();
-          scope2.done();
-          assert.ok(info.html5player);
           assert.ok(info.formats.length);
         });
       });
@@ -317,8 +349,10 @@ describe('ytdl.getBasicInfo()', () => {
       it('Uses backup endpoint', async() => {
         const id = 'LuZu9N53Vd0';
         const scope1 = nock(id, 'use-backups', {
+          watchHtml: false,
           watchJson: [true, 200, '[]'],
-          get_video_info: false,
+          embed: false,
+          player: false,
         });
         let info = await ytdl.getBasicInfo(id, { requestOptions: { maxRetries: 0 } });
         scope1.done();
@@ -331,17 +365,15 @@ describe('ytdl.getBasicInfo()', () => {
       it('Retries the request', async() => {
         const id = '_HSylqgVYQI';
         const scope1 = nock(id, 'regular', {
-          watchJson: [true, 502],
-          player: false,
-        });
-        const scope2 = nock(id, 'regular', {
-          watchJson: [true, 502],
-          watchHtml: false,
+          watchHtml: [
+            [true, 500],
+            [true, 200],
+          ],
+          watchJson: false,
           player: false,
         });
         let info = await ytdl.getBasicInfo(id, { requestOptions: { maxRetries: 1 } });
         scope1.done();
-        scope2.done();
         assert.ok(info.formats.length);
         assert.ok(info.formats[0].url);
       });
@@ -350,12 +382,12 @@ describe('ytdl.getBasicInfo()', () => {
         it('Uses the next endpoint as backup', async() => {
           const id = 'LuZu9N53Vd0';
           const scope = nock(id, 'use-backups', {
-            watchJson: [true, 502],
-            get_video_info: false,
+            watchHtml: [true, 502],
+            embed: false,
+            player: false,
           });
           let info = await ytdl.getBasicInfo(id);
           scope.done();
-          assert.ok(info.html5player);
           assert.ok(info.formats.length);
           assert.ok(info.formats[0].url);
           assert.ok(!info.videoDetails.age_restricted);
@@ -399,6 +431,8 @@ describe('ytdl.getBasicInfo()', () => {
           watchJson: [true, 500],
           watchHtml: [true, 500],
           get_video_info: [true, 500],
+          embed: false,
+          player: false,
         });
         await assert.rejects(ytdl.getBasicInfo(id, {
           requestOptions: { maxRetries: 0 },
