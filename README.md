@@ -155,7 +155,7 @@ Typically 1080p or better videos do not have audio encoded with it. The audio mu
 
 ## What if it stops working?
 
-Youtube updates their website all the time, it's not that rare for this to stop working. If it doesn't work for you and you're using the latest version, feel free to open up an issue. Make sure to check if there isn't one already with the same error.
+YouTube updates their website all the time, it's not that rare for this to stop working. If it doesn't work for you and you're using the latest version, feel free to open up an issue. Make sure to check if there isn't one already with the same error.
 
 Run the tests at `test/irl-test.js` to make sure this is really an issue with ytdl-core.
 
