@@ -106,10 +106,11 @@ describe('utils.checkForUpdates', () => {
 
   describe('Already on latest', () => {
     it('Does not warn the console', async() => {
-      const { version } = require('../package.json');
+      const package = require('../package.json');
+      sinon.replace(package, 'version', 'v1.0.0');
       const scope = nock('https://api.github.com')
         .get('/repos/fent/node-ytdl-core/releases/latest')
-        .reply(200, { tag_name: `v${version}` });
+        .reply(200, { tag_name: `v${package.version}` });
       const warnSpy = sinon.spy();
       sinon.replace(console, 'warn', warnSpy);
       sinon.replace(Date, 'now', sinon.stub().returns(Infinity));
@@ -121,6 +122,8 @@ describe('utils.checkForUpdates', () => {
 
   describe('When there is a new update', () => {
     it('Warns the console about the update', async() => {
+      const package = require('../package.json');
+      sinon.replace(package, 'version', 'v1.0.0');
       const scope = nock('https://api.github.com')
         .get('/repos/fent/node-ytdl-core/releases/latest')
         .reply(200, { tag_name: 'vInfinity.0.0' });
