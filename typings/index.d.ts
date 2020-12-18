@@ -191,7 +191,7 @@ declare module 'ytdl-core' {
       uploadDate: string;
     }
 
-    interface MoreVideoDetails extends Omit<VideoDetails, 'author'>, Omit<MicroformatRenderer, 'title' | 'description'> {
+    interface MoreVideoDetails extends Omit<VideoDetails, 'author' | 'thumbnail' | 'shortDescription'>, Omit<MicroformatRenderer, 'title' | 'description'> {
       published: number;
       video_url: string;
       age_restricted: boolean;
@@ -199,6 +199,7 @@ declare module 'ytdl-core' {
       dislikes?: number;
       media: Media;
       author: Author;
+      thumbnails: thumbnail[];
     }
 
     interface videoInfo {

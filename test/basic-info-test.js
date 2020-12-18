@@ -19,7 +19,7 @@ describe('ytdl.getBasicInfo()', () => {
       });
       let info = await ytdl.getBasicInfo(id);
       scope.done();
-      assert.ok(info.videoDetails.shortDescription.length);
+      assert.ok(info.videoDetails.description.length);
       assert.strictEqual(info.formats.length, expected.formats.length);
     });
 
@@ -76,7 +76,7 @@ describe('ytdl.getBasicInfo()', () => {
           player: false,
         });
         let info1 = await ytdl.getBasicInfo(id);
-        assert.ok(info1.videoDetails.shortDescription.length);
+        assert.ok(info1.videoDetails.description.length);
         assert.strictEqual(info1.formats.length, expected.formats.length);
         let info2 = await ytdl.getBasicInfo(id);
         scope.done();
