@@ -350,6 +350,7 @@ declare module 'ytdl-core' {
       length_seconds?: number;
       video_thumbnail?: string; // to remove later
       thumbnails: thumbnail[];
+      richThumbnails: thumbnail[];
       isLive: boolean;
     }
 

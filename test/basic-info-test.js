@@ -83,6 +83,44 @@ describe('ytdl.getBasicInfo()', () => {
         assert.strictEqual(info2, info1);
       });
     });
+
+    describe('With richThumbnails', () => {
+      it('Returns rich thumbnails', async() => {
+        const expected = require('./files/videos/rich-thumbnails/expected_info.json');
+        const id = '_HSylqgVYQI';
+        const scope = nock(id, 'rich-thumbnails', {
+          watchHtml: false,
+          player: false,
+        });
+        let info = await ytdl.getBasicInfo(id);
+        scope.done();
+        assert.ok(info.related_videos[0].richThumbnails.length);
+        assert.deepEqual(
+          expected.related_videos[0].richThumbnails,
+          info.related_videos[0].richThumbnails,
+        );
+      });
+
+      it('Returns empty array if user agent is not supported', async() => {
+        const id = '_HSylqgVYQI';
+        const scope = nock(id, 'regular', {
+          headers: {
+            'User-Agent': 'yay',
+          },
+          watchHtml: false,
+          player: false,
+        });
+        let info = await ytdl.getBasicInfo(id, {
+          requestOptions: {
+            headers: {
+              'User-Agent': 'yay',
+            },
+          },
+        });
+        scope.done();
+        assert.deepEqual(info.related_videos[0].richThumbnails, []);
+      });
+    });
   });
 
   describe('From a live video', () => {
