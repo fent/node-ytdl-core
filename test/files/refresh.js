@@ -90,6 +90,13 @@ const videos = [
     skip: ['get_video_info', /player/],
   },
   {
+    id: '_HSylqgVYQI',
+    type: 'rich-thumbnails',
+    basicInfo: true,
+    saveInfo: true,
+    skip: ['watch.html', /player/],
+  },
+  {
     id: 'z2jeHsa0UG0',
     type: 'private',
   },

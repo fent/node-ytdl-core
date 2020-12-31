@@ -3,6 +3,8 @@ const assert = require('assert-diff');
 const nock = require('./nock');
 const miniget = require('miniget');
 
+const DEFAULT_USER_AGENT =
+  'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.101 Safari/537.36';
 
 describe('ytdl.getBasicInfo()', () => {
   let minigetDefaults = miniget.defaultOptions;
@@ -84,24 +86,21 @@ describe('ytdl.getBasicInfo()', () => {
       });
     });
 
-    describe('With richThumbnails', () => {
-      it('Returns rich thumbnails', async() => {
-        const expected = require('./files/videos/rich-thumbnails/expected_info.json');
+    describe('With user-agent header', () => {
+      it('Uses default user-agent if no user-agent is provided', async() => {
         const id = '_HSylqgVYQI';
         const scope = nock(id, 'rich-thumbnails', {
+          headers: {
+            'User-Agent': DEFAULT_USER_AGENT,
+          },
           watchHtml: false,
           player: false,
         });
-        let info = await ytdl.getBasicInfo(id);
+        await ytdl.getBasicInfo(id);
         scope.done();
-        assert.ok(info.related_videos[0].richThumbnails.length);
-        assert.deepEqual(
-          expected.related_videos[0].richThumbnails,
-          info.related_videos[0].richThumbnails,
-        );
       });
 
-      it('Returns empty array if user agent is not supported', async() => {
+      it('Uses provided user-agent instead of default', async() => {
         const id = '_HSylqgVYQI';
         const scope = nock(id, 'regular', {
           headers: {
@@ -110,7 +109,7 @@ describe('ytdl.getBasicInfo()', () => {
           watchHtml: false,
           player: false,
         });
-        let info = await ytdl.getBasicInfo(id, {
+        await ytdl.getBasicInfo(id, {
           requestOptions: {
             headers: {
               'User-Agent': 'yay',
@@ -118,7 +117,6 @@ describe('ytdl.getBasicInfo()', () => {
           },
         });
         scope.done();
-        assert.deepEqual(info.related_videos[0].richThumbnails, []);
       });
     });
   });

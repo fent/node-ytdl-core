@@ -178,7 +178,8 @@ describe('extras.getRelatedVideos()', () => {
 
   describe('With richThumbnails', () => {
     it('Returns related videos', () => {
-      const info = require('./files/videos/rich-thumbnails/expected_info.json');
+      const info = require('./files/videos/rich-thumbnails/expected-info.json');
+      assert.ok(info.related_videos[0].richThumbnails.length);
       assertRelatedVideos(extras.getRelatedVideos(info));
     });
   });
