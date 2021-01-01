@@ -191,6 +191,17 @@ declare module 'ytdl-core' {
       uploadDate: string;
     }
 
+    type storyboard = {
+      templateUrl: string;
+      width: number;
+      height: number;
+      count: number;
+      interval: number;
+      storyboardWidth: number;
+      storyboardHeight: number;
+      storyboardCount: number;
+    };
+
     interface MoreVideoDetails extends Omit<VideoDetails, 'author' | 'thumbnail' | 'shortDescription'>, Omit<MicroformatRenderer, 'title' | 'description'> {
       published: number;
       video_url: string;
@@ -200,6 +211,7 @@ declare module 'ytdl-core' {
       media: Media;
       author: Author;
       thumbnails: thumbnail[];
+      storyboards: storyboard[];
     }
 
     interface videoInfo {

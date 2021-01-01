@@ -244,3 +244,33 @@ describe('extras.getDislikes()', () => {
     });
   });
 });
+
+describe('extras.getStoryboards()', () => {
+  it('Returns storyboards', () => {
+    const info = infoFromWatchJSON('no-likes-or-dislikes');
+    const storyboards = extras.getStoryboards(info);
+
+    assert.ok(Array.isArray(storyboards));
+    assert.ok(storyboards.length > 0);
+
+    for (let storyboard of storyboards) {
+      assert.ok(storyboard.templateUrl);
+      assert.strictEqual(typeof storyboard.width, 'number');
+      assert.strictEqual(typeof storyboard.height, 'number');
+      assert.strictEqual(typeof storyboard.count, 'number');
+      assert.strictEqual(typeof storyboard.interval, 'number');
+      assert.strictEqual(typeof storyboard.storyboardWidth, 'number');
+      assert.strictEqual(typeof storyboard.storyboardHeight, 'number');
+      assert.strictEqual(typeof storyboard.storyboardCount, 'number');
+    }
+  });
+
+  describe('With no storyboards', () => {
+    it('Returns empty array', () => {
+      const info = infoFromWatchJSON('regular');
+      const storyboards = extras.getStoryboards(info);
+      assert.ok(Array.isArray(storyboards));
+      assert.ok(storyboards.length === 0);
+    });
+  });
+});
