@@ -34,7 +34,7 @@ const assertThumbnails = thumbnails => {
   }
 };
 
-const assertRelatedVideos = relatedVideos => {
+const assertRelatedVideos = (relatedVideos, assertRichThumbnails = false) => {
   assert.ok(Array.isArray(relatedVideos));
   assert.ok(relatedVideos.length > 0);
   for (let video of relatedVideos) {
@@ -42,8 +42,12 @@ const assertRelatedVideos = relatedVideos => {
     assert.ok(video.title);
     assert.ok(video.length_seconds);
     assertThumbnails(video.thumbnails);
+    if (assertRichThumbnails) {
+      assert.ok(video.richThumbnails.length);
+      assertThumbnails(video.richThumbnails);
+    }
     assert.equal(typeof video.isLive, 'boolean');
-    assert.ok(/[a-z]+/.test(video.author));
+    assert.ok(/[a-zA-Z]+/.test(video.author));
     assert.ok(video.author.id);
     assert.ok(video.author.name);
     assert.ok(video.author.channel_url);
@@ -173,6 +177,13 @@ describe('extras.getRelatedVideos()', () => {
   it('Returns related videos', () => {
     const info = require('./files/videos/regular/expected-info.json');
     assertRelatedVideos(extras.getRelatedVideos(info));
+  });
+
+  describe('With richThumbnails', () => {
+    it('Returns related videos', () => {
+      const info = require('./files/videos/rich-thumbnails/expected-info.json');
+      assertRelatedVideos(extras.getRelatedVideos(info), true);
+    });
   });
 
   describe('Without `rvs` params', () => {

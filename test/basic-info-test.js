@@ -3,6 +3,8 @@ const assert = require('assert-diff');
 const nock = require('./nock');
 const miniget = require('miniget');
 
+const DEFAULT_USER_AGENT =
+  'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.101 Safari/537.36';
 
 describe('ytdl.getBasicInfo()', () => {
   let minigetDefaults = miniget.defaultOptions;
@@ -81,6 +83,40 @@ describe('ytdl.getBasicInfo()', () => {
         let info2 = await ytdl.getBasicInfo(id);
         scope.done();
         assert.strictEqual(info2, info1);
+      });
+    });
+
+    describe('With user-agent header', () => {
+      it('Uses default user-agent if no user-agent is provided', async() => {
+        const id = '_HSylqgVYQI';
+        const scope = nock(id, 'rich-thumbnails', {
+          headers: {
+            'User-Agent': DEFAULT_USER_AGENT,
+          },
+          watchHtml: false,
+          player: false,
+        });
+        await ytdl.getBasicInfo(id);
+        scope.done();
+      });
+
+      it('Uses provided user-agent instead of default', async() => {
+        const id = '_HSylqgVYQI';
+        const scope = nock(id, 'regular', {
+          headers: {
+            'User-Agent': 'yay',
+          },
+          watchHtml: false,
+          player: false,
+        });
+        await ytdl.getBasicInfo(id, {
+          requestOptions: {
+            headers: {
+              'User-Agent': 'yay',
+            },
+          },
+        });
+        scope.done();
       });
     });
   });
