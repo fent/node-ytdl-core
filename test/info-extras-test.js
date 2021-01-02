@@ -254,7 +254,7 @@ describe('extras.getStoryboards()', () => {
     assert.ok(storyboards.length > 0);
 
     for (let storyboard of storyboards) {
-      assert.ok(storyboard.templateUrl);
+      assertURL(storyboard.templateUrl);
       assert.strictEqual(typeof storyboard.width, 'number');
       assert.strictEqual(typeof storyboard.height, 'number');
       assert.strictEqual(typeof storyboard.count, 'number');
