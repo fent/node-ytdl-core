@@ -452,11 +452,22 @@ describe('ytdl.getBasicInfo()', () => {
     });
 
     describe('With a bad video ID', () => {
-      it('Returns an error', () => {
+      it('Throws a catchable error', async() => {
         const id = 'bad';
-        assert.throws(() => {
-          ytdl.getBasicInfo(id);
-        }, /No video id found: bad/);
+        try {
+          await ytdl.getBasicInfo(id);
+        } catch (err) {
+          assert.ok(/No video id found/.test(err.message));
+          return;
+        }
+        throw Error('should not get here');
+      });
+      it('Promise is rejected with caught error', done => {
+        const id = 'https://website.com';
+        ytdl.getBasicInfo(id).catch(err => {
+          assert.ok(/Not a YouTube domain/.test(err.message));
+          done();
+        });
       });
     });
 
