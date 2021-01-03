@@ -186,6 +186,13 @@ describe('extras.getRelatedVideos()', () => {
     });
   });
 
+  describe('With autoplay is on', () => {
+    it('Returns related videos', () => {
+      const info = require('./files/videos/autoplay/expected-info.json');
+      assertRelatedVideos(extras.getRelatedVideos(info));
+    });
+  });
+
   describe('Without `rvs` params', () => {
     it('Still able to find video params', () => {
       const info = require('./files/videos/regular/expected-info.json');
