@@ -244,3 +244,33 @@ describe('extras.getDislikes()', () => {
     });
   });
 });
+
+describe('extras.getStoryboards()', () => {
+  it('Returns storyboards', () => {
+    const info = infoFromWatchJSON('no-likes-or-dislikes');
+    const storyboards = extras.getStoryboards(info);
+
+    assert.ok(Array.isArray(storyboards));
+    assert.ok(storyboards.length > 0);
+
+    for (let storyboard of storyboards) {
+      assertURL(storyboard.templateUrl);
+      assert.strictEqual(typeof storyboard.thumbnailWidth, 'number');
+      assert.strictEqual(typeof storyboard.thumbnailHeight, 'number');
+      assert.strictEqual(typeof storyboard.thumbnailCount, 'number');
+      assert.strictEqual(typeof storyboard.interval, 'number');
+      assert.strictEqual(typeof storyboard.columns, 'number');
+      assert.strictEqual(typeof storyboard.rows, 'number');
+      assert.strictEqual(typeof storyboard.storyboardCount, 'number');
+    }
+  });
+
+  describe('With no storyboards', () => {
+    it('Returns empty array', () => {
+      const info = infoFromWatchJSON('regular');
+      const storyboards = extras.getStoryboards(info);
+      assert.ok(Array.isArray(storyboards));
+      assert.ok(storyboards.length === 0);
+    });
+  });
+});
