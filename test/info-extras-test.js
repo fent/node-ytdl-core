@@ -255,9 +255,9 @@ describe('extras.getStoryboards()', () => {
 
     for (let storyboard of storyboards) {
       assertURL(storyboard.templateUrl);
-      assert.strictEqual(typeof storyboard.width, 'number');
-      assert.strictEqual(typeof storyboard.height, 'number');
-      assert.strictEqual(typeof storyboard.count, 'number');
+      assert.strictEqual(typeof storyboard.thumbnailWidth, 'number');
+      assert.strictEqual(typeof storyboard.thumbnailHeight, 'number');
+      assert.strictEqual(typeof storyboard.thumbnailCount, 'number');
       assert.strictEqual(typeof storyboard.interval, 'number');
       assert.strictEqual(typeof storyboard.columns, 'number');
       assert.strictEqual(typeof storyboard.rows, 'number');

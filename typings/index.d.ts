@@ -193,9 +193,9 @@ declare module 'ytdl-core' {
 
     interface storyboard {
       templateUrl: string;
-      width: number;
-      height: number;
-      count: number;
+      thumbnailWidth: number;
+      thumbnailHeight: number;
+      thumbnailCount: number;
       interval: number;
       columns: number;
       rows: number;
