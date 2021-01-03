@@ -29,8 +29,8 @@ const assertThumbnails = thumbnails => {
   assert.ok(Array.isArray(thumbnails));
   for (let thumbnail of thumbnails) {
     assertURL(thumbnail.url);
-    assert.equal(typeof thumbnail.width, 'number');
-    assert.equal(typeof thumbnail.height, 'number');
+    assert.strictEqual(typeof thumbnail.width, 'number');
+    assert.strictEqual(typeof thumbnail.height, 'number');
   }
 };
 
@@ -46,13 +46,13 @@ const assertRelatedVideos = (relatedVideos, assertRichThumbnails = false) => {
       assert.ok(video.richThumbnails.length);
       assertThumbnails(video.richThumbnails);
     }
-    assert.equal(typeof video.isLive, 'boolean');
+    assert.strictEqual(typeof video.isLive, 'boolean');
     assert.ok(/[a-zA-Z]+/.test(video.author));
     assert.ok(video.author.id);
     assert.ok(video.author.name);
     assert.ok(video.author.channel_url);
     assertThumbnails(video.author.thumbnails);
-    assert.equal(typeof video.author.verified, 'boolean');
+    assert.strictEqual(typeof video.author.verified, 'boolean');
   }
 };
 
