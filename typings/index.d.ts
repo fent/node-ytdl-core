@@ -197,8 +197,8 @@ declare module 'ytdl-core' {
       height: number;
       count: number;
       interval: number;
-      storyboardWidth: number;
-      storyboardHeight: number;
+      columns: number;
+      rows: number;
       storyboardCount: number;
     }
 

@@ -259,8 +259,8 @@ describe('extras.getStoryboards()', () => {
       assert.strictEqual(typeof storyboard.height, 'number');
       assert.strictEqual(typeof storyboard.count, 'number');
       assert.strictEqual(typeof storyboard.interval, 'number');
-      assert.strictEqual(typeof storyboard.storyboardWidth, 'number');
-      assert.strictEqual(typeof storyboard.storyboardHeight, 'number');
+      assert.strictEqual(typeof storyboard.columns, 'number');
+      assert.strictEqual(typeof storyboard.rows, 'number');
       assert.strictEqual(typeof storyboard.storyboardCount, 'number');
     }
   });
