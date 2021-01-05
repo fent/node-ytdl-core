@@ -186,9 +186,9 @@ describe('extras.getRelatedVideos()', () => {
     });
   });
 
-  describe('With autoplay is on', () => {
+  describe('When able to choose the topic of related videos', () => {
     it('Returns related videos', () => {
-      const info = require('./files/videos/autoplay/expected-info.json');
+      const info = require('./files/videos/related-topics/expected-info.json');
       assertRelatedVideos(extras.getRelatedVideos(info));
     });
   });
