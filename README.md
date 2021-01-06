@@ -4,7 +4,7 @@
 [![codecov](https://codecov.io/gh/fent/node-ytdl-core/branch/master/graph/badge.svg)](https://codecov.io/gh/fent/node-ytdl-core)
 [![Discord](https://img.shields.io/discord/484464227067887645.svg)](https://discord.gg/V3vSCs7)
 
-Yet another youtube downloading module. Written with only Javascript and a node-friendly streaming interface.
+Yet another YouTube downloading module. Written with only Javascript and a node-friendly streaming interface.
 
 # Support
 You can contact us for support on our [chat server](https://discord.gg/V3vSCs7)
