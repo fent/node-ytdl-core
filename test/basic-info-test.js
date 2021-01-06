@@ -218,6 +218,11 @@ describe('ytdl.getBasicInfo()', () => {
     describe('`x-youtube-identity-token` not given', () => {
       it('Retrieves identity-token from watch.html page', async() => {
         const scope = nock(id, 'regular', {
+          watchHtml: [true, 400],
+          get_video_info: false,
+          player: false,
+        });
+        const scope2 = nock(id, 'regular', {
           watchHtml: [true, 200, body => `${body}\n{"ID_TOKEN":"abcd"}`],
           watchJson: false,
           get_video_info: false,
@@ -225,10 +230,12 @@ describe('ytdl.getBasicInfo()', () => {
         });
         let info = await ytdl.getBasicInfo(id, {
           requestOptions: {
+            maxRetries: 1,
             headers: { cookie: 'abc=1' },
           },
         });
         scope.done();
+        scope2.done();
         assert.ok(info.formats.length);
       });
 
