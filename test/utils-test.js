@@ -99,7 +99,7 @@ describe('utils.parseAbbreviatedNumber', () => {
 
 
 describe('utils.checkForUpdates', () => {
-  before(() => delete process.env.YTDL_NO_UPDATE);
+  beforeEach(() => delete process.env.YTDL_NO_UPDATE);
   after(() => process.env.YTDL_NO_UPDATE = 'true');
   beforeEach(() => utils.lastUpdateCheck = Date.now());
   afterEach(() => sinon.restore());
@@ -153,6 +153,24 @@ describe('utils.checkForUpdates', () => {
       sinon.replace(console, 'warn', warnSpy);
       await utils.checkForUpdates();
       assert.ok(warnSpy.notCalled);
+    });
+  });
+
+  describe('When there is an error checking for updates', () => {
+    it('Warns the console', async() => {
+      const pkg = require('../package.json');
+      sinon.replace(pkg, 'version', 'v1.0.0');
+      const scope = nock('https://api.github.com')
+        .get('/repos/fent/node-ytdl-core/releases/latest')
+        .reply(403, 'slow down there');
+      const warnSpy = sinon.spy();
+      sinon.replace(console, 'warn', warnSpy);
+      sinon.replace(Date, 'now', sinon.stub().returns(Infinity));
+      await utils.checkForUpdates();
+      scope.done();
+      assert.ok(warnSpy.called);
+      assert.ok(/Error checking for updates/.test(warnSpy.firstCall.args[0]));
+      assert.ok(/Status code: 403/.test(warnSpy.firstCall.args[1]));
     });
   });
 });
