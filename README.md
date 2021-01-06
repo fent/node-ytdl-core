@@ -186,6 +186,16 @@ While you wait for the pull reques to merge, you can point to its branch in your
   "ytdl-core-discord": "amishshah/ytdl-core-discord#dependabot/npm_and_yarn/ytdl-core-2.0.1"
 ```
 
+## Update Checks
+
+The issue of using an outdated version of ytdl-core became so prevalent, that ytdl-core now checks for updates at run time, and every 12 hours. If it finds an update, it will print a warning to the console advising you to update. Due to the nature of this library, it is important to always use the latest version as YouTube continues to update.
+
+If you'd like to disable this update check, you can do so by providing the `YTDL_NO_UPDATE` env variable.
+
+```
+env YTDL_NO_UPDATE=1 node myapp.js
+```
+
 # Related Projects
 
 - [ytdl](https://github.com/fent/node-ytdl) - A cli wrapper of this.
