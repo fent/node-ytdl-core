@@ -108,13 +108,23 @@ declare module 'ytdl-core' {
       isTranslatable: boolean;
     }
 
+    interface audioTrack {
+      captionTrackIndices: number[];
+    }
+
+    interface translationLanguage {
+      languageCode: captionTrack['languageCode'];
+      languageName: captionTrack['name'];
+    }
+
     interface VideoDetails {
       videoId: string;
       title: string;
       shortDescription: string;
       lengthSeconds: string;
-      keywords: string[];
+      keywords?: string[];
       channelId: string;
+      isOwnerViewing: boolean;
       isCrawlable: boolean;
       thumbnail: {
         thumbnails: thumbnail[];
@@ -174,7 +184,7 @@ declare module 'ytdl-core' {
       };
       lengthSeconds: string;
       ownerProfileUrl: string;
-      ownerGplusProfileUrl: string;
+      ownerGplusProfileUrl?: string;
       externalChannelId: string;
       isFamilySafe: boolean;
       availableCountries: string[];
@@ -206,12 +216,13 @@ declare module 'ytdl-core' {
       published: number;
       video_url: string;
       age_restricted: boolean;
-      likes?: number;
-      dislikes?: number;
+      likes: number | null;
+      dislikes: number | null;
       media: Media;
       author: Author;
       thumbnails: thumbnail[];
       storyboards: storyboard[];
+      description: string | null;
     }
 
     interface videoInfo {
@@ -331,6 +342,13 @@ declare module 'ytdl-core' {
       player_response: {
         playabilityStatus: {
           status: string;
+          playableInEmbed: boolean;
+          miniplayer: {
+            miniplayerRenderer: {
+              playbackMode: string;
+            };
+          };
+          contextParams: string;
         };
         streamingData: {
           expiresInSeconds: string;
@@ -338,8 +356,15 @@ declare module 'ytdl-core' {
           adaptiveFormats: {}[];
         };
         captions?: {
+          playerCaptionsRenderer: {
+            baseUrl: string;
+            visibility: string;
+          };
           playerCaptionsTracklistRenderer: {
             captionTracks: captionTrack[];
+            audioTracks: audioTrack[];
+            translationLanguages: translationLanguage[];
+            defaultAudioTrackIndex: number;
           };
         };
         microformat: {
