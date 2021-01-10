@@ -100,6 +100,13 @@ const videos = [
     id: 'z2jeHsa0UG0',
     type: 'private',
   },
+  {
+    id: '_HSylqgVYQI',
+    type: 'related-topics',
+    needCookie: true,
+    basicInfo: true,
+    saveInfo: true,
+  },
 ];
 
 
@@ -230,6 +237,8 @@ const refreshVideo = async(video, noRequests) => {
   try {
     let info;
     let options = { requestOptions: { maxRetries: 0 } };
+    // Not implemented yet
+    if (video.needCookie) return console.log('Need cookies to refresh this.');
     if (video.basicInfo) {
       info = await getInfo.getBasicInfo(video.id, options);
     } else {
