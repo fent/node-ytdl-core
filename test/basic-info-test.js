@@ -195,6 +195,18 @@ describe('ytdl.getBasicInfo()', () => {
     });
   });
 
+  describe('From the longest video uploaded', () => {
+    it('Gets correct `lengthSeconds`', async() => {
+      const id = 'TceijYjxdrQ';
+      const scope = nock(id, 'longest-upload');
+      let info = await ytdl.getBasicInfo(id);
+      scope.done();
+      assert.ok(info);
+      assert.ok(info.videoDetails);
+      assert.equal(info.videoDetails.lengthSeconds, '805000');
+    });
+  });
+
   describe('With cookie headers', () => {
     const id = '_HSylqgVYQI';
     describe('`x-youtube-identity-token` given', () => {

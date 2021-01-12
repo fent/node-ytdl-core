@@ -107,6 +107,11 @@ const videos = [
     basicInfo: true,
     saveInfo: true,
   },
+  {
+    id: 'TceijYjxdrQ',
+    type: 'longest-upload',
+    basicInfo: true,
+  },
 ];
 
 
