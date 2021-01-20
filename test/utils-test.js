@@ -63,6 +63,12 @@ describe('utils.cutAfterJSON()', () => {
       '{"a": "\\\\фыва", "b": 1, "c": {"test": 1}}',
     );
   });
+  it('Works with \\\\ towards the end of a string', () => {
+    assert.strictEqual(
+      utils.cutAfterJSON('{"text": "\\\\"};'),
+      '{"text": "\\\\"}',
+    );
+  });
   it('Works with [ as start', () => {
     assert.strictEqual(
       utils.cutAfterJSON('[{"a": 1}, {"b": 2}]abcd'),
