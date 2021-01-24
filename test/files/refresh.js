@@ -117,7 +117,7 @@ const videos = [
 
 const fs = require('fs');
 const path = require('path');
-const urlParse = require('url').parse;
+const { URL } = require('url');
 const { PassThrough } = require('stream');
 const mukRequire = require('muk-require');
 const miniget = require('miniget');
@@ -176,7 +176,7 @@ const refreshVideo = async(video, noRequests) => {
   };
 
   const getFilenameFromURL = url => {
-    let parsed = urlParse(url);
+    let parsed = new URL(url);
     let s = parsed.pathname.split('/');
     let filename =
       // Special case for livestream manifest files.

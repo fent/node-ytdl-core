@@ -1,7 +1,7 @@
 const ytdl = require('..');
 const path = require('path');
 const fs = require('fs');
-const url = require('url');
+const { URL } = require('url');
 const nock = require('nock');
 
 const YT_HOST = 'https://www.youtube.com';
@@ -144,15 +144,15 @@ exports = module.exports = (id, type, opts = {}) => {
 };
 
 exports.filteringPath = (uri, filter1, filter2) => {
-  let parsed = url.parse(uri);
-  return nock(`${parsed.protocol}//${parsed.host}`)
+  let parsed = new URL(uri);
+  return nock(parsed.origin)
     .filteringPath(filter1, filter2)
-    .get(parsed.path);
+    .get(parsed.pathname + parsed.search + parsed.hash);
 };
 
 exports.url = uri => {
-  let parsed = url.parse(uri);
-  return nock(`${parsed.protocol}//${parsed.host}`).get(parsed.path);
+  let parsed = new URL(uri);
+  return nock(parsed.origin).get(parsed.pathname + parsed.search + parsed.hash);
 };
 
 exports.cleanAll = nock.cleanAll;
