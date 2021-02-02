@@ -146,6 +146,7 @@ ytdl cannot download videos that fall into the following
 * Regionally restricted (requires a [proxy](example/proxy.js))
 * Private (if you have access, requires [cookies](example/cookies.js))
 * Rentals (if you have access, requires [cookies](example/cookies.js))
+* YouTube Premium content (if you have access, requires [cookies](example/cookies.js))
 
 Generated download links are valid for 6 hours, and may only be downloadable from the same IP address.
 
