@@ -17,6 +17,8 @@ describe('getURLVideoID()', () => {
     assert.strictEqual(id, 'RAW_VIDEOID');
     id = getVideoID('http://youtube.com/embed/RAW_VIDEOID');
     assert.strictEqual(id, 'RAW_VIDEOID');
+    id = getVideoID('http://youtube.com/shorts/RAW_VIDEOID');
+    assert.strictEqual(id, 'RAW_VIDEOID');
     id = getVideoID('https://music.youtube.com/watch?v=RAW_VIDEOID&list=RDAMVMmtLgabce8KQ');
     assert.strictEqual(id, 'RAW_VIDEOID');
     id = getVideoID('https://gaming.youtube.com/watch?v=RAW_VIDEOID');
@@ -54,6 +56,8 @@ describe('getVideoID()', () => {
     id = getVideoID('http://youtube.com/v/RAW_VIDEOID');
     assert.strictEqual(id, 'RAW_VIDEOID');
     id = getVideoID('http://youtube.com/embed/RAW_VIDEOID');
+    assert.strictEqual(id, 'RAW_VIDEOID');
+    id = getVideoID('http://youtube.com/shorts/RAW_VIDEOID');
     assert.strictEqual(id, 'RAW_VIDEOID');
     id = getVideoID('_LENGTH_11_');
     assert.strictEqual(id, '_LENGTH_11_');
