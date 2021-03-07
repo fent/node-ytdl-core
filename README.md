@@ -203,7 +203,7 @@ env YTDL_NO_UPDATE=1 node myapp.js
 - [pully](https://github.com/JimmyBoh/pully) - Another cli wrapper of this aimed at high quality formats.
 - [ytsr](https://github.com/TimeForANinja/node-ytsr) - YouTube video search results.
 - [ytpl](https://github.com/TimeForANinja/node-ytpl) - YouTube playlist and channel resolver.
-
+- [spotifydl](https://github.com/SwapnilSoni1999/spotify-dl) - Spotifydl cli base on node-ytdl
 
 # Tests
 Tests are written with [mocha](https://mochajs.org)
