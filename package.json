@@ -35,7 +35,6 @@
     "lint:typings:fix": "tslint --fix typings/index.d.ts"
   },
   "dependencies": {
-    "request": "^2.88.2",
     "m3u8stream": "^0.8.3",
     "miniget": "^4.0.0",
     "sax": "^1.1.3"
