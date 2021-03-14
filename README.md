@@ -69,6 +69,7 @@ Gets metainfo from a video. Includes additional formats, and ready to download d
 `options` can have the following
 
 * `requestOptions` - Anything to merge into the request options which [miniget](https://github.com/fent/node-miniget) is called with, such as `headers`.
+* `reqCallback` - Provide a callback function that receives the request stream object of all getInfo miniget requests.
 * `lang` - The 2 character symbol of a language. Default is `en`.
 
 ### ytdl.downloadFromInfo(info, options)
