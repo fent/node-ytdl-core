@@ -39,6 +39,27 @@ describe('ytdl.getInfo()', () => {
     });
   });
 
+  describe('With IPv6 Block', () => {
+    it('Sends request with IPv6 address', async() => {
+      const scope = nock(id, {
+        type: 'vevo',
+        player: true,
+      });
+      let info = await ytdl.getInfo(id, { IPv6Block: '2001:2::/48' });
+      scope.done();
+      await nock.url(info.formats[0].url).reply(function checkAddr() {
+        assert.ok(net.isIPv6(this.req.options.localAddress));
+        scope.done();
+      });
+    });
+  });
+
+  describe('With invalid IPv6 Block', () => {
+    it('Should give an error', async() => {
+      await assert.rejects(ytdl.getInfo(id, { IPv6Block: '2001:2::/200' }), /Invalid IPv6 subnet/);
+    });
+  });
+
   describe('From a video with a cipher', () => {
     it('Retrieves deciphered video formats', async() => {
       const id = 'B3eAMGXFw1o';
