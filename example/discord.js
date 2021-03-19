@@ -2,7 +2,7 @@
 const { Client } = require('discord.js');
 const ytdl = require('ytdl-core');
 
-const url = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
+const url = 'https://www.youtube.com/watch?v=7wNb0pHyGuI';
 const clientToken = ' Y o u r   B o t   T o k e n ';
 
 const client = new Client();

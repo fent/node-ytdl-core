@@ -1,0 +1,2 @@
+test/files/html5player/*.js linguist-detectable=false
+test/files/videos/**/* linguist-detectable=false

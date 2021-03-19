@@ -3,39 +3,41 @@ const nock = require('nock');
 const ytdl = require('..');
 
 
-let videos = {
+const videos = {
   'Regular video': 'mgOS64BF2eU',
-  VEVO: 'qQ31INpjXX0',
-  'VEVO 2': 'pJk0p-98Xzc',
-  'Age restricted VEVO': 'B3eAMGXFw1o',
-  'Age restricted': 'BlhyROz85OU',
+  'Age restricted': 'LuZu9N53Vd0',
   'Embed domain restricted': 'B3eAMGXFw1o',
   'No embed allowed': 'GFg8BP01F5Q',
   Offensive: 'hCKDsjLt_qU',
+  'Live broadcast': '5qap5aO4i9A',
 };
 
 
-describe('Try downloading videos without mocking', function test() {
-  this.retries(1);
-  beforeEach(() => {
+process.env.YTDL_NO_UPDATE = 'true';
+describe('Try using ytdl-core without mocking', () => {
+  before(() => {
     nock.cleanAll();
     nock.enableNetConnect();
+  });
+  afterEach(() => {
     ytdl.cache.sig.clear();
     ytdl.cache.info.clear();
     ytdl.cache.cookie.clear();
   });
 
-  Object.keys(videos).forEach(desc => {
-    const video = videos[desc];
-    describe(desc, () => {
-      it('Request status code is 2xx', done => {
-        const stream = ytdl(video);
-        stream.once('response', res => {
-          stream.destroy();
-          assert.ok(res.statusCode >= 200 && res.statusCode < 300);
-          done();
+  describe('Try starting a download', () => {
+    for (let [desc, videoID] of Object.entries(videos)) {
+      describe(desc, () => {
+        it('Request status code is 2xx', done => {
+          const stream = ytdl(videoID);
+          stream.on('error', done);
+          stream.once('response', res => {
+            stream.destroy();
+            assert.ok(res.statusCode >= 200 && res.statusCode < 300);
+            done();
+          });
         });
       });
-    });
+    }
   });
 });

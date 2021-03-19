@@ -4,17 +4,25 @@ declare module 'ytdl-core' {
 
   namespace ytdl {
     type Filter = 'audioandvideo' | 'videoandaudio' | 'video' | 'videoonly' | 'audio' | 'audioonly' | ((format: videoFormat) => boolean);
-    interface downloadOptions {
+
+    interface getInfoOptions {
+      lang?: string;
+      requestOptions?: {};
+    }
+
+    interface chooseFormatOptions {
       quality?: 'lowest' | 'highest' | 'highestaudio' | 'lowestaudio' | 'highestvideo' | 'lowestvideo' | string | number | string[] | number[];
       filter?: Filter;
       format?: videoFormat;
+    }
+
+    interface downloadOptions extends getInfoOptions, chooseFormatOptions {
       range?: {
         start?: number;
         end?: number;
       };
       begin?: string | number | Date;
       liveBuffer?: number;
-      requestOptions?: {};
       highWaterMark?: number;
       lang?: string;
       IPv6Block?: string;
@@ -25,7 +33,7 @@ declare module 'ytdl-core' {
       itag: number;
       url: string;
       mimeType?: string;
-      bitrate?: number | string;
+      bitrate?: number;
       audioBitrate?: number;
       width?: number;
       height?: number;
@@ -37,9 +45,9 @@ declare module 'ytdl-core' {
       qualityLabel: '144p' | '144p 15fps' | '144p60 HDR' | '240p' | '240p60 HDR' | '270p' | '360p' | '360p60 HDR'
         | '480p' | '480p60 HDR' | '720p' | '720p60' | '720p60 HDR' | '1080p' | '1080p60' | '1080p60 HDR' | '1440p'
         | '1440p60' | '1440p60 HDR' | '2160p' | '2160p60' | '2160p60 HDR' | '4320p' | '4320p60';
-      projectionType: 'RECTANGULAR';
+      projectionType?: 'RECTANGULAR';
       fps?: number;
-      averageBitrate: number;
+      averageBitrate?: number;
       audioQuality?: 'AUDIO_QUALITY_LOW' | 'AUDIO_QUALITY_MEDIUM';
       colorInfo?: {
         primaries: string;
@@ -47,7 +55,9 @@ declare module 'ytdl-core' {
         matrixCoefficients: string;
       };
       highReplication?: boolean;
-      approxDurationMs: string;
+      approxDurationMs?: string;
+      targetDurationSec?: number;
+      maxDvrDurationSec?: number;
       audioSampleRate?: string;
       audioChannels?: number;
 
@@ -60,7 +70,6 @@ declare module 'ytdl-core' {
       audioCodec?: string;
 
       isLive: boolean;
-      live: boolean;
       isHLS: boolean;
       isDashMPD: boolean;
     }
@@ -101,13 +110,23 @@ declare module 'ytdl-core' {
       isTranslatable: boolean;
     }
 
+    interface audioTrack {
+      captionTrackIndices: number[];
+    }
+
+    interface translationLanguage {
+      languageCode: captionTrack['languageCode'];
+      languageName: captionTrack['name'];
+    }
+
     interface VideoDetails {
       videoId: string;
       title: string;
       shortDescription: string;
       lengthSeconds: string;
-      keywords: string[];
+      keywords?: string[];
       channelId: string;
+      isOwnerViewing: boolean;
       isCrawlable: boolean;
       thumbnail: {
         thumbnails: thumbnail[];
@@ -122,7 +141,6 @@ declare module 'ytdl-core' {
     }
 
     interface Media {
-      image?: string;
       category: string;
       category_url: string;
       game?: string;
@@ -133,18 +151,20 @@ declare module 'ytdl-core' {
       artist_url?: string;
       writers?: string;
       licensed_by?: string;
+      thumbnails: thumbnail[];
     }
 
     interface Author {
       id: string;
       name: string;
-      avatar: string;
+      avatar: string; // to remove later
+      thumbnails?: thumbnail[];
       verified: boolean;
-      user: string;
+      user?: string;
       channel_url: string;
-      external_channel_url: string;
-      user_url: string;
-      subscriber_count: number;
+      external_channel_url?: string;
+      user_url?: string;
+      subscriber_count?: number;
     }
 
     interface MicroformatRenderer {
@@ -166,7 +186,7 @@ declare module 'ytdl-core' {
       };
       lengthSeconds: string;
       ownerProfileUrl: string;
-      ownerGplusProfileUrl: string;
+      ownerGplusProfileUrl?: string;
       externalChannelId: string;
       isFamilySafe: boolean;
       availableCountries: string[];
@@ -183,14 +203,28 @@ declare module 'ytdl-core' {
       uploadDate: string;
     }
 
-    interface MoreVideoDetails extends Omit<VideoDetails, 'author'>, Omit<MicroformatRenderer, 'title' | 'description'> {
+    interface storyboard {
+      templateUrl: string;
+      thumbnailWidth: number;
+      thumbnailHeight: number;
+      thumbnailCount: number;
+      interval: number;
+      columns: number;
+      rows: number;
+      storyboardCount: number;
+    }
+
+    interface MoreVideoDetails extends Omit<VideoDetails, 'author' | 'thumbnail' | 'shortDescription'>, Omit<MicroformatRenderer, 'title' | 'description'> {
       published: number;
       video_url: string;
       age_restricted: boolean;
-      likes?: number;
-      dislikes?: number;
+      likes: number | null;
+      dislikes: number | null;
       media: Media;
       author: Author;
+      thumbnails: thumbnail[];
+      storyboards: storyboard[];
+      description: string | null;
     }
 
     interface videoInfo {
@@ -220,7 +254,6 @@ declare module 'ytdl-core' {
       eventid: string;
       token: string;
       atc: string;
-      title: string;
       cr: string;
       apply_fade_on_midrolls: string;
       cl: string;
@@ -230,8 +263,6 @@ declare module 'ytdl-core' {
       fflags: string;
       ssl: string;
       pltype: string;
-      media: Media;
-      author: Author;
       enabled_engage_types: string;
       hl: string;
       is_listed: string;
@@ -280,7 +311,6 @@ declare module 'ytdl-core' {
       as_launched_in_country: string;
       avg_rating: string;
       fade_out_start_milliseconds: string;
-      length_seconds: string;
       midroll_prefetch_size: string;
       allow_ratings: string;
       thumbnail_url: string;
@@ -305,22 +335,22 @@ declare module 'ytdl-core' {
       ptk: string;
       vmap: string;
       watermark: string[];
-      video_id: string;
       dbp: string;
       ad_flags: string;
       html5player: string;
       formats: videoFormat[];
-      published: number;
-      description: string;
       related_videos: relatedVideo[];
-      video_url: string;
       no_embed_allowed?: boolean;
-      age_restricted: boolean;
-      likes?: number;
-      dislikes?: number;
       player_response: {
         playabilityStatus: {
           status: string;
+          playableInEmbed: boolean;
+          miniplayer: {
+            miniplayerRenderer: {
+              playbackMode: string;
+            };
+          };
+          contextParams: string;
         };
         streamingData: {
           expiresInSeconds: string;
@@ -328,8 +358,15 @@ declare module 'ytdl-core' {
           adaptiveFormats: {}[];
         };
         captions?: {
+          playerCaptionsRenderer: {
+            baseUrl: string;
+            visibility: string;
+          };
           playerCaptionsTracklistRenderer: {
             captionTracks: captionTrack[];
+            audioTracks: audioTrack[];
+            translationLanguages: translationLanguage[];
+            defaultAudioTrackIndex: number;
           };
         };
         microformat: {
@@ -343,26 +380,23 @@ declare module 'ytdl-core' {
     interface relatedVideo {
       id?: string;
       title?: string;
-      author?: string;
-      length_seconds?: string;
-      iurlmq?: string;
+      published?: string;
+      author: Author | 'string'; // to remove the `string` part later
+      ucid?: string; // to remove later
+      author_thumbnail?: string; // to remove later
       short_view_count_text?: string;
-      session_data: string;
-      endscreen_autoplay_session_data?: string;
-      iurlhq?: string;
-      playlist_iurlhq?: string;
-      playlist_title?: string;
-      playlist_length?: string;
-      playlist_iurlmq?: string;
-      video_id?: string;
-      list?: string;
-      thumbnail_ids?: string;
+      view_count?: string;
+      length_seconds?: number;
+      video_thumbnail?: string; // to remove later
+      thumbnails: thumbnail[];
+      richThumbnails: thumbnail[];
+      isLive: boolean;
     }
 
-    function getBasicInfo(url: string, options?: downloadOptions): Promise<videoInfo>;
-    function getInfo(url: string, options?: downloadOptions): Promise<videoInfo>;
+    function getBasicInfo(url: string, options?: getInfoOptions): Promise<videoInfo>;
+    function getInfo(url: string, options?: getInfoOptions): Promise<videoInfo>;
     function downloadFromInfo(info: videoInfo, options?: downloadOptions): Readable;
-    function chooseFormat(format: videoFormat | videoFormat[], options?: downloadOptions): videoFormat | never;
+    function chooseFormat(format: videoFormat | videoFormat[], options?: chooseFormatOptions): videoFormat | never;
     function filterFormats(formats: videoFormat | videoFormat[], filter?: Filter): videoFormat[];
     function validateID(string: string): boolean;
     function validateURL(string: string): boolean;

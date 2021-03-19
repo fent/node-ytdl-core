@@ -11,11 +11,11 @@ const fs = require('fs');
 // - scroll down to "Request Headers"
 // - find the "cookie" header and copy its entire contents
 const COOKIE = 'key1=value1; key2=value2; key3=value3';
-const id = 'B3eAMGXFw1o';
+const videoID = 'aqz-KE-bpKQ';
 
 const outputName = 'video.mp4';
 const outputPath = path.resolve(__dirname, outputName);
-const video = ytdl(id, {
+const video = ytdl(videoID, {
   requestOptions: {
     headers: {
       cookie: COOKIE,

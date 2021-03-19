@@ -1,9 +1,10 @@
 # node-ytdl-core
-[![Dependency Status](https://david-dm.org/fent/node-ytdl-core.svg)](https://david-dm.org/fent/node-ytdl-core)
+
+![Depfu](https://img.shields.io/depfu/fent/node-ytdl-core)
 [![codecov](https://codecov.io/gh/fent/node-ytdl-core/branch/master/graph/badge.svg)](https://codecov.io/gh/fent/node-ytdl-core)
 [![Discord](https://img.shields.io/discord/484464227067887645.svg)](https://discord.gg/V3vSCs7)
 
-Yet another youtube downloading module. Written with only Javascript and a node-friendly streaming interface.
+Yet another YouTube downloading module. Written with only Javascript and a node-friendly streaming interface.
 
 # Support
 You can contact us for support on our [chat server](https://discord.gg/V3vSCs7)
@@ -17,47 +18,24 @@ const ytdl = require('ytdl-core');
 // TypeScript: import * as ytdl from 'ytdl-core'; with --allowSyntheticDefaultImports
 // TypeScript: import ytdl = require('ytdl-core'); with neither of the above
 
-ytdl('http://www.youtube.com/watch?v=A02s8omM_hI')
-  .pipe(fs.createWriteStream('video.flv'));
+ytdl('http://www.youtube.com/watch?v=aqz-KE-bpKQ')
+  .pipe(fs.createWriteStream('video.mp4'));
 ```
 
 
 # API
 ### ytdl(url, [options])
 
-Attempts to download a video from the given url. Returns a [readable stream](https://nodejs.org/api/stream.html#stream_class_stream_readable). `options` can have the following keys
+Attempts to download a video from the given url. Returns a [readable stream](https://nodejs.org/api/stream.html#stream_class_stream_readable). `options` can have the following, in addition to any [`getInfo()` option](#async-ytdl.getinfo(url%2C-%5Boptions%5D)) and [`chooseFormat()` option](#ytdl.downloadfrominfo(info%2C-options)).
 
-* `quality` - Video quality to download. Can be an [itag value](http://en.wikipedia.org/wiki/YouTube#Quality_and_formats), a list of itag values, or `highest`/`lowest`/`highestaudio`/`lowestaudio`/`highestvideo`/`lowestvideo`. `highestaudio`/`lowestaudio`/`highestvideo`/`lowestvideo` all prefer audio/video only respectively. Defaults to `highest`, which prefers formats with both video and audio.
-
-  A typical video's formats will be sorted in the following way using `quality: 'highest'`
-  ```
-  itag container quality codecs                 bitrate  audio bitrate
-  18   mp4       360p    avc1.42001E, mp4a.40.2 696.66KB 96KB
-  137  mp4       1080p   avc1.640028            4.53MB
-  248  webm      1080p   vp9                    2.52MB
-  136  mp4       720p    avc1.4d4016            2.2MB
-  247  webm      720p    vp9                    1.44MB
-  135  mp4       480p    avc1.4d4014            1.1MB
-  134  mp4       360p    avc1.4d401e            593.26KB
-  140  mp4               mp4a.40.2                       128KB
-  ```
-  format 18 at 360p will be chosen first since it's the highest quality format with both video and audio.
-* `filter` - Used to filter the list of formats to choose from. Can be `audioandvideo` or `videoandaudio` to filter formats that contain both video and audio, `video` to filter for formats that contain video, or `videoonly` for formats that contain video and no additional audio track. Can also be `audio` or `audioonly`. You can give a filtering function that gets called with each format available. This function is given the `format` object as its first argument, and should return true if the format is preferable.
-  ```js
-  // Example with custom function.
-  ytdl(url, { filter: format => format.container === 'mp4' })
-  ```
-* `format` - Primarily used to download specific video or audio streams. This can be a specific `format` object returned from `getInfo`.
-  * Supplying this option will ignore the `filter` and `quality` options since the format is explicitly provided.
 * `range` - A byte range in the form `{start: INT, end: INT}` that specifies part of the file to download, ie {start: 10355705, end: 12452856}. Not supported on segmented (DASH MPD, m3u8) formats.
   * This downloads a portion of the file, and not a separately spliced video.
 * `begin` - What time in the video to begin. Supports formats `00:00:00.000`, `0ms, 0s, 0m, 0h`, or number of milliseconds. Example: `1:30`, `05:10.123`, `10m30s`.
   * For live videos, this also accepts a unix timestamp or Date object, and defaults to `Date.now()`.
   * This option is not very reliable for non-live videos, see [#129](https://github.com/fent/node-ytdl-core/issues/129), [#219](https://github.com/fent/node-ytdl-core/issues/219).
 * `liveBuffer` - How much time buffer to use for live videos in milliseconds. Default is `20000`.
-* `requestOptions` - Anything to merge into the request options which [miniget](https://github.com/fent/node-miniget) is called with, such as `headers`.
 * `highWaterMark` - How much of the video download to buffer into memory. See [node's docs](https://nodejs.org/api/stream.html#stream_constructor_new_stream_writable_options) for more. Defaults to 512KB.
-* `dlChunkSize` - The size of the download chunk in bytes. When the chosen format is video only or audio only, the download in this case is separated into multiple chunks to avoid throttling. Setting it to 0 disables chunking. Defaults to 10MB.
+* `dlChunkSize` - When the chosen format is video only or audio only, the download is separated into multiple chunks to avoid throttling. This option specifies the size of each chunk in bytes. Setting it to 0 disables chunking. Defaults to 10MB.
 * `lang` - The 2 character symbol of a language. Default is `en`.
 * `IPv6Block` - IPv6 block to rotate through, an alternative to using a proxy. [Read more](#How-does-using-an-IPv6-block-help?). Defaults to `undefined`.
 
@@ -90,14 +68,43 @@ Use this if you only want to get metainfo from a video.
 
 Gets metainfo from a video. Includes additional formats, and ready to download deciphered URL. This is what the `ytdl()` function uses internally.
 
+`options` can have the following
+
+* `requestOptions` - Anything to merge into the request options which [miniget](https://github.com/fent/node-miniget) is called with, such as `headers`.
+* `lang` - The 2 character symbol of a language. Default is `en`.
+
 ### ytdl.downloadFromInfo(info, options)
 
 Once you have received metadata from a video with the `ytdl.getInfo` function, you may pass that information along with other options to this function.
 
 ### ytdl.chooseFormat(formats, options)
 
-Can be used if you'd like to choose a format yourself with the [options above](#ytdlurl-options).
-Throws an Error if it fails to find any matching format.
+Can be used if you'd like to choose a format yourself. Throws an Error if it fails to find any matching format.
+
+`options` can have the following
+
+* `quality` - Video quality to download. Can be an [itag value](http://en.wikipedia.org/wiki/YouTube#Quality_and_formats), a list of itag values, or `highest`/`lowest`/`highestaudio`/`lowestaudio`/`highestvideo`/`lowestvideo`. `highestaudio`/`lowestaudio`/`highestvideo`/`lowestvideo` all prefer audio/video only respectively. Defaults to `highest`, which prefers formats with both video and audio.
+
+  A typical video's formats will be sorted in the following way using `quality: 'highest'`
+  ```
+  itag container quality codecs                 bitrate  audio bitrate
+  18   mp4       360p    avc1.42001E, mp4a.40.2 696.66KB 96KB
+  137  mp4       1080p   avc1.640028            4.53MB
+  248  webm      1080p   vp9                    2.52MB
+  136  mp4       720p    avc1.4d4016            2.2MB
+  247  webm      720p    vp9                    1.44MB
+  135  mp4       480p    avc1.4d4014            1.1MB
+  134  mp4       360p    avc1.4d401e            593.26KB
+  140  mp4               mp4a.40.2                       128KB
+  ```
+  format 18 at 360p will be chosen first since it's the highest quality format with both video and audio. If you'd like a higher quality format with both video and audio, see the section on [handling separate streams](#handling-separate-streams).
+* `filter` - Used to filter the list of formats to choose from. Can be `audioandvideo` or `videoandaudio` to filter formats that contain both video and audio, `video` to filter for formats that contain video, or `videoonly` for formats that contain video and no additional audio track. Can also be `audio` or `audioonly`. You can give a filtering function that gets called with each format available. This function is given the `format` object as its first argument, and should return true if the format is preferable.
+  ```js
+  // Example with custom function.
+  ytdl(url, { filter: format => format.container === 'mp4' })
+  ```
+* `format` - Primarily used to download specific video or audio streams. This can be a specific `format` object returned from `getInfo`.
+  * Supplying this option will ignore the `filter` and `quality` options since the format is explicitly provided.
 
 ```js
 // Example of choosing a video format.
@@ -141,13 +148,14 @@ ytdl cannot download videos that fall into the following
 * Regionally restricted (requires a [proxy](example/proxy.js))
 * Private (if you have access, requires [cookies](example/cookies.js))
 * Rentals (if you have access, requires [cookies](example/cookies.js))
+* YouTube Premium content (if you have access, requires [cookies](example/cookies.js))
 
 Generated download links are valid for 6 hours, and may only be downloadable from the same IP address.
 Using IPv6 should not cause same IP address limitation.
 
 ## Handling Separate Streams
 
-Typically 1080p or better video does not have audio encoded with it. The audio must be downloaded separately and merged via an appropriate encoding library. `ffmpeg` is the most widely used tool, with many [Node.js modules available](https://www.npmjs.com/search?q=ffmpeg). Use the `format` objects returned from `ytdl.getInfo` to download specific streams to combine to fit your needs. Look at [example/ffmpeg.js](example/ffmpeg.js) for an example on doing this.
+Typically 1080p or better videos do not have audio encoded with it. The audio must be downloaded separately and merged via an encoding library. `ffmpeg` is the most widely used tool, with many [Node.js modules available](https://www.npmjs.com/search?q=ffmpeg). Use the `format` objects returned from `ytdl.getInfo` to download specific streams to combine to fit your needs. Look at [example/ffmpeg.js](example/ffmpeg.js) for an example on doing this.
 
 ## How does using an IPv6 block help?
 
@@ -155,20 +163,13 @@ Using an IPv6 block is essentially having millions of IPv6 addresses at your req
 
 ## What if it stops working?
 
-Youtube updates their website all the time, it's not that rare for this to stop working. If it doesn't work for you and you're using the latest version, feel free to open up an issue. Make sure to check if there isn't one already with the same error.
+YouTube updates their website all the time, it's not that rare for this to stop working. If it doesn't work for you and you're using the latest version, feel free to open up an issue. Make sure to check if there isn't one already with the same error.
 
-If you'd like to help fix the issue, look at the type of error first. If you're getting the following error
+Run the tests at `test/irl-test.js` to make sure this is really an issue with ytdl-core.
 
-    Could not extract signature deciphering actions
+    npm run test:irl
 
-Run the tests at `test/irl-test.js` just to make sure that this is actually an issue with ytdl-core.
-
-    mocha test/irl-test.js
-
-These tests are not mocked, and they try to start downloading a few videos. If these fail, then it's time to debug.
-
-For getting started with that, you can look at the `extractActions()` function in [`/lib/sig.js`](https://github.com/fent/node-ytdl-core/blob/master/lib/sig.js).
-
+These tests are not mocked, they try to start downloading a few videos. If these fail, then it's time to debug. If the error you're getting is signature deciphering, check `lib/sig.js`. Otherwise, the error is likely within `lib/info.js`.
 
 # Install
 
@@ -183,12 +184,24 @@ yarn add ytdl-core@latest
 
 Make sure you're installing the latest version of ytdl-core to keep up with the latest fixes.
 
-If you're using a bot or app that uses ytdl-core such as [ytdl-core-discord](https://github.com/amishshah/ytdl-core-discord) or [discord-player](https://github.com/Androz2091/discord-player), it may be dependent on an older version. To update its ytdl-core version, you'll have to fork the project and update its `package.json` file, you can't simply change the version on your project's `package.json`, the app will still use its own older version of ytdl-core.
+If you're using a bot or app that uses ytdl-core such as [ytdl-core-discord](https://github.com/amishshah/ytdl-core-discord) or [discord-player](https://github.com/Androz2091/discord-player), it may be dependent on an older version. To update its ytdl-core version, that library has to update its `package.json` file, you can't simply change the version on your project's `package.json`, the app will still use its own older version of ytdl-core.
 
-You can then submit a pull request to their project and point to your fork temporarily. You can also check their pull request and check if there's one open already, and point to that instead. To point to a github's repo's branch in your `package.json`, you can do
+Look in their repo to see if they already have an active pull request that updates ytdl-core. If they don't, open an issue asking them to update ytdl-core, or better yet, fork the project and submit a pull request with the updated version.
+
+While you wait for the pull reques to merge, you can point to its branch in your `package.json`
 
 ```json
   "ytdl-core-discord": "amishshah/ytdl-core-discord#dependabot/npm_and_yarn/ytdl-core-2.0.1"
+```
+
+## Update Checks
+
+The issue of using an outdated version of ytdl-core became so prevalent, that ytdl-core now checks for updates at run time, and every 12 hours. If it finds an update, it will print a warning to the console advising you to update. Due to the nature of this library, it is important to always use the latest version as YouTube continues to update.
+
+If you'd like to disable this update check, you can do so by providing the `YTDL_NO_UPDATE` env variable.
+
+```
+env YTDL_NO_UPDATE=1 node myapp.js
 ```
 
 # Related Projects

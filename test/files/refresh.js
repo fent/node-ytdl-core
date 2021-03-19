@@ -5,7 +5,7 @@
  *
  * Provide a `type` to only update the one video.
  *
- * Give `no-request` if you want to update `transform`'d files without making requests.
+ * Give `no-request` if you want to run with mocked requests using nock.
  *
  * If there are ever issues with a specific type of video, we can use this script
  * to update that type, investigate what changed, and run tests.
@@ -14,37 +14,26 @@
 const videos = [
   {
     id: '5qap5aO4i9A',
-    type: 'live',
-    transform: [
-      {
-        page: 'dash-manifest.xml',
-        saveAs: 'transformed',
-        fn: body => {
-          const replaceBetweenTags = (tagName, content) => {
-            const regex = new RegExp(`<${tagName}>(.+?)</${tagName}`, 'g');
-            body = body.replace(regex, `<${tagName}>${content}</${tagName}`);
-          };
-
-          // Create a playlist file that has only 3 short segments
-          // so we can easily mock these in tests.
-          replaceBetweenTags('SegmentTimeline', `
-            <S d="5000" /><S d="5000" /><S d="5000">
-            `);
-          replaceBetweenTags('BaseURL', 'https://googlevideo.com/videoplayback/');
-          replaceBetweenTags('SegmentList', `
-            <SegmentURL media="sq/video01.ts" />
-            <SegmentURL media="sq/video02.ts" />
-            <SegmentURL media="sq/video03.ts" />
-            `);
-          body = body.replace('type="dynamic"', '');
-          return body;
-        },
-      },
-    ],
+    type: 'live-now',
+    saveInfo: true,
+  },
+  {
+    id: '21X5lGlDOfg',
+    type: 'live-with-cc',
+  },
+  {
+    id: 'VIBFo3Ti5vQ',
+    type: 'live-future',
+  },
+  {
+    id: 'nu5uzMXfuLc',
+    type: 'live-past',
+    basicInfo: true,
   },
   {
     id: 'SyKPsFRP_Oc',
     type: 'rental',
+    basicInfo: true,
     saveInfo: true,
   },
   {
@@ -52,119 +41,48 @@ const videos = [
     type: 'regular',
     keep: ['video.flv'],
     saveInfo: true,
-    transform: [
-      {
-        page: 'watch.json',
-        saveAs: 'bad-config',
-        fn: body => body.replace('[', '{]'),
-      },
-      {
-        page: 'watch.json',
-        saveAs: 'bad-player-response',
-        fn: body => body.replace('"player_response":"{', '"player_response":"'),
-      },
-      {
-        page: 'watch.json',
-        saveAs: 'no-extras',
-        fn: body => {
-          body = body.replace('playerMicroformatRenderer', '');
-          return body;
-        },
-      },
-    ],
   },
   {
-    id: 'nu5uzMXfuLc',
-    type: 'streamed',
-  },
-  {
-    id: 'pJk0p-98Xzc',
-    type: 'vevo',
-    saveInfo: true,
-    keep: ['get_video_info'],
-    transform: [
-      {
-        page: 'dash-manifest.xml',
-        saveAs: 'no-formats',
-        fn: body => body.replace(/<Representation>([\S\s]+)<\/Representation>/g, ''),
-      },
-      {
-        page: 'watch.json',
-        saveAs: 'no-formats',
-        fn: body => body.replace(/\b(formats|adaptiveFormats)\b/g, 'no'),
-      },
-      {
-        page: 'watch.json',
-        saveAs: 'no-player-response',
-        fn: body => body.replace(/player_response/g, 'no'),
-      },
-      {
-        page: 'get_video_info',
-        saveAs: 'no-player-response',
-        fn: body => body.replace(/player_response/g, 'no'),
-      },
-    ],
-  },
-  {
-    id: 'rIqCiJKWx9I',
+    id: 'LuZu9N53Vd0',
     type: 'age-restricted',
+    basicInfo: true,
     saveInfo: true,
-    transform: [
-      {
-        page: 'embed.html',
-        saveAs: 'no-config',
-        fn: body => body.replace('t.setConfig({\'PLAYER_CONFIG\': ', ''),
-      },
-      {
-        page: 'embed.html',
-        saveAs: 'bad-config',
-        fn: body => body.replace('t.setConfig({\'PLAYER_CONFIG\': ', 't.setConfig({\'PLAYER_CONFIG\': {[}'),
-      },
-    ],
+  },
+  {
+    id: 'aqz-KE-bpKQ',
+    type: 'use-backups',
+    saveInfo: true,
+    mock: {
+      'watch.html': '<html></html>',
+      'watch.json': '[]',
+    },
   },
   {
     id: '99999999999',
     type: 'non-existent',
   },
   {
+    id: 'XDNFAujgJb0',
+    type: 'music',
+    basicInfo: true,
+    saveInfo: true,
+    skip: ['watch.json', 'get_video_info'],
+  },
+  {
     id: 'xRu7qKijBso',
     type: 'game',
     basicInfo: true,
     saveInfo: true,
-    skip: ['watch', 'get_video_info'],
+    skip: ['watch.json', 'get_video_info'],
   },
   {
-    id: 'B3eAMGXFw1o',
-    type: 'related',
-    skip: ['get_video_info', /player/],
-    saveInfo: true,
-    transform: [
-      {
-        page: 'expected-info.json',
-        saveAs: 'no-rvs',
-        fn: body => body.replace(/"relatedVideoArgs"/, '""'),
-      },
-      {
-        page: 'expected-info.json',
-        saveAs: 'no-results',
-        fn: body => body.replace(/"secondaryResults"/, '""'),
-      },
-      {
-        page: 'watch.json',
-        saveAs: 'bad-details',
-        fn: body => body.replace(/\\"shortBylineText\\"/g, '\\"___\\"'),
-      },
-    ],
-  },
-  {
-    id: 'wYgaarivXv4',
-    type: 'related2',
-    saveInfo: true,
-    skip: ['get_video_info', /player/],
+    id: 'YQHsXMglC9A',
+    type: 'cipher',
   },
   {
     id: 'GFg8BP01F5Q',
     type: 'no-embed',
+    basicInfo: true,
   },
   {
     id: 'KKzOh0MRuZE',
@@ -172,35 +90,41 @@ const videos = [
     skip: ['get_video_info', /player/],
   },
   {
+    id: '_HSylqgVYQI',
+    type: 'rich-thumbnails',
+    basicInfo: true,
+    saveInfo: true,
+    skip: ['watch.html', /player/],
+  },
+  {
     id: 'z2jeHsa0UG0',
     type: 'private',
   },
   {
-    id: '99_Y8iEy95c',
-    type: 'with-cookie',
-    options: {
-      requestOptions: {
-        // Run this one with `env YT_COOKIE="your cookie here"`
-        headers: { cookie: process.env.YT_COOKIE },
-      },
-    },
-    keep: ['watch-reload-now.json'],
-    transform: [
-      {
-        page: 'watch.html',
-        saveAs: 'no-identity-token',
-        fn: body => body.replace(/\bID_TOKEN\b/g, ''),
-      },
-    ],
+    id: '_HSylqgVYQI',
+    type: 'related-topics',
+    needCookie: true,
+    basicInfo: true,
+    saveInfo: true,
+  },
+  {
+    id: 'TceijYjxdrQ',
+    type: 'longest-upload',
+    basicInfo: true,
   },
 ];
 
 
 const fs = require('fs');
 const path = require('path');
-const urlParse = require('url').parse;
+const { URL } = require('url');
+const { PassThrough } = require('stream');
 const mukRequire = require('muk-require');
 const miniget = require('miniget');
+
+
+// Don't check for update, otherwise, it'll get saved as part of a video request.
+process.env.YTDL_NO_UPDATE = 'true';
 
 
 // Tries to remove instances of your ip from saved test files.
@@ -214,10 +138,7 @@ const skipFile = (video, filename) => video.skip && video.skip.some(skip =>
   skip instanceof RegExp ? skip.test(filename) : filename.includes(skip),
 );
 
-const getTransformFilename = transform => {
-  let [basename, ext] = transform.page.split('.');
-  return `${basename}-${transform.saveAs}${ext ? `.${ext}` : ''}`;
-};
+const playerfile = /((?:html5)?player[-_][a-zA-Z0-9\-_.]+)(?:\.js|\/)/;
 
 const refreshVideo = async(video, noRequests) => {
   console.log('refreshing video:', video.id, video.type);
@@ -239,14 +160,12 @@ const refreshVideo = async(video, noRequests) => {
     fs.mkdirSync(folder);
   }
 
-  const writeFile = (filename, body, compare) => {
+  const writeFile = (filename, body) => {
     if (filename in existingFiles) {
-      if (compare) {
-        let oldBody = fs.readFileSync(path.join(folder, filename), 'utf8');
-        if (oldBody === body) {
-          existingFiles[filename] = true;
-          return;
-        }
+      let oldBody = fs.readFileSync(path.join(folder, filename), 'utf8');
+      if (oldBody === body) {
+        existingFiles[filename] = true;
+        return;
       }
       console.log('update file:', filename);
     } else {
@@ -256,105 +175,88 @@ const refreshVideo = async(video, noRequests) => {
     existingFiles[filename] = true;
   };
 
-  const writeTransforms = (filename, body) => {
-    for (let transform of video.transform || []) {
-      if (transform.page === filename) {
-        let tfilename = getTransformFilename(transform);
-        writeFile(tfilename, transform.fn(body));
-      }
-    }
+  const getFilenameFromURL = url => {
+    let parsed = new URL(url);
+    let s = parsed.pathname.split('/');
+    let filename =
+      // Special case for livestream manifest files.
+      /\/manifest\/dash\//.test(url) ? 'dash-manifest.xml' :
+        /\/manifest\/hls_(variant|playlist)\//.test(url) ? 'hls-manifest.m3u8' :
+
+        // Save the key of html5player file so we know if they've changed.
+          playerfile.test(url) ? `${playerfile.exec(url)[1]}.js` :
+
+            // Save watch and embed pages with .html extension.
+            /^\/watch$/.test(parsed.pathname) ?
+              /pbj=1/.test(parsed.search) ? 'watch.json' : 'watch.html' :
+              /^\/embed\//.test(parsed.pathname) ? 'embed.html' :
+
+                // Otherwise, use url path as filename.
+                s[s.length - 1];
+    return filename;
   };
 
-  const minigetMock = (url, options, callback) => {
-    if (typeof options === 'function') {
-      callback = options;
-    }
+  const minigetMock = (url, options) => {
+    let filename = getFilenameFromURL(url);
+    console.log('request:', url.length > 100 ? `${url.slice(0, 97)}...` : url);
 
     // Save contents to file.
     const saveContents = body => {
-      let parsed = urlParse(url);
-      let s = parsed.pathname.split('/');
-      let playerfile = /((?:html5)?player[-_][a-zA-Z0-9\-_.]+)(?:\.js|\/)/;
-      let filename =
-        // Special case for livestream manifest files.
-        /\/manifest\/dash\//.test(url) ? 'dash-manifest.xml' :
-          /\/manifest\/hls_(variant|playlist)\//.test(url) ? 'hls-manifest.m3u8' :
-
-          // Save the key of html5player file so we know if they've changed.
-            playerfile.test(url) ? `${playerfile.exec(url)[1]}.js` :
-
-            // Save watch and embed pages with .html extension.
-              /^\/watch$/.test(parsed.pathname) ?
-                /pbj=1/.test(parsed.search) ? 'watch.json' : 'watch.html' :
-                /^\/embed\//.test(parsed.pathname) ? 'embed.html' :
-
-                // Otherwise, use url path as filename.
-                  s[s.length - 1];
-      console.log('request:', url.length > 100 ? `${url.slice(0, 97)}...` : url);
       if ((!video.keep || video.keep.indexOf(filename) === -1) &&
           !skipFile(video, filename)) {
         body = cleanBody(body);
-        writeFile(filename, body, playerfile.test(url));
-        writeTransforms(filename, body);
+        writeFile(filename, body);
       }
     };
 
-    if (callback) {
-      return miniget(url, options, (err, res, body) => {
-        if (err) return callback(err);
-        saveContents(body);
-        return callback(err, res, body);
-      });
-    } else {
-      let body = [];
-      let stream = miniget(url, options);
-      stream.on('data', chunk => { body.push(chunk); });
-      stream.on('end', () => { saveContents(body.join('')); });
-      return stream;
-    }
-  };
-  minigetMock.promise = (url, options) => new Promise((resolve, reject) => {
-    minigetMock(url, options, (err, res, body) => {
-      if (err) return reject(err);
-      return resolve([res, body]);
+    let stream = miniget(url, options);
+    let body = [];
+    let resolveEnd;
+    let streamEnd = new Promise(resolve => resolveEnd = resolve);
+    stream.on('data', chunk => { body.push(chunk); });
+    stream.on('end', () => {
+      resolveEnd(true);
+      saveContents(body.join(''));
     });
-  });
+    if (video.mock && video.mock[filename] !== undefined) {
+      const text = video.mock[filename];
+      stream.resume();
+      stream = new PassThrough();
+      stream.text = () => streamEnd.then(() => text);
+      setImmediate(() => {
+        streamEnd.then(() => stream.end(text));
+      });
+    }
+    return stream;
+  };
+  Object.assign(minigetMock, miniget);
 
   const getInfo = mukRequire('../../lib/info', { miniget: minigetMock });
 
   if (noRequests) {
-    for (let filename in existingFiles) {
-      // Ignore existing transformed files.
-      if (
-        (video.transform && video.transform.some(t => filename === getTransformFilename(t))) ||
-        skipFile(video, filename)
-      ) {
-        continue;
-      }
-      console.log('using local copy:', filename);
-      let body = fs.readFileSync(path.join(folder, filename), 'utf8');
-      existingFiles[filename] = true;
-      writeTransforms(filename, body);
-    }
-  } else {
+    const nock = require('../nock');
+    nock(video.id, video.type);
+  }
+
   // Make the call to ytdl.
-    try {
-      let info;
-      if (video.basicInfo) {
-        info = await getInfo.getBasicInfo(video.id, video.options);
-      } else {
-        info = await getInfo.getInfo(video.id, video.options);
-      }
-      if (video.saveInfo) {
-        let filename = 'expected-info.json';
-        let body = cleanBody(JSON.stringify(info, null, 2));
-        writeFile(filename, body);
-        writeTransforms(filename, body);
-      }
-    } catch (err) {
-      console.log('error retrieving video info:', err.message);
-      console.log(err.stack);
+  try {
+    let info;
+    let options = { requestOptions: { maxRetries: 0 } };
+    // Not implemented yet
+    if (video.needCookie) return console.log('Need cookies to refresh this.');
+    if (video.basicInfo) {
+      info = await getInfo.getBasicInfo(video.id, options);
+    } else {
+      info = await getInfo.getInfo(video.id, options);
     }
+    if (video.saveInfo) {
+      let filename = 'expected-info.json';
+      let body = cleanBody(JSON.stringify(info, null, 2));
+      writeFile(filename, body);
+    }
+  } catch (err) {
+    console.log('error retrieving video info:', err.message);
+    console.log(err.stack);
   }
 
   // Delete any files no longer used from the `getInfo()` call.
