@@ -559,6 +559,20 @@ describe('Download video', () => {
     });
   });
 
+  describe('Without IPv6 Block', () => {
+    it('Sends request with (default) IPv4 address', done => {
+      const stream = ytdl.downloadFromInfo(expectedInfo);
+      stream.on('info', (info, format) => {
+        nock.url(format.url).reply(function checkAddr() {
+          // "this" is assigned by the function checkAddr
+          // eslint-disable-next-line no-invalid-this
+          assert.ok(this.req.options.localAddress === undefined);
+          done();
+        });
+      });
+    });
+  });
+
   describe('with a bad filter', () => {
     it('Emits error', done => {
       const stream = ytdl.downloadFromInfo(expectedInfo, { filter: () => false });
