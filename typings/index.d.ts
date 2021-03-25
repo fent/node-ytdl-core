@@ -24,7 +24,6 @@ declare module 'ytdl-core' {
       begin?: string | number | Date;
       liveBuffer?: number;
       highWaterMark?: number;
-      lang?: string;
       IPv6Block?: string;
       dlChunkSize?: number;
     }
