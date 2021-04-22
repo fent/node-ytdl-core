@@ -281,3 +281,26 @@ describe('extras.getStoryboards()', () => {
     });
   });
 });
+
+describe('extras.getChapters()', () => {
+  it('Returns chapters', () => {
+    const info = require('./files/videos/chapters/expected-info.json');
+    const chapters = extras.getChapters(info);
+
+    assert.ok(Array.isArray(chapters) && chapters.length);
+
+    for (const chapter of chapters) {
+      assert.ok(chapter.title);
+      assert.number(chapter.start_time);
+    }
+  });
+
+  describe('With no chapters', () => {
+    it('Returns empty array', () => {
+      const info = infoFromWatchJSON('regular');
+      const chapters = extras.getChapters(info);
+
+      assert.ok(Array.isArray(chapters) && !chapters.length);
+    });
+  });
+});

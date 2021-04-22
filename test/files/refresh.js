@@ -112,6 +112,12 @@ const videos = [
     type: 'longest-upload',
     basicInfo: true,
   },
+  {
+    id: 'W6NZfCO5SIk',
+    type: 'chapters',
+    basicInfo: true,
+    saveInfo: true,
+  },
 ];
 
 
