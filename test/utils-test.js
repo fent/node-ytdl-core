@@ -214,15 +214,19 @@ describe('utils.exposedMiniget', () => {
   });
 
   it('it uses requestOptions', async() => {
-    const scope = nock('https://test.com', {reqheaders: { auth: 'a' }}).get('/').reply(200, 'nice');
-    const req = utils.exposedMiniget('https://test.com/', { requestOptions: { headers: {auth: 'a' }}});
+    const scope = nock('https://test.com', { reqheaders: { auth: 'a' } }).get('/').reply(200, 'nice');
+    const req = utils.exposedMiniget('https://test.com/', { requestOptions: { headers: { auth: 'a' } } });
     await req.text();
     scope.done();
   });
 
   it('it prefers requestOptionsOverwrite over requestOptions', async() => {
-    const scope = nock('https://test.com', {reqheaders: { auth: 'b' }}).get('/').reply(200, 'nice');
-    const req = utils.exposedMiniget('https://test.com/', { requestOptions: { headers: {auth: 'a' }}}, { headers: {auth: 'b' }});
+    const scope = nock('https://test.com', { reqheaders: { auth: 'b' } }).get('/').reply(200, 'nice');
+    const req = utils.exposedMiniget(
+      'https://test.com/',
+      { requestOptions: { headers: { auth: 'a' } } },
+      { headers: { auth: 'b' } },
+    );
     await req.text();
     scope.done();
   });
