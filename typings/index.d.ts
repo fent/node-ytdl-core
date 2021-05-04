@@ -361,6 +361,7 @@ declare module 'ytdl-core' {
     function validateURL(string: string): boolean;
     function getURLVideoID(string: string): string | never;
     function getVideoID(string: string): string | never;
+    const version: number;
   }
 
   function ytdl(link: string, options?: ytdl.downloadOptions): Readable;
