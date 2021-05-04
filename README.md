@@ -140,6 +140,10 @@ Throws an Error if it fails to parse an ID.
 Same as the above `ytdl.getURLVideoID()`, but can be called with the video ID directly, in which case it returns it. This is what ytdl uses internally.
 Throws an Error if it fails to parse an ID.
 
+### ytdl.version
+
+The version string taken directly from the package.json.
+
 ## Limitations
 
 ytdl cannot download videos that fall into the following
