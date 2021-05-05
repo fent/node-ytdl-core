@@ -26,13 +26,13 @@ ytdl('http://www.youtube.com/watch?v=aqz-KE-bpKQ')
 # API
 ### ytdl(url, [options])
 
-Attempts to download a video from the given url. Returns a [readable stream](https://nodejs.org/api/stream.html#stream_class_stream_readable). `options` can have the following, in addition to any [`getInfo()` option](#async-ytdl.getinfo(url%2C-%5Boptions%5D)) and [`chooseFormat()` option](#ytdl.downloadfrominfo(info%2C-options)).
+Attempts to download a video from the given url. Returns a [readable stream](https://nodejs.org/api/stream.html#stream_class_stream_readable). `options` can have the following, in addition to any [`getInfo()` option](#async-ytdlgetinfourl-options) and [`chooseFormat()` option](#ytdlchooseformatformats-options).
 
 * `range` - A byte range in the form `{start: INT, end: INT}` that specifies part of the file to download, ie {start: 10355705, end: 12452856}. Not supported on segmented (DASH MPD, m3u8) formats.
   * This downloads a portion of the file, and not a separately spliced video.
 * `begin` - What time in the video to begin. Supports formats `00:00:00.000`, `0ms, 0s, 0m, 0h`, or number of milliseconds. Example: `1:30`, `05:10.123`, `10m30s`.
   * For live videos, this also accepts a unix timestamp or Date object, and defaults to `Date.now()`.
-  * This option is not very reliable for non-live videos, see [#129](https://github.com/fent/node-ytdl-core/issues/129), [#219](https://github.com/fent/node-ytdl-core/issues/219).
+  * This option is not very reliable for non-live videos, see [#129](https://github.com/fent/node-ytdl-core/issues/129) and [#219](https://github.com/fent/node-ytdl-core/issues/219).
 * `liveBuffer` - How much time buffer to use for live videos in milliseconds. Default is `20000`.
 * `highWaterMark` - How much of the video download to buffer into memory. See [node's docs](https://nodejs.org/api/stream.html#stream_constructor_new_stream_writable_options) for more. Defaults to 512KB.
 * `dlChunkSize` - When the chosen format is video only or audio only, the download is separated into multiple chunks to avoid throttling. This option specifies the size of each chunk in bytes. Setting it to 0 disables chunking. Defaults to 10MB.
@@ -81,7 +81,7 @@ Can be used if you'd like to choose a format yourself. Throws an Error if it fai
 
 `options` can have the following
 
-* `quality` - Video quality to download. Can be an [itag value](http://en.wikipedia.org/wiki/YouTube#Quality_and_formats), a list of itag values, or `highest`/`lowest`/`highestaudio`/`lowestaudio`/`highestvideo`/`lowestvideo`. `highestaudio`/`lowestaudio`/`highestvideo`/`lowestvideo` all prefer audio/video only respectively. Defaults to `highest`, which prefers formats with both video and audio.
+* `quality` - Video quality to download. Can be an [itag value](http://en.wikipedia.org/wiki/YouTube#Quality_and_formats), a list of itag values, or one of these strings: `highest`/`lowest`/`highestaudio`/`lowestaudio`/`highestvideo`/`lowestvideo`. `highestaudio`/`lowestaudio` try to minimize video bitrate for equally good audio formats while `highestvideo`/`lowestvideo` try to minimize audio respectively. Defaults to `highest`, which prefers formats with both video and audio.
 
   A typical video's formats will be sorted in the following way using `quality: 'highest'`
   ```
@@ -147,6 +147,7 @@ ytdl cannot download videos that fall into the following
 * Private (if you have access, requires [cookies](example/cookies.js))
 * Rentals (if you have access, requires [cookies](example/cookies.js))
 * YouTube Premium content (if you have access, requires [cookies](example/cookies.js))
+* Only [HLS Livestreams](https://en.wikipedia.org/wiki/HTTP_Live_Streaming) are currently supported. Other formats will get filtered out in ytdl.chooseFormats
 
 Generated download links are valid for 6 hours, and may only be downloadable from the same IP address.
 

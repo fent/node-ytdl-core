@@ -148,8 +148,8 @@ const formats = [
   },
 ];
 
-const formatsWithHLS = formats.slice();
-formatsWithHLS.push(
+const liveWithHLS = formats.filter(x => x.isLive).slice();
+liveWithHLS.push(
   {
     itag: '96',
     mimeType: 'video/ts; codecs="H.264, aac"',
@@ -160,6 +160,21 @@ formatsWithHLS.push(
     audioCodec: 'aac',
     bitrate: 2500000,
     audioBitrate: 256,
+    url: 'https://googlevideo.com/',
+    hasVideo: true,
+    hasAudio: true,
+    isHLS: true,
+  },
+  {
+    itag: '96.worse.audio',
+    mimeType: 'video/ts; codecs="H.264, aac"',
+    container: 'ts',
+    qualityLabel: '1080p',
+    codecs: 'H.264, aac',
+    videoCodec: 'H.264',
+    audioCodec: 'aac',
+    bitrate: 2500000,
+    audioBitrate: 128,
     url: 'https://googlevideo.com/',
     hasVideo: true,
     hasAudio: true,
@@ -271,9 +286,17 @@ describe('chooseFormat', () => {
       assert.strictEqual(format.itag, '43');
     });
 
+    describe('and no formats passed', () => {
+      it('throws the regular no such format found error', () => {
+        assert.throws(() => {
+          chooseFormat([], { quality: 'highestaudio' });
+        }, /No such format found/);
+      });
+    });
+
     describe('and HLS formats are present', () => {
       it('Chooses highest audio itag', () => {
-        const format = chooseFormat(formatsWithHLS, { quality: 'highestaudio' });
+        const format = chooseFormat(liveWithHLS, { quality: 'highestaudio' });
         assert.strictEqual(format.itag, '95');
       });
     });
@@ -287,7 +310,7 @@ describe('chooseFormat', () => {
 
     describe('and HLS formats are present', () => {
       it('Chooses lowest audio itag', () => {
-        const format = chooseFormat(formatsWithHLS, { quality: 'lowestaudio' });
+        const format = chooseFormat(liveWithHLS, { quality: 'lowestaudio' });
         assert.strictEqual(format.itag, '91');
       });
     });
@@ -298,12 +321,34 @@ describe('chooseFormat', () => {
       const format = chooseFormat(formats, { quality: 'highestvideo' });
       assert.strictEqual(format.itag, '18');
     });
+
+    describe('and no formats passed', () => {
+      it('throws the regular no such format found error', () => {
+        assert.throws(() => {
+          chooseFormat([], { quality: 'highestvideo' });
+        }, /No such format found/);
+      });
+    });
+
+    describe('and HLS formats are present', () => {
+      it('Chooses highest video itag', () => {
+        const format = chooseFormat(liveWithHLS, { quality: 'highestvideo' });
+        assert.strictEqual(format.itag, '96.worse.audio');
+      });
+    });
   });
 
   describe('With lowest video quality wanted', () => {
     it('Chooses lowest video itag', () => {
       const format = chooseFormat(formats, { quality: 'lowestvideo' });
       assert.strictEqual(format.itag, '17');
+    });
+
+    describe('and HLS formats are present', () => {
+      it('Chooses lowest audio itag', () => {
+        const format = chooseFormat(liveWithHLS, { quality: 'lowestvideo' });
+        assert.strictEqual(format.itag, '91');
+      });
     });
   });
 
@@ -355,19 +400,11 @@ describe('chooseFormat', () => {
     });
 
     describe('that matches audio only formats', () => {
-      describe('and HLS formats are present', () => {
-        it('Chooses a format', () => {
-          const choosenFormat = chooseFormat(formatsWithHLS, { filter: 'audioonly' });
-          assert.strictEqual(choosenFormat.itag, '95');
-        });
-      });
-    });
-
-    describe('that matches formats that contain audio', () => {
-      describe('and HLS formats are present', () => {
-        it('Chooses a format', () => {
-          const choosenFormat = chooseFormat(formatsWithHLS, { filter: 'audio' });
-          assert.strictEqual(choosenFormat.itag, '95');
+      describe('and only non-HLS-livestream would match', () => {
+        it('throws the no format found exception', () => {
+          assert.throws(() => {
+            chooseFormat(liveWithHLS, { quality: 'audioonly' });
+          }, /No such format found/);
         });
       });
     });
