@@ -7,6 +7,7 @@ declare module 'ytdl-core' {
 
     interface getInfoOptions {
       lang?: string;
+      requestCallback?: () => {};
       requestOptions?: {};
     }
 
