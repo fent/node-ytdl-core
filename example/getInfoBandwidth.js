@@ -60,8 +60,9 @@ function run(id,callback) {
         requestOptions: {
             headers: {
                 'accept-encoding': 'gzip, deflate, br',
-                'cookie': 'VISITOR_INFO1_LIVE=VqymHCpMaPI; CONSENT=YES+ZA.en+202012; SID=8wcX1jHhhb3JOmKliHc7_0KrA5BZOLDfSOCcwsoCYG-vwHK1b-WkvPD6TwUnQFTQOhuMfQ.; __Secure-3PSID=8wcX1jHhhb3JOmKliHc7_0KrA5BZOLDfSOCcwsoCYG-vwHK1RNeWpQjELFE9X100mr7WUw.; HSID=AXa7sEoiEXO-gPJt2; SSID=AVJR5JDyUaAT_6yoR; APISID=ObCKE-ZGcBbs_9Rj/AIQgtoxuV5piuMpHJ; SAPISID=yoe6hoqlwMaV3EMP/AcDhtRSLQsw0ywV06; __Secure-3PAPISID=yoe6hoqlwMaV3EMP/AcDhtRSLQsw0ywV06; LOGIN_INFO=AFmmF2swRgIhAKttcIEDKiBz70i8jJ8Na2s9_ZL35xuHb8A8wnUtg3crAiEAnqlt79sQT4_pylS-H0SeNxfqwsB08MAIu84rSD6Vwj0:QUQ3MjNmeFhqem55VWdSUmdzSXE4N3JiT0FyWk5TeXV5VHdmYVBURlVOeWFOLVZpYUZ1TUdVUEJEZGhYR094dVY5MlVHeThQbUtDLXJERVlSemtGQUtZOU9wanlIbGk1QlBXSjllaEJfVU45RHFaek5hTElBdTRPWUY4U0g5b2p3NVVVdEsyakROcWhXTW04VEVfY19MOGFDUnItcFdBT2RfLTY2d0pRSGFFcV8tcFk2TGNKZXlJcktuWjNJaWNDVEFSYjlMTGhBMlM4; PREF=volume=35&f6=400&tz=Africa.Johannesburg&f5=30000&f4=4000000; YSC=knxSadeoDJs; SIDCC=AJi4QfH78pBF14tFqkol5C-2kbYKPSUVpb_B7fuDxC4n-A2f5LRr5Totj0uYx3kIG2Jqc5H2Hw; __Secure-3PSIDCC=AJi4QfFjHyMBQ7b67tkIFtSpQHMWIiVOE9GUCHoFwW6oIEkXer--OG0IoiXHSnJKb3FM8xnQPI8'    
-            },
+                'cookie': 'Put your cookie here'
+            
+          },
             acceptEncoding: { 
                 gzip: () => { zip = zlib.createGunzip(); return zip; },
                 deflate: () => { zip = zlib.createDeflate(); return zip; },
