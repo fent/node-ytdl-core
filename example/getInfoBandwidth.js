@@ -1,6 +1,6 @@
 // ytdl get info bandwidth example
 
-const ytdl = require('ytdl-core');
+const ytdl = require('..');
 const zlib = require('zlib');
 
 function report(total) {
