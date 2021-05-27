@@ -123,7 +123,6 @@ const videos = [
 
 const fs = require('fs');
 const path = require('path');
-const { URL } = require('url');
 const { PassThrough } = require('stream');
 const mukRequire = require('muk-require');
 const miniget = require('miniget');

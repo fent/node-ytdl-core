@@ -1,7 +1,6 @@
 const ytdl = require('..');
 const path = require('path');
 const fs = require('fs');
-const { URL } = require('url');
 const nock = require('nock');
 
 const YT_HOST = 'https://www.youtube.com';
