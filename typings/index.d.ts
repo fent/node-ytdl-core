@@ -380,6 +380,16 @@ declare module 'ytdl-core' {
         videoDetails: VideoDetails;
       };
       videoDetails: MoreVideoDetails;
+      playerConfig: {
+        audioConfig: {
+          loudnessDb: number;
+          perceptualLoudnessDb: number;
+          enablePerFormatLoudness: boolean;
+        };
+        streamSelectionConfig: { maxBitrate: string };
+        mediaCommonConfig: { dynamicReadaheadConfig: {}[] };
+        webPlayerConfig: { webPlayerActionsPorting: {}[] };
+      };
     }
 
     interface relatedVideo {
