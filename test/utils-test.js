@@ -246,7 +246,7 @@ describe('utils.getRandomIPv6', () => {
   });
 
   it('keeps the upper bits of the subnet', () => {
-    for (let i = 24 ; i < 128 ; i++) {
+    for (let i = 24; i < 128; i++) {
       const ip = utils.getRandomIPv6(`ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff/${i}`);
       const bits = ip.split(':').map(x => parseInt(x, 16).toString(2)).join('');
       assert.equal(bits.substr(0, i), '1'.repeat(i));
@@ -257,7 +257,7 @@ describe('utils.getRandomIPv6', () => {
     // Only testing to 64 and not 128
     // The second part of the random IP is tested to not be only onces
     // and rolling 8 full 0xff bytes should be unlikely enough
-    for (let i = 24 ; i < 64 ; i++) {
+    for (let i = 24; i < 64; i++) {
       const ip = utils.getRandomIPv6(`ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff/${i}`);
       const bits = ip.split(':').map(x => parseInt(x, 16).toString(2)).join('');
       assert.ok(bits.substr(i).split('').some(x => x === '0'));
@@ -267,27 +267,27 @@ describe('utils.getRandomIPv6', () => {
 
 describe('utils.normalizeIP', () => {
   it('does work for already expanded ips', () => {
-    assert.deepEqual(utils.normalizeIP('1:2:3:4:5:6:7:8'), [1,2,3,4,5,6,7,8]);
+    assert.deepEqual(utils.normalizeIP('1:2:3:4:5:6:7:8'), [1, 2, 3, 4, 5, 6, 7, 8]);
   });
 
   it('resolves bytes to integers', () => {
-    assert.deepEqual(utils.normalizeIP('ffff'), [65535,0,0,0,0,0,0,0]);
+    assert.deepEqual(utils.normalizeIP('ffff'), [65535, 0, 0, 0, 0, 0, 0, 0]);
   });
 
   it('expands ::', () => {
-    assert.deepEqual(utils.normalizeIP('ab::cd'), [171,0,0,0,0,0,0,205]);
-    assert.deepEqual(utils.normalizeIP('ab:cd::ef'), [171,205,0,0,0,0,0,239]);
-    assert.deepEqual(utils.normalizeIP('ab:cd::12:ef'), [171,205,0,0,0,0,18,239]);
-    assert.deepEqual(utils.normalizeIP('ab:cd::'), [171,205,0,0,0,0,0,0]);
-    assert.deepEqual(utils.normalizeIP('123::'), [291,0,0,0,0,0,0,0]);
-    assert.deepEqual(utils.normalizeIP('0::'), [0,0,0,0,0,0,0,0]);
-    assert.deepEqual(utils.normalizeIP('::'), [0,0,0,0,0,0,0,0]);
-    assert.deepEqual(utils.normalizeIP('::ab:cd'), [0,0,0,0,0,0,171,205]);
+    assert.deepEqual(utils.normalizeIP('ab::cd'), [171, 0, 0, 0, 0, 0, 0, 205]);
+    assert.deepEqual(utils.normalizeIP('ab:cd::ef'), [171, 205, 0, 0, 0, 0, 0, 239]);
+    assert.deepEqual(utils.normalizeIP('ab:cd::12:ef'), [171, 205, 0, 0, 0, 0, 18, 239]);
+    assert.deepEqual(utils.normalizeIP('ab:cd::'), [171, 205, 0, 0, 0, 0, 0, 0]);
+    assert.deepEqual(utils.normalizeIP('123::'), [291, 0, 0, 0, 0, 0, 0, 0]);
+    assert.deepEqual(utils.normalizeIP('0::'), [0, 0, 0, 0, 0, 0, 0, 0]);
+    assert.deepEqual(utils.normalizeIP('::'), [0, 0, 0, 0, 0, 0, 0, 0]);
+    assert.deepEqual(utils.normalizeIP('::ab:cd'), [0, 0, 0, 0, 0, 0, 171, 205]);
   });
 
   it('does handle invalid ips', () => {
-    assert.deepEqual(utils.normalizeIP('1:2:3:4:5::6:7:8::'), [1,2,3,4,5,6,7,8]);
-    assert.deepEqual(utils.normalizeIP('::1:2:3:4:5:6:7:8'), [1,2,3,4,5,6,7,8]);
-    assert.deepEqual(utils.normalizeIP('1:2:3:4:5::6:7:8:9:10'), [1,2,3,6,7,8,9,16]);
+    assert.deepEqual(utils.normalizeIP('1:2:3:4:5::6:7:8::'), [1, 2, 3, 4, 5, 6, 7, 8]);
+    assert.deepEqual(utils.normalizeIP('::1:2:3:4:5:6:7:8'), [1, 2, 3, 4, 5, 6, 7, 8]);
+    assert.deepEqual(utils.normalizeIP('1:2:3:4:5::6:7:8:9:10'), [1, 2, 3, 6, 7, 8, 9, 16]);
   });
 });
