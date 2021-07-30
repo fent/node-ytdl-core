@@ -7,6 +7,7 @@ declare module 'ytdl-core' {
 
     interface getInfoOptions {
       lang?: string;
+      requestCallback?: () => {};
       requestOptions?: {};
     }
 
@@ -213,6 +214,11 @@ declare module 'ytdl-core' {
       storyboardCount: number;
     }
 
+    interface Chapter {
+      title: string;
+      start_time: number;
+    }
+
     interface MoreVideoDetails extends Omit<VideoDetails, 'author' | 'thumbnail' | 'shortDescription'>, Omit<MicroformatRenderer, 'title' | 'description'> {
       published: number;
       video_url: string;
@@ -223,6 +229,7 @@ declare module 'ytdl-core' {
       author: Author;
       thumbnails: thumbnail[];
       storyboards: storyboard[];
+      chapters: Chapter[];
       description: string | null;
     }
 
@@ -372,6 +379,16 @@ declare module 'ytdl-core' {
           playerMicroformatRenderer: MicroformatRenderer;
         };
         videoDetails: VideoDetails;
+        playerConfig: {
+          audioConfig: {
+            loudnessDb: number;
+            perceptualLoudnessDb: number;
+            enablePerFormatLoudness: boolean;
+          };
+          streamSelectionConfig: { maxBitrate: string };
+          mediaCommonConfig: { dynamicReadaheadConfig: {}[] };
+          webPlayerConfig: { webPlayerActionsPorting: {}[] };
+        };
       };
       videoDetails: MoreVideoDetails;
     }
@@ -401,6 +418,7 @@ declare module 'ytdl-core' {
     function validateURL(string: string): boolean;
     function getURLVideoID(string: string): string | never;
     function getVideoID(string: string): string | never;
+    const version: number;
   }
 
   function ytdl(link: string, options?: ytdl.downloadOptions): Readable;

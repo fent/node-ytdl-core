@@ -112,12 +112,17 @@ const videos = [
     type: 'longest-upload',
     basicInfo: true,
   },
+  {
+    id: 'W6NZfCO5SIk',
+    type: 'chapters',
+    basicInfo: true,
+    saveInfo: true,
+  },
 ];
 
 
 const fs = require('fs');
 const path = require('path');
-const { URL } = require('url');
 const { PassThrough } = require('stream');
 const mukRequire = require('muk-require');
 const miniget = require('miniget');

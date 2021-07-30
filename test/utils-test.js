@@ -291,3 +291,54 @@ describe('utils.normalizeIP', () => {
     assert.deepEqual(utils.normalizeIP('1:2:3:4:5::6:7:8:9:10'), [1, 2, 3, 6, 7, 8, 9, 16]);
   });
 });
+
+describe('utils.exposedMiniget', () => {
+  it('does not error with undefined requestOptionsOverwrite', async() => {
+    const scope = nock('https://test.com').get('/').reply(200, 'nice');
+    const req = utils.exposedMiniget('https://test.com/', {});
+    await req.text();
+    scope.done();
+  });
+
+  it('does not error without options', async() => {
+    const scope = nock('https://test.com').get('/').reply(200, 'nice');
+    const req = utils.exposedMiniget('https://test.com/');
+    await req.text();
+    scope.done();
+  });
+
+  it('does not error without options', async() => {
+    const scope = nock('https://test.com').get('/').reply(200, 'nice');
+    const req = utils.exposedMiniget('https://test.com/');
+    assert.equal(await req.text(), 'nice');
+    scope.done();
+  });
+
+  it('calls a provided callback with the req object', async() => {
+    const scope = nock('https://test.com').get('/').reply(200, 'nice');
+    let cbReq;
+    const requestCallback = r => cbReq = r;
+    const req = utils.exposedMiniget('https://test.com/', { requestCallback });
+    await req.text();
+    assert.equal(cbReq, req);
+    scope.done();
+  });
+
+  it('it uses requestOptions', async() => {
+    const scope = nock('https://test.com', { reqheaders: { auth: 'a' } }).get('/').reply(200, 'nice');
+    const req = utils.exposedMiniget('https://test.com/', { requestOptions: { headers: { auth: 'a' } } });
+    await req.text();
+    scope.done();
+  });
+
+  it('it prefers requestOptionsOverwrite over requestOptions', async() => {
+    const scope = nock('https://test.com', { reqheaders: { auth: 'b' } }).get('/').reply(200, 'nice');
+    const req = utils.exposedMiniget(
+      'https://test.com/',
+      { requestOptions: { headers: { auth: 'a' } } },
+      { headers: { auth: 'b' } },
+    );
+    await req.text();
+    scope.done();
+  });
+});

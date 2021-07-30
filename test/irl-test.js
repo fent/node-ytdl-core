@@ -5,7 +5,7 @@ const ytdl = require('..');
 
 const videos = {
   'Regular video': 'mgOS64BF2eU',
-  'Age restricted': 'LuZu9N53Vd0',
+  'Age restricted': 'Zc09khxyXfA',
   'Embed domain restricted': 'B3eAMGXFw1o',
   'No embed allowed': 'GFg8BP01F5Q',
   Offensive: 'hCKDsjLt_qU',

@@ -147,6 +147,100 @@ const formats = [
     hasAudio: false,
   },
 ];
+
+const liveWithHLS = formats.filter(x => x.isLive).slice();
+liveWithHLS.push(
+  {
+    itag: '96',
+    mimeType: 'video/ts; codecs="H.264, aac"',
+    container: 'ts',
+    qualityLabel: '1080p',
+    codecs: 'H.264, aac',
+    videoCodec: 'H.264',
+    audioCodec: 'aac',
+    bitrate: 2500000,
+    audioBitrate: 256,
+    url: 'https://googlevideo.com/',
+    hasVideo: true,
+    hasAudio: true,
+    isHLS: true,
+  },
+  {
+    itag: '96.worse.audio',
+    mimeType: 'video/ts; codecs="H.264, aac"',
+    container: 'ts',
+    qualityLabel: '1080p',
+    codecs: 'H.264, aac',
+    videoCodec: 'H.264',
+    audioCodec: 'aac',
+    bitrate: 2500000,
+    audioBitrate: 128,
+    url: 'https://googlevideo.com/',
+    hasVideo: true,
+    hasAudio: true,
+    isHLS: true,
+  },
+  {
+    itag: '95',
+    mimeType: 'video/ts; codecs="H.264, aac"',
+    container: 'ts',
+    qualityLabel: '720p',
+    codecs: 'H.264, aac',
+    videoCodec: 'H.264',
+    audioCodec: 'aac',
+    bitrate: 1500000,
+    audioBitrate: 256,
+    url: 'https://googlevideo.com/',
+    hasVideo: true,
+    hasAudio: true,
+    isHLS: true,
+  },
+  {
+    itag: '94',
+    mimeType: 'video/ts; codecs="H.264, aac"',
+    container: 'ts',
+    qualityLabel: '480p',
+    codecs: 'H.264, aac',
+    videoCodec: 'H.264',
+    audioCodec: 'aac',
+    bitrate: 800000,
+    audioBitrate: 128,
+    url: 'https://googlevideo.com/',
+    hasVideo: true,
+    hasAudio: true,
+    isHLS: true,
+  },
+  {
+    itag: '92',
+    mimeType: 'video/ts; codecs="H.264, aac"',
+    container: 'ts',
+    qualityLabel: '240p',
+    codecs: 'H.264, aac',
+    videoCodec: 'H.264',
+    audioCodec: 'aac',
+    bitrate: 150000,
+    audioBitrate: 48,
+    url: 'https://googlevideo.com/',
+    hasVideo: true,
+    hasAudio: true,
+    isHLS: true,
+  },
+  {
+    itag: '91',
+    mimeType: 'video/ts; codecs="H.264, aac"',
+    container: 'ts',
+    qualityLabel: '144p',
+    codecs: 'H.264, aac',
+    videoCodec: 'H.264',
+    audioCodec: 'aac',
+    bitrate: 100000,
+    audioBitrate: 48,
+    url: 'https://googlevideo.com/',
+    hasVideo: true,
+    hasAudio: true,
+    isHLS: true,
+  },
+);
 const getItags = format => format.itag;
 
 
@@ -191,12 +285,34 @@ describe('chooseFormat', () => {
       const format = chooseFormat(formats, { quality: 'highestaudio' });
       assert.strictEqual(format.itag, '43');
     });
+
+    describe('and no formats passed', () => {
+      it('throws the regular no such format found error', () => {
+        assert.throws(() => {
+          chooseFormat([], { quality: 'highestaudio' });
+        }, /No such format found/);
+      });
+    });
+
+    describe('and HLS formats are present', () => {
+      it('Chooses highest audio itag', () => {
+        const format = chooseFormat(liveWithHLS, { quality: 'highestaudio' });
+        assert.strictEqual(format.itag, '95');
+      });
+    });
   });
 
   describe('With lowest audio quality wanted', () => {
     it('Chooses lowest audio itag', () => {
       const format = chooseFormat(formats, { quality: 'lowestaudio' });
       assert.strictEqual(format.itag, '17');
+    });
+
+    describe('and HLS formats are present', () => {
+      it('Chooses lowest audio itag', () => {
+        const format = chooseFormat(liveWithHLS, { quality: 'lowestaudio' });
+        assert.strictEqual(format.itag, '91');
+      });
     });
   });
 
@@ -205,12 +321,34 @@ describe('chooseFormat', () => {
       const format = chooseFormat(formats, { quality: 'highestvideo' });
       assert.strictEqual(format.itag, '18');
     });
+
+    describe('and no formats passed', () => {
+      it('throws the regular no such format found error', () => {
+        assert.throws(() => {
+          chooseFormat([], { quality: 'highestvideo' });
+        }, /No such format found/);
+      });
+    });
+
+    describe('and HLS formats are present', () => {
+      it('Chooses highest video itag', () => {
+        const format = chooseFormat(liveWithHLS, { quality: 'highestvideo' });
+        assert.strictEqual(format.itag, '96.worse.audio');
+      });
+    });
   });
 
   describe('With lowest video quality wanted', () => {
     it('Chooses lowest video itag', () => {
       const format = chooseFormat(formats, { quality: 'lowestvideo' });
       assert.strictEqual(format.itag, '17');
+    });
+
+    describe('and HLS formats are present', () => {
+      it('Chooses lowest audio itag', () => {
+        const format = chooseFormat(liveWithHLS, { quality: 'lowestvideo' });
+        assert.strictEqual(format.itag, '91');
+      });
     });
   });
 
@@ -258,6 +396,16 @@ describe('chooseFormat', () => {
           filter: format => format.container === 'mp4',
         });
         assert.strictEqual(choosenFormat.itag, '18');
+      });
+    });
+
+    describe('that matches audio only formats', () => {
+      describe('and only non-HLS-livestream would match', () => {
+        it('throws the no format found exception', () => {
+          assert.throws(() => {
+            chooseFormat(liveWithHLS, { quality: 'audioonly' });
+          }, /No such format found/);
+        });
       });
     });
 
