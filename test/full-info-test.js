@@ -57,7 +57,7 @@ describe('ytdl.getInfo()', () => {
   describe('With invalid IPv6 Block', () => {
     it('Should give an error', async() => {
       const id = '_HSylqgVYQI';
-      await assert.rejects(ytdl.getInfo(id, { IPv6Block: '2001:2::/200' }), /Invalid IPv6 subnet/);
+      await assert.rejects(ytdl.getInfo(id, { IPv6Block: '2001:2::/200' }), /Invalid IPv6 format/);
     });
   });
 
