@@ -378,6 +378,16 @@ declare module 'ytdl-core' {
           playerMicroformatRenderer: MicroformatRenderer;
         };
         videoDetails: VideoDetails;
+        playerConfig: {
+          audioConfig: {
+            loudnessDb: number;
+            perceptualLoudnessDb: number;
+            enablePerFormatLoudness: boolean;
+          };
+          streamSelectionConfig: { maxBitrate: string };
+          mediaCommonConfig: { dynamicReadaheadConfig: {}[] };
+          webPlayerConfig: { webPlayerActionsPorting: {}[] };
+        };
       };
       videoDetails: MoreVideoDetails;
     }
