@@ -411,7 +411,7 @@ describe('chooseFormat', () => {
       describe('and some HLS-livestream would match', () => {
         it('does not throw an exception', () => {
           assert.doesNotThrow(() => {
-            chooseFormat(liveWithHLS, { quality: 'any' });
+            chooseFormat(liveWithHLS, { });
           });
         });
       });
