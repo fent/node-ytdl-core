@@ -49,6 +49,13 @@ const videos = [
     saveInfo: true,
   },
   {
+    id: 'CsrfovOPcjk',
+    type: 'age-restricted-vi-VN',
+    lang: 'vi-VN',
+    basicInfo: true,
+    saveInfo: true,
+  },
+  {
     id: 'aqz-KE-bpKQ',
     type: 'use-backups',
     saveInfo: true,
@@ -246,9 +253,10 @@ const refreshVideo = async(video, noRequests) => {
   // Make the call to ytdl.
   try {
     let info;
-    let options = { requestOptions: { maxRetries: 0 } };
+    let options = { requestOptions: { maxRetries: 0 }, lang: 'en' };
     // Not implemented yet
     if (video.needCookie) return console.log('Need cookies to refresh this.');
+    if (video.lang) options.lang = video.lang;
     if (video.basicInfo) {
       info = await getInfo.getBasicInfo(video.id, options);
     } else {
