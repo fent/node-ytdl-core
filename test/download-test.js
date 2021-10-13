@@ -1,7 +1,6 @@
 const assert = require('assert');
 const path = require('path');
 const fs = require('fs');
-const { URL } = require('url');
 const streamEqual = require('stream-equal');
 const sinon = require('sinon');
 const nock = require('./nock');
