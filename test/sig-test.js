@@ -1,11 +1,7 @@
 const sig = require('../lib/sig');
 const assert = require('assert-diff');
-const fs = require('fs');
 const path = require('path');
 const nock = require('./nock');
-
-const html5player = require('./html5player.json');
-
 
 describe('Get functions', () => {
   const key = 'en_US-vflset-387dfd49';
