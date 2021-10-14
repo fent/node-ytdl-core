@@ -46,5 +46,4 @@ describe('Get functions', () => {
       scope.done();
     });
   });
-
 });
