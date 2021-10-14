@@ -35,15 +35,16 @@ describe('Get functions', () => {
     });
   });
 
-  describe('Unable to find tokens', () => {
+  describe('Unable to find functions', () => {
     const testKey = 'mykey';
     const testUrl = `https://s.ytimg.com/yts/jsbin/player-${testKey}/base.js`;
     const contents = 'my personal contents';
 
     it('Gives an error', async() => {
       const scope = nock.url(testUrl).reply(200, contents);
-      await assert.rejects(sig.getFunctions(testUrl, {}));
+      await assert.rejects(sig.getFunctions(testUrl, {}), /Could not extract functions/);
       scope.done();
     });
   });
+
 });
