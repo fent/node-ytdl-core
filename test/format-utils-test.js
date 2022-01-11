@@ -403,8 +403,16 @@ describe('chooseFormat', () => {
       describe('and only non-HLS-livestream would match', () => {
         it('throws the no format found exception', () => {
           assert.throws(() => {
-            chooseFormat(liveWithHLS, { quality: 'audioonly' });
+            chooseFormat(liveWithHLS, { filter: 'audioonly' });
           }, /No such format found/);
+        });
+      });
+
+      describe('and some HLS-livestream would match', () => {
+        it('does not throw an exception', () => {
+          assert.doesNotThrow(() => {
+            chooseFormat(liveWithHLS, { });
+          });
         });
       });
     });
