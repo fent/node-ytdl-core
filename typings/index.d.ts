@@ -198,6 +198,7 @@ declare module 'ytdl-core' {
       liveBroadcastDetails?: {
         isLiveNow: boolean;
         startTimestamp: string;
+        endTimestamp?: string;
       };
       uploadDate: string;
     }
