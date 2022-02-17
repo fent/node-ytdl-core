@@ -1,5 +1,5 @@
 {
-  "name": "cd-ytdl-core",
+  "name": "ytdl-core",
   "description": "YouTube video downloader in pure javascript.",
   "keywords": [
     "youtube",
