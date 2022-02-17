@@ -148,6 +148,7 @@ declare module 'ytdl-core' {
       song?: string;
       artist?: string;
       artist_url?: string;
+      album?: string;
       writers?: string;
       licensed_by?: string;
       thumbnails: thumbnail[];
@@ -225,7 +226,7 @@ declare module 'ytdl-core' {
       age_restricted: boolean;
       likes: number | null;
       dislikes: number | null;
-      media: Media;
+      media: Media[];
       author: Author;
       thumbnails: thumbnail[];
       storyboards: storyboard[];

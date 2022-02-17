@@ -136,34 +136,45 @@ describe('extras.getAuthor()', () => {
 
 
 describe('extras.getMedia()', () => {
-  it('Returns media object', () => {
+  it('Returns media array with one element', () => {
     const info = require('./files/videos/music/expected-info.json');
-    const media = extras.getMedia(info);
-    assert.ok(media);
-    assert.strictEqual(media.artist, 'Syn Cole');
-    assertChannelURL(media.artist_url);
-    assert.strictEqual(media.category, 'Music');
-    assertURL(media.category_url);
+    const medias = extras.getMedia(info);
+    assert.ok(medias);
+    assert.strictEqual(medias[0].artist, 'Syn Cole');
+    assertChannelURL(medias[0].artist_url);
+    assert.strictEqual(medias[0].category, 'Music');
+    assertURL(medias[0].category_url);
+  });
+
+  it('Returns media array with two elements', () => {
+    const info = require('./files/videos/music/expected-info-multiple-songs.json');
+    const medias = extras.getMedia(info);
+    assert.ok(medias);
+    assert.strictEqual(medias[1].writers, 'Kejuan Muchita, Bilal Oliver, Common, Chris Martin, Albert Johnson');
+    assert.strictEqual(medias[1].artist, 'Common');
+    assert.strictEqual(medias[1].album, 'The 6th Sense');
+    assert.strictEqual(medias[1].category, 'Music');
+    assertURL(medias[1].category_url);
   });
 
   describe('On a video associated with a game', () => {
-    it('Returns media object', () => {
+    it('Returns media array', () => {
       const info = require('./files/videos/game/expected-info.json');
-      const media = extras.getMedia(info);
-      assert.ok(media);
-      assert.strictEqual(media.category, 'Gaming');
-      assertURL(media.category_url);
-      assert.strictEqual(media.game, 'Pokémon Snap');
-      assertURL(media.game_url);
-      assert.strictEqual(media.year, '1999');
+      const medias = extras.getMedia(info);
+      assert.ok(medias);
+      assert.strictEqual(medias[0].category, 'Gaming');
+      assertURL(medias[0].category_url);
+      assert.strictEqual(medias[0].game, 'Pokémon Snap');
+      assertURL(medias[0].game_url);
+      assert.strictEqual(medias[0].year, '1999');
     });
   });
 
   describe('With invalid input', () => {
     it('Should return an empty object', () => {
-      const media = extras.getMedia({ invalidObject: '' });
-      assert.ok(media);
-      assert.deepEqual(media, {});
+      const medias = extras.getMedia({ invalidObject: '' });
+      assert.ok(medias);
+      assert.deepEqual(medias, []);
     });
   });
 });
