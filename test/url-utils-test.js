@@ -41,6 +41,11 @@ describe('getURLVideoID()', () => {
       getURLVideoID('http://www.youtube.com/watch?v=asdf$%^ddf-');
     }, /Video id \([^)]+\) does not match expected format/);
   });
+
+  it('Ignores surrounding whitespaces', () => {
+    let id = getURLVideoID('\n\t http://www.youtube.com/watch?v=RAW_VIDEOID  ');
+    assert.strictEqual(id, 'RAW_VIDEOID');
+  });
 });
 
 
@@ -77,6 +82,11 @@ describe('getVideoID()', () => {
     assert.throws(() => {
       getVideoID('http://www.youtube.com/playlist?list=1337');
     }, /No video id found: \S+/);
+  });
+
+  it('Ignores surrounding whitespaces', () => {
+    let id = getVideoID('\n\t http://www.youtube.com/watch?v=RAW_VIDEOID  ');
+    assert.strictEqual(id, 'RAW_VIDEOID');
   });
 });
 
