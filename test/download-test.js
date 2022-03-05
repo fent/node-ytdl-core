@@ -5,6 +5,7 @@ const streamEqual = require('stream-equal');
 const sinon = require('sinon');
 const nock = require('./nock');
 const ytdl = require('..');
+const net = require('net');
 
 
 describe('Download video', () => {
@@ -542,6 +543,34 @@ describe('Download video', () => {
       stream.resume();
       stream.on('error', done);
       stream.on('end', done);
+    });
+  });
+
+  describe('With IPv6 Block', () => {
+    it('Sends request with IPv6 address', done => {
+      const stream = ytdl.downloadFromInfo(expectedInfo, { IPv6Block: '2001:2::/48' });
+      stream.on('info', (info, format) => {
+        nock.url(format.url).reply(function checkAddr() {
+          // "this" is assigned by the function checkAddr
+          // eslint-disable-next-line no-invalid-this
+          assert.ok(net.isIPv6(this.req.options.localAddress));
+          done();
+        });
+      });
+    });
+  });
+
+  describe('Without IPv6 Block', () => {
+    it('Sends request with (default) IPv4 address', done => {
+      const stream = ytdl.downloadFromInfo(expectedInfo);
+      stream.on('info', (info, format) => {
+        nock.url(format.url).reply(function checkAddr() {
+          // "this" is assigned by the function checkAddr
+          // eslint-disable-next-line no-invalid-this
+          assert.ok(this.req.options.localAddress === undefined);
+          done();
+        });
+      });
     });
   });
 

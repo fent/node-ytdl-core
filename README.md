@@ -36,6 +36,7 @@ Attempts to download a video from the given url. Returns a [readable stream](htt
 * `liveBuffer` - How much time buffer to use for live videos in milliseconds. Default is `20000`.
 * `highWaterMark` - How much of the video download to buffer into memory. See [node's docs](https://nodejs.org/api/stream.html#stream_constructor_new_stream_writable_options) for more. Defaults to 512KB.
 * `dlChunkSize` - When the chosen format is video only or audio only, the download is separated into multiple chunks to avoid throttling. This option specifies the size of each chunk in bytes. Setting it to 0 disables chunking. Defaults to 10MB.
+* `IPv6Block` - IPv6 block to rotate through, an alternative to using a proxy. [Read more](#How-does-using-an-IPv6-block-help?). Defaults to `undefined`.
 
 #### Event: info
 * [`ytdl.videoInfo`](typings/index.d.ts#L194) - Info.
@@ -155,6 +156,24 @@ ytdl cannot download videos that fall into the following
 * Only [HLS Livestreams](https://en.wikipedia.org/wiki/HTTP_Live_Streaming) are currently supported. Other formats will get filtered out in ytdl.chooseFormats
 
 Generated download links are valid for 6 hours, and may only be downloadable from the same IP address.
+
+### Ratelimits
+When doing to many requests YouTube might block. This will result in your requests getting denied with HTTP-StatusCode 429. The following Steps might help you:
+* Update ytdl-core to the latest version
+* Use proxies (you can find an example [here](https://github.com/fent/node-ytdl-core/blob/master/example/proxy.js))
+* Extend on the Proxy Idea by rotating (IPv6-)Addresses
+  * read [this](#How-does-using-an-IPv6-block-help?) for more information about this
+* Use cookies (you can find an example [here](https://github.com/fent/node-ytdl-core/blob/master/example/cookies.js))
+  * for this to take effect you have to FIRST wait for the current ratelimit to expire
+* Wait it out (it usually goes away within a few days)
+
+#### How does using an IPv6 block help?
+
+For request-intensive tasks it might be useful to spread your requests across multiple source IP-Addresses. Changing the source IP that you use is similar to using a proxy, except without bypassing restrictions such as a region lock. More IP-Addresses result in less requests per IP and therefor increase your ratelimit. Since IPv4 Addresses are a limited Resource we advise to use IPv6.
+
+Using an IPv6 block is essentially having millions of IPv6 addresses at your request. In a /64 IPv6 block (which is usually the Block given to a single Household), there are 18,446,744,073,709,551,616 unique IPv6 addresses. This would allow you to make each request with a different IPv6 address.
+
+Even though using an IP-Block does help against ratelimits it requires you to setup your host system to accept http traffic from every message in an IP-Block. We can not help you with the setup for any specific host / hosting provider but searching the internet most likely can.
 
 ## Handling Separate Streams
 
