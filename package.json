@@ -53,7 +53,7 @@
     "typescript": "^3.9.7"
   },
   "engines": {
-    "node": ">=10"
+    "node": ">=12"
   },
   "license": "MIT"
 }
