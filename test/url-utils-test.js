@@ -9,36 +9,36 @@ describe('getURLVideoID()', () => {
 
   it('Retrives the video ID from the url', () => {
     let id;
-    id = getVideoID('http://www.youtube.com/watch?v=RAW_VIDEOID');
+    id = getURLVideoID('http://www.youtube.com/watch?v=RAW_VIDEOID');
     assert.strictEqual(id, 'RAW_VIDEOID');
-    id = getVideoID('http://youtu.be/RAW_VIDEOID');
+    id = getURLVideoID('http://youtu.be/RAW_VIDEOID');
     assert.strictEqual(id, 'RAW_VIDEOID');
-    id = getVideoID('http://youtube.com/v/RAW_VIDEOID');
+    id = getURLVideoID('http://youtube.com/v/RAW_VIDEOID');
     assert.strictEqual(id, 'RAW_VIDEOID');
-    id = getVideoID('http://youtube.com/embed/RAW_VIDEOID');
+    id = getURLVideoID('http://youtube.com/embed/RAW_VIDEOID');
     assert.strictEqual(id, 'RAW_VIDEOID');
-    id = getVideoID('http://youtube.com/shorts/RAW_VIDEOID');
+    id = getURLVideoID('http://youtube.com/shorts/RAW_VIDEOID');
     assert.strictEqual(id, 'RAW_VIDEOID');
-    id = getVideoID('http://youtube.com/v/RAW_VIDEOID/FakeVideoID');
+    id = getURLVideoID('http://youtube.com/v/RAW_VIDEOID/FakeVideoID');
     assert.strictEqual(id, 'RAW_VIDEOID');
-    id = getVideoID('https://music.youtube.com/watch?v=RAW_VIDEOID&list=RDAMVMmtLgabce8KQ');
+    id = getURLVideoID('https://music.youtube.com/watch?v=RAW_VIDEOID&list=RDAMVMmtLgabce8KQ');
     assert.strictEqual(id, 'RAW_VIDEOID');
-    id = getVideoID('https://gaming.youtube.com/watch?v=RAW_VIDEOID');
+    id = getURLVideoID('https://gaming.youtube.com/watch?v=RAW_VIDEOID');
     assert.strictEqual(id, 'RAW_VIDEOID');
     assert.throws(() => {
-      getVideoID('https://any.youtube.com/watch?v=RAW_VIDEOID');
+      getURLVideoID('https://any.youtube.com/watch?v=RAW_VIDEOID');
     }, /Not a YouTube domain/);
     assert.throws(() => {
-      getVideoID('https://www.twitch.tv/user/v/1234');
+      getURLVideoID('https://www.twitch.tv/user/v/1234');
     }, /Not a YouTube domain/);
     assert.throws(() => {
-      getVideoID('www.youtube.com');
-    }, /No video id found: \S+/);
+      getURLVideoID('www.youtube.com');
+    }, /Invalid URL/);
     assert.throws(() => {
-      getVideoID('http://www.youtube.com/playlist?list=1337');
-    }, /No video id found: \S+/);
+      getURLVideoID('http://www.youtube.com/playlist?list=1337');
+    }, /No video id found: "\S+"/);
     assert.throws(() => {
-      getVideoID('http://www.youtube.com/watch?v=asdf$%^ddf-');
+      getURLVideoID('http://www.youtube.com/watch?v=asdf$%^ddf-');
     }, /Video id \([^)]+\) does not match expected format/);
   });
 });
