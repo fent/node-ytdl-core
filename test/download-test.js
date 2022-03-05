@@ -550,12 +550,12 @@ describe('Download video', () => {
     it('Sends request with IPv6 address', done => {
       const stream = ytdl.downloadFromInfo(expectedInfo, { IPv6Block: '2001:2::/48' });
       stream.on('info', (info, format) => {
-        nock.url(format.url).reply(function checkAddr() {
-          // "this" is assigned by the function checkAddr
-          // eslint-disable-next-line no-invalid-this
-          assert.ok(net.isIPv6(this.req.options.localAddress));
-          done();
-        });
+        nock.url(format.url)
+          .reply(206);
+      });
+      stream.on('request', req => {
+        assert.ok(net.isIPv6(req.options.localAddress));
+        done();
       });
     });
   });
@@ -564,12 +564,12 @@ describe('Download video', () => {
     it('Sends request with (default) IPv4 address', done => {
       const stream = ytdl.downloadFromInfo(expectedInfo);
       stream.on('info', (info, format) => {
-        nock.url(format.url).reply(function checkAddr() {
-          // "this" is assigned by the function checkAddr
-          // eslint-disable-next-line no-invalid-this
-          assert.ok(this.req.options.localAddress === undefined);
-          done();
-        });
+        nock.url(format.url)
+          .reply(206);
+      });
+      stream.on('request', req => {
+        assert.ok(req.options.localAddress === undefined);
+        done();
       });
     });
   });
