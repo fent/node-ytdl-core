@@ -148,6 +148,14 @@ describe('ytdl.getBasicInfo()', () => {
       assert.ok(info.videoDetails.age_restricted);
       assert.ok(info.formats.length);
     });
+
+    it('Returns correct age_restricted property in other languages', async() => {
+      const id = 'CsrfovOPcjk';
+      const scope = nock(id, 'age-restricted-vi-VN');
+      let info = await ytdl.getBasicInfo(id);
+      scope.done();
+      assert.ok(info.videoDetails.age_restricted);
+    });
   });
 
   describe('From a video that was live streamed but not currently live', () => {
