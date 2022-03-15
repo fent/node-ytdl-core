@@ -36,7 +36,7 @@ Attempts to download a video from the given url. Returns a [readable stream](htt
 * `liveBuffer` - How much time buffer to use for live videos in milliseconds. Default is `20000`.
 * `highWaterMark` - How much of the video download to buffer into memory. See [node's docs](https://nodejs.org/api/stream.html#stream_constructor_new_stream_writable_options) for more. Defaults to 512KB.
 * `dlChunkSize` - When the chosen format is video only or audio only, the download is separated into multiple chunks to avoid throttling. This option specifies the size of each chunk in bytes. Setting it to 0 disables chunking. Defaults to 10MB.
-* `IPv6Block` - IPv6 block to rotate through, an alternative to using a proxy. [Read more](#How-does-using-an-IPv6-block-help?). Defaults to `undefined`.
+* `IPv6Block` - IPv6 block to rotate through, an alternative to using a proxy. [Read more](#how-does-using-an-ipv6-block-help). Defaults to `undefined`.
 
 #### Event: info
 * [`ytdl.videoInfo`](typings/index.d.ts#L194) - Info.
