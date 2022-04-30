@@ -131,9 +131,9 @@ describe('ytdl.getBasicInfo()', () => {
       });
       let info = await ytdl.getBasicInfo(id);
       scope.done();
-      assert.ok(info.formats.length);
-      assert.ok(info.videoDetails);
-      assert.ok(info.videoDetails.title);
+      assert.ok(info.formats.length, 'no formats found');
+      assert.ok(info.videoDetails, 'no video details found');
+      assert.ok(info.videoDetails.title, 'no video title found');
     });
   });
 
@@ -144,9 +144,8 @@ describe('ytdl.getBasicInfo()', () => {
       const scope = nock(id, 'age-restricted');
       let info = await ytdl.getBasicInfo(id);
       scope.done();
-      assert.strictEqual(info.formats.length, expected.formats.length);
-      assert.ok(info.videoDetails.age_restricted);
-      assert.ok(info.formats.length);
+      assert.strictEqual(info.formats.length, expected.formats.length, 'not the correct amount of formats found');
+      assert.ok(info.videoDetails.age_restricted, 'not marked age restricted');
     });
 
     it('Returns correct age_restricted property in other languages', async() => {
@@ -154,7 +153,7 @@ describe('ytdl.getBasicInfo()', () => {
       const scope = nock(id, 'age-restricted-vi-VN');
       let info = await ytdl.getBasicInfo(id);
       scope.done();
-      assert.ok(info.videoDetails.age_restricted);
+      assert.ok(info.videoDetails.age_restricted, 'not marked age restricted');
     });
   });
 
