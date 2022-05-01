@@ -136,25 +136,27 @@ describe('extras.getAuthor()', () => {
 
 
 describe('extras.getMedia()', () => {
-  it('Returns media array with one element', () => {
-    const info = require('./files/videos/music/expected-info.json');
-    const medias = extras.getMedia(info);
-    assert.ok(medias);
-    assert.strictEqual(medias[0].artist, 'Syn Cole');
-    assertChannelURL(medias[0].artist_url);
-    assert.strictEqual(medias[0].category, 'Music');
-    assertURL(medias[0].category_url);
-  });
+  describe('On a video associated with music', () => {
+    it('Returns media array with one element when there is one song', () => {
+      const info = require('./files/videos/music/expected-info.json');
+      const medias = extras.getMedia(info);
+      assert.ok(medias);
+      assert.strictEqual(medias[0].artist, 'Syn Cole');
+      assertChannelURL(medias[0].artist_url);
+      assert.strictEqual(medias[0].category, 'Music');
+      assertURL(medias[0].category_url);
+    });
 
-  it('Returns media array with two elements', () => {
-    const info = require('./files/videos/music/expected-info-multiple-songs.json');
-    const medias = extras.getMedia(info);
-    assert.ok(medias);
-    assert.strictEqual(medias[1].writers, 'Kejuan Muchita, Bilal Oliver, Common, Chris Martin, Albert Johnson');
-    assert.strictEqual(medias[1].artist, 'Common');
-    assert.strictEqual(medias[1].album, 'The 6th Sense');
-    assert.strictEqual(medias[1].category, 'Music');
-    assertURL(medias[1].category_url);
+    it('Returns media array with two elements when there are multiple songs', () => {
+      const info = require('./files/videos/music/expected-info-multiple-songs.json');
+      const medias = extras.getMedia(info);
+      assert.ok(medias);
+      assert.strictEqual(medias[1].writers, 'Kejuan Muchita, Bilal Oliver, Common, Chris Martin, Albert Johnson');
+      assert.strictEqual(medias[1].artist, 'Common');
+      assert.strictEqual(medias[1].album, 'The 6th Sense');
+      assert.strictEqual(medias[1].category, 'Music');
+      assertURL(medias[1].category_url);
+    });
   });
 
   describe('On a video associated with a game', () => {
