@@ -45,6 +45,12 @@ describe('utils.cutAfterJSON()', () => {
   it('Tolerant to string with escaped quoting', () => {
     assert.strictEqual(utils.cutAfterJSON('{"a": "\\"}1", "b": 1}abcd'), '{"a": "\\"}1", "b": 1}');
   });
+  it('Tolerant to string with regexes', () => {
+    assert.strictEqual(
+      utils.cutAfterJSON('{"a": "\\"}1", "b": 1, "c": /[0-9]}}\\/}/}abcd'),
+      '{"a": "\\"}1", "b": 1, "c": /[0-9]}}\\/}/}',
+    );
+  });
   it('works with nested', () => {
     assert.strictEqual(
       utils.cutAfterJSON('{"a": "\\"1", "b": 1, "c": {"test": 1}}abcd'),
