@@ -51,6 +51,12 @@ describe('utils.cutAfterJSON()', () => {
       '{"a": "\\"}1", "b": 1, "c": /[0-9]}}\\/}/}',
     );
   });
+  it('does not fail for division followed by a regex', () => {
+    assert.strictEqual(
+      utils.cutAfterJSON('{"a": "\\"}1", "b": 1, "c": [4/6, /[0-9]}}\\/}/]}abcd'),
+      '{"a": "\\"}1", "b": 1, "c": [4/6, /[0-9]}}\\/}/]}',
+    );
+  });
   it('works with nested', () => {
     assert.strictEqual(
       utils.cutAfterJSON('{"a": "\\"1", "b": 1, "c": {"test": 1}}abcd'),
