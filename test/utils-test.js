@@ -45,6 +45,10 @@ describe('utils.cutAfterJS()', () => {
   it('Tolerant to single-quoted string constants', () => {
     assert.strictEqual(utils.cutAfterJS(`{"a": '}1', "b": 1}abcd`), `{"a": '}1', "b": 1}`);
   });
+  it('Tolerant to complex single-quoted string constants', () => {
+    const str = "[-1816574795, '\",;/[;', function asdf() { a = 2/3; return a;}]";
+    assert.strictEqual(utils.cutAfterJS(`${str}abcd`), str);
+  });
   it('Tolerant to back-tick-quoted string constants', () => {
     assert.strictEqual(utils.cutAfterJS('{"a": `}1`, "b": 1}abcd'), '{"a": `}1`, "b": 1}');
   });
