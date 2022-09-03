@@ -128,9 +128,7 @@ declare module 'ytdl-core' {
       channelId: string;
       isOwnerViewing: boolean;
       isCrawlable: boolean;
-      thumbnail: {
-        thumbnails: thumbnail[];
-      };
+      thumbnails: thumbnail[];
       averageRating: number;
       allowRatings: boolean;
       viewCount: string;
