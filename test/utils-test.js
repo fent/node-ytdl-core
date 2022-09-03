@@ -64,9 +64,17 @@ describe('utils.cutAfterJS()', () => {
       '{"a": "\\"}1", "b": 1, "c": /[0-9]}}\\/}/}',
     );
   });
+  it('Tolerant to string with regexes in arrays ', () => {
+    assert.strictEqual(
+      // This does also tests "startPrefix" of the RegEx-Escaping-Sequenze
+      // I already screwed up the preceding whitespace rule once...
+      utils.cutAfterJS('{"a": [-1929233002,b,/,][}",],()}(\\[)/,2070160835,1561177444]}abcd'),
+      '{"a": [-1929233002,b,/,][}",],()}(\\[)/,2070160835,1561177444]}',
+    );
+  });
   it('does not fail for division followed by a regex', () => {
     assert.strictEqual(
-      utils.cutAfterJS('{"a": "\\"}1", "b": 1, "c": [4/6, /[0-9]}}\\/}/]}abcd', true),
+      utils.cutAfterJS('{"a": "\\"}1", "b": 1, "c": [4/6, /[0-9]}}\\/}/]}abcd'),
       '{"a": "\\"}1", "b": 1, "c": [4/6, /[0-9]}}\\/}/]}',
     );
   });
