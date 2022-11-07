@@ -32,57 +32,94 @@ describe('utils.between()', () => {
 });
 
 
-describe('utils.cutAfterJSON()', () => {
+describe('utils.cutAfterJS()', () => {
   it('Works with simple JSON', () => {
-    assert.strictEqual(utils.cutAfterJSON('{"a": 1, "b": 1}'), '{"a": 1, "b": 1}');
+    assert.strictEqual(utils.cutAfterJS('{"a": 1, "b": 1}'), '{"a": 1, "b": 1}');
   });
   it('Cut extra characters after JSON', () => {
-    assert.strictEqual(utils.cutAfterJSON('{"a": 1, "b": 1}abcd'), '{"a": 1, "b": 1}');
+    assert.strictEqual(utils.cutAfterJS('{"a": 1, "b": 1}abcd'), '{"a": 1, "b": 1}');
+  });
+  it('Tolerant to double-quoted string constants', () => {
+    assert.strictEqual(utils.cutAfterJS('{"a": "}1", "b": 1}abcd'), '{"a": "}1", "b": 1}');
+  });
+  it('Tolerant to single-quoted string constants', () => {
+    assert.strictEqual(utils.cutAfterJS(`{"a": '}1', "b": 1}abcd`), `{"a": '}1', "b": 1}`);
+  });
+  it('Tolerant to complex single-quoted string constants', () => {
+    const str = "[-1816574795, '\",;/[;', function asdf() { a = 2/3; return a;}]";
+    assert.strictEqual(utils.cutAfterJS(`${str}abcd`), str);
+  });
+  it('Tolerant to back-tick-quoted string constants', () => {
+    assert.strictEqual(utils.cutAfterJS('{"a": `}1`, "b": 1}abcd'), '{"a": `}1`, "b": 1}');
   });
   it('Tolerant to string constants', () => {
-    assert.strictEqual(utils.cutAfterJSON('{"a": "}1", "b": 1}abcd'), '{"a": "}1", "b": 1}');
+    assert.strictEqual(utils.cutAfterJS('{"a": "}1", "b": 1}abcd'), '{"a": "}1", "b": 1}');
   });
   it('Tolerant to string with escaped quoting', () => {
-    assert.strictEqual(utils.cutAfterJSON('{"a": "\\"}1", "b": 1}abcd'), '{"a": "\\"}1", "b": 1}');
+    assert.strictEqual(utils.cutAfterJS('{"a": "\\"}1", "b": 1}abcd'), '{"a": "\\"}1", "b": 1}');
   });
-  it('works with nested', () => {
+  it('Tolerant to string with regexes', () => {
     assert.strictEqual(
-      utils.cutAfterJSON('{"a": "\\"1", "b": 1, "c": {"test": 1}}abcd'),
+      utils.cutAfterJS('{"a": "\\"}1", "b": 1, "c": /[0-9]}}\\/}/}abcd'),
+      '{"a": "\\"}1", "b": 1, "c": /[0-9]}}\\/}/}',
+    );
+  });
+  it('Tolerant to string with regexes in arrays ', () => {
+    assert.strictEqual(
+      // This does also tests "startPrefix" of the RegEx-Escaping-Sequenze
+      // I already screwed up the preceding whitespace rule once...
+      utils.cutAfterJS('{"a": [-1929233002,b,/,][}",],()}(\\[)/,2070160835,1561177444]}abcd'),
+      '{"a": [-1929233002,b,/,][}",],()}(\\[)/,2070160835,1561177444]}',
+    );
+  });
+  it('does not fail for division followed by a regex', () => {
+    assert.strictEqual(
+      utils.cutAfterJS('{"a": "\\"}1", "b": 1, "c": [4/6, /[0-9]}}\\/}/]}abcd'),
+      '{"a": "\\"}1", "b": 1, "c": [4/6, /[0-9]}}\\/}/]}',
+    );
+  });
+  it('works with nested objects', () => {
+    assert.strictEqual(
+      utils.cutAfterJS('{"a": "\\"1", "b": 1, "c": {"test": 1}}abcd'),
       '{"a": "\\"1", "b": 1, "c": {"test": 1}}',
     );
   });
+  it('works with try/catch', () => {
+    let testStr = '{"a": "\\"1", "b": 1, "c": () => { try { /* do sth */ } catch (e) { a = [2+3] }; return 5}}';
+    assert.strictEqual(utils.cutAfterJS(`${testStr}abcd`), testStr);
+  });
   it('Works with utf', () => {
     assert.strictEqual(
-      utils.cutAfterJSON('{"a": "\\"фыва", "b": 1, "c": {"test": 1}}abcd'),
+      utils.cutAfterJS('{"a": "\\"фыва", "b": 1, "c": {"test": 1}}abcd'),
       '{"a": "\\"фыва", "b": 1, "c": {"test": 1}}',
     );
   });
   it('Works with \\\\ in string', () => {
     assert.strictEqual(
-      utils.cutAfterJSON('{"a": "\\\\фыва", "b": 1, "c": {"test": 1}}abcd'),
+      utils.cutAfterJS('{"a": "\\\\фыва", "b": 1, "c": {"test": 1}}abcd'),
       '{"a": "\\\\фыва", "b": 1, "c": {"test": 1}}',
     );
   });
   it('Works with \\\\ towards the end of a string', () => {
     assert.strictEqual(
-      utils.cutAfterJSON('{"text": "\\\\"};'),
+      utils.cutAfterJS('{"text": "\\\\"};'),
       '{"text": "\\\\"}',
     );
   });
   it('Works with [ as start', () => {
     assert.strictEqual(
-      utils.cutAfterJSON('[{"a": 1}, {"b": 2}]abcd'),
+      utils.cutAfterJS('[{"a": 1}, {"b": 2}]abcd'),
       '[{"a": 1}, {"b": 2}]',
     );
   });
   it('Returns an error when not beginning with [ or {', () => {
     assert.throws(() => {
-      utils.cutAfterJSON('abcd]}');
+      utils.cutAfterJS('abcd]}');
     }, /Can't cut unsupported JSON \(need to begin with \[ or { \) but got: ./);
   });
   it('Returns an error when missing closing bracket', () => {
     assert.throws(() => {
-      utils.cutAfterJSON('{"a": 1,{ "b": 1}');
+      utils.cutAfterJS('{"a": 1,{ "b": 1}');
     }, /Can't cut unsupported JSON \(no matching closing bracket found\)/);
   });
 });
