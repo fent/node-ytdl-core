@@ -39,8 +39,8 @@ Attempts to download a video from the given url. Returns a [readable stream](htt
 * `IPv6Block` - IPv6 block to rotate through, an alternative to using a proxy. [Read more](#how-does-using-an-ipv6-block-help). Defaults to `undefined`.
 
 #### Event: info
-* [`ytdl.videoInfo`](typings/index.d.ts#L194) - Info.
-* [`ytdl.videoFormat`](typings/index.d.ts#L22) - Video Format.
+* [`ytdl.videoInfo`](typings/index.d.ts#L235) - Info.
+* [`ytdl.videoFormat`](typings/index.d.ts#L32) - Video Format.
 
 Emitted when the video's `info` is fetched, along with the chosen format to download.
 
