@@ -228,6 +228,7 @@ env YTDL_NO_UPDATE=1 node myapp.js
 - [pully](https://github.com/JimmyBoh/pully) - Another cli wrapper of this aimed at high quality formats.
 - [ytsr](https://github.com/TimeForANinja/node-ytsr) - YouTube video search results.
 - [ytpl](https://github.com/TimeForANinja/node-ytpl) - YouTube playlist and channel resolver.
+- [ytdl-tui](https://github.com/darky/ytdl-tui) - A TUI wrapper of this.
 
 
 # Tests
