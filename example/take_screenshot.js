@@ -1,4 +1,4 @@
-const bin = require('ffmpeg-static').path;
+const bin = require('ffmpeg-static');
 const execFile = require('child_process').execFile;
 const ytdl = require('..');
 
