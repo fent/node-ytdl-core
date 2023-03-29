@@ -1,6 +1,8 @@
 declare module 'ytdl-core' {
   import { Readable } from 'stream';
-  
+
+  type ExtendString<T extends string> = T | Omit<string, T>
+
   namespace ytdl {
     type Filter = 'audioandvideo' | 'videoandaudio' | 'video' | 'videoonly' | 'audio' | 'audioonly' | ((format: videoFormat) => boolean);
 
@@ -13,7 +15,7 @@ declare module 'ytdl-core' {
     type ChooseFormatQuality = 'lowest' | 'highest' | 'highestaudio' | 'lowestaudio' | 'highestvideo' | 'lowestvideo'
 
     interface chooseFormatOptions {
-      quality?: ChooseFormatQuality | Omit<string, ChooseFormatQuality> | number | (ChooseFormatQuality | Omit<string, ChooseFormatQuality>)[] | number[];
+      quality?: ExtendString<ChooseFormatQuality> | number | ExtendString<ChooseFormatQuality>[] | number[];
       filter?: Filter;
       format?: videoFormat;
     }
@@ -44,7 +46,7 @@ declare module 'ytdl-core' {
       indexRange?: { start: string; end: string };
       lastModified: string;
       contentLength: string;
-      quality: VideoFormatQuality | Omit<string, VideoFormatQuality>;
+      quality: ExtendString<VideoFormatQuality>;
       qualityLabel: '144p' | '144p 15fps' | '144p60 HDR' | '240p' | '240p60 HDR' | '270p' | '360p' | '360p60 HDR'
         | '480p' | '480p60 HDR' | '720p' | '720p60' | '720p60 HDR' | '1080p' | '1080p60' | '1080p60 HDR' | '1440p'
         | '1440p60' | '1440p60 HDR' | '2160p' | '2160p60' | '2160p60 HDR' | '4320p' | '4320p60';
@@ -108,10 +110,10 @@ declare module 'ytdl-core' {
     interface captionTrack {
       baseUrl: string;
       name: {
-        simpleText: CaptionTrackSimpleText | Omit<string, CaptionTrackSimpleText>;
+        simpleText: ExtendString<CaptionTrackSimpleText>;
       };
       vssId: string;
-      languageCode: CaptionTrackLanguageCode | Omit<string, CaptionTrackLanguageCode>;
+      languageCode: ExtendString<CaptionTrackLanguageCode>;
       kind: string;
       rtl?: boolean;
       isTranslatable: boolean;
