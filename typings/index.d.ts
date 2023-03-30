@@ -1,6 +1,7 @@
 declare module 'ytdl-core' {
   import { Readable } from 'stream';
 
+  // Utility to trick auto-complete to propose T and still accept string (#1188)
   type ExtendString<T extends string> = T | Omit<string, T>;
 
   namespace ytdl {
