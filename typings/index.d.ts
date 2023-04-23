@@ -226,6 +226,7 @@ declare module 'ytdl-core' {
     interface Chapter {
       title: string;
       start_time: number;
+      thumbnails: thumbnail[];
     }
 
     interface MoreVideoDetails extends Omit<VideoDetails, 'author' | 'thumbnail' | 'shortDescription'>, Omit<MicroformatRenderer, 'title' | 'description'> {
