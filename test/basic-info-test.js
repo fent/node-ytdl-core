@@ -26,7 +26,7 @@ describe('ytdl.getBasicInfo()', () => {
     });
 
     it('Retrieves just enough metainfo without all formats', async() => {
-      const id = '5qap5aO4i9A';
+      const id = 'jfKfPfyJRdk';
       const expected = require('./files/videos/live-now/expected-info.json');
       const scope = nock(id, 'live-now', {
         player: false,
@@ -40,7 +40,7 @@ describe('ytdl.getBasicInfo()', () => {
 
     describe('Use `ytdl.downloadFromInfo()`', () => {
       it('Throw error', async() => {
-        const id = '5qap5aO4i9A';
+        const id = 'jfKfPfyJRdk';
         const scope = nock(id, 'regular', {
           watchHtml: false,
           player: false,
@@ -123,7 +123,7 @@ describe('ytdl.getBasicInfo()', () => {
 
   describe('From a live video', () => {
     it('Returns correct video metainfo', async() => {
-      const id = '5qap5aO4i9A';
+      const id = 'jfKfPfyJRdk';
       const scope = nock(id, 'live-now', {
         player: false,
         dashmpd: false,

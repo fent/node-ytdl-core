@@ -9,7 +9,7 @@ const videos = {
   'Embed domain restricted': 'B3eAMGXFw1o',
   'No embed allowed': 'GFg8BP01F5Q',
   Offensive: 'hCKDsjLt_qU',
-  'Live broadcast': '5qap5aO4i9A',
+  'Live broadcast': 'jfKfPfyJRdk',
 };
 
 

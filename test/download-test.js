@@ -587,7 +587,7 @@ describe('Download video', () => {
 
   describe('that is broadcasted live', () => {
     it('Begins downloading video succesfully', done => {
-      const testId = '5qap5aO4i9A';
+      const testId = 'jfKfPfyJRdk';
       const scope = nock(testId, 'live-now');
       const stream = ytdl(testId, { filter: format => format.isHLS });
       stream.on('info', (info, format) => {
@@ -636,7 +636,7 @@ describe('Download video', () => {
 
     describe('end download early', () => {
       it('Stops downloading video', done => {
-        const testId = '5qap5aO4i9A';
+        const testId = 'jfKfPfyJRdk';
         const scope = nock(testId, 'live-now');
         const stream = ytdl(testId);
         stream.on('info', () => {
@@ -653,7 +653,7 @@ describe('Download video', () => {
 
     describe('from a dash-mpd itag', () => {
       it('Begins downloading video succesfully', done => {
-        const testId = '5qap5aO4i9A';
+        const testId = 'jfKfPfyJRdk';
         let dashResponse = fs.readFileSync(path.resolve(__dirname, `files/videos/live-now/dash-manifest.xml`), 'utf8');
         const replaceBetweenTags = (tagName, content) => {
           const regex = new RegExp(`<${tagName}>(.+?)</${tagName}`, 'g');
