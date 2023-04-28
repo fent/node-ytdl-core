@@ -42,7 +42,7 @@ describe('Get functions', () => {
 
     it('Gives an error', async() => {
       const scope = nock.url(testUrl).reply(200, contents);
-      await assert.rejects(sig.getFunctions(testUrl, {}), /Could not extract functions/);
+      await assert.rejects(sig.getFunctions(testUrl, {}), /Please open an issue on ytdl-core GitHub/);
       scope.done();
     });
   });

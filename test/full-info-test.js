@@ -12,7 +12,7 @@ describe('ytdl.getInfo()', () => {
 
   describe('After calling ytdl.getBasicInfo()', () => {
     it('Does not make extra requests', async() => {
-      const id = '5qap5aO4i9A';
+      const id = 'jfKfPfyJRdk';
       const scope = nock(id, 'live-now');
       let info = Object.assign({}, await ytdl.getBasicInfo(id));
       let info2 = await ytdl.getInfo(id);
