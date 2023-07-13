@@ -32,57 +32,94 @@ describe('utils.between()', () => {
 });
 
 
-describe('utils.cutAfterJSON()', () => {
+describe('utils.cutAfterJS()', () => {
   it('Works with simple JSON', () => {
-    assert.strictEqual(utils.cutAfterJSON('{"a": 1, "b": 1}'), '{"a": 1, "b": 1}');
+    assert.strictEqual(utils.cutAfterJS('{"a": 1, "b": 1}'), '{"a": 1, "b": 1}');
   });
   it('Cut extra characters after JSON', () => {
-    assert.strictEqual(utils.cutAfterJSON('{"a": 1, "b": 1}abcd'), '{"a": 1, "b": 1}');
+    assert.strictEqual(utils.cutAfterJS('{"a": 1, "b": 1}abcd'), '{"a": 1, "b": 1}');
+  });
+  it('Tolerant to double-quoted string constants', () => {
+    assert.strictEqual(utils.cutAfterJS('{"a": "}1", "b": 1}abcd'), '{"a": "}1", "b": 1}');
+  });
+  it('Tolerant to single-quoted string constants', () => {
+    assert.strictEqual(utils.cutAfterJS(`{"a": '}1', "b": 1}abcd`), `{"a": '}1', "b": 1}`);
+  });
+  it('Tolerant to complex single-quoted string constants', () => {
+    const str = "[-1816574795, '\",;/[;', function asdf() { a = 2/3; return a;}]";
+    assert.strictEqual(utils.cutAfterJS(`${str}abcd`), str);
+  });
+  it('Tolerant to back-tick-quoted string constants', () => {
+    assert.strictEqual(utils.cutAfterJS('{"a": `}1`, "b": 1}abcd'), '{"a": `}1`, "b": 1}');
   });
   it('Tolerant to string constants', () => {
-    assert.strictEqual(utils.cutAfterJSON('{"a": "}1", "b": 1}abcd'), '{"a": "}1", "b": 1}');
+    assert.strictEqual(utils.cutAfterJS('{"a": "}1", "b": 1}abcd'), '{"a": "}1", "b": 1}');
   });
   it('Tolerant to string with escaped quoting', () => {
-    assert.strictEqual(utils.cutAfterJSON('{"a": "\\"}1", "b": 1}abcd'), '{"a": "\\"}1", "b": 1}');
+    assert.strictEqual(utils.cutAfterJS('{"a": "\\"}1", "b": 1}abcd'), '{"a": "\\"}1", "b": 1}');
   });
-  it('works with nested', () => {
+  it('Tolerant to string with regexes', () => {
     assert.strictEqual(
-      utils.cutAfterJSON('{"a": "\\"1", "b": 1, "c": {"test": 1}}abcd'),
+      utils.cutAfterJS('{"a": "\\"}1", "b": 1, "c": /[0-9]}}\\/}/}abcd'),
+      '{"a": "\\"}1", "b": 1, "c": /[0-9]}}\\/}/}',
+    );
+  });
+  it('Tolerant to string with regexes in arrays ', () => {
+    assert.strictEqual(
+      // This does also tests "startPrefix" of the RegEx-Escaping-Sequenze
+      // I already screwed up the preceding whitespace rule once...
+      utils.cutAfterJS('{"a": [-1929233002,b,/,][}",],()}(\\[)/,2070160835,1561177444]}abcd'),
+      '{"a": [-1929233002,b,/,][}",],()}(\\[)/,2070160835,1561177444]}',
+    );
+  });
+  it('does not fail for division followed by a regex', () => {
+    assert.strictEqual(
+      utils.cutAfterJS('{"a": "\\"}1", "b": 1, "c": [4/6, /[0-9]}}\\/}/]}abcd'),
+      '{"a": "\\"}1", "b": 1, "c": [4/6, /[0-9]}}\\/}/]}',
+    );
+  });
+  it('works with nested objects', () => {
+    assert.strictEqual(
+      utils.cutAfterJS('{"a": "\\"1", "b": 1, "c": {"test": 1}}abcd'),
       '{"a": "\\"1", "b": 1, "c": {"test": 1}}',
     );
   });
+  it('works with try/catch', () => {
+    let testStr = '{"a": "\\"1", "b": 1, "c": () => { try { /* do sth */ } catch (e) { a = [2+3] }; return 5}}';
+    assert.strictEqual(utils.cutAfterJS(`${testStr}abcd`), testStr);
+  });
   it('Works with utf', () => {
     assert.strictEqual(
-      utils.cutAfterJSON('{"a": "\\"фыва", "b": 1, "c": {"test": 1}}abcd'),
+      utils.cutAfterJS('{"a": "\\"фыва", "b": 1, "c": {"test": 1}}abcd'),
       '{"a": "\\"фыва", "b": 1, "c": {"test": 1}}',
     );
   });
   it('Works with \\\\ in string', () => {
     assert.strictEqual(
-      utils.cutAfterJSON('{"a": "\\\\фыва", "b": 1, "c": {"test": 1}}abcd'),
+      utils.cutAfterJS('{"a": "\\\\фыва", "b": 1, "c": {"test": 1}}abcd'),
       '{"a": "\\\\фыва", "b": 1, "c": {"test": 1}}',
     );
   });
   it('Works with \\\\ towards the end of a string', () => {
     assert.strictEqual(
-      utils.cutAfterJSON('{"text": "\\\\"};'),
+      utils.cutAfterJS('{"text": "\\\\"};'),
       '{"text": "\\\\"}',
     );
   });
   it('Works with [ as start', () => {
     assert.strictEqual(
-      utils.cutAfterJSON('[{"a": 1}, {"b": 2}]abcd'),
+      utils.cutAfterJS('[{"a": 1}, {"b": 2}]abcd'),
       '[{"a": 1}, {"b": 2}]',
     );
   });
   it('Returns an error when not beginning with [ or {', () => {
     assert.throws(() => {
-      utils.cutAfterJSON('abcd]}');
+      utils.cutAfterJS('abcd]}');
     }, /Can't cut unsupported JSON \(need to begin with \[ or { \) but got: ./);
   });
   it('Returns an error when missing closing bracket', () => {
     assert.throws(() => {
-      utils.cutAfterJSON('{"a": 1,{ "b": 1}');
+      utils.cutAfterJS('{"a": 1,{ "b": 1}');
     }, /Can't cut unsupported JSON \(no matching closing bracket found\)/);
   });
 });
@@ -178,6 +215,117 @@ describe('utils.checkForUpdates', () => {
       assert.ok(/Error checking for updates/.test(warnSpy.firstCall.args[0]));
       assert.ok(/Status code: 403/.test(warnSpy.firstCall.args[1]));
     });
+  });
+});
+
+describe('utils.isIPv6', () => {
+  it('returns true for valid IPv6 net', () => {
+    assert.ok(utils.isIPv6('100::/128'));
+    assert.ok(utils.isIPv6('100::/119'));
+    assert.ok(utils.isIPv6('100::/13'));
+    assert.ok(utils.isIPv6('100::/1'));
+    assert.ok(utils.isIPv6('20a::/13'));
+    assert.ok(utils.isIPv6('0064:ff9b:0000:0000:0000:0000:1234:5678/13'));
+    assert.ok(utils.isIPv6('0064:ff9b:0001:1122:0033:4400:0000:0001/13'));
+    assert.ok(utils.isIPv6('fe80:4:6c:8c74:0000:5efe:afef:a89/13'));
+    assert.ok(utils.isIPv6('fe80:4:6c:8c74:0000:5efe::a89/13'));
+    assert.ok(utils.isIPv6('fe80:4:6c:8c74:0000::a89/13'));
+    assert.ok(utils.isIPv6('fe80:4:6c:8c74::a89/13'));
+    assert.ok(utils.isIPv6('fe80:4:6c::a89/13'));
+    assert.ok(utils.isIPv6('fe80:4::a89/13'));
+    assert.ok(utils.isIPv6('fe80::a89/13'));
+    assert.ok(utils.isIPv6('fe80::/13'));
+    assert.ok(utils.isIPv6('fea3:c65:43ee:54:e2a:2357:4ac4:732/13'));
+    assert.ok(utils.isIPv6('fe80:1234:abc/13'));
+    assert.ok(utils.isIPv6('20a:1234::1/13'));
+  });
+
+  it('returns false for valid but unwanted IPv6 net', () => {
+    assert.ok(!utils.isIPv6('::/1'));
+    assert.ok(!utils.isIPv6('::1/1'));
+    assert.ok(!utils.isIPv6('::ffff:10.0.0.3/1'));
+    assert.ok(!utils.isIPv6('::10.0.0.3/1'));
+    assert.ok(!utils.isIPv6('127.0.0.1/1'));
+    assert.ok(!utils.isIPv6('24a6:57:c:36cf:0000:5efe:109.205.140.116/64'));
+  });
+
+  it('returns false for invalid IPv6 net', () => {
+    assert.ok(!utils.isIPv6('100::/129'));
+    assert.ok(!utils.isIPv6('100::/130'));
+    assert.ok(!utils.isIPv6('100::/abc'));
+    assert.ok(!utils.isIPv6('100::'));
+    assert.ok(!utils.isIPv6('fe80:4::8c74::5efe:afef:a89/64'));
+    assert.ok(!utils.isIPv6('24a6:57:c:36cf:0000:5efe:ab:cd:ef/64'));
+    assert.ok(!utils.isIPv6('24a6:57:c:36cf:0000:5efe::ab:cd/64'));
+  });
+});
+
+describe('utils.getRandomIPv6', () => {
+  it('errors for completely invalid ipv6', () => {
+    assert.throws(() => {
+      utils.getRandomIPv6('some random string');
+    }, /Invalid IPv6 format/);
+  });
+
+  it('errors for invalid subnet sizes', () => {
+    assert.throws(() => {
+      utils.getRandomIPv6('fe80::/300');
+    }, /Invalid IPv6 format/);
+    assert.throws(() => {
+      utils.getRandomIPv6('127::1/1');
+    }, /Invalid IPv6 subnet/);
+    assert.throws(() => {
+      utils.getRandomIPv6('fe80::');
+    }, /Invalid IPv6 format/);
+    assert.throws(() => {
+      utils.getRandomIPv6('fe80::/ff');
+    }, /Invalid IPv6 format/);
+  });
+
+  it('keeps the upper bits of the subnet', () => {
+    for (let i = 24; i < 128; i++) {
+      const ip = utils.getRandomIPv6(`ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff/${i}`);
+      const bits = ip.split(':').map(x => parseInt(x, 16).toString(2)).join('');
+      assert.equal(bits.substr(0, i), '1'.repeat(i));
+    }
+  });
+
+  it('rolls random bits for the lower bits', () => {
+    // Only testing to 64 and not 128
+    // The second part of the random IP is tested to not be only onces
+    // and rolling 8 full 0xff bytes should be unlikely enough
+    for (let i = 24; i < 64; i++) {
+      const ip = utils.getRandomIPv6(`ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff/${i}`);
+      const bits = ip.split(':').map(x => parseInt(x, 16).toString(2)).join('');
+      assert.ok(bits.substr(i).split('').some(x => x === '0'));
+    }
+  });
+});
+
+describe('utils.normalizeIP', () => {
+  it('does work for already expanded ips', () => {
+    assert.deepEqual(utils.normalizeIP('1:2:3:4:5:6:7:8'), [1, 2, 3, 4, 5, 6, 7, 8]);
+  });
+
+  it('resolves bytes to integers', () => {
+    assert.deepEqual(utils.normalizeIP('ffff'), [65535, 0, 0, 0, 0, 0, 0, 0]);
+  });
+
+  it('expands ::', () => {
+    assert.deepEqual(utils.normalizeIP('ab::cd'), [171, 0, 0, 0, 0, 0, 0, 205]);
+    assert.deepEqual(utils.normalizeIP('ab:cd::ef'), [171, 205, 0, 0, 0, 0, 0, 239]);
+    assert.deepEqual(utils.normalizeIP('ab:cd::12:ef'), [171, 205, 0, 0, 0, 0, 18, 239]);
+    assert.deepEqual(utils.normalizeIP('ab:cd::'), [171, 205, 0, 0, 0, 0, 0, 0]);
+    assert.deepEqual(utils.normalizeIP('123::'), [291, 0, 0, 0, 0, 0, 0, 0]);
+    assert.deepEqual(utils.normalizeIP('0::'), [0, 0, 0, 0, 0, 0, 0, 0]);
+    assert.deepEqual(utils.normalizeIP('::'), [0, 0, 0, 0, 0, 0, 0, 0]);
+    assert.deepEqual(utils.normalizeIP('::ab:cd'), [0, 0, 0, 0, 0, 0, 171, 205]);
+  });
+
+  it('does handle invalid ips', () => {
+    assert.deepEqual(utils.normalizeIP('1:2:3:4:5::6:7:8::'), [1, 2, 3, 4, 5, 6, 7, 8]);
+    assert.deepEqual(utils.normalizeIP('::1:2:3:4:5:6:7:8'), [1, 2, 3, 4, 5, 6, 7, 8]);
+    assert.deepEqual(utils.normalizeIP('1:2:3:4:5::6:7:8:9:10'), [1, 2, 3, 6, 7, 8, 9, 16]);
   });
 });
 

@@ -1,0 +1,2499 @@
+{
+  "page": "watch",
+  "player_response": {
+    "responseContext": {
+      "serviceTrackingParams": [
+        {
+          "service": "GFEEDBACK",
+          "params": [
+            {
+              "key": "is_viewed_live",
+              "value": "False"
+            },
+            {
+              "key": "logged_in",
+              "value": "0"
+            },
+            {
+              "key": "country-type",
+              "value": "B"
+            },
+            {
+              "key": "e",
+              "value": "24056274,23968386,24100822,24002025,24113132,23882685,24049820,24095153,24045476,24002922,24101841,24077266,24111735,24028143,23990877,24005533,24110262,23744176,24070548,24058380,24590263,24102313,23944779,23857949,24045475,24007246,24105160,24004644,24077241,23946420,24082661,24085811,24001373,23975059,1714241,23998056,24036947,24094715,24106092,24064555,23986017,24088877,24106839,23918597,24054381,24080738,24104314,23966208,24111165,23804281,23884386,24002022,23983296,24007790,23858057,23934970,24034168,24001037"
+            }
+          ]
+        },
+        {
+          "service": "CSI",
+          "params": [
+            {
+              "key": "c",
+              "value": "WEB"
+            },
+            {
+              "key": "cver",
+              "value": "2.20211008.01.00"
+            },
+            {
+              "key": "yt_li",
+              "value": "0"
+            },
+            {
+              "key": "GetPlayer_rid",
+              "value": "0x7f1961ad1a6ad869"
+            }
+          ]
+        },
+        {
+          "service": "GUIDED_HELP",
+          "params": [
+            {
+              "key": "logged_in",
+              "value": "0"
+            }
+          ]
+        },
+        {
+          "service": "ECATCHER",
+          "params": [
+            {
+              "key": "client.version",
+              "value": "2.20211008"
+            },
+            {
+              "key": "client.name",
+              "value": "WEB"
+            }
+          ]
+        }
+      ],
+      "mainAppWebResponseContext": {
+        "loggedOut": true
+      },
+      "webResponseContextExtensionData": {
+        "hasDecorated": true
+      }
+    },
+    "playabilityStatus": {
+      "status": "LOGIN_REQUIRED",
+      "reason": "Đăng nhập để xác nhận tuổi của bạn",
+      "errorScreen": {
+        "playerErrorMessageRenderer": {
+          "subreason": {
+            "runs": [
+              {
+                "text": "Video này có thể không phù hợp với một số người dùng."
+              }
+            ]
+          },
+          "reason": {
+            "simpleText": "Đăng nhập để xác nhận tuổi của bạn"
+          },
+          "proceedButton": {
+            "buttonRenderer": {
+              "style": "STYLE_OVERLAY",
+              "size": "SIZE_DEFAULT",
+              "isDisabled": false,
+              "text": {
+                "simpleText": "Đăng nhập"
+              },
+              "navigationEndpoint": {
+                "clickTrackingParams": "CAEQ8FsiEwiWm4vKh7zzAhXSKGAKHdnLD98=",
+                "commandMetadata": {
+                  "webCommandMetadata": {
+                    "url": "https://accounts.google.com/ServiceLogin?service=youtube&uilel=3&passive=true&continue=https%3A%2F%2Fwww.youtube.com%2Fsignin%3Faction_handle_signin%3Dtrue%26app%3Ddesktop%26hl%3Dvi%26next%3D%252Fwatch%253Fv%253DCsrfovOPcjk%2526hl%253Dvi-VN&hl=vi",
+                    "webPageType": "WEB_PAGE_TYPE_UNKNOWN",
+                    "rootVe": 83769
+                  }
+                },
+                "signInEndpoint": {
+                  "nextEndpoint": {
+                    "clickTrackingParams": "CAEQ8FsiEwiWm4vKh7zzAhXSKGAKHdnLD98=",
+                    "commandMetadata": {
+                      "webCommandMetadata": {
+                        "url": "/watch?v=CsrfovOPcjk&hl=vi-VN",
+                        "webPageType": "WEB_PAGE_TYPE_UNKNOWN",
+                        "rootVe": 83769
+                      }
+                    },
+                    "urlEndpoint": {
+                      "url": "/watch?v=CsrfovOPcjk&hl=vi-VN"
+                    }
+                  }
+                }
+              },
+              "trackingParams": "CAEQ8FsiEwiWm4vKh7zzAhXSKGAKHdnLD98="
+            }
+          },
+          "thumbnail": {
+            "thumbnails": [
+              {
+                "url": "//s.ytimg.com/yts/img/meh7-vflGevej7.png",
+                "width": 140,
+                "height": 100
+              }
+            ]
+          },
+          "icon": {
+            "iconType": "ERROR_OUTLINE"
+          }
+        }
+      },
+      "desktopLegacyAgeGateReason": 1,
+      "contextParams": "Q0FFU0FnZ0I="
+    },
+    "videoDetails": {
+      "videoId": "CsrfovOPcjk",
+      "title": "Who the Fuck is Alice?",
+      "lengthSeconds": "237",
+      "keywords": [
+        "who",
+        "the",
+        "fuck",
+        "is",
+        "alice",
+        "smokie",
+        "chubby",
+        "brown"
+      ],
+      "channelId": "UCjO6EWYEqXL2_4IHuKXxirA",
+      "isOwnerViewing": false,
+      "shortDescription": "The well known famous song. Enjoy",
+      "isCrawlable": true,
+      "thumbnail": {
+        "thumbnails": [
+          {
+            "url": "https://i.ytimg.com/vi/CsrfovOPcjk/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLASVq_1aNb3ArxmN-8DSzNHAru98w",
+            "width": 168,
+            "height": 94
+          },
+          {
+            "url": "https://i.ytimg.com/vi/CsrfovOPcjk/hqdefault.jpg?sqp=-oaymwEbCMQBEG5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLCmpLZTY6azPTGdKogUft3mk-JAUg",
+            "width": 196,
+            "height": 110
+          },
+          {
+            "url": "https://i.ytimg.com/vi/CsrfovOPcjk/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCYm6kapBNOhNqn2DRFdgtt6eanOg",
+            "width": 246,
+            "height": 138
+          },
+          {
+            "url": "https://i.ytimg.com/vi/CsrfovOPcjk/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDyMrMB6x1Lj_mJ927pJ59WYp7C6w",
+            "width": 336,
+            "height": 188
+          }
+        ]
+      },
+      "averageRating": 4.8080349,
+      "allowRatings": true,
+      "viewCount": "11579654",
+      "author": "RescoeZ",
+      "isPrivate": false,
+      "isUnpluggedCorpus": false,
+      "isLiveContent": false
+    },
+    "microformat": {
+      "playerMicroformatRenderer": {
+        "thumbnail": {
+          "thumbnails": [
+            {
+              "url": "https://i.ytimg.com/vi/CsrfovOPcjk/hqdefault.jpg",
+              "width": 480,
+              "height": 360
+            }
+          ]
+        },
+        "embed": {
+          "iframeUrl": "https://www.youtube.com/embed/CsrfovOPcjk",
+          "flashUrl": "http://www.youtube.com/v/CsrfovOPcjk?version=3&autohide=1",
+          "width": 480,
+          "height": 360,
+          "flashSecureUrl": "https://www.youtube.com/v/CsrfovOPcjk?version=3&autohide=1"
+        },
+        "title": {
+          "simpleText": "Who the Fuck is Alice?"
+        },
+        "description": {
+          "simpleText": "The well known famous song. Enjoy"
+        },
+        "lengthSeconds": "237",
+        "ownerProfileUrl": "http://www.youtube.com/user/RescoeZ",
+        "externalChannelId": "UCjO6EWYEqXL2_4IHuKXxirA",
+        "isFamilySafe": false,
+        "isUnlisted": false,
+        "hasYpcMetadata": false,
+        "viewCount": "11579654",
+        "category": "Comedy",
+        "publishDate": "2007-04-04",
+        "ownerChannelName": "RescoeZ",
+        "uploadDate": "2007-04-04"
+      }
+    },
+    "trackingParams": "CAAQu2kiEwiWm4vKh7zzAhXSKGAKHdnLD98=",
+    "frameworkUpdates": {
+      "entityBatchUpdate": {
+        "mutations": [
+          {
+            "entityKey": "Eg0KC0NzcmZvdk9QY2prIPYBKAE%3D",
+            "type": "ENTITY_MUTATION_TYPE_REPLACE",
+            "payload": {
+              "offlineabilityEntity": {
+                "key": "Eg0KC0NzcmZvdk9QY2prIPYBKAE%3D",
+                "accessState": "OFFLINEABILITY_FEATURE_ACCESS_STATE_UNKNOWN"
+              }
+            }
+          }
+        ],
+        "timestamp": {
+          "seconds": "1633738874",
+          "nanos": 369666416
+        }
+      }
+    }
+  },
+  "response": {
+    "responseContext": {
+      "serviceTrackingParams": [
+        {
+          "service": "CSI",
+          "params": [
+            {
+              "key": "c",
+              "value": "WEB"
+            },
+            {
+              "key": "cver",
+              "value": "2.20211008.01.00"
+            },
+            {
+              "key": "yt_li",
+              "value": "0"
+            },
+            {
+              "key": "GetWatchNext_rid",
+              "value": "0x7f1961ad1a6ad869"
+            }
+          ]
+        },
+        {
+          "service": "GFEEDBACK",
+          "params": [
+            {
+              "key": "logged_in",
+              "value": "0"
+            },
+            {
+              "key": "country-type",
+              "value": "B"
+            },
+            {
+              "key": "e",
+              "value": "24105160,23858057,23966208,24054381,24080738,24111165,23804281,23983296,24085811,24056274,24002025,24113132,23986017,24106839,23946420,23882685,24005533,24100822,24002922,23884386,23975059,24088877,23990877,24034168,24104314,24077266,24058380,23857949,24070548,24102313,24001373,23968386,24590263,24004644,23944779,24045476,24007246,24077241,24045475,24036947,24110262,23998056,24064555,24082661,24049820,1714241,24106092,24095153,24111735,24028143,24007790,23934970,23744176,24001037,24002022,23918597,24101841"
+            }
+          ]
+        },
+        {
+          "service": "GUIDED_HELP",
+          "params": [
+            {
+              "key": "logged_in",
+              "value": "0"
+            }
+          ]
+        },
+        {
+          "service": "ECATCHER",
+          "params": [
+            {
+              "key": "client.version",
+              "value": "2.20211008"
+            },
+            {
+              "key": "client.name",
+              "value": "WEB"
+            }
+          ]
+        }
+      ],
+      "mainAppWebResponseContext": {
+        "loggedOut": true
+      },
+      "webResponseContextExtensionData": {
+        "ytConfigData": {
+          "visitorData": "CgtseDBkd29zb2xLSSj6wIOLBg%3D%3D",
+          "rootVisualElementType": 3832
+        },
+        "hasDecorated": true
+      }
+    },
+    "contents": {
+      "twoColumnWatchNextResults": {
+        "results": {
+          "results": {
+            "contents": [
+              {
+                "videoPrimaryInfoRenderer": {
+                  "title": {
+                    "runs": [
+                      {
+                        "text": "Who the Fuck is Alice?"
+                      }
+                    ]
+                  },
+                  "viewCount": {
+                    "videoViewCountRenderer": {
+                      "viewCount": {
+                        "simpleText": "11.579.654 lượt xem"
+                      },
+                      "shortViewCount": {
+                        "simpleText": "11 Tr lượt xem"
+                      }
+                    }
+                  },
+                  "videoActions": {
+                    "menuRenderer": {
+                      "items": [
+                        {
+                          "menuNavigationItemRenderer": {
+                            "text": {
+                              "runs": [
+                                {
+                                  "text": "Báo vi phạm"
+                                }
+                              ]
+                            },
+                            "icon": {
+                              "iconType": "FLAG"
+                            },
+                            "navigationEndpoint": {
+                              "clickTrackingParams": "CCUQzKsBGAAiEwj4lIvKh7zzAhV3zEwCHbmFBAw=",
+                              "commandMetadata": {
+                                "webCommandMetadata": {
+                                  "ignoreNavigation": true
+                                }
+                              },
+                              "modalEndpoint": {
+                                "modal": {
+                                  "modalWithTitleAndButtonRenderer": {
+                                    "title": {
+                                      "runs": [
+                                        {
+                                          "text": "Bạn cần báo cáo video?"
+                                        }
+                                      ]
+                                    },
+                                    "content": {
+                                      "runs": [
+                                        {
+                                          "text": "Đăng nhập để báo cáo nội dung không phù hợp."
+                                        }
+                                      ]
+                                    },
+                                    "button": {
+                                      "buttonRenderer": {
+                                        "style": "STYLE_BLUE_TEXT",
+                                        "size": "SIZE_DEFAULT",
+                                        "isDisabled": false,
+                                        "text": {
+                                          "simpleText": "Đăng nhập"
+                                        },
+                                        "navigationEndpoint": {
+                                          "clickTrackingParams": "CCwQ8FsiEwj4lIvKh7zzAhV3zEwCHbmFBAw=",
+                                          "commandMetadata": {
+                                            "webCommandMetadata": {
+                                              "url": "https://accounts.google.com/ServiceLogin?service=youtube&uilel=3&passive=true&continue=https%3A%2F%2Fwww.youtube.com%2Fsignin%3Faction_handle_signin%3Dtrue%26app%3Ddesktop%26hl%3Dvi%26next%3Dhttps%253A%252F%252Fwww.youtube.com%252Fwatch%253Fv%253DCsrfovOPcjk%2526hl%253Dvi-VN&hl=vi",
+                                              "webPageType": "WEB_PAGE_TYPE_UNKNOWN",
+                                              "rootVe": 83769
+                                            }
+                                          },
+                                          "signInEndpoint": {
+                                            "hack": true
+                                          }
+                                        },
+                                        "trackingParams": "CCwQ8FsiEwj4lIvKh7zzAhV3zEwCHbmFBAw="
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "trackingParams": "CCUQzKsBGAAiEwj4lIvKh7zzAhV3zEwCHbmFBAw="
+                          }
+                        },
+                        {
+                          "menuServiceItemRenderer": {
+                            "text": {
+                              "runs": [
+                                {
+                                  "text": "Mở bản chép lời"
+                                }
+                              ]
+                            },
+                            "icon": {
+                              "iconType": "SUBTITLES"
+                            },
+                            "serviceEndpoint": {
+                              "clickTrackingParams": "CCUQzKsBGAAiEwj4lIvKh7zzAhV3zEwCHbmFBAw=",
+                              "commandMetadata": {
+                                "webCommandMetadata": {
+                                  "sendPost": true
+                                }
+                              },
+                              "signalServiceEndpoint": {
+                                "signal": "CLIENT_SIGNAL",
+                                "actions": [
+                                  {
+                                    "clickTrackingParams": "CCUQzKsBGAAiEwj4lIvKh7zzAhV3zEwCHbmFBAw=",
+                                    "changeEngagementPanelVisibilityAction": {
+                                      "targetId": "engagement-panel-transcript",
+                                      "visibility": "ENGAGEMENT_PANEL_VISIBILITY_EXPANDED"
+                                    }
+                                  }
+                                ]
+                              }
+                            },
+                            "trackingParams": "CCUQzKsBGAAiEwj4lIvKh7zzAhV3zEwCHbmFBAw="
+                          }
+                        }
+                      ],
+                      "trackingParams": "CCUQzKsBGAAiEwj4lIvKh7zzAhV3zEwCHbmFBAw=",
+                      "topLevelButtons": [
+                        {
+                          "toggleButtonRenderer": {
+                            "style": {
+                              "styleType": "STYLE_TEXT"
+                            },
+                            "isToggled": false,
+                            "isDisabled": false,
+                            "defaultIcon": {
+                              "iconType": "LIKE"
+                            },
+                            "defaultText": {
+                              "accessibility": {
+                                "accessibilityData": {
+                                  "label": "50.664 lượt thích"
+                                }
+                              },
+                              "simpleText": "50 N"
+                            },
+                            "toggledText": {
+                              "accessibility": {
+                                "accessibilityData": {
+                                  "label": "50.665 lượt thích"
+                                }
+                              },
+                              "simpleText": "50 N"
+                            },
+                            "accessibility": {
+                              "label": "và 50.664 người khác thích video này"
+                            },
+                            "trackingParams": "CCoQmE0YAiITCPiUi8qHvPMCFXfMTAIduYUEDA==",
+                            "defaultTooltip": "Tôi thích video này",
+                            "toggledTooltip": "Bỏ thích",
+                            "toggledStyle": {
+                              "styleType": "STYLE_DEFAULT_ACTIVE"
+                            },
+                            "defaultNavigationEndpoint": {
+                              "clickTrackingParams": "CCoQmE0YAiITCPiUi8qHvPMCFXfMTAIduYUEDA==",
+                              "commandMetadata": {
+                                "webCommandMetadata": {
+                                  "ignoreNavigation": true
+                                }
+                              },
+                              "modalEndpoint": {
+                                "modal": {
+                                  "modalWithTitleAndButtonRenderer": {
+                                    "title": {
+                                      "simpleText": "Bạn thích video này?"
+                                    },
+                                    "content": {
+                                      "simpleText": "Đăng nhập để thể hiện ý kiến của bạn."
+                                    },
+                                    "button": {
+                                      "buttonRenderer": {
+                                        "style": "STYLE_BLUE_TEXT",
+                                        "size": "SIZE_DEFAULT",
+                                        "isDisabled": false,
+                                        "text": {
+                                          "simpleText": "Đăng nhập"
+                                        },
+                                        "navigationEndpoint": {
+                                          "clickTrackingParams": "CCsQ-oYEIhMI-JSLyoe88wIVd8xMAh25hQQM",
+                                          "commandMetadata": {
+                                            "webCommandMetadata": {
+                                              "url": "https://accounts.google.com/ServiceLogin?service=youtube&uilel=3&passive=true&continue=https%3A%2F%2Fwww.youtube.com%2Fsignin%3Faction_handle_signin%3Dtrue%26app%3Ddesktop%26hl%3Dvi%26next%3D%252Fwatch%253Fv%253DCsrfovOPcjk&hl=vi&ec=66426",
+                                              "webPageType": "WEB_PAGE_TYPE_UNKNOWN",
+                                              "rootVe": 83769
+                                            }
+                                          },
+                                          "signInEndpoint": {
+                                            "nextEndpoint": {
+                                              "clickTrackingParams": "CCsQ-oYEIhMI-JSLyoe88wIVd8xMAh25hQQM",
+                                              "commandMetadata": {
+                                                "webCommandMetadata": {
+                                                  "url": "/watch?v=CsrfovOPcjk",
+                                                  "webPageType": "WEB_PAGE_TYPE_WATCH",
+                                                  "rootVe": 3832
+                                                }
+                                              },
+                                              "watchEndpoint": {
+                                                "videoId": "CsrfovOPcjk",
+                                                "watchEndpointSupportedOnesieConfig": {
+                                                  "html5PlaybackOnesieConfig": {
+                                                    "commonConfig": {
+                                                      "url": "https://r4---sn-8qj-i5ozz.googlevideo.com/initplayback?source=youtube&orc=1&oeis=1&c=WEB&oad=3200&ovd=3200&oaad=11000&oavd=11000&ocs=700&oewis=1&oputc=1&ofpcc=1&msp=1&odeak=1&odepv=1&osfc=1&ip=0.0.0.0&id=0acadfa2f38f7239&initcwndbps=1955000&mt=1633738631&oweuc="
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            },
+                                            "idamTag": "66426"
+                                          }
+                                        },
+                                        "trackingParams": "CCsQ-oYEIhMI-JSLyoe88wIVd8xMAh25hQQM"
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "accessibilityData": {
+                              "accessibilityData": {
+                                "label": "và 50.664 người khác thích video này"
+                              }
+                            },
+                            "toggleButtonSupportedData": {
+                              "toggleButtonIdData": {
+                                "id": "TOGGLE_BUTTON_ID_TYPE_LIKE"
+                              }
+                            },
+                            "targetId": "watch-like"
+                          }
+                        },
+                        {
+                          "toggleButtonRenderer": {
+                            "style": {
+                              "styleType": "STYLE_TEXT"
+                            },
+                            "isToggled": false,
+                            "isDisabled": false,
+                            "defaultIcon": {
+                              "iconType": "DISLIKE"
+                            },
+                            "defaultText": {
+                              "accessibility": {
+                                "accessibilityData": {
+                                  "label": "2.554 lượt không thích"
+                                }
+                              },
+                              "simpleText": "2,5 N"
+                            },
+                            "toggledText": {
+                              "accessibility": {
+                                "accessibilityData": {
+                                  "label": "2.555 lượt không thích"
+                                }
+                              },
+                              "simpleText": "2,5 N"
+                            },
+                            "accessibility": {
+                              "label": "và 2.554 người khác không thích video này"
+                            },
+                            "trackingParams": "CCgQmE0YAyITCPiUi8qHvPMCFXfMTAIduYUEDA==",
+                            "defaultTooltip": "Tôi không thích video này",
+                            "toggledTooltip": "Tôi không thích video này",
+                            "toggledStyle": {
+                              "styleType": "STYLE_DEFAULT_ACTIVE"
+                            },
+                            "defaultNavigationEndpoint": {
+                              "clickTrackingParams": "CCgQmE0YAyITCPiUi8qHvPMCFXfMTAIduYUEDA==",
+                              "commandMetadata": {
+                                "webCommandMetadata": {
+                                  "ignoreNavigation": true
+                                }
+                              },
+                              "modalEndpoint": {
+                                "modal": {
+                                  "modalWithTitleAndButtonRenderer": {
+                                    "title": {
+                                      "simpleText": "Bạn không thích video này?"
+                                    },
+                                    "content": {
+                                      "simpleText": "Đăng nhập để thể hiện ý kiến của bạn."
+                                    },
+                                    "button": {
+                                      "buttonRenderer": {
+                                        "style": "STYLE_BLUE_TEXT",
+                                        "size": "SIZE_DEFAULT",
+                                        "isDisabled": false,
+                                        "text": {
+                                          "simpleText": "Đăng nhập"
+                                        },
+                                        "navigationEndpoint": {
+                                          "clickTrackingParams": "CCkQ-YYEIhMI-JSLyoe88wIVd8xMAh25hQQM",
+                                          "commandMetadata": {
+                                            "webCommandMetadata": {
+                                              "url": "https://accounts.google.com/ServiceLogin?service=youtube&uilel=3&passive=true&continue=https%3A%2F%2Fwww.youtube.com%2Fsignin%3Faction_handle_signin%3Dtrue%26app%3Ddesktop%26hl%3Dvi%26next%3D%252Fwatch%253Fv%253DCsrfovOPcjk&hl=vi&ec=66425",
+                                              "webPageType": "WEB_PAGE_TYPE_UNKNOWN",
+                                              "rootVe": 83769
+                                            }
+                                          },
+                                          "signInEndpoint": {
+                                            "nextEndpoint": {
+                                              "clickTrackingParams": "CCkQ-YYEIhMI-JSLyoe88wIVd8xMAh25hQQM",
+                                              "commandMetadata": {
+                                                "webCommandMetadata": {
+                                                  "url": "/watch?v=CsrfovOPcjk",
+                                                  "webPageType": "WEB_PAGE_TYPE_WATCH",
+                                                  "rootVe": 3832
+                                                }
+                                              },
+                                              "watchEndpoint": {
+                                                "videoId": "CsrfovOPcjk",
+                                                "watchEndpointSupportedOnesieConfig": {
+                                                  "html5PlaybackOnesieConfig": {
+                                                    "commonConfig": {
+                                                      "url": "https://r4---sn-8qj-i5ozz.googlevideo.com/initplayback?source=youtube&orc=1&oeis=1&c=WEB&oad=3200&ovd=3200&oaad=11000&oavd=11000&ocs=700&oewis=1&oputc=1&ofpcc=1&msp=1&odeak=1&odepv=1&osfc=1&ip=0.0.0.0&id=0acadfa2f38f7239&initcwndbps=1955000&mt=1633738631&oweuc="
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            },
+                                            "idamTag": "66425"
+                                          }
+                                        },
+                                        "trackingParams": "CCkQ-YYEIhMI-JSLyoe88wIVd8xMAh25hQQM"
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "accessibilityData": {
+                              "accessibilityData": {
+                                "label": "và 2.554 người khác không thích video này"
+                              }
+                            },
+                            "toggleButtonSupportedData": {
+                              "toggleButtonIdData": {
+                                "id": "TOGGLE_BUTTON_ID_TYPE_DISLIKE"
+                              }
+                            },
+                            "targetId": "watch-dislike"
+                          }
+                        },
+                        {
+                          "buttonRenderer": {
+                            "style": "STYLE_DEFAULT",
+                            "size": "SIZE_DEFAULT",
+                            "isDisabled": false,
+                            "text": {
+                              "runs": [
+                                {
+                                  "text": "Lưu"
+                                }
+                              ]
+                            },
+                            "icon": {
+                              "iconType": "PLAYLIST_ADD"
+                            },
+                            "navigationEndpoint": {
+                              "clickTrackingParams": "CCYQ8FsYBCITCPiUi8qHvPMCFXfMTAIduYUEDA==",
+                              "commandMetadata": {
+                                "webCommandMetadata": {
+                                  "ignoreNavigation": true
+                                }
+                              },
+                              "modalEndpoint": {
+                                "modal": {
+                                  "modalWithTitleAndButtonRenderer": {
+                                    "title": {
+                                      "runs": [
+                                        {
+                                          "text": "Bạn muốn xem lại video này sau?"
+                                        }
+                                      ]
+                                    },
+                                    "content": {
+                                      "runs": [
+                                        {
+                                          "text": "Hãy đăng nhập để thêm video này vào danh sách phát."
+                                        }
+                                      ]
+                                    },
+                                    "button": {
+                                      "buttonRenderer": {
+                                        "style": "STYLE_BLUE_TEXT",
+                                        "size": "SIZE_DEFAULT",
+                                        "isDisabled": false,
+                                        "text": {
+                                          "simpleText": "Đăng nhập"
+                                        },
+                                        "navigationEndpoint": {
+                                          "clickTrackingParams": "CCcQ-4YEIhMI-JSLyoe88wIVd8xMAh25hQQM",
+                                          "commandMetadata": {
+                                            "webCommandMetadata": {
+                                              "url": "https://accounts.google.com/ServiceLogin?service=youtube&uilel=3&passive=true&continue=https%3A%2F%2Fwww.youtube.com%2Fsignin%3Faction_handle_signin%3Dtrue%26app%3Ddesktop%26hl%3Dvi%26next%3D%252Fwatch%253Fv%253DCsrfovOPcjk&hl=vi&ec=66427",
+                                              "webPageType": "WEB_PAGE_TYPE_UNKNOWN",
+                                              "rootVe": 83769
+                                            }
+                                          },
+                                          "signInEndpoint": {
+                                            "nextEndpoint": {
+                                              "clickTrackingParams": "CCcQ-4YEIhMI-JSLyoe88wIVd8xMAh25hQQM",
+                                              "commandMetadata": {
+                                                "webCommandMetadata": {
+                                                  "url": "/watch?v=CsrfovOPcjk",
+                                                  "webPageType": "WEB_PAGE_TYPE_WATCH",
+                                                  "rootVe": 3832
+                                                }
+                                              },
+                                              "watchEndpoint": {
+                                                "videoId": "CsrfovOPcjk",
+                                                "watchEndpointSupportedOnesieConfig": {
+                                                  "html5PlaybackOnesieConfig": {
+                                                    "commonConfig": {
+                                                      "url": "https://r4---sn-8qj-i5ozz.googlevideo.com/initplayback?source=youtube&orc=1&oeis=1&c=WEB&oad=3200&ovd=3200&oaad=11000&oavd=11000&ocs=700&oewis=1&oputc=1&ofpcc=1&msp=1&odeak=1&odepv=1&osfc=1&ip=0.0.0.0&id=0acadfa2f38f7239&initcwndbps=1955000&mt=1633738631&oweuc="
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            },
+                                            "idamTag": "66427"
+                                          }
+                                        },
+                                        "trackingParams": "CCcQ-4YEIhMI-JSLyoe88wIVd8xMAh25hQQM"
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "accessibility": {
+                              "label": "Lưu vào"
+                            },
+                            "tooltip": "Lưu",
+                            "trackingParams": "CCYQ8FsYBCITCPiUi8qHvPMCFXfMTAIduYUEDA==",
+                            "accessibilityData": {
+                              "accessibilityData": {
+                                "label": "Lưu vào danh sách phát"
+                              }
+                            }
+                          }
+                        }
+                      ],
+                      "accessibility": {
+                        "accessibilityData": {
+                          "label": "Thao tác khác"
+                        }
+                      }
+                    }
+                  },
+                  "trackingParams": "CCUQzKsBGAAiEwj4lIvKh7zzAhV3zEwCHbmFBAw=",
+                  "sentimentBar": {
+                    "sentimentBarRenderer": {
+                      "percentIfIndifferent": 95,
+                      "percentIfLiked": 95,
+                      "percentIfDisliked": 95,
+                      "likeStatus": "INDIFFERENT",
+                      "tooltip": "50.664 / 2.554"
+                    }
+                  },
+                  "dateText": {
+                    "simpleText": "4 thg 4, 2007"
+                  }
+                }
+              },
+              {
+                "videoSecondaryInfoRenderer": {
+                  "owner": {
+                    "videoOwnerRenderer": {
+                      "thumbnail": {
+                        "thumbnails": [
+                          {
+                            "url": "https://yt3.ggpht.com/ytc/AKedOLTh1bivVemDLTmmTz8gMNElATcocvksecQ9e01H-w=s48-c-k-c0x00ffffff-no-rj",
+                            "width": 48,
+                            "height": 48
+                          },
+                          {
+                            "url": "https://yt3.ggpht.com/ytc/AKedOLTh1bivVemDLTmmTz8gMNElATcocvksecQ9e01H-w=s88-c-k-c0x00ffffff-no-rj",
+                            "width": 88,
+                            "height": 88
+                          },
+                          {
+                            "url": "https://yt3.ggpht.com/ytc/AKedOLTh1bivVemDLTmmTz8gMNElATcocvksecQ9e01H-w=s176-c-k-c0x00ffffff-no-rj",
+                            "width": 176,
+                            "height": 176
+                          }
+                        ]
+                      },
+                      "title": {
+                        "runs": [
+                          {
+                            "text": "RescoeZ",
+                            "navigationEndpoint": {
+                              "clickTrackingParams": "CCQQ4TkiEwj4lIvKh7zzAhV3zEwCHbmFBAw=",
+                              "commandMetadata": {
+                                "webCommandMetadata": {
+                                  "url": "/channel/UCjO6EWYEqXL2_4IHuKXxirA",
+                                  "webPageType": "WEB_PAGE_TYPE_CHANNEL",
+                                  "rootVe": 3611,
+                                  "apiUrl": "/youtubei/v1/browse"
+                                }
+                              },
+                              "browseEndpoint": {
+                                "browseId": "UCjO6EWYEqXL2_4IHuKXxirA",
+                                "canonicalBaseUrl": "/channel/UCjO6EWYEqXL2_4IHuKXxirA"
+                              }
+                            }
+                          }
+                        ]
+                      },
+                      "subscriptionButton": {
+                        "type": "FREE"
+                      },
+                      "navigationEndpoint": {
+                        "clickTrackingParams": "CCQQ4TkiEwj4lIvKh7zzAhV3zEwCHbmFBAw=",
+                        "commandMetadata": {
+                          "webCommandMetadata": {
+                            "url": "/channel/UCjO6EWYEqXL2_4IHuKXxirA",
+                            "webPageType": "WEB_PAGE_TYPE_CHANNEL",
+                            "rootVe": 3611,
+                            "apiUrl": "/youtubei/v1/browse"
+                          }
+                        },
+                        "browseEndpoint": {
+                          "browseId": "UCjO6EWYEqXL2_4IHuKXxirA",
+                          "canonicalBaseUrl": "/channel/UCjO6EWYEqXL2_4IHuKXxirA"
+                        }
+                      },
+                      "subscriberCountText": {
+                        "accessibility": {
+                          "accessibilityData": {
+                            "label": "34,2 nghìn người đăng ký"
+                          }
+                        },
+                        "simpleText": "34,2 N người đăng ký"
+                      },
+                      "trackingParams": "CCQQ4TkiEwj4lIvKh7zzAhV3zEwCHbmFBAw="
+                    }
+                  },
+                  "subscribeButton": {
+                    "buttonRenderer": {
+                      "style": "STYLE_DESTRUCTIVE",
+                      "size": "SIZE_DEFAULT",
+                      "isDisabled": false,
+                      "text": {
+                        "runs": [
+                          {
+                            "text": "Đăng ký"
+                          }
+                        ]
+                      },
+                      "navigationEndpoint": {
+                        "clickTrackingParams": "CCIQ8FsiEwj4lIvKh7zzAhV3zEwCHbmFBAw=",
+                        "commandMetadata": {
+                          "webCommandMetadata": {
+                            "ignoreNavigation": true
+                          }
+                        },
+                        "modalEndpoint": {
+                          "modal": {
+                            "modalWithTitleAndButtonRenderer": {
+                              "title": {
+                                "simpleText": "Bạn muốn đăng ký kênh này?"
+                              },
+                              "content": {
+                                "simpleText": "Đăng nhập để đăng ký kênh này."
+                              },
+                              "button": {
+                                "buttonRenderer": {
+                                  "style": "STYLE_BLUE_TEXT",
+                                  "size": "SIZE_DEFAULT",
+                                  "isDisabled": false,
+                                  "text": {
+                                    "simpleText": "Đăng nhập"
+                                  },
+                                  "navigationEndpoint": {
+                                    "clickTrackingParams": "CCMQ_YYEIhMI-JSLyoe88wIVd8xMAh25hQQMMglzdWJzY3JpYmU=",
+                                    "commandMetadata": {
+                                      "webCommandMetadata": {
+                                        "url": "https://accounts.google.com/ServiceLogin?service=youtube&uilel=3&passive=true&continue=https%3A%2F%2Fwww.youtube.com%2Fsignin%3Faction_handle_signin%3Dtrue%26app%3Ddesktop%26hl%3Dvi%26next%3D%252Fwatch%253Fv%253DCsrfovOPcjk%26continue_action%3DQUFFLUhqbElnRDNGT3ROX3puQmtTTXgzZUtIR2RvUVB5d3xBQ3Jtc0trT1FlNmtUbEl6cXZIVjZXR1ViNUVCdHdiN0duOVdwTVktRV8zREFKel9CMllFX1gyaWxOUi00Z0x2dEhySVl6OUN3b0lXZFpBQ3lLSS1PM3hibGVfR1FyNnJpMy1zMldLeTNUS05ZZE1HemE1RmdneXVsN1dwQ3FvTlJRdlkxVkx2RFo0NWhLN2RYcmhIdVVsN2pLS2JIemsyZzl5aTZRMlY4NG5ISERLN0o2U0llcmR4WVlKdTZVby1YZHZzZzgycFFyTm53SERnNXplQ2tOeERmYVN3Q19VSEdn&hl=vi&ec=66429",
+                                        "webPageType": "WEB_PAGE_TYPE_UNKNOWN",
+                                        "rootVe": 83769
+                                      }
+                                    },
+                                    "signInEndpoint": {
+                                      "nextEndpoint": {
+                                        "clickTrackingParams": "CCMQ_YYEIhMI-JSLyoe88wIVd8xMAh25hQQM",
+                                        "commandMetadata": {
+                                          "webCommandMetadata": {
+                                            "url": "/watch?v=CsrfovOPcjk",
+                                            "webPageType": "WEB_PAGE_TYPE_WATCH",
+                                            "rootVe": 3832
+                                          }
+                                        },
+                                        "watchEndpoint": {
+                                          "videoId": "CsrfovOPcjk",
+                                          "watchEndpointSupportedOnesieConfig": {
+                                            "html5PlaybackOnesieConfig": {
+                                              "commonConfig": {
+                                                "url": "https://r4---sn-8qj-i5ozz.googlevideo.com/initplayback?source=youtube&orc=1&oeis=1&c=WEB&oad=3200&ovd=3200&oaad=11000&oavd=11000&ocs=700&oewis=1&oputc=1&ofpcc=1&msp=1&odeak=1&odepv=1&osfc=1&ip=0.0.0.0&id=0acadfa2f38f7239&initcwndbps=1955000&mt=1633738631&oweuc="
+                                              }
+                                            }
+                                          }
+                                        }
+                                      },
+                                      "continueAction": "QUFFLUhqbElnRDNGT3ROX3puQmtTTXgzZUtIR2RvUVB5d3xBQ3Jtc0trT1FlNmtUbEl6cXZIVjZXR1ViNUVCdHdiN0duOVdwTVktRV8zREFKel9CMllFX1gyaWxOUi00Z0x2dEhySVl6OUN3b0lXZFpBQ3lLSS1PM3hibGVfR1FyNnJpMy1zMldLeTNUS05ZZE1HemE1RmdneXVsN1dwQ3FvTlJRdlkxVkx2RFo0NWhLN2RYcmhIdVVsN2pLS2JIemsyZzl5aTZRMlY4NG5ISERLN0o2U0llcmR4WVlKdTZVby1YZHZzZzgycFFyTm53SERnNXplQ2tOeERmYVN3Q19VSEdn",
+                                      "idamTag": "66429"
+                                    }
+                                  },
+                                  "trackingParams": "CCMQ_YYEIhMI-JSLyoe88wIVd8xMAh25hQQM"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "trackingParams": "CCIQ8FsiEwj4lIvKh7zzAhV3zEwCHbmFBAw=",
+                      "targetId": "watch-subscribe"
+                    }
+                  },
+                  "metadataRowContainer": {
+                    "metadataRowContainerRenderer": {
+                      "rows": [
+                        {
+                          "metadataRowRenderer": {
+                            "title": {
+                              "runs": [
+                                {
+                                  "text": "Thông báo"
+                                }
+                              ]
+                            },
+                            "contents": [
+                              {
+                                "runs": [
+                                  {
+                                    "text": "Video bị giới hạn độ tuổi người xem (dựa trên Nguyên tắc cộng đồng)",
+                                    "navigationEndpoint": {
+                                      "clickTrackingParams": "CCEQzasBGAEiEwj4lIvKh7zzAhV3zEwCHbmFBAw=",
+                                      "commandMetadata": {
+                                        "webCommandMetadata": {
+                                          "url": "http://www.youtube.com/t/community_guidelines",
+                                          "webPageType": "WEB_PAGE_TYPE_UNKNOWN",
+                                          "rootVe": 83769
+                                        }
+                                      },
+                                      "urlEndpoint": {
+                                        "url": "http://www.youtube.com/t/community_guidelines"
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            ],
+                            "trackingParams": "CCEQzasBGAEiEwj4lIvKh7zzAhV3zEwCHbmFBAw="
+                          }
+                        }
+                      ],
+                      "collapsedItemCount": 2,
+                      "trackingParams": "CCEQzasBGAEiEwj4lIvKh7zzAhV3zEwCHbmFBAw="
+                    }
+                  },
+                  "showMoreText": {
+                    "simpleText": "Hiện thêm"
+                  },
+                  "showLessText": {
+                    "simpleText": "Ẩn bớt"
+                  },
+                  "trackingParams": "CCEQzasBGAEiEwj4lIvKh7zzAhV3zEwCHbmFBAw=",
+                  "defaultExpanded": false,
+                  "descriptionCollapsedLines": 3
+                }
+              },
+              {
+                "itemSectionRenderer": {
+                  "contents": [
+                    {
+                      "continuationItemRenderer": {
+                        "trigger": "CONTINUATION_TRIGGER_ON_ITEM_SHOWN",
+                        "continuationEndpoint": {
+                          "clickTrackingParams": "CCAQuy8YAiITCPiUi8qHvPMCFXfMTAIduYUEDA==",
+                          "commandMetadata": {
+                            "webCommandMetadata": {
+                              "sendPost": true,
+                              "apiUrl": "/youtubei/v1/next"
+                            }
+                          },
+                          "continuationCommand": {
+                            "token": "Eg0SC0NzcmZvdk9QY2prGAYyJSIRIgtDc3Jmb3ZPUGNqazAAeAJCEGNvbW1lbnRzLXNlY3Rpb24%3D",
+                            "request": "CONTINUATION_REQUEST_TYPE_WATCH_NEXT"
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "trackingParams": "CCAQuy8YAiITCPiUi8qHvPMCFXfMTAIduYUEDA==",
+                  "sectionIdentifier": "comment-item-section",
+                  "targetId": "comments-section"
+                }
+              }
+            ],
+            "trackingParams": "CB8Qui8iEwj4lIvKh7zzAhV3zEwCHbmFBAw="
+          }
+        },
+        "secondaryResults": {
+          "secondaryResults": {
+            "trackingParams": "CB4QqTAiEwj4lIvKh7zzAhV3zEwCHbmFBAw="
+          }
+        }
+      }
+    },
+    "currentVideoEndpoint": {
+      "clickTrackingParams": "CAAQg2ciEwj4lIvKh7zzAhV3zEwCHbmFBAw=",
+      "commandMetadata": {
+        "webCommandMetadata": {
+          "url": "/watch?v=CsrfovOPcjk",
+          "webPageType": "WEB_PAGE_TYPE_WATCH",
+          "rootVe": 3832
+        }
+      },
+      "watchEndpoint": {
+        "videoId": "CsrfovOPcjk",
+        "watchEndpointSupportedOnesieConfig": {
+          "html5PlaybackOnesieConfig": {
+            "commonConfig": {
+              "url": "https://r4---sn-8qj-i5ozz.googlevideo.com/initplayback?source=youtube&orc=1&oeis=1&c=WEB&oad=3200&ovd=3200&oaad=11000&oavd=11000&ocs=700&oewis=1&oputc=1&ofpcc=1&msp=1&odeak=1&odepv=1&osfc=1&ip=0.0.0.0&id=0acadfa2f38f7239&initcwndbps=1955000&mt=1633738631&oweuc="
+            }
+          }
+        }
+      }
+    },
+    "trackingParams": "CAAQg2ciEwj4lIvKh7zzAhV3zEwCHbmFBAw=",
+    "playerOverlays": {
+      "playerOverlayRenderer": {
+        "addToMenu": {
+          "menuRenderer": {
+            "trackingParams": "CAAQg2ciEwj4lIvKh7zzAhV3zEwCHbmFBAw="
+          }
+        },
+        "videoDetails": {
+          "playerOverlayVideoDetailsRenderer": {
+            "title": {
+              "simpleText": "Who the Fuck is Alice?"
+            },
+            "subtitle": {
+              "runs": [
+                {
+                  "text": "RescoeZ"
+                },
+                {
+                  "text": " • "
+                },
+                {
+                  "text": "11.579.654 lượt xem"
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "overlay": {
+      "tooltipRenderer": {
+        "promoConfig": {
+          "promoId": "dtip-si-watch",
+          "impressionEndpoints": [
+            {
+              "clickTrackingParams": "CBwQvJkCIhMI-JSLyoe88wIVd8xMAh25hQQM",
+              "commandMetadata": {
+                "webCommandMetadata": {
+                  "sendPost": true,
+                  "apiUrl": "/youtubei/v1/feedback"
+                }
+              },
+              "feedbackEndpoint": {
+                "feedbackToken": "AB9zfpLgXqnRWG1fwFQUYYBt3huUJto-yd2hhdUh9MYx8HVOTSibHXOXqY5HlhMdrHpkLF7baqwdugxR6SPea3WY1f2-RI6aaT1bLDkp18byiVvo4apnBfGxasped_26sXSWCVMS410mjY0Whj8vm_Exa9qLLdqOyA",
+                "uiActions": {
+                  "hideEnclosingContainer": false
+                }
+              }
+            }
+          ],
+          "acceptCommand": {
+            "clickTrackingParams": "CBwQvJkCIhMI-JSLyoe88wIVd8xMAh25hQQM",
+            "commandMetadata": {
+              "webCommandMetadata": {
+                "sendPost": true,
+                "apiUrl": "/youtubei/v1/feedback"
+              }
+            },
+            "feedbackEndpoint": {
+              "feedbackToken": "AB9zfpJVb0fLIQERn4qL3IYlqtv5ViIWYcsr5SlRvsVb4HylzOf6pFYIvE9LiB0YxFT8kcE3o2FN_zC5meNmX7qoonEWrOgaThGnlKE9iP0bjvTSOa9HqA9XWa-otEmeiAXbMCCba8jg89Z1UkjnkXnn4meOtH0qNQ",
+              "uiActions": {
+                "hideEnclosingContainer": true
+              }
+            }
+          },
+          "dismissCommand": {
+            "clickTrackingParams": "CBwQvJkCIhMI-JSLyoe88wIVd8xMAh25hQQM",
+            "commandMetadata": {
+              "webCommandMetadata": {
+                "sendPost": true,
+                "apiUrl": "/youtubei/v1/feedback"
+              }
+            },
+            "feedbackEndpoint": {
+              "feedbackToken": "AB9zfpK4xSY8JLhlLjjcqRtq14hyOeu7nxF0ZyrNAk5mCvcFgATmshUMxOGfP-l4C_wdPtHXwVE19HSjD-YJYuLrrF9wsoXi-bjWjd2mjjL8er7VSi17z8_vj9GbKQt8GfYerrzgu-TgU-1qqolZvn_41CLbX5BquQ",
+              "uiActions": {
+                "hideEnclosingContainer": true
+              }
+            }
+          }
+        },
+        "targetId": "topbar-signin",
+        "text": {
+          "runs": [
+            {
+              "text": "Bạn đã đăng xuất khỏi YouTube"
+            }
+          ]
+        },
+        "detailsText": {
+          "runs": [
+            {
+              "text": "Hãy đăng nhập để thích video, bình luận và đăng ký kênh."
+            }
+          ]
+        },
+        "dismissButton": {
+          "buttonRenderer": {
+            "style": "STYLE_BLUE_TEXT",
+            "size": "SIZE_DEFAULT",
+            "text": {
+              "runs": [
+                {
+                  "text": "Đã hiểu"
+                }
+              ]
+            },
+            "trackingParams": "CB0Q7W8iEwj4lIvKh7zzAhV3zEwCHbmFBAw=",
+            "command": {
+              "clickTrackingParams": "CB0Q7W8iEwj4lIvKh7zzAhV3zEwCHbmFBAw=",
+              "commandMetadata": {
+                "webCommandMetadata": {
+                  "sendPost": true,
+                  "apiUrl": "/youtubei/v1/feedback"
+                }
+              },
+              "feedbackEndpoint": {
+                "feedbackToken": "AB9zfpI-E9KIcBIKnBxFCLkBbWF_2hGZkEPKgu4xc9wYBcxOuGUT0YUtnb0jBbtLtt38jb_f6QZZTuNcYMZfv2wwLv14TkFf7oMTin0-a_Y8whYfSEeXazsEOar9p9wNin181PzX15SYhmRnD88LagNXSOTMqTyJDw",
+                "uiActions": {
+                  "hideEnclosingContainer": true
+                }
+              }
+            }
+          }
+        },
+        "suggestedPosition": {
+          "type": "TOOLTIP_POSITION_TYPE_BELOW_START"
+        },
+        "dismissStrategy": {
+          "type": "TOOLTIP_DISMISS_TYPE_TAP_ANYWHERE"
+        },
+        "dwellTimeMs": "5000",
+        "trackingParams": "CBwQvJkCIhMI-JSLyoe88wIVd8xMAh25hQQM"
+      }
+    },
+    "onResponseReceivedEndpoints": [
+      {
+        "clickTrackingParams": "CAAQg2ciEwj4lIvKh7zzAhV3zEwCHbmFBAw=",
+        "commandMetadata": {
+          "webCommandMetadata": {
+            "sendPost": true
+          }
+        },
+        "signalServiceEndpoint": {
+          "signal": "CLIENT_SIGNAL",
+          "actions": [
+            {
+              "clickTrackingParams": "CAAQg2ciEwj4lIvKh7zzAhV3zEwCHbmFBAw=",
+              "signalAction": {
+                "signal": "ENABLE_CHROME_NOTIFICATIONS"
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "engagementPanels": [
+      {
+        "engagementPanelSectionListRenderer": {
+          "panelIdentifier": "engagement-panel-transcript",
+          "header": {
+            "engagementPanelTitleHeaderRenderer": {
+              "title": {
+                "runs": [
+                  {
+                    "text": "Phiên âm"
+                  }
+                ]
+              },
+              "menu": {
+                "menuRenderer": {
+                  "items": [
+                    {
+                      "menuServiceItemRenderer": {
+                        "text": {
+                          "runs": [
+                            {
+                              "text": "Chuyển đổi dấu thời gian"
+                            }
+                          ]
+                        },
+                        "serviceEndpoint": {
+                          "clickTrackingParams": "CBoQ040EGAEiEwj4lIvKh7zzAhV3zEwCHbmFBAw=",
+                          "commandMetadata": {
+                            "webCommandMetadata": {
+                              "sendPost": true
+                            }
+                          },
+                          "signalServiceEndpoint": {
+                            "signal": "CLIENT_SIGNAL",
+                            "actions": [
+                              {
+                                "clickTrackingParams": "CBoQ040EGAEiEwj4lIvKh7zzAhV3zEwCHbmFBAw=",
+                                "signalAction": {
+                                  "signal": "TOGGLE_TRANSCRIPT_TIMESTAMPS"
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        "trackingParams": "CBoQ040EGAEiEwj4lIvKh7zzAhV3zEwCHbmFBAw="
+                      }
+                    }
+                  ],
+                  "trackingParams": "CBoQ040EGAEiEwj4lIvKh7zzAhV3zEwCHbmFBAw=",
+                  "accessibility": {
+                    "accessibilityData": {
+                      "label": "Thao tác khác"
+                    }
+                  }
+                }
+              },
+              "visibilityButton": {
+                "buttonRenderer": {
+                  "icon": {
+                    "iconType": "CLOSE"
+                  },
+                  "accessibility": {
+                    "label": "Đóng bản phiên âm"
+                  },
+                  "trackingParams": "CBsQ8FsiEwj4lIvKh7zzAhV3zEwCHbmFBAw=",
+                  "accessibilityData": {
+                    "accessibilityData": {
+                      "label": "Đóng bản phiên âm"
+                    }
+                  },
+                  "command": {
+                    "clickTrackingParams": "CBsQ8FsiEwj4lIvKh7zzAhV3zEwCHbmFBAw=",
+                    "changeEngagementPanelVisibilityAction": {
+                      "targetId": "engagement-panel-transcript",
+                      "visibility": "ENGAGEMENT_PANEL_VISIBILITY_HIDDEN"
+                    }
+                  }
+                }
+              },
+              "trackingParams": "CBoQ040EGAEiEwj4lIvKh7zzAhV3zEwCHbmFBAw="
+            }
+          },
+          "content": {
+            "continuationItemRenderer": {
+              "trigger": "CONTINUATION_TRIGGER_ON_ITEM_SHOWN",
+              "continuationEndpoint": {
+                "clickTrackingParams": "CBoQ040EGAEiEwj4lIvKh7zzAhV3zEwCHbmFBAw=",
+                "commandMetadata": {
+                  "webCommandMetadata": {
+                    "sendPost": true,
+                    "apiUrl": "/youtubei/v1/get_transcript"
+                  }
+                },
+                "getTranscriptEndpoint": {
+                  "params": "CgtDc3Jmb3ZPUGNqaw%3D%3D"
+                }
+              }
+            }
+          },
+          "targetId": "engagement-panel-transcript",
+          "visibility": "ENGAGEMENT_PANEL_VISIBILITY_HIDDEN",
+          "loggingDirectives": {
+            "trackingParams": "CBoQ040EGAEiEwj4lIvKh7zzAhV3zEwCHbmFBAw=",
+            "visibility": {
+              "types": "12"
+            },
+            "enableDisplayloggerExperiment": true
+          }
+        }
+      }
+    ],
+    "topbar": {
+      "desktopTopbarRenderer": {
+        "logo": {
+          "topbarLogoRenderer": {
+            "iconImage": {
+              "iconType": "YOUTUBE_LOGO"
+            },
+            "tooltipText": {
+              "runs": [
+                {
+                  "text": "Trang chủ YouTube"
+                }
+              ]
+            },
+            "endpoint": {
+              "clickTrackingParams": "CBkQsV4iEwj4lIvKh7zzAhV3zEwCHbmFBAw=",
+              "commandMetadata": {
+                "webCommandMetadata": {
+                  "url": "/",
+                  "webPageType": "WEB_PAGE_TYPE_BROWSE",
+                  "rootVe": 3854,
+                  "apiUrl": "/youtubei/v1/browse"
+                }
+              },
+              "browseEndpoint": {
+                "browseId": "FEwhat_to_watch"
+              }
+            },
+            "trackingParams": "CBkQsV4iEwj4lIvKh7zzAhV3zEwCHbmFBAw=",
+            "overrideEntityKey": "EgZ0b3BiYXIg9QEoAQ%3D%3D"
+          }
+        },
+        "searchbox": {
+          "fusionSearchboxRenderer": {
+            "icon": {
+              "iconType": "SEARCH"
+            },
+            "placeholderText": {
+              "runs": [
+                {
+                  "text": "Tìm kiếm"
+                }
+              ]
+            },
+            "config": {
+              "webSearchboxConfig": {
+                "requestLanguage": "vi",
+                "requestDomain": "vn",
+                "hasOnscreenKeyboard": true,
+                "focusSearchbox": true
+              }
+            },
+            "trackingParams": "CBcQ7VAiEwj4lIvKh7zzAhV3zEwCHbmFBAw=",
+            "searchEndpoint": {
+              "clickTrackingParams": "CBcQ7VAiEwj4lIvKh7zzAhV3zEwCHbmFBAw=",
+              "commandMetadata": {
+                "webCommandMetadata": {
+                  "url": "/results?search_query=",
+                  "webPageType": "WEB_PAGE_TYPE_SEARCH",
+                  "rootVe": 4724
+                }
+              },
+              "searchEndpoint": {
+                "query": ""
+              }
+            },
+            "clearButton": {
+              "buttonRenderer": {
+                "style": "STYLE_DEFAULT",
+                "size": "SIZE_DEFAULT",
+                "isDisabled": false,
+                "icon": {
+                  "iconType": "CLOSE"
+                },
+                "trackingParams": "CBgQ8FsiEwj4lIvKh7zzAhV3zEwCHbmFBAw=",
+                "accessibilityData": {
+                  "accessibilityData": {
+                    "label": "Xóa truy vấn tìm kiếm"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "trackingParams": "CAEQq6wBIhMI-JSLyoe88wIVd8xMAh25hQQM",
+        "countryCode": "VN",
+        "topbarButtons": [
+          {
+            "topbarMenuButtonRenderer": {
+              "icon": {
+                "iconType": "APPS"
+              },
+              "menuRenderer": {
+                "multiPageMenuRenderer": {
+                  "sections": [
+                    {
+                      "multiPageMenuSectionRenderer": {
+                        "items": [
+                          {
+                            "compactLinkRenderer": {
+                              "icon": {
+                                "iconType": "UNPLUGGED_LOGO"
+                              },
+                              "title": {
+                                "runs": [
+                                  {
+                                    "text": "YouTube TV"
+                                  }
+                                ]
+                              },
+                              "navigationEndpoint": {
+                                "clickTrackingParams": "CBYQ4MUCGAAiEwj4lIvKh7zzAhV3zEwCHbmFBAw=",
+                                "commandMetadata": {
+                                  "webCommandMetadata": {
+                                    "url": "https://tv.youtube.com/?utm_source=youtube_web&utm_medium=ep&utm_campaign=home&ve=34273",
+                                    "webPageType": "WEB_PAGE_TYPE_UNKNOWN",
+                                    "rootVe": 83769
+                                  }
+                                },
+                                "urlEndpoint": {
+                                  "url": "https://tv.youtube.com/?utm_source=youtube_web&utm_medium=ep&utm_campaign=home&ve=34273",
+                                  "target": "TARGET_NEW_WINDOW"
+                                }
+                              },
+                              "trackingParams": "CBYQ4MUCGAAiEwj4lIvKh7zzAhV3zEwCHbmFBAw="
+                            }
+                          }
+                        ],
+                        "trackingParams": "CBUQ968BGAAiEwj4lIvKh7zzAhV3zEwCHbmFBAw="
+                      }
+                    },
+                    {
+                      "multiPageMenuSectionRenderer": {
+                        "items": [
+                          {
+                            "compactLinkRenderer": {
+                              "icon": {
+                                "iconType": "YOUTUBE_MUSIC"
+                              },
+                              "title": {
+                                "runs": [
+                                  {
+                                    "text": "YouTube Music"
+                                  }
+                                ]
+                              },
+                              "navigationEndpoint": {
+                                "clickTrackingParams": "CBQQ4sUCGAAiEwj4lIvKh7zzAhV3zEwCHbmFBAw=",
+                                "commandMetadata": {
+                                  "webCommandMetadata": {
+                                    "url": "https://music.youtube.com/",
+                                    "webPageType": "WEB_PAGE_TYPE_UNKNOWN",
+                                    "rootVe": 83769
+                                  }
+                                },
+                                "urlEndpoint": {
+                                  "url": "https://music.youtube.com",
+                                  "target": "TARGET_NEW_WINDOW"
+                                }
+                              },
+                              "trackingParams": "CBQQ4sUCGAAiEwj4lIvKh7zzAhV3zEwCHbmFBAw="
+                            }
+                          },
+                          {
+                            "compactLinkRenderer": {
+                              "icon": {
+                                "iconType": "YOUTUBE_KIDS_ROUND"
+                              },
+                              "title": {
+                                "runs": [
+                                  {
+                                    "text": "YouTube Kids"
+                                  }
+                                ]
+                              },
+                              "navigationEndpoint": {
+                                "clickTrackingParams": "CBMQ48UCGAEiEwj4lIvKh7zzAhV3zEwCHbmFBAw=",
+                                "commandMetadata": {
+                                  "webCommandMetadata": {
+                                    "url": "https://www.youtubekids.com/?source=youtube_web",
+                                    "webPageType": "WEB_PAGE_TYPE_UNKNOWN",
+                                    "rootVe": 83769
+                                  }
+                                },
+                                "urlEndpoint": {
+                                  "url": "https://www.youtubekids.com?source=youtube_web",
+                                  "target": "TARGET_NEW_WINDOW"
+                                }
+                              },
+                              "trackingParams": "CBMQ48UCGAEiEwj4lIvKh7zzAhV3zEwCHbmFBAw="
+                            }
+                          }
+                        ],
+                        "trackingParams": "CBIQ968BGAEiEwj4lIvKh7zzAhV3zEwCHbmFBAw="
+                      }
+                    },
+                    {
+                      "multiPageMenuSectionRenderer": {
+                        "items": [
+                          {
+                            "compactLinkRenderer": {
+                              "icon": {
+                                "iconType": "YOUTUBE_ROUND"
+                              },
+                              "title": {
+                                "runs": [
+                                  {
+                                    "text": "Học viện sáng tạo"
+                                  }
+                                ]
+                              },
+                              "navigationEndpoint": {
+                                "clickTrackingParams": "CBEQ5MUCGAAiEwj4lIvKh7zzAhV3zEwCHbmFBAw=",
+                                "commandMetadata": {
+                                  "webCommandMetadata": {
+                                    "url": "https://creatoracademy.youtube.com/page/education?utm_source=YouTube&utm_medium=YT%20Main&utm_campaign=YT%20Appsn",
+                                    "webPageType": "WEB_PAGE_TYPE_UNKNOWN",
+                                    "rootVe": 83769
+                                  }
+                                },
+                                "urlEndpoint": {
+                                  "url": "https://creatoracademy.youtube.com/page/education?utm_source=YouTube&utm_medium=YT%20Main&utm_campaign=YT%20Appsn",
+                                  "target": "TARGET_NEW_WINDOW"
+                                }
+                              },
+                              "trackingParams": "CBEQ5MUCGAAiEwj4lIvKh7zzAhV3zEwCHbmFBAw="
+                            }
+                          },
+                          {
+                            "compactLinkRenderer": {
+                              "icon": {
+                                "iconType": "YOUTUBE_ROUND"
+                              },
+                              "title": {
+                                "runs": [
+                                  {
+                                    "text": "YouTube dành cho Nghệ sĩ"
+                                  }
+                                ]
+                              },
+                              "navigationEndpoint": {
+                                "clickTrackingParams": "CBAQ5cUCGAEiEwj4lIvKh7zzAhV3zEwCHbmFBAw=",
+                                "commandMetadata": {
+                                  "webCommandMetadata": {
+                                    "url": "https://artists.youtube.com/",
+                                    "webPageType": "WEB_PAGE_TYPE_UNKNOWN",
+                                    "rootVe": 83769
+                                  }
+                                },
+                                "urlEndpoint": {
+                                  "url": "https://artists.youtube.com/",
+                                  "target": "TARGET_NEW_WINDOW"
+                                }
+                              },
+                              "trackingParams": "CBAQ5cUCGAEiEwj4lIvKh7zzAhV3zEwCHbmFBAw="
+                            }
+                          }
+                        ],
+                        "trackingParams": "CA8Q968BGAIiEwj4lIvKh7zzAhV3zEwCHbmFBAw="
+                      }
+                    }
+                  ],
+                  "trackingParams": "CA4Q_6sBIhMI-JSLyoe88wIVd8xMAh25hQQM",
+                  "style": "MULTI_PAGE_MENU_STYLE_TYPE_YT_APPS"
+                }
+              },
+              "trackingParams": "CA0Q_qsBGAAiEwj4lIvKh7zzAhV3zEwCHbmFBAw=",
+              "accessibility": {
+                "accessibilityData": {
+                  "label": "Các ứng dụng YouTube"
+                }
+              },
+              "tooltip": "Các ứng dụng YouTube",
+              "style": "STYLE_DEFAULT",
+              "targetId": "topbar-apps"
+            }
+          },
+          {
+            "topbarMenuButtonRenderer": {
+              "icon": {
+                "iconType": "MORE_VERT"
+              },
+              "menuRequest": {
+                "clickTrackingParams": "CAsQ_qsBGAEiEwj4lIvKh7zzAhV3zEwCHbmFBAw=",
+                "commandMetadata": {
+                  "webCommandMetadata": {
+                    "sendPost": true,
+                    "apiUrl": "/youtubei/v1/account/account_menu"
+                  }
+                },
+                "signalServiceEndpoint": {
+                  "signal": "GET_ACCOUNT_MENU",
+                  "actions": [
+                    {
+                      "clickTrackingParams": "CAsQ_qsBGAEiEwj4lIvKh7zzAhV3zEwCHbmFBAw=",
+                      "openPopupAction": {
+                        "popup": {
+                          "multiPageMenuRenderer": {
+                            "trackingParams": "CAwQ_6sBIhMI-JSLyoe88wIVd8xMAh25hQQM",
+                            "style": "MULTI_PAGE_MENU_STYLE_TYPE_SYSTEM",
+                            "showLoadingSpinner": true
+                          }
+                        },
+                        "popupType": "DROPDOWN",
+                        "beReused": true
+                      }
+                    }
+                  ]
+                }
+              },
+              "trackingParams": "CAsQ_qsBGAEiEwj4lIvKh7zzAhV3zEwCHbmFBAw=",
+              "accessibility": {
+                "accessibilityData": {
+                  "label": "Cài đặt"
+                }
+              },
+              "tooltip": "Cài đặt",
+              "style": "STYLE_DEFAULT"
+            }
+          },
+          {
+            "buttonRenderer": {
+              "style": "STYLE_SUGGESTIVE",
+              "size": "SIZE_SMALL",
+              "text": {
+                "runs": [
+                  {
+                    "text": "Đăng nhập"
+                  }
+                ]
+              },
+              "icon": {
+                "iconType": "AVATAR_LOGGED_OUT"
+              },
+              "navigationEndpoint": {
+                "clickTrackingParams": "CAoQ1IAEGAIiEwj4lIvKh7zzAhV3zEwCHbmFBAw=",
+                "commandMetadata": {
+                  "webCommandMetadata": {
+                    "url": "https://accounts.google.com/ServiceLogin?service=youtube&uilel=3&passive=true&continue=https%3A%2F%2Fwww.youtube.com%2Fsignin%3Faction_handle_signin%3Dtrue%26app%3Ddesktop%26hl%3Dvi%26next%3Dhttps%253A%252F%252Fwww.youtube.com%252Fwatch%253Fv%253DCsrfovOPcjk%2526hl%253Dvi-VN&hl=vi&ec=65620",
+                    "webPageType": "WEB_PAGE_TYPE_UNKNOWN",
+                    "rootVe": 83769
+                  }
+                },
+                "signInEndpoint": {
+                  "idamTag": "65620"
+                }
+              },
+              "trackingParams": "CAoQ1IAEGAIiEwj4lIvKh7zzAhV3zEwCHbmFBAw=",
+              "targetId": "topbar-signin"
+            }
+          }
+        ],
+        "hotkeyDialog": {
+          "hotkeyDialogRenderer": {
+            "title": {
+              "runs": [
+                {
+                  "text": "Phím tắt"
+                }
+              ]
+            },
+            "sections": [
+              {
+                "hotkeyDialogSectionRenderer": {
+                  "title": {
+                    "runs": [
+                      {
+                        "text": "Phát"
+                      }
+                    ]
+                  },
+                  "options": [
+                    {
+                      "hotkeyDialogSectionOptionRenderer": {
+                        "label": {
+                          "runs": [
+                            {
+                              "text": "Chuyển đổi phát/tạm dừng"
+                            }
+                          ]
+                        },
+                        "hotkey": "k"
+                      }
+                    },
+                    {
+                      "hotkeyDialogSectionOptionRenderer": {
+                        "label": {
+                          "runs": [
+                            {
+                              "text": "Tua lại 10 giây"
+                            }
+                          ]
+                        },
+                        "hotkey": "j"
+                      }
+                    },
+                    {
+                      "hotkeyDialogSectionOptionRenderer": {
+                        "label": {
+                          "runs": [
+                            {
+                              "text": "Tua đi 10 giây"
+                            }
+                          ]
+                        },
+                        "hotkey": "l"
+                      }
+                    },
+                    {
+                      "hotkeyDialogSectionOptionRenderer": {
+                        "label": {
+                          "runs": [
+                            {
+                              "text": "Video trước"
+                            }
+                          ]
+                        },
+                        "hotkey": "P (SHIFT+p)"
+                      }
+                    },
+                    {
+                      "hotkeyDialogSectionOptionRenderer": {
+                        "label": {
+                          "runs": [
+                            {
+                              "text": "Video tiếp theo"
+                            }
+                          ]
+                        },
+                        "hotkey": "N (SHIFT+n)"
+                      }
+                    },
+                    {
+                      "hotkeyDialogSectionOptionRenderer": {
+                        "label": {
+                          "runs": [
+                            {
+                              "text": "Khung hình trước (trong khi tạm dừng)"
+                            }
+                          ]
+                        },
+                        "hotkey": ",",
+                        "hotkeyAccessibilityLabel": {
+                          "accessibilityData": {
+                            "label": "Dấu phẩy"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "hotkeyDialogSectionOptionRenderer": {
+                        "label": {
+                          "runs": [
+                            {
+                              "text": "Khung hình tiếp theo (trong khi tạm dừng)"
+                            }
+                          ]
+                        },
+                        "hotkey": ".",
+                        "hotkeyAccessibilityLabel": {
+                          "accessibilityData": {
+                            "label": "Dấu chấm"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "hotkeyDialogSectionOptionRenderer": {
+                        "label": {
+                          "runs": [
+                            {
+                              "text": "Giảm tốc độ phát"
+                            }
+                          ]
+                        },
+                        "hotkey": "< (SHIFT+,)",
+                        "hotkeyAccessibilityLabel": {
+                          "accessibilityData": {
+                            "label": "Dấu nhỏ hơn hoặc SHIFT + dấu phẩy"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "hotkeyDialogSectionOptionRenderer": {
+                        "label": {
+                          "runs": [
+                            {
+                              "text": "Tăng tốc độ phát"
+                            }
+                          ]
+                        },
+                        "hotkey": "> (SHIFT+.)",
+                        "hotkeyAccessibilityLabel": {
+                          "accessibilityData": {
+                            "label": "Dấu lớn hơn hoặc SHIFT + dấu chấm"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "hotkeyDialogSectionOptionRenderer": {
+                        "label": {
+                          "runs": [
+                            {
+                              "text": "Tua đến một thời điểm cụ thể trong video (tua đi từ 7 đến 70% thời lượng)"
+                            }
+                          ]
+                        },
+                        "hotkey": "0..9"
+                      }
+                    },
+                    {
+                      "hotkeyDialogSectionOptionRenderer": {
+                        "label": {
+                          "runs": [
+                            {
+                              "text": "Tua về phân cảnh trước"
+                            }
+                          ]
+                        },
+                        "hotkey": "CONTROL + ←"
+                      }
+                    },
+                    {
+                      "hotkeyDialogSectionOptionRenderer": {
+                        "label": {
+                          "runs": [
+                            {
+                              "text": "Tua đến phân cảnh tiếp theo"
+                            }
+                          ]
+                        },
+                        "hotkey": "CONTROL + →"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "hotkeyDialogSectionRenderer": {
+                  "title": {
+                    "runs": [
+                      {
+                        "text": "Chung"
+                      }
+                    ]
+                  },
+                  "options": [
+                    {
+                      "hotkeyDialogSectionOptionRenderer": {
+                        "label": {
+                          "runs": [
+                            {
+                              "text": "Chuyển đổi chế độ toàn màn hình"
+                            }
+                          ]
+                        },
+                        "hotkey": "f"
+                      }
+                    },
+                    {
+                      "hotkeyDialogSectionOptionRenderer": {
+                        "label": {
+                          "runs": [
+                            {
+                              "text": "Bật/tắt chế độ rạp chiếu phim"
+                            }
+                          ]
+                        },
+                        "hotkey": "t"
+                      }
+                    },
+                    {
+                      "hotkeyDialogSectionOptionRenderer": {
+                        "label": {
+                          "runs": [
+                            {
+                              "text": "Bật/tắt trình phát thu nhỏ"
+                            }
+                          ]
+                        },
+                        "hotkey": "i"
+                      }
+                    },
+                    {
+                      "hotkeyDialogSectionOptionRenderer": {
+                        "label": {
+                          "runs": [
+                            {
+                              "text": "Đóng trình phát thu nhỏ hoặc hộp thoại hiện tại"
+                            }
+                          ]
+                        },
+                        "hotkey": "PHÍM ESCAPE"
+                      }
+                    },
+                    {
+                      "hotkeyDialogSectionOptionRenderer": {
+                        "label": {
+                          "runs": [
+                            {
+                              "text": "Bật/tắt tiếng"
+                            }
+                          ]
+                        },
+                        "hotkey": "m"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "hotkeyDialogSectionRenderer": {
+                  "title": {
+                    "runs": [
+                      {
+                        "text": "Phụ đề"
+                      }
+                    ]
+                  },
+                  "options": [
+                    {
+                      "hotkeyDialogSectionOptionRenderer": {
+                        "label": {
+                          "runs": [
+                            {
+                              "text": "Nếu video hỗ trợ phụ đề, hãy BẬT/TẮT phụ đề"
+                            }
+                          ]
+                        },
+                        "hotkey": "c"
+                      }
+                    },
+                    {
+                      "hotkeyDialogSectionOptionRenderer": {
+                        "label": {
+                          "runs": [
+                            {
+                              "text": "Xoay để điều chỉnh các cấp độ mờ khác nhau của văn bản"
+                            }
+                          ]
+                        },
+                        "hotkey": "o"
+                      }
+                    },
+                    {
+                      "hotkeyDialogSectionOptionRenderer": {
+                        "label": {
+                          "runs": [
+                            {
+                              "text": "Xoay để điều chỉnh các cấp độ mờ khác nhau của cửa sổ"
+                            }
+                          ]
+                        },
+                        "hotkey": "w"
+                      }
+                    },
+                    {
+                      "hotkeyDialogSectionOptionRenderer": {
+                        "label": {
+                          "runs": [
+                            {
+                              "text": "Xoay để điều chỉnh kích thước phông chữ (tăng)"
+                            }
+                          ]
+                        },
+                        "hotkey": "+"
+                      }
+                    },
+                    {
+                      "hotkeyDialogSectionOptionRenderer": {
+                        "label": {
+                          "runs": [
+                            {
+                              "text": "Xoay để điều chỉnh kích thước phông chữ (giảm)"
+                            }
+                          ]
+                        },
+                        "hotkey": "-",
+                        "hotkeyAccessibilityLabel": {
+                          "accessibilityData": {
+                            "label": "Dấu trừ"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "hotkeyDialogSectionRenderer": {
+                  "title": {
+                    "runs": [
+                      {
+                        "text": "Video 360 độ"
+                      }
+                    ]
+                  },
+                  "options": [
+                    {
+                      "hotkeyDialogSectionOptionRenderer": {
+                        "label": {
+                          "runs": [
+                            {
+                              "text": "Dịch chuyển lên trên"
+                            }
+                          ]
+                        },
+                        "hotkey": "w"
+                      }
+                    },
+                    {
+                      "hotkeyDialogSectionOptionRenderer": {
+                        "label": {
+                          "runs": [
+                            {
+                              "text": "Dịch chuyển sang trái"
+                            }
+                          ]
+                        },
+                        "hotkey": "a"
+                      }
+                    },
+                    {
+                      "hotkeyDialogSectionOptionRenderer": {
+                        "label": {
+                          "runs": [
+                            {
+                              "text": "Dịch chuyển xuống"
+                            }
+                          ]
+                        },
+                        "hotkey": "s"
+                      }
+                    },
+                    {
+                      "hotkeyDialogSectionOptionRenderer": {
+                        "label": {
+                          "runs": [
+                            {
+                              "text": "Dịch chuyển sang phải"
+                            }
+                          ]
+                        },
+                        "hotkey": "d"
+                      }
+                    },
+                    {
+                      "hotkeyDialogSectionOptionRenderer": {
+                        "label": {
+                          "runs": [
+                            {
+                              "text": "Phóng to"
+                            }
+                          ]
+                        },
+                        "hotkey": "+ trên bàn phím số hoặc ]",
+                        "hotkeyAccessibilityLabel": {
+                          "accessibilityData": {
+                            "label": "Dấu cộng trên bàn phím số hoặc dấu ngoặc đơn phải"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "hotkeyDialogSectionOptionRenderer": {
+                        "label": {
+                          "runs": [
+                            {
+                              "text": "Thu nhỏ"
+                            }
+                          ]
+                        },
+                        "hotkey": "- trên bàn phím số hoặc [",
+                        "hotkeyAccessibilityLabel": {
+                          "accessibilityData": {
+                            "label": "Dấu trừ trên bàn phím số hoặc dấu ngoặc đơn trái"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "dismissButton": {
+              "buttonRenderer": {
+                "style": "STYLE_BLUE_TEXT",
+                "size": "SIZE_DEFAULT",
+                "isDisabled": false,
+                "text": {
+                  "runs": [
+                    {
+                      "text": "Loại bỏ"
+                    }
+                  ]
+                },
+                "trackingParams": "CAkQ8FsiEwj4lIvKh7zzAhV3zEwCHbmFBAw="
+              }
+            },
+            "trackingParams": "CAgQteYDIhMI-JSLyoe88wIVd8xMAh25hQQM"
+          }
+        },
+        "backButton": {
+          "buttonRenderer": {
+            "trackingParams": "CAcQvIYDIhMI-JSLyoe88wIVd8xMAh25hQQM",
+            "command": {
+              "clickTrackingParams": "CAcQvIYDIhMI-JSLyoe88wIVd8xMAh25hQQM",
+              "commandMetadata": {
+                "webCommandMetadata": {
+                  "sendPost": true
+                }
+              },
+              "signalServiceEndpoint": {
+                "signal": "CLIENT_SIGNAL",
+                "actions": [
+                  {
+                    "clickTrackingParams": "CAcQvIYDIhMI-JSLyoe88wIVd8xMAh25hQQM",
+                    "signalAction": {
+                      "signal": "HISTORY_BACK"
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "forwardButton": {
+          "buttonRenderer": {
+            "trackingParams": "CAYQvYYDIhMI-JSLyoe88wIVd8xMAh25hQQM",
+            "command": {
+              "clickTrackingParams": "CAYQvYYDIhMI-JSLyoe88wIVd8xMAh25hQQM",
+              "commandMetadata": {
+                "webCommandMetadata": {
+                  "sendPost": true
+                }
+              },
+              "signalServiceEndpoint": {
+                "signal": "CLIENT_SIGNAL",
+                "actions": [
+                  {
+                    "clickTrackingParams": "CAYQvYYDIhMI-JSLyoe88wIVd8xMAh25hQQM",
+                    "signalAction": {
+                      "signal": "HISTORY_FORWARD"
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "a11ySkipNavigationButton": {
+          "buttonRenderer": {
+            "style": "STYLE_DEFAULT",
+            "size": "SIZE_DEFAULT",
+            "isDisabled": false,
+            "text": {
+              "runs": [
+                {
+                  "text": "Bỏ qua điều hướng"
+                }
+              ]
+            },
+            "trackingParams": "CAUQ8FsiEwj4lIvKh7zzAhV3zEwCHbmFBAw=",
+            "command": {
+              "clickTrackingParams": "CAUQ8FsiEwj4lIvKh7zzAhV3zEwCHbmFBAw=",
+              "commandMetadata": {
+                "webCommandMetadata": {
+                  "sendPost": true
+                }
+              },
+              "signalServiceEndpoint": {
+                "signal": "CLIENT_SIGNAL",
+                "actions": [
+                  {
+                    "clickTrackingParams": "CAUQ8FsiEwj4lIvKh7zzAhV3zEwCHbmFBAw=",
+                    "signalAction": {
+                      "signal": "SKIP_NAVIGATION"
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "voiceSearchButton": {
+          "buttonRenderer": {
+            "style": "STYLE_DEFAULT",
+            "size": "SIZE_DEFAULT",
+            "isDisabled": false,
+            "serviceEndpoint": {
+              "clickTrackingParams": "CAIQ8FsiEwj4lIvKh7zzAhV3zEwCHbmFBAw=",
+              "commandMetadata": {
+                "webCommandMetadata": {
+                  "sendPost": true
+                }
+              },
+              "signalServiceEndpoint": {
+                "signal": "CLIENT_SIGNAL",
+                "actions": [
+                  {
+                    "clickTrackingParams": "CAIQ8FsiEwj4lIvKh7zzAhV3zEwCHbmFBAw=",
+                    "openPopupAction": {
+                      "popup": {
+                        "voiceSearchDialogRenderer": {
+                          "placeholderHeader": {
+                            "runs": [
+                              {
+                                "text": "Đang nghe..."
+                              }
+                            ]
+                          },
+                          "promptHeader": {
+                            "runs": [
+                              {
+                                "text": "Tôi chưa nghe rõ. Mời bạn nói lại."
+                              }
+                            ]
+                          },
+                          "exampleQuery1": {
+                            "runs": [
+                              {
+                                "text": "\"Phát nhạc của Dua Lipa\""
+                              }
+                            ]
+                          },
+                          "exampleQuery2": {
+                            "runs": [
+                              {
+                                "text": "\"Cho tôi xem các kênh tôi đăng ký\""
+                              }
+                            ]
+                          },
+                          "promptMicrophoneLabel": {
+                            "runs": [
+                              {
+                                "text": "Nhấn vào micrô để thử lại"
+                              }
+                            ]
+                          },
+                          "loadingHeader": {
+                            "runs": [
+                              {
+                                "text": "Đang xử lý..."
+                              }
+                            ]
+                          },
+                          "connectionErrorHeader": {
+                            "runs": [
+                              {
+                                "text": "Không có kết nối"
+                              }
+                            ]
+                          },
+                          "connectionErrorMicrophoneLabel": {
+                            "runs": [
+                              {
+                                "text": "Hãy kiểm tra kết nối của bạn và thử lại"
+                              }
+                            ]
+                          },
+                          "permissionsHeader": {
+                            "runs": [
+                              {
+                                "text": "Đang chờ được cho phép"
+                              }
+                            ]
+                          },
+                          "permissionsSubtext": {
+                            "runs": [
+                              {
+                                "text": "Cho phép truy cập vào micrô để có thể nhập thông tin bằng giọng nói"
+                              }
+                            ]
+                          },
+                          "disabledHeader": {
+                            "runs": [
+                              {
+                                "text": "Tìm kiếm bằng giọng nói"
+                              }
+                            ]
+                          },
+                          "disabledSubtext": {
+                            "runs": [
+                              {
+                                "text": "Để tìm kiếm bằng giọng nói, hãy chuyển đến phần cài đặt trong trình duyệt của bạn và cho phép truy cập vào micrô"
+                              }
+                            ]
+                          },
+                          "exitButton": {
+                            "buttonRenderer": {
+                              "style": "STYLE_DEFAULT",
+                              "size": "SIZE_DEFAULT",
+                              "isDisabled": false,
+                              "icon": {
+                                "iconType": "CLOSE"
+                              },
+                              "trackingParams": "CAQQ8FsiEwj4lIvKh7zzAhV3zEwCHbmFBAw=",
+                              "accessibilityData": {
+                                "accessibilityData": {
+                                  "label": "Hủy"
+                                }
+                              }
+                            }
+                          },
+                          "trackingParams": "CAMQ7q8FIhMI-JSLyoe88wIVd8xMAh25hQQM",
+                          "microphoneOffPromptHeader": {
+                            "runs": [
+                              {
+                                "text": "Mi-crô đang tắt. Mời bạn nói lại."
+                              }
+                            ]
+                          }
+                        }
+                      },
+                      "popupType": "TOP_ALIGNED_DIALOG"
+                    }
+                  }
+                ]
+              }
+            },
+            "icon": {
+              "iconType": "MICROPHONE_ON"
+            },
+            "tooltip": "Tìm kiếm bằng giọng nói",
+            "trackingParams": "CAIQ8FsiEwj4lIvKh7zzAhV3zEwCHbmFBAw=",
+            "accessibilityData": {
+              "accessibilityData": {
+                "label": "Tìm kiếm bằng giọng nói"
+              }
+            }
+          }
+        }
+      }
+    },
+    "frameworkUpdates": {
+      "entityBatchUpdate": {
+        "mutations": [
+          {
+            "entityKey": "EgZ0b3BiYXIg9QEoAQ%3D%3D",
+            "type": "ENTITY_MUTATION_TYPE_DELETE",
+            "options": {
+              "persistenceOption": "ENTITY_PERSISTENCE_OPTION_INMEMORY_AND_PERSIST"
+            }
+          }
+        ],
+        "timestamp": {
+          "seconds": "1633738874",
+          "nanos": 597213670
+        }
+      }
+    }
+  },
+  "html5player": "/s/player/920e4583/player_ias.vflset/vi_VN/base.js",
+  "formats": [],
+  "related_videos": [],
+  "videoDetails": {
+    "embed": {
+      "iframeUrl": "https://www.youtube.com/embed/CsrfovOPcjk",
+      "flashUrl": "http://www.youtube.com/v/CsrfovOPcjk?version=3&autohide=1",
+      "width": 480,
+      "height": 360,
+      "flashSecureUrl": "https://www.youtube.com/v/CsrfovOPcjk?version=3&autohide=1"
+    },
+    "title": "Who the Fuck is Alice?",
+    "description": "The well known famous song. Enjoy",
+    "lengthSeconds": "237",
+    "ownerProfileUrl": "http://www.youtube.com/user/RescoeZ",
+    "externalChannelId": "UCjO6EWYEqXL2_4IHuKXxirA",
+    "isFamilySafe": false,
+    "isUnlisted": false,
+    "hasYpcMetadata": false,
+    "viewCount": "11579654",
+    "category": "Comedy",
+    "publishDate": "2007-04-04",
+    "ownerChannelName": "RescoeZ",
+    "uploadDate": "2007-04-04",
+    "videoId": "CsrfovOPcjk",
+    "keywords": [
+      "who",
+      "the",
+      "fuck",
+      "is",
+      "alice",
+      "smokie",
+      "chubby",
+      "brown"
+    ],
+    "channelId": "UCjO6EWYEqXL2_4IHuKXxirA",
+    "isOwnerViewing": false,
+    "isCrawlable": true,
+    "averageRating": 4.8080349,
+    "allowRatings": true,
+    "author": {
+      "id": "UCjO6EWYEqXL2_4IHuKXxirA",
+      "name": "RescoeZ",
+      "user": "RescoeZ",
+      "channel_url": "https://www.youtube.com/channel/UCjO6EWYEqXL2_4IHuKXxirA",
+      "external_channel_url": "https://www.youtube.com/channel/UCjO6EWYEqXL2_4IHuKXxirA",
+      "user_url": "http://www.youtube.com/user/RescoeZ",
+      "thumbnails": [
+        {
+          "url": "https://yt3.ggpht.com/ytc/AKedOLTh1bivVemDLTmmTz8gMNElATcocvksecQ9e01H-w=s48-c-k-c0x00ffffff-no-rj",
+          "width": 48,
+          "height": 48
+        },
+        {
+          "url": "https://yt3.ggpht.com/ytc/AKedOLTh1bivVemDLTmmTz8gMNElATcocvksecQ9e01H-w=s88-c-k-c0x00ffffff-no-rj",
+          "width": 88,
+          "height": 88
+        },
+        {
+          "url": "https://yt3.ggpht.com/ytc/AKedOLTh1bivVemDLTmmTz8gMNElATcocvksecQ9e01H-w=s176-c-k-c0x00ffffff-no-rj",
+          "width": 176,
+          "height": 176
+        }
+      ],
+      "verified": false,
+      "subscriber_count": 34
+    },
+    "isPrivate": false,
+    "isUnpluggedCorpus": false,
+    "isLiveContent": false,
+    "media": {
+      "thông báo": "Video bị giới hạn độ tuổi người xem (dựa trên Nguyên tắc cộng đồng)",
+      "thông báo_url": "http://www.youtube.com/t/community_guidelines"
+    },
+    "likes": 50664,
+    "dislikes": 2554,
+    "age_restricted": true,
+    "video_url": "https://www.youtube.com/watch?v=CsrfovOPcjk",
+    "storyboards": [],
+    "chapters": [],
+    "thumbnails": [
+      {
+        "url": "https://i.ytimg.com/vi/CsrfovOPcjk/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLASVq_1aNb3ArxmN-8DSzNHAru98w",
+        "width": 168,
+        "height": 94
+      },
+      {
+        "url": "https://i.ytimg.com/vi/CsrfovOPcjk/hqdefault.jpg?sqp=-oaymwEbCMQBEG5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLCmpLZTY6azPTGdKogUft3mk-JAUg",
+        "width": 196,
+        "height": 110
+      },
+      {
+        "url": "https://i.ytimg.com/vi/CsrfovOPcjk/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCYm6kapBNOhNqn2DRFdgtt6eanOg",
+        "width": 246,
+        "height": 138
+      },
+      {
+        "url": "https://i.ytimg.com/vi/CsrfovOPcjk/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDyMrMB6x1Lj_mJ927pJ59WYp7C6w",
+        "width": 336,
+        "height": 188
+      }
+    ]
+  }
+}

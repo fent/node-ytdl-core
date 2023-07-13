@@ -5,6 +5,7 @@ const streamEqual = require('stream-equal');
 const sinon = require('sinon');
 const nock = require('./nock');
 const ytdl = require('..');
+const net = require('net');
 
 
 describe('Download video', () => {
@@ -226,7 +227,7 @@ describe('Download video', () => {
     });
 
     const destroy = (req, res) => {
-      req.abort();
+      req.destroy();
       res.unpipe();
     };
 
@@ -427,13 +428,14 @@ describe('Download video', () => {
         const reqChunkSize = parseInt(req.options.headers.range.split('-')[1]);
         assert.strictEqual(reqChunkSize, dlChunkSize);
         stream.removeAllListeners('request');
+        stream.destroy();
         done();
       });
     });
 
-    it('Chunks audio/video only and chunk size matches given size', done => {
-      const dlChunkSize = 1024 * 200;
-      const stream = ytdl.downloadFromInfo(expectedInfo, { filter: 'videoonly', dlChunkSize });
+    it('Chunks audio only and chunk size matches given size', done => {
+      const dlChunkSize = 1024;
+      const stream = ytdl.downloadFromInfo(expectedInfo, { filter: 'audioonly', dlChunkSize });
 
       stream.on('info', (info, format) => {
         nock.url(format.url)
@@ -444,6 +446,7 @@ describe('Download video', () => {
         const reqChunkSize = parseInt(req.options.headers.range.split('-')[1]);
         assert.strictEqual(reqChunkSize, dlChunkSize);
         stream.removeAllListeners('request');
+        stream.destroy();
         done();
       });
     });
@@ -540,6 +543,34 @@ describe('Download video', () => {
       stream.resume();
       stream.on('error', done);
       stream.on('end', done);
+    });
+  });
+
+  describe('With IPv6 Block', () => {
+    it('Sends request with IPv6 address', done => {
+      const stream = ytdl.downloadFromInfo(expectedInfo, { IPv6Block: '2001:2::/48' });
+      stream.on('info', (info, format) => {
+        nock.url(format.url)
+          .reply(206);
+      });
+      stream.on('request', req => {
+        assert.ok(net.isIPv6(req.options.localAddress));
+        done();
+      });
+    });
+  });
+
+  describe('Without IPv6 Block', () => {
+    it('Sends request with (default) IPv4 address', done => {
+      const stream = ytdl.downloadFromInfo(expectedInfo);
+      stream.on('info', (info, format) => {
+        nock.url(format.url)
+          .reply(206);
+      });
+      stream.on('request', req => {
+        assert.ok(req.options.localAddress === undefined);
+        done();
+      });
     });
   });
 
