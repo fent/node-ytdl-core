@@ -158,7 +158,7 @@ ytdl cannot download videos that fall into the following
 Generated download links are valid for 6 hours, and may only be downloadable from the same IP address.
 
 ### Ratelimits
-When doing to many requests YouTube might block. This will result in your requests getting denied with HTTP-StatusCode 429. The following Steps might help you:
+When doing too many requests, YouTube might block. This will result in your requests getting denied with HTTP-StatusCode 429. The following Steps might help you:
 * Update ytdl-core to the latest version
 * Use proxies (you can find an example [here](https://github.com/fent/node-ytdl-core/blob/master/example/proxy.js))
 * Extend on the Proxy Idea by rotating (IPv6-)Addresses
