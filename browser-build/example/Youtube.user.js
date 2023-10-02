@@ -18,7 +18,13 @@ if (window.ytdl) {
 
   unsafeWindow.ytdl.getInfo(unsafeWindow.location.href)
   .then(info => {
-    unsafeWindow.alert(JSON.stringify(info, null, 2))
+    const json = JSON.stringify(info, null, 2)
+    const body = unsafeWindow.document.body
+
+    body.innerHTML        = `<pre>${json}</pre>`
+    body.style.overflow   = 'auto'
+    body.style.fontFamily = 'monospace'
+    body.style.fontSize   = '14px'
   })
   .catch(error => {
     unsafeWindow.alert(error.message)

@@ -18,13 +18,8 @@ module.exports = {
       path.resolve('../node_modules')
     ],
     fallback: {
-      "http":        require.resolve("stream-http"),
-      "https":       require.resolve("https-browserify"),
-      "process":     require.resolve('process/browser'),
       "querystring": require.resolve("querystring-es3"),
       "stream":      require.resolve("stream-browserify"),
-      "timers":      require.resolve("timers-browserify"),
-      "url":         require.resolve("url/"),
       "vm":          require.resolve("vm-browserify")
     }
   },
