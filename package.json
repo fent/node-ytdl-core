@@ -19,7 +19,8 @@
     "Rodrigo Altamirano (https://github.com/raltamirano)",
     "Jim Buck (https://github.com/JimmyBoh)",
     "Paweł Ruciński (https://github.com/Roki100)",
-    "Alexander Paolini (https://github.com/Million900o)"
+    "Alexander Paolini (https://github.com/Million900o)",
+    "Warren Bank (https://github.com/warren-bank)"
   ],
   "main": "./lib/index.js",
   "types": "./typings/index.d.ts",
