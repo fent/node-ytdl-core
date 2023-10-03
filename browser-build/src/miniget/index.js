@@ -1,4 +1,4 @@
-const miniget = function(url, options) {
+const miniget = function(url, requestOptions) {
   const req = {
     data:   null,
     onData: [],
@@ -27,9 +27,34 @@ const miniget = function(url, options) {
     })
   }
 
-  fetch(url)
+  const fetchOptions = {
+    method:   'GET',
+    mode:     'cors',
+    redirect: 'follow'
+  }
+
+  let debug = false
+
+  if (requestOptions instanceof Object) {
+    if (requestOptions.headers instanceof Object)
+      fetchOptions.headers = requestOptions.headers
+
+    if (requestOptions.proxyUrl)
+      url = requestOptions.proxyUrl + url
+
+    if (requestOptions.debug)
+      debug = true
+  }
+
+  if (debug)
+    window.alert(url)
+
+  fetch(url, fetchOptions)
   .then(response => response.text())
   .then(data => {
+    if (debug)
+      window.alert(data)
+
     req.data = data
 
     for (let cb of req.onData)
@@ -42,6 +67,9 @@ const miniget = function(url, options) {
       req.textPromise.resolve(data)
   })
   .catch(error => {
+    if (debug)
+      window.alert(error.message)
+
     console.log('miniget:', error)
 
     if (typeof req.textPromise.reject === 'function')

@@ -1,9 +1,8 @@
 // ==UserScript==
-// @name         ytdl-core
-// @description  example
+// @name         ytdl-core: no proxy
+// @description  example: CORS restricts usage to 'youtube.com' domain
 // @version      0.0.0-development
 // @require      ../dist/ytdl-core.js
-// @match        *://youtube.googleapis.com/v/*
 // @match        *://youtube.com/watch?v=*
 // @match        *://youtube.com/embed/*
 // @match        *://*.youtube.com/watch?v=*
