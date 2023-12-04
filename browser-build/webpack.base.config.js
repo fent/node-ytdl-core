@@ -9,6 +9,7 @@ module.exports = {
     filename: 'ytdl-core.js',
     sourceMapFilename: 'ytdl-core.map'
   },
+  target: ['web'],
   mode: 'production',
   devtool: 'source-map',
   resolve: {
@@ -27,7 +28,6 @@ module.exports = {
     rules: [
       {
         test: /\.js$/,
-        exclude: /(node_modules)/,
         use: {
           loader: 'babel-loader',
           options: {

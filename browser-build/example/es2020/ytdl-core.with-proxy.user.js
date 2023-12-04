@@ -2,17 +2,14 @@
 // @name         ytdl-core: with proxy
 // @description  example: proxy is used to bypass CORS restriction, when CSP allows
 // @version      0.0.0-development
-// @require      ../dist/ytdl-core.js
+// @require      ../../dist/es2020/ytdl-core.js
 // @match        *://example.com/*
 // @icon         https://www.youtube.com/favicon.ico
 // @run-at       document_end
-// @grant        unsafeWindow
 // ==/UserScript==
 
 if (window.ytdl) {
-  unsafeWindow.ytdl = window.ytdl
-
-  unsafeWindow.ytdl.getInfo(
+  window.ytdl.getInfo(
     'https://www.youtube.com/watch?v=CICY20dQUPk',
     {
       requestOptions: {
@@ -24,7 +21,7 @@ if (window.ytdl) {
   )
   .then(info => {
     const json = JSON.stringify(info, null, 2)
-    const body = unsafeWindow.document.body
+    const body = window.document.body
 
     body.innerHTML        = `<pre>${json}</pre>`
     body.style.overflow   = 'auto'
@@ -32,6 +29,6 @@ if (window.ytdl) {
     body.style.fontSize   = '14px'
   })
   .catch(error => {
-    unsafeWindow.alert(error.message)
+    window.alert(error.message)
   })
 }

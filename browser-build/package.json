@@ -5,7 +5,9 @@
   "description": "",
   "main": "",
   "scripts": {
-    "build": "webpack"
+    "build:es2020": "webpack --config webpack.es2020.config.js",
+    "build:es5":    "webpack --config webpack.es5.config.js",
+    "build":        "npm run build:es2020 && npm run build:es5"
   },
   "dependencies": {
     "querystring-es3": "^0.2.1",
