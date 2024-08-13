@@ -1,3 +1,7 @@
+> [!IMPORTANT]  
+> Active development on this repository has been paused since 2023-07-14. While it may still function for some scenarios, please be aware that support is now handled solely by the community, and PRs are currently not merged to the repo. For ongoing updates, we encourage you to explore forks like @distube/ytdl-core. We may revisit development in the future. Thank you for your interest and long-lasting support!  
+> Best Regards TFAN, 2024-08-13
+
 # node-ytdl-core
 
 ![Depfu](https://img.shields.io/depfu/fent/node-ytdl-core)
